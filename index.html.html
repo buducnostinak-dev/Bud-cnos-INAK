@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Budúcnosť inak · Metodika</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300;400;500;600&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #F26A42;
+    --orange-light: #FDE8E0;
+    --orange-dark: #C94E28;
+    --black: #111111;
+    --off-black: #1C1C1C;
+    --gray-700: #444444;
+    --gray-500: #777777;
+    --gray-300: #CCCCCC;
+    --gray-100: #F2F2F0;
+    --gray-50: #F8F8F6;
+    --white: #FFFFFF;
+    --font: 'Lexend Deca', system-ui, sans-serif;
+    --radius: 6px;
+    --radius-lg: 12px;
+  }
+
+  body { font-family: var(--font); background: var(--gray-50); color: var(--black); min-height: 100vh; font-size: 14px; line-height: 1.6; }
+
+  /* TOPBAR */
+  .topbar { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: var(--black); height: 52px; display: flex; align-items: center; padding: 0 28px; gap: 20px; }
+  .topbar-logo { font-size: 12px; font-weight: 500; color: var(--white); letter-spacing: 0.04em; display: flex; align-items: center; gap: 8px; cursor: pointer; }
+  .topbar-logo .slashes { color: var(--orange); font-weight: 300; }
+  .topbar-sep { width: 1px; height: 20px; background: #333; }
+  .year-switcher { display: flex; gap: 4px; background: #222; border-radius: 6px; padding: 3px; }
+  .year-btn { font-size: 12px; font-weight: 500; color: var(--gray-500); padding: 4px 12px; border-radius: 4px; cursor: pointer; transition: all 0.15s; border: none; background: none; font-family: var(--font); letter-spacing: 0.02em; }
+  .year-btn:hover { color: var(--white); }
+  .year-btn.active { background: var(--orange); color: var(--white); }
+  .topbar-breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gray-500); }
+  .crumb { cursor: pointer; transition: color 0.15s; }
+  .crumb:hover { color: var(--white); }
+  .crumb.active { color: var(--white); }
+  .arrow { color: #444; font-size: 10px; }
+
+  /* VIEWS */
+  .view { display: none; padding-top: 52px; min-height: 100vh; }
+  .view.active { display: block; }
+
+  /* MAP */
+  .map-hero { background: var(--black); padding: 48px 40px 40px; color: var(--white); }
+  .map-hero-eyebrow { font-size: 11px; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+  .map-hero h1 { font-size: 32px; font-weight: 300; line-height: 1.2; margin-bottom: 6px; }
+  .map-hero h1 span { font-weight: 600; color: var(--orange); }
+  .map-hero-sub { font-size: 13px; color: var(--gray-500); max-width: 520px; }
+
+
+
+  .modules-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: var(--gray-300); }
+  .module-card { background: var(--white); padding: 28px 24px; cursor: pointer; transition: all 0.15s; position: relative; overflow: hidden; }
+  .module-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--orange); transform: scaleX(0); transition: transform 0.2s; transform-origin: left; }
+  .module-card:hover { background: var(--gray-50); }
+  .module-card:hover::before { transform: scaleX(1); }
+  .module-num { font-size: 11px; font-weight: 500; color: var(--orange); letter-spacing: 0.08em; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+  .module-num .num-box { width: 22px; height: 22px; background: var(--black); color: var(--white); font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; border-radius: 4px; }
+  .module-period { font-size: 10px; color: var(--gray-500); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 6px; }
+  .module-title { font-size: 16px; font-weight: 600; line-height: 1.25; margin-bottom: 16px; }
+  .module-divider { height: 1px; background: var(--gray-100); margin-bottom: 14px; }
+  .module-goals-label { font-size: 10px; color: var(--gray-500); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+  .module-goal { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; color: var(--gray-700); margin-bottom: 6px; line-height: 1.45; }
+  .module-goal .g-num { width: 16px; height: 16px; background: var(--orange-light); color: var(--orange-dark); font-size: 9px; font-weight: 600; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .module-tools { margin-top: 14px; }
+  .module-tools-label { font-size: 10px; color: var(--gray-500); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+  .tools-icons { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tool-icon { width: 34px; height: 34px; border: 1px solid #e5e5e5; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; transition: all 0.15s; background: var(--white); position: relative; }
+  .tool-icon:hover { border-color: var(--orange); background: var(--orange-light); transform: scale(1.1); }
+  .tool-icon .tool-tooltip { position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: var(--black); color: var(--white); font-size: 11px; padding: 4px 8px; border-radius: 4px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.15s; font-family: var(--font); }
+  .tool-icon:hover .tool-tooltip { opacity: 1; }
+
+  /* SLIDE-OUT PANEL */
+  .slideout-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+  .slideout-overlay.open { opacity: 1; pointer-events: all; }
+  .slideout-panel { position: fixed; top: 52px; right: 0; bottom: 0; width: 560px; max-width: 95vw; background: var(--white); z-index: 201; transform: translateX(100%); transition: transform 0.3s cubic-bezier(.4,0,.2,1); overflow-y: auto; box-shadow: -8px 0 32px rgba(0,0,0,0.12); }
+  .slideout-panel.open { transform: translateX(0); }
+  .slideout-header { background: var(--black); padding: 24px 28px 20px; color: var(--white); position: sticky; top: 0; z-index: 1; }
+  .slideout-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: var(--gray-500); font-size: 20px; cursor: pointer; font-family: var(--font); padding: 4px 8px; border-radius: 4px; transition: color 0.15s; }
+  .slideout-close:hover { color: var(--white); }
+  .slideout-eyebrow { font-size: 10px; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+  .slideout-title { font-size: 22px; font-weight: 600; line-height: 1.2; }
+  .slideout-sub { font-size: 13px; color: var(--gray-500); margin-top: 4px; }
+  .slideout-body { padding: 28px; }
+
+  /* LESSON PLAN ZOZNAM */
+  .lp-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .lp-list-item { background: var(--gray-50); border: 1px solid var(--gray-100); border-radius: var(--radius-lg); padding: 16px 20px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 14px; }
+  .lp-list-item:hover { border-color: var(--orange); background: var(--orange-light); }
+  .lp-list-num { width: 32px; height: 32px; border-radius: 50%; background: var(--black); color: var(--white); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .lp-list-info { flex: 1; }
+  .lp-list-info .lp-name { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+  .lp-list-info .lp-meta { font-size: 12px; color: var(--gray-500); }
+  .lp-list-arrow { font-size: 14px; color: var(--orange); opacity: 0; transition: opacity 0.15s; }
+  .lp-list-item:hover .lp-list-arrow { opacity: 1; }
+  .lp-placeholder-item { background: var(--gray-50); border: 1px dashed var(--gray-300); border-radius: var(--radius-lg); padding: 14px 20px; display: flex; align-items: center; gap: 10px; }
+  .lp-placeholder-item .ph-num { width: 32px; height: 32px; border-radius: 50%; background: var(--gray-100); color: var(--gray-500); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .lp-placeholder-item .ph-text { font-size: 13px; color: var(--gray-500); }
+
+  /* LESSON PLAN DETAIL */
+  .lp-back { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gray-500); cursor: pointer; margin-bottom: 20px; background: none; border: none; padding: 0; font-family: var(--font); transition: color 0.15s; }
+  .lp-back:hover { color: var(--black); }
+  .lp-detail-header { margin-bottom: 20px; }
+  .lp-detail-eyebrow { font-size: 10px; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+  .lp-detail-title { font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+  .lp-detail-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .lp-detail-meta-item { background: var(--gray-50); border-radius: var(--radius); padding: 6px 12px; }
+  .lp-detail-meta-item .dlabel { font-size: 10px; color: var(--gray-500); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .lp-detail-meta-item .dvalue { font-size: 12px; font-weight: 500; }
+  .lp-goal-box { background: var(--off-black); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 20px; }
+  .lp-goal-box .glabel { font-size: 10px; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; font-weight: 600; }
+  .lp-goal-box .gtext { font-size: 12px; color: #ccc; line-height: 1.6; }
+  .lp-prep { background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 20px; }
+  .lp-prep .plabel { font-size: 10px; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  .lp-prep-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .lp-prep-chip { font-size: 11px; padding: 3px 9px; border: 1px solid #e5e5e5; border-radius: 20px; color: var(--gray-700); background: var(--gray-50); }
+  .lp-section-lbl { font-size: 10px; font-weight: 600; color: var(--gray-500); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--black); }
+  .lp-act-card { background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius-lg); margin-bottom: 10px; overflow: hidden; }
+  .lp-act-hdr { display: flex; align-items: center; gap: 12px; padding: 14px 18px; cursor: pointer; transition: background 0.15s; user-select: none; }
+  .lp-act-hdr:hover { background: var(--gray-50); }
+  .lp-act-hdr.open { background: var(--gray-50); }
+  .lp-act-num { width: 28px; height: 28px; border-radius: 50%; background: var(--black); color: var(--white); font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .lp-act-info { flex: 1; }
+  .lp-act-info .aname { font-size: 14px; font-weight: 600; }
+  .lp-act-info .agoal { font-size: 11px; color: var(--gray-500); line-height: 1.4; margin-top: 2px; }
+  .lp-act-time { font-size: 11px; color: var(--orange); background: var(--orange-light); padding: 3px 8px; border-radius: 20px; flex-shrink: 0; font-weight: 500; }
+  .lp-act-chev { font-size: 11px; color: var(--gray-500); transition: transform 0.25s; flex-shrink: 0; }
+  .lp-act-hdr.open .lp-act-chev { transform: rotate(180deg); }
+  .lp-act-body { display: none; border-top: 1px solid var(--gray-100); padding: 16px 18px; }
+  .lp-act-body.open { display: block; }
+  .lp-step { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--gray-100); }
+  .lp-step:last-child { border-bottom: none; }
+  .lp-step-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); flex-shrink: 0; margin-top: 6px; }
+  .lp-step p { font-size: 12px; color: var(--gray-700); line-height: 1.6; }
+  .lp-reflex { background: var(--gray-50); border-radius: var(--radius); overflow: hidden; margin-top: 12px; margin-bottom: 10px; }
+  .lp-reflex-tabs { display: flex; border-bottom: 1px solid var(--gray-100); }
+  .lp-reflex-tab { font-size: 11px; font-weight: 500; color: var(--gray-500); padding: 7px 12px; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; margin-bottom: -1px; }
+  .lp-reflex-tab:hover { color: var(--black); }
+  .lp-reflex-tab.active { color: var(--orange); border-bottom-color: var(--orange); }
+  .lp-reflex-content { display: none; padding: 12px 14px; }
+  .lp-reflex-content.active { display: block; }
+  .lp-reflex-q { font-size: 12px; color: var(--gray-700); line-height: 1.65; margin-bottom: 5px; display: flex; gap: 7px; }
+  .lp-reflex-q::before { content: '→'; color: var(--orange); flex-shrink: 0; }
+  .lp-tip { background: #FFF8F0; border-left: 3px solid var(--orange); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 12px; font-size: 12px; color: var(--gray-700); line-height: 1.55; margin-top: 10px; }
+  .lp-tip strong { color: var(--orange-dark); display: block; margin-bottom: 2px; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .lp-variant { background: var(--gray-50); border: 1px dashed #ccc; border-radius: var(--radius); padding: 10px 12px; font-size: 12px; color: var(--gray-700); line-height: 1.55; margin-top: 10px; }
+  .lp-variant strong { display: block; font-size: 10px; color: var(--gray-500); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3px; }
+  .lp-listky { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+  .lp-listok { font-size: 11px; padding: 4px 10px; border-radius: 6px; font-weight: 500; }
+  .lp-listok.yellow { background: #FFF9C4; color: #7B6000; }
+  .lp-listok.green { background: #E8F5E9; color: #2E7D32; }
+  .lp-listok.blue { background: #E3F2FD; color: #1565C0; }
+  .lp-listok.red { background: #FFEBEE; color: #C62828; }
+  .module-level { margin-top: 16px; background: var(--gray-50); border-radius: var(--radius); padding: 10px 12px; font-size: 11px; color: var(--gray-700); line-height: 1.5; }
+  .module-level strong { display: block; font-size: 10px; color: var(--orange); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+  .module-cta { margin-top: 16px; display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; color: var(--orange); opacity: 0; transition: opacity 0.15s; }
+  .module-card:hover .module-cta { opacity: 1; }
+
+  /* PROGRESS BAR */
+  .progress-bar-wrap { background: var(--white); border-bottom: 1px solid var(--gray-100); padding: 20px 40px 24px; }
+  .progress-bar-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .progress-bar-title { font-size: 11px; font-weight: 600; color: var(--gray-500); letter-spacing: 0.1em; text-transform: uppercase; }
+  .progress-bar-month { font-size: 12px; color: var(--gray-700); font-weight: 500; }
+  .progress-track { position: relative; height: 6px; background: var(--gray-100); border-radius: 99px; margin-bottom: 16px; }
+  .progress-fill { height: 100%; border-radius: 99px; background: linear-gradient(90deg, var(--orange-dark), var(--orange)); transition: width 0.6s cubic-bezier(.4,0,.2,1); }
+  .progress-steps { display: flex; justify-content: space-between; position: relative; }
+  .progress-step { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: 1; cursor: pointer; }
+  .progress-step-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--gray-300); border: 2px solid var(--white); box-shadow: 0 0 0 1px var(--gray-300); transition: all 0.3s; position: relative; z-index: 1; }
+  .progress-step.done .progress-step-dot { background: var(--orange-dark); box-shadow: 0 0 0 1px var(--orange-dark); }
+  .progress-step.current .progress-step-dot { background: var(--orange); box-shadow: 0 0 0 3px var(--orange-light), 0 0 0 4px var(--orange); width: 14px; height: 14px; margin-top: -2px; }
+  .progress-step-label { font-size: 10px; color: var(--gray-500); text-align: center; line-height: 1.3; max-width: 80px; }
+  .progress-step.done .progress-step-label { color: var(--gray-700); }
+  .progress-step.current .progress-step-label { color: var(--orange); font-weight: 600; }
+  .progress-current-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--orange-light); color: var(--orange-dark); font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 20px; margin-top: 4px; }
+  .progress-current-badge .badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
+
+  .quest-bar { background: var(--black); padding: 20px 40px; display: flex; align-items: center; gap: 24px; border-top: 2px solid var(--orange); margin-top: 1px; }
+  .quest-icon { font-size: 28px; }
+  .quest-text h3 { font-size: 18px; font-weight: 600; color: var(--white); }
+  .quest-text p { font-size: 12px; color: var(--gray-500); margin-top: 2px; }
+  .quest-tags { display: flex; gap: 8px; margin-left: auto; }
+  .quest-tag { font-size: 11px; padding: 4px 12px; border: 1px solid #444; border-radius: 20px; color: var(--gray-300); }
+
+  /* MODULE DETAIL */
+  .module-detail-hero { background: var(--black); padding: 40px 40px 32px; color: var(--white); }
+  .back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gray-500); cursor: pointer; margin-bottom: 20px; transition: color 0.15s; background: none; border: none; padding: 0; font-family: var(--font); }
+  .back-btn:hover { color: var(--white); }
+  .detail-eyebrow { font-size: 11px; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .detail-hero-title { font-size: 28px; font-weight: 300; margin-bottom: 6px; }
+  .detail-hero-title strong { font-weight: 600; }
+  .detail-meta-bar { background: var(--off-black); padding: 16px 40px; display: flex; gap: 32px; border-bottom: 1px solid #2a2a2a; }
+  .detail-meta-item .label { font-size: 10px; color: var(--gray-500); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3px; }
+  .detail-meta-item .value { font-size: 14px; color: var(--white); font-weight: 500; }
+  .detail-body { padding: 36px 40px; max-width: 960px; }
+  #lp-view-body { max-width: 100%; padding: 36px 40px; }
+  .lp-full-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .lp-full-acts { display: flex; flex-direction: column; gap: 12px; }
+  .lp-prejav { background: var(--white); border: 1px solid var(--gray-100); border-left: 3px solid var(--orange); border-radius: 0 var(--radius-lg) var(--radius-lg) 0; padding: 20px 24px; margin-bottom: 24px; }
+  .lp-prejav .plabel { font-size: 10px; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+  .lp-prejav-text { font-size: 13px; color: var(--gray-700); line-height: 1.7; }
+  .lp-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.25s; display: flex; align-items: center; justify-content: center; }
+  .lp-modal-overlay.open { opacity: 1; pointer-events: all; }
+  .lp-modal { background: var(--white); width: 82vw; max-width: 1100px; height: 86vh; border-radius: var(--radius-lg); overflow: hidden; display: flex; flex-direction: column; transform: scale(0.97); transition: transform 0.25s; }
+  .lp-modal-overlay.open .lp-modal { transform: scale(1); }
+  .lp-modal-header { background: var(--black); padding: 18px 28px; color: var(--white); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .lp-modal-eyebrow { font-size: 10px; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; margin-bottom: 4px; }
+  .lp-modal-title { font-size: 20px; font-weight: 600; }
+  .lp-modal-close { background: none; border: none; color: var(--gray-500); font-size: 22px; cursor: pointer; padding: 4px 8px; border-radius: 4px; transition: color 0.15s; font-family: var(--font); line-height: 1; }
+  .lp-modal-close:hover { color: var(--white); }
+  .lp-modal-body { overflow-y: auto; padding: 32px 36px; flex: 1; }
+  .section-label { font-size: 10px; font-weight: 600; color: var(--gray-500); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--gray-100); }
+  .detail-section { margin-bottom: 36px; }
+
+  /* COMPETENCY CARDS — accordion style */
+  .competency-list { display: flex; flex-direction: column; gap: 12px; }
+  .competency-card { background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius-lg); overflow: hidden; }
+
+  /* Competency header — clickable row */
+  .comp-header { display: flex; align-items: flex-start; gap: 14px; padding: 20px 24px; cursor: pointer; transition: background 0.15s; user-select: none; }
+  .comp-header:hover { background: var(--gray-50); }
+  .comp-num { width: 28px; height: 28px; border-radius: 50%; background: var(--black); color: var(--white); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .comp-headline { flex: 1; }
+  .comp-headline .comp-label { font-size: 10px; color: var(--orange); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 5px; }
+  .comp-headline .comp-title { font-size: 15px; font-weight: 500; line-height: 1.4; color: var(--black); }
+  .comp-chevron { font-size: 12px; color: var(--gray-500); transition: transform 0.25s; flex-shrink: 0; margin-top: 6px; }
+  .comp-header.open .comp-chevron { transform: rotate(180deg); }
+
+  /* Accordion body */
+  .comp-body { display: none; border-top: 1px solid var(--gray-100); }
+  .comp-body.open { display: block; }
+
+  /* Tabs inside accordion */
+  .comp-tabs { display: flex; border-bottom: 1px solid var(--gray-100); padding: 0 24px; }
+  .comp-tab { font-size: 12px; font-weight: 500; color: var(--gray-500); padding: 10px 16px 9px; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; margin-bottom: -1px; }
+  .comp-tab:hover { color: var(--black); }
+  .comp-tab.active { color: var(--orange); border-bottom-color: var(--orange); }
+  .comp-tab-content { display: none; padding: 20px 24px; }
+  .comp-tab-content.active { display: block; }
+
+  .exp-block { margin-bottom: 16px; }
+  .exp-block:last-child { margin-bottom: 0; }
+  .exp-label { font-size: 10px; font-weight: 600; color: var(--gray-500); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+  .exp-block p { font-size: 13px; color: var(--gray-700); line-height: 1.65; }
+
+  /* KNOWLEDGE accordion inside tab */
+  .knowledge-accordion { display: flex; flex-direction: column; gap: 6px; }
+  .know-item { border: 1px solid var(--gray-100); border-radius: var(--radius); overflow: hidden; }
+  .know-item-header { display: flex; align-items: center; gap: 10px; padding: 10px 14px; cursor: pointer; background: var(--gray-50); transition: background 0.15s; user-select: none; }
+  .know-item-header:hover { background: var(--orange-light); }
+  .know-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
+  .know-item-title { font-size: 13px; color: var(--gray-700); flex: 1; line-height: 1.4; }
+  .know-chevron { font-size: 11px; color: var(--gray-500); transition: transform 0.2s; flex-shrink: 0; }
+  .know-item-header.open .know-chevron { transform: rotate(180deg); }
+  .know-item-body { display: none; padding: 12px 14px 12px 30px; font-size: 13px; color: var(--gray-700); line-height: 1.65; background: var(--white); border-top: 1px solid var(--gray-100); }
+  .know-item-body.open { display: block; }
+
+  /* Simple knowledge list (fallback when no detail) */
+  .knowledge-list { display: flex; flex-direction: column; gap: 8px; }
+  .knowledge-item { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--gray-700); line-height: 1.5; }
+  .knowledge-dot-plain { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); flex-shrink: 0; margin-top: 7px; }
+
+  /* Activities */
+  .activities-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+  .activity-card { background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius-lg); padding: 20px; cursor: pointer; transition: all 0.15s; }
+  .activity-card:hover { border-color: var(--orange); box-shadow: 0 4px 16px rgba(242,106,66,0.1); transform: translateY(-2px); }
+  .act-icon { font-size: 24px; margin-bottom: 12px; display: block; }
+  .act-name { font-size: 14px; font-weight: 500; margin-bottom: 6px; line-height: 1.3; }
+  .act-desc { font-size: 12px; color: var(--gray-500); line-height: 1.5; margin-bottom: 14px; }
+  .act-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; border-top: 1px solid var(--gray-100); }
+  .act-time { font-size: 11px; color: var(--gray-500); }
+  .act-open { font-size: 11px; color: var(--orange); font-weight: 500; opacity: 0; transition: opacity 0.15s; }
+  .activity-card:hover .act-open { opacity: 1; }
+
+  /* Level box */
+  .level-box { background: var(--black); border-radius: var(--radius-lg); padding: 24px 28px; color: var(--white); display: flex; gap: 20px; align-items: flex-start; }
+  .level-icon { font-size: 32px; flex-shrink: 0; }
+  .level-box h3 { font-size: 13px; color: var(--orange); font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; }
+  .level-box p { font-size: 14px; color: var(--gray-300); line-height: 1.6; }
+
+  /* ACTIVITY DETAIL */
+  .activity-detail-hero { background: var(--black); padding: 40px 40px 32px; color: var(--white); }
+  .activity-detail-body { padding: 36px 40px; max-width: 800px; }
+  .info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 32px; }
+  .info-card { background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 14px 16px; }
+  .info-card .label { font-size: 10px; color: var(--gray-500); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
+  .info-card .value { font-size: 14px; font-weight: 500; }
+  .steps-list { display: flex; flex-direction: column; gap: 0; }
+  .step-row { display: flex; gap: 16px; align-items: flex-start; padding: 16px 0; border-bottom: 1px solid var(--gray-100); }
+  .step-row:last-child { border-bottom: none; }
+  .step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--orange); color: var(--white); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .step-content h4 { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .step-content p { font-size: 13px; color: var(--gray-700); line-height: 1.55; }
+  .tip-box { background: #FFF8F0; border-left: 3px solid var(--orange); border-radius: 0 var(--radius) var(--radius) 0; padding: 14px 16px; margin-top: 24px; font-size: 13px; color: var(--gray-700); line-height: 1.55; }
+  .tip-box strong { color: var(--orange-dark); display: block; margin-bottom: 4px; font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .alt-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; margin-top: 14px; }
+  .alt-card { background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 16px; cursor: pointer; transition: all 0.15s; display: flex; flex-direction: column; gap: 6px; }
+  .alt-card:hover { border-color: var(--orange); background: var(--orange-light); }
+  .alt-card .alt-label { font-size: 10px; color: var(--orange); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+  .alt-card .alt-name { font-size: 13px; font-weight: 500; }
+  .alt-card .alt-diff { font-size: 12px; color: var(--gray-500); line-height: 1.4; }
+  .placeholder-note { padding: 20px 0; }
+  .placeholder-note p { font-size: 13px; color: var(--gray-500); }
+  .placeholder-badge { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--gray-500); background: var(--gray-100); padding: 4px 10px; border-radius: 20px; margin-bottom: 10px; }
+
+  @media (max-width: 900px) {
+    .modules-grid { grid-template-columns: repeat(2, 1fr); }
+    .detail-body, .activity-detail-body { padding: 24px 20px; }
+    .map-hero, .module-detail-hero, .activity-detail-hero { padding: 32px 20px 24px; }
+    .detail-meta-bar { padding: 14px 20px; flex-wrap: wrap; gap: 16px; }
+
+    .info-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .modules-grid { grid-template-columns: 1fr; }
+    .topbar { padding: 0 16px; }
+    .quest-tags { display: none; }
+  }
+
+  /* KOMPETENČNÝ MODEL */
+  .km-wrap { padding: 40px 56px 64px; max-width: 1100px; margin: 0 auto; }
+  .km-eyebrow { font-size: 11px; color: var(--orange); letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; margin-bottom: 12px; }
+  .km-title { font-size: 36px; font-weight: 300; line-height: 1.15; margin-bottom: 14px; }
+  .km-title strong { font-weight: 600; }
+  .km-stripe { height: 3px; width: 100%; background: repeating-linear-gradient(-55deg, #F26A42 0px, #F26A42 2px, transparent 2px, transparent 8px); opacity: 0.6; margin-bottom: 48px; border-radius: 2px; }
+  .km-cols { display: flex; gap: 48px; align-items: center; flex-wrap: wrap; }
+  .km-left { flex-shrink: 0; width: 460px; height: 460px; position: relative; }
+  .km-right { flex: 1; min-width: 260px; }
+  .km-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .km-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 148px; height: 148px; border-radius: 50%; background: #3EC7F4; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 700; color: #fff; text-align: center; line-height: 1.3; overflow: hidden; box-shadow: 0 8px 32px rgba(62,199,244,0.3); z-index: 2; }
+  .km-center-stripes { position: absolute; inset: 0; border-radius: 50%; background: repeating-linear-gradient(-24deg, rgba(255,255,255,0.08) 0px, rgba(255,255,255,0.08) 1px, transparent 1px, transparent 10px); }
+  .km-center-text { position: relative; z-index: 1; }
+  .km-pill { position: absolute; transform: translate(-50%,-50%); padding: 10px 20px; border-radius: 999px; font-family: var(--font); font-size: 13px; font-weight: 500; cursor: pointer; border: 1.5px solid #F0DECF; background: #fff; color: #111; transition: all 0.25s; white-space: nowrap; box-shadow: 0 2px 8px rgba(0,0,0,0.06); z-index: 3; }
+  .km-pill:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); transform: translate(-50%,-50%) scale(1.04); }
+  .km-pill.active { color: #fff; border-color: transparent; box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+  .km-pill.active-dark { color: #3a2614 !important; }
+  .km-detail-badge { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+  .km-detail-num { width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; flex-shrink: 0; }
+  .km-detail-label { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #888; font-weight: 500; }
+  .km-detail-name { font-size: 34px; font-weight: 600; line-height: 1.1; margin-bottom: 14px; }
+  .km-detail-sub { font-size: 16px; font-weight: 600; line-height: 1.5; margin-bottom: 10px; }
+  .km-detail-desc { font-size: 14px; font-weight: 300; color: #444; line-height: 1.75; }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-logo" onclick="showView('orbita'); resetYearBtns()">
+    <span class="slashes">/////</span> BUDÚCNOSŤ INAK
+  </div>
+  <div class="topbar-sep"></div>
+  <div class="year-switcher">
+    <button class="year-btn active" id="btn-rok1" onclick="switchYear(1)">Rok 1</button>
+    <button class="year-btn" id="btn-rok2" onclick="switchYear(2)">Rok 2</button>
+  </div>
+  <div class="topbar-sep"></div>
+  <nav class="topbar-breadcrumb" id="breadcrumb">
+    <span class="crumb active" onclick="showView('orbita'); resetYearBtns()">Domov</span>
+  </nav>
+</header>
+
+<!-- VIEW: ORBITA (úvodná strana) -->
+<div class="view active" id="view-orbita">
+  <div class="km-wrap">
+    <div class="km-eyebrow">Budúcnosť inak · Kompetenčný model</div>
+    <h1 class="km-title"><strong>Päť kompetencií</strong> podnikavosti</h1>
+    <div class="km-stripe"></div>
+    <div class="km-cols">
+      <div class="km-left" id="km-diagram">
+        <svg class="km-svg" viewBox="0 0 460 460" id="km-svg">
+          <!-- sústredné kruhy -->
+          <circle cx="230" cy="230" r="200" fill="none" stroke="#E5DACE" stroke-width="1"/>
+          <circle cx="230" cy="230" r="145" fill="none" stroke="#E5DACE" stroke-width="1"/>
+          <circle cx="230" cy="230" r="88"  fill="none" stroke="#E5DACE" stroke-width="1"/>
+          <!-- linky -->
+          <line id="line-0" x1="230" y1="230" x2="230" y2="51"  stroke="#E5DACE" stroke-width="1.5" stroke-linecap="round"/>
+          <line id="line-1" x1="230" y1="230" x2="400" y2="175" stroke="#E5DACE" stroke-width="1.5" stroke-linecap="round"/>
+          <line id="line-2" x1="230" y1="230" x2="336" y2="377" stroke="#E5DACE" stroke-width="1.5" stroke-linecap="round"/>
+          <line id="line-3" x1="230" y1="230" x2="124" y2="377" stroke="#E5DACE" stroke-width="1.5" stroke-linecap="round"/>
+          <line id="line-4" x1="230" y1="230" x2="60"  y2="175" stroke="#E5DACE" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="km-center">
+          <div class="km-center-stripes"></div>
+          <div class="km-center-text">Podnikavosť</div>
+        </div>
+        <button class="km-pill" id="pill-0" style="left:50%; top:11%" onclick="kmSelect(0)">Príležitosť</button>
+        <button class="km-pill" id="pill-1" style="left:87%; top:38%" onclick="kmSelect(1)">Iniciatíva</button>
+        <button class="km-pill" id="pill-2" style="left:73%; top:82%" onclick="kmSelect(2)">Hodnota pre druhých</button>
+        <button class="km-pill" id="pill-3" style="left:27%; top:82%" onclick="kmSelect(3)">Zodpovednosť</button>
+        <button class="km-pill" id="pill-4" style="left:13%; top:38%" onclick="kmSelect(4)">Učenie z reality</button>
+      </div>
+      <div class="km-right">
+        <div id="km-detail"></div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="view" id="view-map">
+  <div class="map-hero">
+    <div class="map-hero-eyebrow">Rok 1 · Sprievodca pre koordinátora</div>
+    <h1>5 levelov roka — <span>čo robíš v každom module</span></h1>
+    <p class="map-hero-sub">Klikni na modul pre detail, kompetencie a aktivity.</p>
+  </div>
+
+  <div class="modules-grid" id="modules-grid"></div>
+  <div class="progress-bar-wrap" id="progress-bar-wrap"></div>
+  <div class="quest-bar">
+    <div class="quest-icon">🏆</div>
+    <div class="quest-text"><h3>Quest Fest</h3><p>Finále celého Slovenska · Jún</p></div>
+    <div class="quest-tags">
+      <span class="quest-tag">Prezentácia tímu</span>
+      <span class="quest-tag">Hotový prototyp</span>
+      <span class="quest-tag">Príbeh zmeny</span>
+    </div>
+  </div>
+</div>
+
+<!-- VIEW: ROK 2 -->
+<div class="view" id="view-rok2">
+  <div class="map-hero">
+    <div class="map-hero-eyebrow">Rok 2 · Sprievodca pre koordinátora</div>
+    <h1>Mapa roka 2 — <span>obsah sa pripravuje</span></h1>
+    <p class="map-hero-sub">Obsah druhého ročníka budeme postupne dopĺňať.</p>
+  </div>
+  <div style="padding: 60px 40px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; min-height: 400px; text-align: center;">
+    <div style="font-size: 48px;">🚧</div>
+    <div style="font-size: 20px; font-weight: 600; color: var(--black);">Rok 2 sa pripravuje</div>
+    <div style="font-size: 14px; color: var(--gray-500); max-width: 400px; line-height: 1.7;">Obsah druhého ročníka programu Budúcnosť inak tu postupne pribudne. Sleduj aktualizácie!</div>
+    <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
+      <span style="font-size: 12px; padding: 6px 16px; border: 1px solid var(--gray-300); border-radius: 20px; color: var(--gray-500);">Moduly sa dopĺňajú</span>
+      <span style="font-size: 12px; padding: 6px 16px; border: 1px solid var(--gray-300); border-radius: 20px; color: var(--gray-500);">Aktivity sa dopĺňajú</span>
+      <span style="font-size: 12px; padding: 6px 16px; border: 1px solid var(--gray-300); border-radius: 20px; color: var(--gray-500);">Kompetencie sa dopĺňajú</span>
+    </div>
+  </div>
+</div>
+
+<!-- VIEW: MODUL DETAIL -->
+<div class="view" id="view-module">
+  <div class="module-detail-hero">
+    <button class="back-btn" onclick="showView('map')">← Späť na mapu roka</button>
+    <div class="detail-eyebrow" id="md-eyebrow"></div>
+    <h2 class="detail-hero-title" id="md-title"></h2>
+  </div>
+  <div class="detail-meta-bar" id="md-meta"></div>
+  <div class="detail-body">
+    <div class="detail-section">
+      <div class="section-label">Čiastkové ciele — dieťa dokáže</div>
+      <div class="competency-list" id="md-competencies"></div>
+    </div>
+    <div class="detail-section">
+      <div class="section-label">Aktivity & metódy</div>
+      <div class="activities-grid" id="md-activities"></div>
+    </div>
+    <div class="detail-section">
+      <div class="section-label">Level complete</div>
+      <div id="md-level"></div>
+    </div>
+  </div>
+</div>
+
+<!-- VIEW: LESSON PLÁNY -->
+<div class="view" id="view-lessonplans">
+  <div class="module-detail-hero">
+    <button class="back-btn" id="lp-back-btn">← Späť na modul</button>
+    <div class="detail-eyebrow" id="lp-eyebrow"></div>
+    <h2 class="detail-hero-title" id="lp-hero-title"></h2>
+  </div>
+  <div class="detail-body" id="lp-view-body"></div>
+</div>
+
+<!-- VIEW: AKTIVITA DETAIL -->
+<div class="view" id="view-activity">
+  <div class="activity-detail-hero">
+    <button class="back-btn" id="act-back-btn">← Späť na modul</button>
+    <div class="detail-eyebrow" id="act-eyebrow"></div>
+    <h2 class="detail-hero-title" id="act-title"></h2>
+    <p style="font-size:13px; color:#777; margin-top:6px" id="act-sub"></p>
+  </div>
+  <div class="activity-detail-body">
+    <div class="info-grid" id="act-info"></div>
+    <div class="detail-section">
+      <div class="section-label">Postup</div>
+      <div class="steps-list" id="act-steps"></div>
+    </div>
+    <div id="act-tip"></div>
+    <div class="detail-section" id="act-alts-section" style="margin-top:32px"></div>
+  </div>
+</div>
+
+<script>
+// Knowledge details — rozbalovací obsah pod každou kompetenciou
+const KNOWLEDGE_DETAILS = {
+  // Modul 0, kompetencia 0
+  "0-0": [
+    { title: "Rozdiel medzi problémom, potrebou a riešením.", detail: "Problém = potreba + prekážka. Potreba je to, čo chceme alebo potrebujeme dosiahnuť. Prekážka je to, čo nám v tom bráni. Riešenie odstraňuje prekážku alebo napĺňa potrebu. Príklad: Potreba — chcem sa dostať do školy včas. Prekážka — autobus chodí neskoro. Problém — meškám do školy. Riešenie — zmena trasy alebo času odchodu." },
+    { title: "Základy pozorovania a kladenia otázok.", detail: "Otvorené otázky nedávajú možnosť odpovedať len áno/nie: 'Čo ti na tom vadí?' Zatvorené otázky majú jasnú odpoveď: 'Stáva sa ti to každý deň?' Pozorovanie je sledovanie bez hodnotenia — čo sa deje, nie prečo. Interpretácia je náš výklad toho, čo sme videli — môže byť správna aj nesprávna." },
+    { title: "Príležitosti na zmenu v každodenných situáciách.", detail: "Príležitosť sa skrýva v medzere medzi 'ako je to teraz' a 'ako by to mohlo byť'. Kdekoľvek cítime frustráciu, nepohodlie alebo prianie 'keby to bolo inak' — tam je príležitosť. Inovátori sa nelíšia tým, že vidia iný svet. Vidia rovnaký svet, ale všímajú si medzery." },
+    { title: "Reframing – preformulovanie problému.", detail: "Reframing znamená pozrieť sa na problém z iného uhla — preformulovať ho tak, aby otváral nové možnosti riešenia. Namiesto 'Ako prestať so zápchami?' sa pýtame 'Ako pomôcť ľuďom pohybovať sa efektívnejšie?' Zmena otázky mení celý priestor možných odpovedí." }
+  ],
+  // Modul 0, kompetencia 1
+  "0-1": [
+    { title: "Pojmy: tímová dohoda, záväzok, autonómia, dôvera, spoľahlivosť, reflexia.", detail: "Tímová dohoda je spoločné pravidlo, na ktorom sa všetci dohodnú a dodržiavajú ho. Záväzok je sľub, ktorý dávame ostatným — že niečo urobíme. Autonómia znamená slobodu rozhodovať sa sám. Dôvera je presvedčenie, že sa na druhého môžeme spoľahnúť. Spoľahlivosť znamená robiť to, čo sme sľúbili. Reflexia je zamyslenie sa nad tým, čo sme zažili a čo sme sa naučili." },
+    { title: "Princípy tímovej spolupráce: vzájomný respekt, spoľahlivosť, zodpovednosť za spoločný výsledok.", detail: "Vzájomný respekt znamená, že každý člen tímu má hodnotu a jeho názor sa počíta. Spoľahlivosť znamená, že ostatní sa môžu na teba spoľahnúť. Zodpovednosť za spoločný výsledok znamená, že ak jeden nevykoná svoju časť, ovplyvní to celý tím — a naopak, keď tím uspeje, uspeje každý." },
+    { title: "Dôsledky nedodržiavania dohôd na fungovanie tímu.", detail: "Keď niekto nedodrží dohodu, tím to pocíti — vzniká strata dôvery, konflikty a frustrácia. Ostatní musia robiť viac práce. Dlhodobo to vedie k tomu, že tím prestane fungovať. Preto je dôležité dohody nielen dohodnúť, ale aj dodržiavať — alebo otvorene povedať, keď to nejde." }
+  ],
+  // Modul 0, kompetencia 2
+  "0-2": [
+    { title: "Pojem reflexia a jej význam pre učenie sa.", detail: "Reflexia je zámerné zamyslenie sa nad tým, čo sme zažili. Nestačí len niečo urobiť — dôležité je aj premyslieť si, čo sa stalo a čo z toho vyplýva. Reflexia nám pomáha učiť sa zo skúseností, nielen z teórie. Bez reflexie robíme stále tie isté chyby." },
+    { title: "Štruktúra reflexie: čo fungovalo – čo nefungovalo – čo ďalej.", detail: "Jednoduchá štruktúra reflexie má tri kroky: (1) Čo fungovalo? — čo bolo dobré, čo sa podarilo. (2) Čo nefungovalo? — čo bolo ťažké, čo sa nepodarilo. (3) Čo ďalej? — čo by som nabudúce urobil inak, čo chcem skúsiť. Táto štruktúra pomáha premeniť skúsenosť na učenie." },
+    { title: "Pojmy: spätná väzba, retrospektíva, sebahodnotenie.", detail: "Spätná väzba je informácia od iného človeka o tom, ako sme niečo urobili — čo bolo dobré a čo môžeme zlepšiť. Retrospektíva je skupinová reflexia tímu po skončení projektu alebo etapy. Sebahodnotenie je vlastné zhodnotenie svojej práce a správania — bez čakania na názor iných." },
+    { title: "Princíp učenia sa z chýb a skúseností.", detail: "Chyba nie je zlyhanie — je to informácia. Každá chyba nám hovorí niečo o tom, čo sme ešte nepochopili alebo čo môžeme urobiť inak. Skúsenosť — aj tá zlá — je cenný zdroj učenia. Dôležité je neopakovať tú istú chybu, ale poučiť sa z nej." },
+    { title: "Rozdiel medzi hodnotením a hľadaním zlepšení.", detail: "Hodnotenie hovorí 'bolo to dobré alebo zlé'. Hľadanie zlepšení hovorí 'čo môžeme urobiť lepšie nabudúce'. Pri reflexii nás nezaujíma súdiť — zaujíma nás rásť. Namiesto otázky 'Kto za to môže?' sa pýtame 'Čo z toho sa môžeme naučiť?'" }
+  ],
+  // Modul 1, kompetencia 0
+  "1-0": [
+    { title: "Rôzni ľudia majú rôzne pohľady na rovnaký problém (perspektíva).", detail: "Perspektíva je uhol pohľadu, z ktorého vidíme situáciu. Každý človek vidí ten istý problém inak — podľa toho, kto je, kde žije, čo prežil. Napríklad: hlučná škola môže byť pre žiaka zábava, pre suseda problém a pre riaditeľa výzva. Žiadny pohľad nie je 'správnejší' — všetky sú dôležité." },
+    { title: "Empatia – vcítenie sa do iného.", detail: "Empatia znamená pokúsiť sa pochopiť, čo druhý človek cíti a prečo koná tak, ako koná. Nie je to súhlas s jeho názorom — je to snaha porozumieť mu. Empatia nám pomáha navrhovať riešenia, ktoré naozaj fungujú pre reálnych ľudí, nielen pre nás samých." },
+    { title: "Jeden problém môže ovplyvniť ľudí rôzne.", detail: "Každý problém má viacero strán. Napríklad chýbajúce miesto na bicykle pri škole ovplyvní žiakov inak než rodičov, učiteľov alebo mesto. Keď chceme problém vyriešiť, musíme rozumieť tomu, koho sa týka a ako — inak môžeme pomôcť jedným a uškodiť druhým." },
+    { title: "Aktéri – ľudia, ktorých sa vec týka.", detail: "Aktéri sú všetci ľudia a skupiny, ktorých sa problém alebo riešenie týka — priamo alebo nepriamo. Môžu to byť tí, ktorí problém pociťujú, tí, ktorí ho spôsobujú, alebo tí, ktorí ho môžu riešiť. Dobrý návrh riešenia myslí na všetkých relevantných aktérov." },
+    { title: "Rôzne skupiny majú rôzne potreby a záujmy.", detail: "Rôzne skupiny ľudí môžu chcieť rôzne — alebo dokonca protichodné — veci. Napríklad obchod chce predávať, zákazník chce lacno kúpiť, mesto chce čistú ulicu. Riešenie, ktoré ignoruje niektorú skupinu, môže vyvolať odpor alebo zlyhať." },
+    { title: "Persóna – vymyslená postava reprezentujúca skupinu ľudí.", detail: "Persóna je fiktívna postava, ktorú vytvárame aby sme lepšie pochopili skutočných ľudí. Napríklad: 'Marek, 12 rokov, chodí pešo do školy, nemá vlastný mobil, rád kreslí.' Persóna nám pomáha myslieť na konkrétneho človeka, nie na abstraktnú skupinu." }
+  ],
+  // Modul 1, kompetencia 1
+  "1-1": [
+    { title: "Brainstorming a jeho pravidlá.", detail: "Brainstorming je technika generovania čo najviac nápadov za krátky čas. Základné pravidlá: (1) Žiadna kritika počas generovania. (2) Čím viac nápadov, tým lepšie. (3) Bizarné a nezvyčajné nápady sú vítané. (4) Môžeš stavať na nápadoch iných. Cieľom je množstvo — hodnotenie príde až potom." },
+    { title: "Kreatívne techniky: mindmapping, SCAMPER, 5x prečo, crazy ideas, najhorší/najlepší nápad, redesign.", detail: "Mindmapping — zapisovanie nápadov do mapy okolo centrálneho pojmu. SCAMPER — otázky: Substitute (nahraď), Combine (spoj), Adapt (uprav), Modify (zmeň), Put to other use (použi inak), Eliminate (odstráň), Reverse (otoč). 5x prečo — pýtaš sa prečo päťkrát za sebou, kým nenájdeš koreň problému. Crazy ideas — najabsurdnejší nápad môže inšpirovať reálne riešenie. Najhorší nápad — vymysli najhoršie možné riešenie a potom ho otočte naruby." },
+    { title: "Pravidlo odloženej kritiky.", detail: "Počas generovania nápadov nehodnotíme — ani pozitívne, ani negatívne. Kritika zastavuje kreativitu, lebo ľudia sa začnú báť zdieľať nápady. Najprv vyprodukujeme čo najviac nápadov, a až potom ich vyhodnotíme. Toto pravidlo chráni priestor pre odvážne myslenie." },
+    { title: "Rozdiel medzi generovaním a hodnotením nápadov.", detail: "Generovanie nápadov a ich hodnotenie sú dve oddelené fázy — nemajú prebiehať súčasne. Generovanie: čo najviac nápadov, žiadne filtre. Hodnotenie: vyberieme najlepšie nápady podľa kritérií (realizovateľnosť, dopad, cena...). Keď ich miešame, potláčame kreativitu." },
+    { title: "Hodnota tímového vymýšľania.", detail: "Tím dokáže vymyslieť viac a lepšie nápady ako jednotlivec — každý člen prináša iné skúsenosti a perspektívy. Nápady sa navzájom rozvíjajú a inšpirujú. Tímové vymýšľanie tiež zvyšuje angažovanosť — ľudia viac podporia riešenie, na ktorom sa podieľali." }
+  ],
+  // Modul 1, kompetencia 2
+  "1-2": [
+    { title: "Vlnový efekt (ripple effect).", detail: "Jedno rozhodnutie sa šíri ďalej ako kruhy na vode po hodení kameňa. Ovplyvňuje nielen mňa priamo, ale postupne aj ľudí okolo mňa — aj keď to nemusí byť hneď vidno. Malé rozhodnutia môžu mať väčší dopad, ako si myslíme." },
+    { title: "Domino efekt.", detail: "Jedno rozhodnutie spustí ďalšie, tie spustia ďalšie — ako padajúce kocky domina. Keď vidíme rozhodnutia ako reťaz príčin a dôsledkov, začneme premýšľať nielen o bezprostrednom výsledku, ale aj o tom, čo môže nasledovať ďalej." },
+    { title: "'Čo by sa stalo, keby to urobil každý?'", detail: "Moje rozhodnutie sa nedeje izolovane. Táto otázka pomáha vidieť širší dopad: keby to isté rozhodnutie urobili všetci, aký by bol výsledok? Pomáha pri rozhodnutiach o spoločných zdrojoch, pravidlách alebo správaní v tíme." },
+    { title: "Kruhy dopadu (ja → tím → okolie).", detail: "Dopad rozhodnutia sa rozširuje od najbližšieho kruhu (mňa) cez tím až po širšie okolie. Prvý kruh: ako to ovplyvní mňa? Druhý kruh: ako to ovplyvní ľudí okolo mňa — tím, rodinu, priateľov? Tretí kruh: ako to ovplyvní širšie okolie — školu, komunitu, prírodu?" }
+  ],
+  // Modul 1, kompetencia 3
+  "1-3": [
+    { title: "Metakognícia – myslenie o vlastnom myslení.", detail: "Metakognícia je schopnosť sledovať a uvedomovať si, ako sa práve učím — nie len čo sa učím. Pýtam sa: Rozumiem tomu? Kde viaznem? Čo by mi pomohlo? Ľudia s dobrou metakogniciou sa učia efektívnejšie, lebo vedia, kedy zmeniť prístup." },
+    { title: "Rôzne kanály učenia.", detail: "Vizuálny kanál — učím sa cez obrázky, schémy, farby. Audio kanál — pomáha mi počúvanie, vysvetľovanie nahlas, rytmus. Pohybový/kinestetický kanál — učím sa robením, pohybom, skúšaním. Rôznym ľuďom pomáhajú iné kombinácie. Dôležité je vyskúšať viac kanálov — nie sa hneď uspokojiť s jedným." },
+    { title: "Experiment so sebou samým.", detail: "Namiesto toho, aby som hneď vedel 'aký typ som', skúsim jeden spôsob učenia týždeň, sledujem, ako to funguje, potom skúsim iný a porovnám. Učenie sa o sebe funguje rovnako ako každý iný experiment — potrebuje čas, pozorovanie a otvorenú myseľ." }
+  ],
+  // Modul 2, kompetencia 0
+  "2-0": [
+    { title: "Need vs. want – rozdiel medzi potrebou a chcením.", detail: "Potreba je niečo hlbšie — bezpečie, pocit príslušnosti, oddych, uznanie. Chcenie je konkrétna vec alebo situácia. Za každým 'chcem to' alebo 'nepáči sa mi to' je skrytá skutočná potreba. Keď ju objavíme, vieme navrhnúť riešenie, ktoré naozaj pomôže — nie len povrchovo." },
+    { title: "Ľadovec (iceberg model).", detail: "To, čo vidíme navonok — slová, správanie, sťažnosti — je len malá časť nad hladinou. Väčšina potrieb, pocitov a motivácií je 'pod hladinou' a nie je priamo viditeľná. Platí to pre mňa aj pre druhých. Keď niekto reaguje nahnevane, pod hladinou môže byť strach, únava alebo pocit nespravodlivosti." },
+    { title: "Perspective taking – vcítenie sa do pohľadu druhého.", detail: "Perspective taking je schopnosť predstaviť si situáciu z pohľadu iného človeka — nie len pochopiť fakticky, ale skutočne si to 'obliecť'. Rovnaká situácia môže vyvolať úplne iný pohľad alebo potrebu u inej osoby. Cvičenie: skús opísať situáciu tak, ako by ju videl niekto iný." }
+  ],
+  // Modul 2, kompetencia 1
+  "2-1": [
+    { title: "Pojem prínos a cieľová skupina.", detail: "Prínos je konkrétna hodnota, ktorú nápad prináša — čo zlepší, uľahčí alebo vyrieši. Cieľová skupina sú konkrétni ľudia, ktorým nápad pomáha. Dobrý nápad má jasný prínos pre konkrétnu cieľovú skupinu — nie 'pomôže všetkým', ale 'pomôže mamám s malými deťmi pri nákupe'." },
+    { title: "Štruktúra pitchu (problém – komu – ako – prínos).", detail: "Pitch je krátke predstavenie nápadu. Štruktúra: (1) Problém — čo nefunguje alebo čo chýba? (2) Komu — kto to pociťuje? (3) Ako — čo navrhujeme? (4) Prínos — čo sa zmení, ak to bude fungovať? Dobrý pitch je stručný, konkrétny a zrozumiteľný aj pre niekoho, kto problém nepozná." },
+    { title: "Formy prezentácie (ústny pitch, poster, video, role-play, marketplace).", detail: "Nápad sa dá prezentovať rôznymi spôsobmi: ústny pitch (slovná prezentácia), poster (vizuálny prehľad), video (nakrútená ukážka), role-play (zahranie situácie), marketplace (stánok kde ľudia chodia a pýtajú sa). Každá forma má svoje výhody — výber závisí od publika a situácie." },
+    { title: "Druhy feedbacku (oceňujúci, konštruktívny, otázky).", detail: "Oceňujúci feedback hovorí, čo bolo dobré a prečo. Konštruktívny feedback navrhuje konkrétne zlepšenie. Otázky pomáhajú prezentujúcemu premyslieť si veci, na ktoré nemyslel. Dobrý feedback kombinuje všetky tri — oceňuje, navrhuje a pýta sa." },
+    { title: "Rozdiel medzi popisom a prínosom.", detail: "Popis hovorí čo to je: 'Navrhujeme aplikáciu na zdieľanie potravín.' Prínos hovorí čo to zmení: 'Vďaka tomu prestanú susedia vyhadzovať jedlo a ušetria peniaze.' Pri prezentácii nápadu je dôležité komunikovať prínos — nie len opis. Ľudí zaujíma, čo z toho majú." },
+    { title: "Testovanie a prototyp.", detail: "Prototyp je prvá jednoduchá verzia riešenia — môže to byť kresba, model z kartónu, jednoduchá webstránka alebo simulácia. Testovanie znamená ukázať prototyp reálnym ľuďom a sledovať ich reakcie. Cieľom nie je dokonalý výsledok, ale rýchla spätná väzba pred tým, ako investujeme viac času a energie." }
+  ],
+  // Modul 2, kompetencia 2
+  "2-2": [
+    { title: "Metódy zisťovania potrieb (interview, pozorovanie, aktívne počúvanie, empatické otázky).", detail: "Interview je štruktúrovaný rozhovor zameraný na pochopenie potrieb. Pozorovanie znamená sledovať ľudí v ich prirodzenom prostredí — čo robia, kde majú ťažkosti. Aktívne počúvanie je plné sústredenie na druhého — bez prerušovania, s doplňujúcimi otázkami. Empatické otázky pomáhajú dostať sa za povrch: 'Ako si sa pri tom cítil?' alebo 'Čo ti na tom najviac vadilo?'" },
+    { title: "Typy otázok (otvorené, uzavreté, exploračné, situačné).", detail: "Otvorené otázky nedávajú možnosť odpovedať len áno/nie: 'Čo ti na tom vadí?' Uzavreté otázky majú jasnú odpoveď: 'Používaš to každý deň?' Exploračné otázky idú do hĺbky: 'Prečo je to pre teba dôležité?' Situačné otázky sa pýtajú na konkrétnu situáciu: 'Keď sa to stalo, čo si urobil?' Kombinácia typov dáva bohatší obraz." },
+    { title: "Verbálna a neverbálna komunikácia.", detail: "Verbálna komunikácia sú slová — čo hovoríme. Neverbálna komunikácia je reč tela — gestá, mimika, postoj, tón hlasu, očný kontakt. Pri interview sledujeme oboje — niekedy ľudia povedia jedno, ale ich reč tela naznačuje niečo iné. To je signál na hlbšiu otázku." },
+    { title: "Empatia pri zisťovaní potrieb.", detail: "Empatia pri zisťovaní potrieb znamená pristupovať k človeku bez predpokladov a súdenia. Naším cieľom je pochopiť — nie hodnotiť. Keď sme empatickí, ľudia sa otvoria a povedia nám viac. Empatia tiež znamená, že výsledky interview ovplyvní naše vlastné predsudky — preto si ich musíme uvedomovať." },
+    { title: "Príprava na interview/pozorovanie.", detail: "Dobrý interview vyžaduje prípravu: stanovenie cieľa (čo chcem zistiť), výber respondentov (kto mi to môže povedať), príprava otázok (otvorené, konkrétne), dohodnutie stretnutia, zaznamenávanie odpovedí (zápisník, nahrávka). Improvizovaný interview môže byť chaotický a stratíme dôležité informácie." },
+    { title: "Ľudia nie vždy vedia priamo pomenovať svoje potreby.", detail: "Ľudia často hovoria o problémoch, nie o potrebách — a niekedy ani nevedia, čo naozaj potrebujú. Henry Ford vraj povedal: 'Keby som sa pýtal ľudí, čo chcú, povedali by: rýchlejšieho koňa.' Úlohou dobrého výskumníka je dostať sa za slová a pochopiť hlbšiu potrebu." }
+  ],
+  // Modul 2, kompetencia 3
+  "2-3": [
+    { title: "Chyba ako súčasť učenia.", detail: "Chyba nie je dôkaz zlyhania — je to prirodzená súčasť každého procesu učenia a tvorby. Všetky veľké vynálezy a inovácie vznikli cez mnohé chyby. Dôležité nie je nechybovať, ale vedieť s chybou pracovať — rozumieť jej, poučiť sa a skúsiť znova." },
+    { title: "Iterácia – opakované zlepšovanie.", detail: "Iterácia znamená opakovať cyklus: urob – otestuj – zlepši – urob znova. Každé kolo prináša lepšiu verziu. Digitálne produkty, hry, lieky — všetko vzniká cez iteráciu. Namiesto toho, aby sme čakali na dokonalé riešenie, robíme rýchle verzie a zlepšujeme ich na základe spätnej väzby." },
+    { title: "Prototyp – testovacia verzia.", detail: "Prototyp je prvá hrubá verzia riešenia — nie finálny produkt, ale nástroj na testovanie. Môže byť z papiera, kartónu, nakresleného, simulovaného. Cieľom prototypu je rýchlo zistiť, či nápad funguje, skôr než doň investujeme veľa času a peňazí." },
+    { title: "Pivot – zmena stratégie.", detail: "Pivot je situácia, keď zistíme, že naša pôvodná stratégia nefunguje — a rozhodneme sa zmeniť smer. Nie je to vzdanie sa, ale inteligentná reakcia na spätnú väzbu. Mnoho úspešných firiem (Instagram, YouTube, Slack) začínalo ako niečo úplne iné a po pivote našli svoju pravú podobu." },
+    { title: "Growth mindset vs. fixed mindset.", detail: "Fixed mindset (pevné nastavenie mysle) hovorí: 'Som taký, aký som — nedá sa to zmeniť.' Growth mindset (rastové nastavenie mysle) hovorí: 'Môžem sa zlepšiť, ak sa snažím a učím.' Pri práci s chybami je kľúčový growth mindset — bez neho každá chyba demotivuje, s ním každá chyba učí." },
+    { title: "Kroky práce s chybou.", detail: "Keď sa niečo nepodarí, pomáha štruktúrovaný postup: (1) Pozorovanie — čo sa stalo? (2) Feedback — čo hovoria ostatní? (3) Analýza — prečo sa to stalo? (4) Úprava — čo zmeníme? (5) Nový pokus — skúsime znova. Tento cyklus premení každú chybu na krok vpred." },
+    { title: "Neistota je prirodzená. Rozdiel medzi neúspechom a zlyhaním.", detail: "Neistota je normálna súčasť každého tvorivého procesu — nikdy nevieme vopred, či niečo bude fungovať. Neúspech je situácia, keď výsledok nezodpovedá očakávaniu — ale môžeme sa z neho poučiť. Zlyhanie je iba vtedy, keď sa vzdáme a prestaneme skúšať. Kým pokračujeme, nezlyhávame." }
+  ],
+  // Modul 3, kompetencia 0
+  "3-0": [
+    { title: "Najmenší ďalší krok (baby step).", detail: "Cieľ môže byť veľký a ohromujúci — ale jeden krok je vždy jasný. Namiesto premýšľania o celom projekte sa pýtame: čo je tá úplne prvá vec, ktorú musím urobiť? Tento prístup odbúrava prokrastináciu a pomáha sa rozbehnúť aj vtedy, keď nevieme, ako to celé dopadne." },
+    { title: "Plánovanie odzadu.", detail: "Začíname od konca — od hotového výsledku — a vraciam sa dozadu: čo muselo nastať tesne predtým? A pred tým? Táto technika funguje ako detektívna hra 'rozlúskni poradie'. Pomáha vidieť celú cestu a odhaliť kroky, na ktoré by sme pri plánovaní dopredu zabudli." },
+    { title: "Plánovací omyl.", detail: "Takmer vždy podceňujeme, ako dlho nám niečo zaberie — hovorí to aj veda. Volá sa to plánovací omyl. Riešenie: odhadni čas, skús to urobiť, porovnaj odhad s realitou. Po niekoľkých kolách sa tvoje odhady stávajú presnejšími." },
+    { title: "Neistota v pláne je normálna.", detail: "Žiadny plán nie je dokonalý — a to je v poriadku. Neistota nie je znak zlyhania, ale realita každého projektu. Dobrý plánovač neočakáva, že všetko pôjde podľa plánu — ale vie, ako reagovať, keď sa plán zmení." }
+  ],
+  // Modul 3, kompetencia 1
+  "3-1": [
+    { title: "Tímové superschopnosti.", detail: "V každom tíme sú rôzne typy ľudí: nápadár (generuje nové nápady), organizátor (udržiava poriadok a plán), dokončovateľ (dotiahne veci do konca), spájač (spája ľudí a nápady), expert (prináša špecifické znalosti). Tím funguje najlepšie, keď sa tieto superschopnosti doplnia — nie keď sú všetci rovnakí." },
+    { title: "Výber role podľa toho, v čom som dobrý.", detail: "Rolu v tíme si vyberáme podľa svojich silných stránok — nie náhodne. Keď každý robí to, v čom je dobrý, tím je efektívnejší a každý je spokojnejší. Pomáha otázka: Čo mi ide prirodzene? Kde cítim, že prispievam najviac?" },
+    { title: "Rozdiel medzi 'súhlasil som' a 'naozaj to urobím'.", detail: "Dohodnutie role je len začiatok. Súhlas na stretnutí neznamená automaticky, že to naozaj urobíme. Záväzok je aktívne rozhodnutie — stojím za tým, čo som sľúbil, aj keď to bude ťažké alebo nepohodlné." },
+    { title: "Verejný záväzok zvyšuje šancu na dokončenie.", detail: "Keď nahlas pred tímom povieme, čo urobíme, je oveľa väčšia šanca, že to naozaj dotiahne. Psychológia hovorí: verejný záväzok aktivuje náš pocit zodpovednosti voči ostatným. Preto je dôležité nielen súhlasiť v hlave, ale aj povedať to nahlas." }
+  ],
+  // Modul 3, kompetencia 2
+  "3-2": [
+    { title: "Reflexia – 3 otázky.", detail: "Reflexia je pohľad do vlastného vnútra. Tri základné otázky: (1) Čo sa stalo? — popis situácie bez hodnotenia. (2) Ako mi to bolo? — pomenovanie pocitov a reakcií. (3) Čo by som nabudúce inak? — záver a učenie. Tieto otázky premenia akúkoľvek skúsenosť na zdroj rastu." },
+    { title: "Spätná väzba vs. reflexia.", detail: "Reflexia je pohľad dovnútra — skúmam sám seba. Spätná väzba je pohľad smerom k inému človeku — hovorím mu, čo som si všimol. Reflexia je ako zrkadlo, spätná väzba je ako odovzdaný odkaz. Obe sú dôležité — ale sú to dve rôzne veci." },
+    { title: "Typy spätnej väzby.", detail: "Pozitívna spätná väzba oceňuje, čo fungovalo — a prečo. Rozvojová spätná väzba hovorí, čo zlepšiť — konkrétne a s návrhom. Sendvičová metóda kombinuje obe: začne pozitívnym, pridá rozvojové, skončí pozitívnym. Pomáha druhému otvoriť sa aj pre kritickú časť." },
+    { title: "Aktívne počúvanie.", detail: "Aktívne počúvanie znamená byť plne prítomný pre druhého. Techniky: parafrázovanie — zopakujem vlastnými slovami, čo som počul ('Ak správne rozumiem, hovoríš že...'). Reflektovanie pocitov — 'Znie to, že ťa to mrzelo.' Otvorené otázky — 'Čo si z toho odniesol?' Ticho a priestor — nechám druhého dokončiť myšlienku." },
+    { title: "Rešpektujúca komunikácia.", detail: "Ja-výroky namiesto ty-výrokov: 'Keď sa to stalo, cítil som sa ignorovaný' — nie 'Ty vždy ignoruješ ostatných.' Spätná väzba na správanie, nie na osobu: 'Prišiel si neskoro' — nie 'Si nespoľahlivý.' Prijatie spätnej väzby bez obhajovania sa: najprv pochopiť, až potom reagovať." }
+  ],
+  // Modul 4, kompetencia 0
+  "4-0": [
+    { title: "Strom cieľa.", detail: "Strom cieľa je vizuálna technika plánovania: hlavný cieľ je kmeň, väčšie kroky sú vetvy, konkrétne úlohy sú lístky. Prepojenie na mindmapping — pomáha vidieť celok aj detaily naraz. Keď vidíme cieľ ako strom, ľahšie nájdeme, kde začať." },
+    { title: "Test 'vie to urobiť aj iný človek bez vysvetlenia?'", detail: "Jednoduchý filter, či je krok dosť malý a konkrétny. Ak by iný človek vedel splniť úlohu bez toho, aby som mu musel vysvetľovať čo presne má robiť — krok je dostatočne konkrétny. Ak nie, treba ho rozdeliť ďalej." },
+    { title: "Kontrolný zoznam (checklist).", detail: "Odškrtávanie splnených krokov dáva pocit postupu a motivuje pokračovať. Je to malá dopamínová odmena z toho, že sa niečo deje. Piloti, chirurgovia aj stavitelia používajú checklisty — nie preto, že by zabudli, ale preto, že to funguje." }
+  ],
+  // Modul 4, kompetencia 1
+  "4-1": [
+    { title: "MVP – najjednoduchšia možná verzia.", detail: "MVP (Minimum Viable Product) je najjednoduchšia verzia riešenia, ktorá stále ukazuje hlavnú myšlienku. Nemusí byť krásna ani hotová — len musí byť dosť, aby sme mohli testovať. Papierový náčrt stačí. Cieľom nie je dokonalý výsledok, ale rýchla spätná väzba." },
+    { title: "Fail fast – zlyhaj rýchlo.", detail: "Čím skôr zistíme, že niečo nefunguje, tým lacnejšie a jednoduchšie to opravíme. Prototyp existuje na to, aby zlyhal rýchlo — nie na konci po mesiacoch práce. Rýchle zlyhanie nie je hanba, je to múdra stratégia." },
+    { title: "3 otázky na reakciu.", detail: "Pri testovaní prototypu sa pýtame troch otázok: (1) Čo sa páčilo? (2) Čo bolo mätúce? (3) Čo by si zmenil? Tieto otázky dávajú štruktúrovanú spätnú väzbu, ktorá je konkrétna a použiteľná — nie len 'bolo to dobré' alebo 'bolo to zlé'." }
+  ],
+  // Modul 4, kompetencia 2
+  "4-2": [
+    { title: "Elevator pitch.", detail: "Elevator pitch je vysvetlenie nápadu tak krátko, že by sa zmestilo do jazdy výťahom — asi 30–60 sekúnd. Núti nás ísť na podstatu a zbaviť sa zbytočností. Ak nevieme vysvetliť nápad za minútu, pravdepodobne mu sami ešte plne nerozumieme." },
+    { title: "Štruktúra: problém – riešenie – pre koho.", detail: "Jednoduchá kostra každého pitchu: (1) Problém — čo nefunguje alebo čo chýba? (2) Riešenie — čo navrhujeme? (3) Pre koho — kto z toho má úžitok a ako? Táto štruktúra pomáha poslucháčovi rýchlo pochopiť, o čo ide — bez toho, aby sme začínali od detailov." },
+    { title: "Test 'vysvetli to babke'.", detail: "Ak dokážeme vysvetliť nápad niekomu, kto o téme nič nevie — bez žargónu, bez skratiek, jednoducho — znamená to, že tomu naozaj rozumieme. Ak nie, máme ešte čo domyslieť. Jednoduchosť vysvetlenia je znakom hlbokého porozumenia." },
+    { title: "Konkrétny príbeh jedného človeka.", detail: "Namiesto 'pomôže to ľuďom' si predstavíme jednu konkrétnu osobu a jej deň. Napríklad: 'Marta má 70 rokov a každý utorok nemôže prísť na trh, lebo autobus chodí neskoro.' Konkrétny príbeh robí nápad živší, zrozumiteľnejší a emocionálne blízky." }
+  ]
+};
+
+const MODULES = [
+  {
+    id: 0, num: "01", period: "September – Október", title: "Problém & Nápad",
+    meta: [
+      { label: "Obdobie", value: "Sep – Okt" },
+      { label: "Level", value: "1 / 5" },
+      { label: "Počet stretnutí", value: "≈ 4–6" },
+      { label: "Fáza", value: "Objavovanie" }
+    ],
+    competencies: [
+      {
+        title: "Pomenuje problém vo svojom okolí a príležitosť na zmenu.",
+        title_full: "Účastník dokáže pomenovať, čo je v situácii problém, aká potreba za ním stojí a kde sa skrýva príležitosť na zmenu.",
+        exp_participants: "Účastníci pozorujú problémy zo svojho okolia, skúmajú potreby, ktoré sa za nimi skrývajú a hľadajú príležitosti na zmenu alebo zlepšenie.",
+        exp_coordinator: "Koordinátor podporuje vnímanie potrieb ľudí, kladenie otázok a prepájanie problémov s možnými riešeniami.",
+        knowledge: ["Rozdiel medzi problémom, potrebou a riešením (problém = potreba + prekážka).", "Základy pozorovania a kladenia otázok (otvorené vs. zatvorené otázky, pozorovanie vs. interpretácia).", "Príležitosti na zmenu v každodenných situáciách (príležitosť sa skrýva v medzere medzi 'ako je to teraz' a 'ako by to mohlo byť').", "Princíp, že problémy môžu byť zdrojom nápadov a zlepšení (reframing – preformulovanie problému otvára nové možnosti riešenia)."]
+      },
+      {
+        title: "Dohodne sa s tímom na pravidlách a drží sa ich.",
+        title_full: "Účastník dokáže využívať slobodu pri práci tak, že rešpektuje dohodnuté pravidlá, záväzky a potreby tímu.",
+        exp_participants: "Účastníci zažívajú situácie, v ktorých miera slobody a samostatnosti závisí od toho, ako dodržiavajú dohody, správajú sa k ostatným a plnia svoje záväzky voči tímu.",
+        exp_coordinator: "Koordinátor podporuje zodpovednosť, reflexiu správania a prepájanie slobody s dôverou a spoľahlivosťou.",
+        knowledge: ["Pojmy: tímová dohoda, záväzok, autonómia, dôvera, spoľahlivosť, reflexia.", "Princípy tímovej spolupráce: vzájomný respekt, spoľahlivosť, zodpovednosť za spoločný výsledok.", "Dôsledky nedodržiavania dohôd na fungovanie tímu (strata dôvery, konflikty, obmedzenie autonómie)."]
+      },
+      {
+        title: "Povie, čo fungovalo a čo by skúsil inak.",
+        title_full: "Účastník dokáže po skúsenosti pomenovať, čo fungovalo, čo nefungovalo a čo chce skúsiť ďalej.",
+        exp_participants: "Účastníci reflektujú svoje skúsenosti z aktivít, projektov alebo tímovej práce a pomenúvajú, čo im fungovalo, čo bolo náročné a čo by nabudúce urobili inak.",
+        exp_coordinator: "Koordinátor podporuje reflexiu, učenie sa zo skúsenosti a hľadanie ďalších krokov na zlepšenie.",
+        knowledge: ["Pojem reflexia a jej význam pre učenie sa.", "Štruktúra reflexie: čo fungovalo – čo nefungovalo – čo ďalej.", "Pojmy: spätná väzba, retrospektíva, sebahodnotenie.", "Princíp učenia sa z chýb a skúseností.", "Rozdiel medzi hodnotením a hľadaním zlepšení."]
+      }
+    ],
+    level: "Dieťa vie ukázať konkrétny problém okolo seba, má naň prvé nápady a tím má vlastné pravidlá.",
+    activities: [
+      { id: "terenne-patranie", icon: "🔍", name: "Terénne pátranie", desc: "Deti mapujú problémy priamo v teréne — škola, ulica, domov.", time: "45–60 min" },
+      { id: "mystery-challenge", icon: "🕵️", name: "Mystery challenge", desc: "Záhadný prípad, ktorý deti spoločne rozlúštia a odkryjú skrytý problém.", time: "30–45 min" },
+      { id: "mini-interview", icon: "🎙️", name: "Mini interview", desc: "Každé dieťa spraví krátky rozhovor s niekým zo svojho okolia.", time: "20–30 min" },
+      { id: "brainstorming", icon: "💡", name: "Brainstorming", desc: "Rýchle generovanie nápadov bez filtrov — všetky sú OK.", time: "20–30 min" },
+      { id: "timove-dohody", icon: "🤝", name: "Tímové dohody", desc: "Tím si nastaví vlastné pravidlá spolupráce a priestoru.", time: "30 min" },
+      { id: "co-nas-stve", icon: "😤", name: "Čo nás štve plagáty", desc: "Vizuálna aktivita — deti kreslia a píšu čo im vadí vo svete okolo.", time: "20–25 min" }
+    ]
+  },
+  {
+    id: 1, num: "02", period: "November – December", title: "Pohľady & Rozhodnutia",
+    meta: [{ label: "Obdobie", value: "Nov – Dec" }, { label: "Level", value: "2 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Empatia" }],
+    competencies: [
+      { title: "Pomenujem, koho sa problém týka — rôzne skupiny ľudí.", title_full: "Účastník dokáže pomenovať rôzne skupiny ľudí, ktorých sa problém týka, a opísať, ako ich ovplyvňuje.", exp_participants: "Účastníci sa vcítia do rôznych perspektív a skúmajú, kto všetko je ovplyvnený daným problémom.", exp_coordinator: "Koordinátor podporuje empatiu a rozširovanie pohľadu za vlastnú skúsenosť.", knowledge: ["Pojem empatia a perspektíva.", "Rôzne skupiny ľudí (aktéri) v situácii.", "Nástroje na mapovanie pohľadov (mapa aktérov, persony)."] },
+      { title: "Vymyslím viac rôznych riešení jedného problému.", title_full: "Účastník dokáže vytvoriť viac rôznych nápadov na riešenie jedného problému pomocou jednoduchých techník.", exp_participants: "Účastníci trénujú kreatívne myslenie cez generovanie mnohých nápadov bez okamžitého hodnotenia.", exp_coordinator: "Koordinátor podporuje otvorenosť a hodnotu diverzity nápadov.", knowledge: ["Pravidlá brainstormingu.", "Kreatívne techniky: SCAMPER, crazy ideas.", "Rozdiel medzi generovaním a hodnotením nápadov."] },
+      { title: "Poviem, ako moje rozhodnutia ovplyvňujú mňa, tím alebo okolie.", title_full: "Účastník dokáže pomenovať, ako jeho rozhodnutia ovplyvňujú jeho, tím alebo okolie.", exp_participants: "Účastníci robia rozhodnutia v tímových situáciách a následne skúmajú, aký dopad mali na nich, ostatných alebo spoločnú prácu.", exp_coordinator: "Koordinátor podporuje uvedomovanie si dôsledkov rozhodnutí, reflexiu a zodpovednosť za svoje konanie.", knowledge: ["Vlnový efekt (ripple effect) – jedno rozhodnutie sa šíri ďalej ako kruhy na vode. Ovplyvňuje nielen mňa, ale postupne aj iných, aj keď to nemusí byť hneď vidno.", "Domino efekt – jedno rozhodnutie spustí ďalšie, tie spustia ďalšie, ako padajúce kocky.", "'Čo by sa stalo, keby to urobil každý?' – moje rozhodnutie sa nedeje izolovane. Keby ho urobili všetci, dopad by bol väčší.", "Kruhy dopadu (ja → tím → okolie) – ako sa dopad rozhodnutia rozširuje od najbližšieho kruhu až po širšie okolie."] },
+      { title: "Skúšam rôzne spôsoby učenia a viem, čo mi pomáha najviac.", title_full: "Účastník dokáže skúšať rôzne spôsoby učenia a pomenovať, ktoré mu pri učení alebo práci pomáhajú najviac.", exp_participants: "Účastníci skúšajú rôzne spôsoby učenia, riešenia úloh a spolupráce a reflektujú, čo im pomáha sústrediť sa, zapamätať si informácie alebo zvládnuť úlohu.", exp_coordinator: "Koordinátor podporuje experimentovanie s rôznymi prístupmi a uvedomovanie si vlastného spôsobu učenia.", knowledge: ["Metakognícia ('myslenie o vlastnom myslení') – schopnosť sledovať a uvedomovať si, ako sa práve učím, nie len čo sa učím.", "Rôzne kanály učenia (vizuálny, audio, pohybový/kinestetický) – rôznym ľuďom pomáhajú iné spôsoby. Dôležité je vyskúšať viac kanálov, nie sa hneď uspokojiť s jedným.", "Experiment so sebou samým – skús jeden spôsob učenia týždeň, sleduj, ako to funguje, potom skús iný a porovnaj. Namiesto toho, aby som hneď vedel 'aký typ som'."] }
+    ],
+    level: "Dieťa sa vie vžiť do iných, navrhne viac nápadov a chápe, že rozhodnutia majú dôsledky.",
+    activities: [
+      { id: "role-play", icon: "🎭", name: "Role play", desc: "Deti vstúpia do rolí rôznych ľudí a zažijú problém z ich perspektívy.", time: "40–50 min" },
+      { id: "mapa-akterov", icon: "🗺️", name: "Mapa aktérov", desc: "Vizuálna mapa všetkých, ktorých sa problém týka.", time: "30–40 min" },
+      { id: "persony", icon: "👤", name: "Persony", desc: "Deti vytvoria fiktívne profily reálnych ľudí — komu chcú pomôcť?", time: "35–45 min" },
+      { id: "scamper", icon: "⚡", name: "SCAMPER", desc: "Technika kreatívneho myslenia na rozvíjanie existujúcich nápadov.", time: "25–35 min" },
+      { id: "crazy-ideas", icon: "🚀", name: "Crazy ideas", desc: "Čím absurdnejší nápad, tým lepší — uvoľnenie kreativity.", time: "20–30 min" },
+      { id: "rozh-hry", icon: "🎲", name: "Rozhodovacie hry", desc: "Simulácia situácií, kde rozhodnutia majú viditeľné dôsledky.", time: "45–60 min" }
+    ]
+  },
+  {
+    id: 2, num: "03", period: "Január – Február", title: "Potreby & Spätná väzba",
+    meta: [{ label: "Obdobie", value: "Jan – Feb" }, { label: "Level", value: "3 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Testovanie" }],
+    competencies: [
+      { title: "Pomenujem svoje potreby a chápem, že iní môžu mať iné.", title_full: "Účastník dokáže pomenovať svoje potreby a uvedomiť si, že rôzni ľudia môžu mať odlišné potreby a pohľady.", exp_participants: "Účastníci pozorujú problémy zo svojho okolia, skúmajú potreby, ktoré sa za nimi skrývajú a hľadajú príležitosti na zmenu alebo zlepšenie.", exp_coordinator: "Koordinátor podporuje vnímanie potrieb ľudí, kladenie otázok a prepájanie problémov s možnými riešeniami.", knowledge: ["Need vs. want – rozdiel medzi potrebou a chcením. Za každým 'chcem' alebo 'nepáči sa mi to' je často skutočná potreba (oddych, bezpečie, byť videný).", "Ľadovec (iceberg model) – to, čo je navonok vidieť (slová, správanie), je len malá časť. Väčšina potrieb a pocitov je 'pod hladinou'. Platí to pre mňa aj pre druhých.", "Perspective taking – schopnosť predstaviť si situáciu z pohľadu druhého človeka. Rovnaká situácia môže vyvolať iný pohľad alebo potrebu u inej osoby."] },
+      { title: "Vysvetlím, ako môj nápad môže niekomu pomôcť.", title_full: "Účastník dokáže vysvetliť, ako jeho nápad môže niekomu pomôcť alebo uľahčiť situáciu.", exp_participants: "Účastníci predstavujú svoj nápad na konkrétnych situáciách a vysvetľujú, komu pomáha, čo uľahčuje alebo aký problém rieši.", exp_coordinator: "Koordinátor podporuje prepájanie riešení s reálnymi potrebami ľudí a pomenovávanie konkrétneho prínosu nápadu.", knowledge: ["Pojem prínos a cieľová skupina.", "Štruktúra pitchu (problém – komu – ako – prínos).", "Formy prezentácie (ústny pitch, poster, video, role-play, marketplace).", "Druhy feedbacku (oceňujúci, konštruktívny, otázky).", "Rozdiel medzi popisom a prínosom.", "Testovanie a prototyp."] },
+      { title: "Zistím, čo ľudia potrebujú, cez rozhovor alebo pozorovanie.", title_full: "Účastník dokáže zisťovať, čo ľudia potrebujú, pomocou rozhovoru, otázok alebo pozorovania.", exp_participants: "Účastníci reflektujú svoje skúsenosti z aktivít, projektov alebo tímovej práce a pomenúvajú, čo im fungovalo, čo bolo náročné a čo by nabudúce urobili inak.", exp_coordinator: "Koordinátor podporuje reflexiu, učenie sa zo skúsenosti a hľadanie ďalších krokov na zlepšenie.", knowledge: ["Metódy zisťovania potrieb (interview, pozorovanie, aktívne počúvanie, empatické otázky).", "Typy otázok (otvorené, uzavreté, exploračné, situačné).", "Verbálna a neverbálna komunikácia.", "Empatia pri zisťovaní potrieb.", "Príprava na interview/pozorovanie.", "Ľudia nie vždy vedia priamo pomenovať svoje potreby."] },
+      { title: "Pracujem s chybou — získam spätnú väzbu a upravím ďalší krok.", title_full: "Účastník dokáže pracovať s chybou alebo neistotou tak, že získa spätnú väzbu a upraví ďalší krok.", exp_participants: "Účastníci zažívajú situácie, v ktorých sa im niečo nepodarí podľa plánu alebo si nie sú istí ďalším postupom, a učia sa získať spätnú väzbu, upraviť svoj nápad alebo zmeniť ďalší krok.", exp_coordinator: "Koordinátor podporuje experimentovanie, učenie sa z chýb a bezpečné skúšanie nových riešení.", knowledge: ["Chyba ako súčasť učenia.", "Iterácia – opakované zlepšovanie.", "Prototyp – testovacia verzia.", "Pivot – zmena stratégie.", "Growth mindset vs. fixed mindset.", "Kroky práce s chybou (pozorovanie – feedback – analýza – úprava – nový pokus).", "Neistota je prirodzená. Rozdiel medzi neúspechom a zlyhaním."] }
+    ],
+    level: "Dieťa vie pomenovať potrebu konkrétneho človeka a po spätnej väzbe svoj nápad zlepší.",
+    activities: [
+      { id: "mini-pitch", icon: "🎤", name: "Mini pitch", desc: "30-sekundové predstavenie nápadu — stručne a presne.", time: "20–30 min" },
+      { id: "feedback-kruhy", icon: "🔄", name: "Feedback kruhy", desc: "Štruktúrovaná spätná väzba v kruhu — bezpečný priestor.", time: "30–40 min" },
+      { id: "reflexne-kruhy", icon: "💭", name: "Reflexné kruhy", desc: "Hlboká reflexia zážitku — čo sa stalo, čo som sa naučil.", time: "25–35 min" },
+      { id: "prototypovanie", icon: "🛠️", name: "Prototypovanie", desc: "Prvý hrubý model nápadu — rýchlo, lacno, testovateľne.", time: "45–60 min" },
+      { id: "escape-room", icon: "🔐", name: "Escape room", desc: "Tímová výzva, ktorá rozvíja spoluprácu a riešenie problémov.", time: "60 min" },
+      { id: "interview", icon: "📝", name: "Interview", desc: "Deti trénujú vedenie rozhovoru s cieľom pochopiť potreby.", time: "30–45 min" }
+    ]
+  },
+  {
+    id: 3, num: "04", period: "Marec – Apríl", title: "Plán & Tím",
+    meta: [{ label: "Obdobie", value: "Mar – Apr" }, { label: "Level", value: "4 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Realizácia" }],
+    competencies: [
+      { title: "Stanovím jednoduchý cieľ, plán krokov a priority.", title_full: "Účastník dokáže stanoviť jednoduchý cieľ, vytvoriť základný plán krokov a určiť priority.", exp_participants: "Účastníci zažijú situácie, v ktorých potrebujú naplánovať postup pri spoločnej úlohe alebo projekte, rozdeliť si kroky a rozhodnúť, čo je najdôležitejšie spraviť ako prvé.", exp_coordinator: "Koordinátor podporuje stanovovanie cieľov, plánovanie krokov a určovanie priorít.", knowledge: ["Najmenší ďalší krok (baby step) – cieľ je veľký, ale jeden krok je vždy jasný. Otázka: čo je tá úplne prvá vec, ktorú musím urobiť?", "Plánovanie odzadu – od hotového cieľa sa vraciam dozadu a hľadám, čo muselo nastať tesne predtým. Ako detektívna hra 'rozlúskni poradie'.", "Plánovací omyl – takmer vždy podceňujeme, ako dlho nám niečo zaberie. Odhadni – skús – porovnaj.", "Neistota v pláne je normálna, nie znak zlyhania."] },
+      { title: "Prevezmem rolu v tíme a dokončím úlohu, na ktorej sme sa dohodli.", title_full: "Účastník dokáže prevziať jednoduchú rolu v tíme a dokončiť úlohu, na ktorej sa dohodol.", exp_participants: "Účastníci pracujú v tíme, rozdeľujú si jednoduché roly a nesú zodpovednosť za splnenie svojej časti úlohy.", exp_coordinator: "Koordinátor podporuje spoluprácu, spoľahlivosť a dokončovanie dohodnutých úloh.", knowledge: ["Tímové superschopnosti – nápadár, organizátor, dokončovateľ, spájač, expert. Každý má svoju silnú stránku a tím funguje najlepšie, keď sa schopnosti doplnia, nie keď sú všetci rovnakí.", "Výber role podľa toho, v čom som dobrý — nie náhodné prideľovanie.", "Rozdiel medzi 'súhlasil som' a 'naozaj to urobím' – dohodnutie role je len začiatok.", "Verejný záväzok pred tímom zvyšuje šancu, že to naozaj dotiahnem."] },
+      { title: "Zreflektujem skúsenosť a dám druhým konštruktívnu spätnú väzbu.", title_full: "Účastník dokáže jednoducho reflektovať svoju skúsenosť, rozlíšiť reflexiu od spätnej väzby a dať druhým jednoduchú konštruktívnu spätnú väzbu.", exp_participants: "Účastníci sa učia pomenovať svoju skúsenosť, rozlišovať medzi reflexiou a spätnou väzbou a formulovať jednoduchú konštruktívnu spätnú väzbu voči ostatným.", exp_coordinator: "Koordinátor podporuje bezpečné zdieľanie, aktívne počúvanie a konkrétne pomenovávanie skúseností a postrehov.", knowledge: ["Reflexia – 3 otázky: čo sa stalo – ako mi to bolo – čo by som nabudúce inak. Pohľad do vlastného vnútra.", "Spätná väzba – pohľad smerom k inému človeku. Rozdiel: zrkadlo vs. odovzdaný odkaz.", "Typy spätnej väzby – pozitívna (čo fungovalo), rozvojová (čo zlepšiť), sendvičová metóda (pozitívne – zlepšenie – pozitívne).", "Aktívne počúvanie – parafrázovanie (zopakuj vlastnými slovami), reflektovanie pocitov, otvorené otázky, ticho a priestor pre druhého.", "Rešpektujúca komunikácia – ja-výroky namiesto 'ty vždy', spätná väzba na správanie nie na osobu, prijatie spätnej väzby bez obhajovania sa."] }
+    ],
+    level: "Tím má plán krokov, každý vie svoju rolu, dieťa dokončí svoju časť a vie dať feedback.",
+    activities: [
+      { id: "timove-misie", icon: "🎯", name: "Tímové misie", desc: "Deti plnia úlohy ako tím — každý má svoju zodpovednosť.", time: "45–60 min" },
+      { id: "planovanie", icon: "📅", name: "Plánovanie", desc: "Spoločné nastavenie cieľov, krokov a deadlinov.", time: "30–40 min" },
+      { id: "roadmapa", icon: "🗺️", name: "Roadmapa", desc: "Vizuálny plán cesty od nápadu po finále.", time: "30–40 min" },
+      { id: "kooper-hry", icon: "🤜", name: "Kooperatívne hry", desc: "Hry, kde tím vyhráva spolu alebo prehráva spolu.", time: "40–50 min" },
+      { id: "feedback-karticky", icon: "🃏", name: "Feedback kartičky", desc: "Kartičky s otázkami, ktoré pomáhajú dávať konkrétny feedback.", time: "20–30 min" }
+    ]
+  },
+  {
+    id: 4, num: "05", period: "Máj – Jún", title: "Prototyp & Pitch",
+    meta: [{ label: "Obdobie", value: "Máj – Jún" }, { label: "Level", value: "5 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Finále" }],
+    competencies: [
+      { title: "Rozdelím väčší cieľ na malé, realizovateľné kroky.", title_full: "Účastník dokáže rozdeliť väčší cieľ na malé, realizovateľné kroky.", exp_participants: "Účastníci plánujú väčší cieľ (napr. podujatie, spoločný projekt alebo zmenu vo svojom okolí) a učia sa rozdeliť ho na konkrétne malé kroky, úlohy a poradie činností.", exp_coordinator: "Koordinátor podporuje realistické plánovanie, určovanie priorít a premýšľanie nad tým, čo je potrebné spraviť ako prvé.", knowledge: ["Strom cieľa – hlavný cieľ je kmeň, väčšie kroky sú vetvy, konkrétne úlohy sú lístky. Prepojenie na mindmapping.", "Test 'vie to urobiť aj iný človek bez vysvetlenia?' – jednoduchý filter, či je krok dosť malý a konkrétny.", "Kontrolný zoznam (checklist) – odškrtávanie krokov ako pocit postupu. Malá dopamínová odmena z toho, že sa niečo deje."] },
+      { title: "Vytvorím prvú jednoduchú verziu riešenia a overím reakcie ostatných.", title_full: "Účastník dokáže vytvoriť prvú jednoduchú verziu riešenia (prototyp) a overiť si, ako na ňu reagujú ostatní.", exp_participants: "Účastníci vytvárajú jednoduché návrhy riešení (napr. model, poster, scénku, digitálny návrh alebo ukážku produktu) a skúšajú si ich predstaviť ostatným, získať spätnú väzbu a upraviť ich podľa reakcií.", exp_coordinator: "Koordinátor podporuje experimentovanie, skúšanie nápadov a prácu so spätnou väzbou.", knowledge: ["MVP (najjednoduchšia možná verzia) – prototyp nemusí byť krásny ani hotový, len musí ukázať hlavnú myšlienku. Papierový náčrt stačí.", "Fail fast – čím skôr zistím, že niečo nefunguje, tým lacnejšie a jednoduchšie to opravím. Prototyp existuje na to, aby zlyhal rýchlo, nie na konci.", "3 otázky na reakciu – čo sa páčilo – čo bolo mätúce – čo by si zmenil."] },
+      { title: "Vysvetlím nápad: komu pomôže a prečo dáva zmysel.", title_full: "Účastník dokáže vysvetliť svoj nápad, komu má pomôcť a prečo dáva zmysel.", exp_participants: "Účastníci predstavujú svoj nápad na konkrétnych situáciách a vysvetľujú, komu pomáha, čo uľahčuje alebo aký problém rieši.", exp_coordinator: "Koordinátor podporuje prepájanie riešení s reálnymi potrebami ľudí a pomenovávanie konkrétneho prínosu nápadu.", knowledge: ["Elevator pitch (výťahová rýchlosť) – vysvetliť nápad tak krátko, že by sa zmestil do jazdy výťahom. Núti to ísť na podstatu.", "Štruktúra: problém – riešenie – pre koho. Jednoduchá kostra vysvetlenia namiesto rozprávania od detailov.", "Test 'vysvetli to babke' – ak to dokážem vysvetliť niekomu, kto o téme nič nevie, znamená to, že tomu naozaj rozumiem.", "Konkrétny príbeh jedného človeka – namiesto 'pomôže to ľuďom' si predstaviť jednu konkrétnu osobu a jej deň. Robí to živšie a zrozumiteľnejšie."] }
+    ],
+    level: "Tím má hotový prototyp, vie ho odprezentovať a je pripravený na Quest Fest pred celým Slovenskom.",
+    activities: [
+      { id: "tvorba-prototypov", icon: "🏗️", name: "Tvorba prototypov", desc: "Stavba reálneho (alebo digitálneho) modelu nápadu.", time: "60–90 min" },
+      { id: "testovanie", icon: "🧪", name: "Testovanie medzi sebou", desc: "Vzájomné testovanie prototypov a zber spätnej väzby.", time: "30–45 min" },
+      { id: "mini-pitch-2", icon: "🎤", name: "Mini pitch (finálny)", desc: "Tréning 2-minútovej prezentácie pre Quest Fest.", time: "30–40 min" },
+      { id: "marketplace", icon: "🏪", name: "Marketplace", desc: "Deti prezentujú nápady na simulovanom trhu.", time: "45–60 min" },
+      { id: "feedback-hry", icon: "🎮", name: "Feedback hry", desc: "Herné formáty na zbieranie a dávanie spätnej väzby.", time: "25–35 min" }
+    ]
+  }
+];
+
+const ACTIVITY_DETAILS = {
+  "terenne-patranie": {
+    sub: "Deti vychádzajú do terénu a mapujú problémy, ktoré vidia okolo seba v reálnom živote.",
+    info: [{ label: "Čas", value: "45–60 min" }, { label: "Forma", value: "Skupinová, outdoorová" }, { label: "Materiály", value: "Papier, pero, mobil" }],
+    steps: [
+      { title: "Úvod a zadanie", desc: "Lektor vysvetlí, čo je 'problém hodný riešenia'. Každá skupinka dostane kartičku s oblasťou pátrania (škola, park, obchod...)." },
+      { title: "Terénna fáza", desc: "Skupiny vychádzajú von na 20 minút. Dokumentujú čo vidia — fotky, zápisky, nákresy. Hľadajú veci, ktoré nefungujú, chýbajú alebo štvú ľudí." },
+      { title: "Späť v priestore", desc: "Každá skupinka prezentuje 2–3 problémy, ktoré našla. Ostatní môžu dopĺňať otázky: Koho sa to týka? Prečo je to problém?" },
+      { title: "Výber problému", desc: "Každá skupinka si hlasovaním vyberie jeden problém, ktorý chce ďalej rozvíjať." }
+    ],
+    tip: "Ak nie je možné ísť von, funguje aj virtuálne pátranie — Google Maps, fotky z okolia, príbehy rodičov.",
+    alts: [
+      { id: "patranie-digital", name: "Digitálne pátranie", label: "Alternatíva", diff: "Deti pátrujú online — lokálne fóra, sociálne siete, správy z mesta." },
+      { id: "patranie-rozhovor", name: "Pátranie cez rozhovory", label: "Alternatíva", diff: "Namiesto terénu robia mini rozhovory s učiteľmi alebo rodičmi v škole." }
+    ]
+  },
+  "brainstorming": {
+    sub: "Rýchle generovanie čo najviac nápadov bez hodnotenia — každý nápad je vítaný.",
+    info: [{ label: "Čas", value: "20–30 min" }, { label: "Forma", value: "Skupinová alebo individuálna" }, { label: "Materiály", value: "Post-it, fixky, tabuľa" }],
+    steps: [
+      { title: "Nastavenie pravidiel", desc: "Žiadna kritika. Čím viac nápadov, tým lepšie. Môžeš stavať na nápadoch iných. Bizarné nápady sú vítané." },
+      { title: "Tichá fáza", desc: "Každý píše nápady sám na post-ity — jeden nápad na jeden lístok. V tichu, bez diskusie. 5 minút." },
+      { title: "Zdieľanie a zhlukování", desc: "Postupne každý lepí lístky na tabuľu a jednou vetou povie čo je. Lektor zhlukuje podobné nápady." },
+      { title: "Výber favoritov", desc: "Každý dostane 3 'hviezdy' — nalepí ich na nápady, ktoré ho najviac zaujali." }
+    ],
+    tip: "Ak skupina zatuží skoro, pomôže provokácia: 'Čo by navrhol superhrdina? Čo by spravil 5-ročný?'",
+    alts: [
+      { id: "brainwriting", name: "Brainwriting", label: "Tichšia verzia", diff: "Celý brainstorming prebieha písomne — lístky kolujú a každý dopĺňa nápady ostatných." },
+      { id: "crazy8", name: "Crazy 8", label: "Rýchla verzia", diff: "8 nápadov za 8 minút — papier sa skladá na 8 políčok, do každého jeden nápad." }
+    ]
+  },
+  "mini-pitch": {
+    sub: "30-sekundové predstavenie nápadu — stručne, jasne a presvedčivo.",
+    info: [{ label: "Čas", value: "20–30 min" }, { label: "Forma", value: "Individuálna, pred skupinou" }, { label: "Materiály", value: "Stopky, príp. kartičky" }],
+    steps: [
+      { title: "Štruktúra mini pitchu", desc: "Lektor ukáže šablónu: (1) Problém — čo nefunguje? (2) Riešenie — čo navrhujem? (3) Komu pomôže? Deti dostanú 5 minút na prípravu." },
+      { title: "Pitchovanie", desc: "Každé dieťa má presne 30 sekúnd. Lektor drží čas. Zvyšok skupiny počúva, nekritizuje." },
+      { title: "Jedna otázka", desc: "Po každom pitchi môže skupina položiť len jednu otázku. Nie hodnotenie — len zvedavosť." },
+      { title: "Reflexia", desc: "Čo bolo ľahké a čo ťažké? Čo by si zmenil nabudúce?" }
+    ],
+    tip: "Nehovor deťom 'buď presvedčivý' — povedz 'hovor tak, aby som chcel vedieť viac'.",
+    alts: [
+      { id: "elevator-pitch", name: "Elevator pitch", label: "Dlhšia verzia", diff: "2 minúty namiesto 30 sekúnd — priestor na viac detailov a príbeh." },
+      { id: "silent-pitch", name: "Silent pitch", label: "Bez slov", diff: "Nápad sa komunikuje len vizuálne — kresba, gesto, objekt. Žiadne slová." }
+    ]
+  }
+};
+
+let currentYear = 1;
+
+const KM_DATA = [
+  { num:"01", name:"Príležitosť",         sub:"Učí sa všímať si problém a vidieť v ňom príležitosť.",       desc:"Dieťa pomenuje problém vo svojom okolí a dokáže v ňom uvidieť priestor na zmenu.",                                              color:"#D9482A", dark:false },
+  { num:"02", name:"Iniciatíva",          sub:"Učí sa premeniť nápad na čin.",                              desc:"Dieťa rozdelí cieľ na malé reálne kroky, postaví prvý prototyp a overí ho v praxi.",                                         color:"#F26A42", dark:false },
+  { num:"03", name:"Hodnota pre druhých", sub:"Učí sa vytvoriť hodnotu pre druhých.",                       desc:"Dieťa zistí, čo ľudia naozaj potrebujú, a vysvetlí, komu a prečo jeho nápad pomôže.",                                        color:"#F58A1E", dark:false },
+  { num:"04", name:"Zodpovednosť",        sub:"Učí sa niesť zodpovednosť za svoj rozvoj a úlohy.",          desc:"Dieťa si stanoví cieľ, prevezme rolu v tíme a dotiahne svoju časť do konca.",                                               color:"#F4A93A", dark:true  },
+  { num:"05", name:"Učenie z reality",    sub:"Učí sa z reality, spätnej väzby a chýb.",                   desc:"Dieťa prijme chybu, podľa spätnej väzby upraví ďalší krok a vie ju dať aj druhým.",                                          color:"#FBC847", dark:true  }
+];
+
+function kmSelect(idx) {
+  KM_DATA.forEach((d, i) => {
+    const pill = document.getElementById('pill-' + i);
+    const line = document.getElementById('line-' + i);
+    if (!pill || !line) return;
+    if (i === idx) {
+      pill.classList.add('active');
+      if (d.dark) pill.classList.add('active-dark'); else pill.classList.remove('active-dark');
+      pill.style.background = d.color;
+      pill.style.borderColor = d.color;
+      pill.style.color = d.dark ? '#3a2614' : '#fff';
+      line.setAttribute('stroke', d.color);
+      line.setAttribute('stroke-width', '2');
+    } else {
+      pill.classList.remove('active', 'active-dark');
+      pill.style.background = '#fff';
+      pill.style.borderColor = '#F0DECF';
+      pill.style.color = '#111';
+      line.setAttribute('stroke', '#E5DACE');
+      line.setAttribute('stroke-width', '1.5');
+    }
+  });
+  const d = KM_DATA[idx];
+  document.getElementById('km-detail').innerHTML = `
+    <div class="km-detail-badge">
+      <div class="km-detail-num" style="background:${d.color}">${d.num}</div>
+      <div class="km-detail-label">Kompetencia</div>
+    </div>
+    <div class="km-detail-name">${d.name}</div>
+    <div class="km-detail-sub">${d.sub}</div>
+    <div class="km-detail-desc">${d.desc}</div>
+  `;
+}
+
+function resetYearBtns() {
+  document.getElementById('btn-rok1').classList.remove('active');
+  document.getElementById('btn-rok2').classList.remove('active');
+}
+
+
+function switchYear(year) {
+  currentYear = year;
+  document.getElementById('btn-rok1').classList.toggle('active', year === 1);
+  document.getElementById('btn-rok2').classList.toggle('active', year === 2);
+  if (year === 1) {
+    showView('map');
+  } else {
+    showView('rok2');
+  }
+}
+let currentModuleId = null;
+
+function renderMap() {
+  document.getElementById('modules-grid').innerHTML = MODULES.map(m => `
+    <div class="module-card" onclick="openModule(${m.id})">
+      <div class="module-num"><span class="num-box">${m.num}</span> Level ${m.id + 1}</div>
+      <div class="module-period">${m.period}</div>
+      <div class="module-title">${m.title}</div>
+      <div class="module-divider"></div>
+      <div class="module-goals-label">Dieťa dokáže</div>
+      ${m.competencies.map((c, i) => `
+        <div class="module-goal">
+          <span class="g-num">${i+1}</span>
+          <span>${c.title}</span>
+        </div>`).join('')}
+      <div class="module-tools">
+        <div class="module-tools-label">Metódy</div>
+        <div class="tools-icons">
+          ${m.activities.map(function(a) {
+            var fn = m.id === 0 ? 'openSlideout' : 'openActivity';
+            return '<span class="tool-icon" onclick="event.stopPropagation(); ' + fn + '(\'' + a.id + '\',' + m.id + ')">' + a.icon + '<span class="tool-tooltip">' + a.name + '</span></span>';
+          }).join('')}
+        </div>
+      </div>
+      <div class="module-level">
+        <strong>Level zvládnutý, keď…</strong>${m.level}
+      </div>
+      <div class="module-cta">Otvoriť detail →</div>
+    </div>`).join('');
+}
+
+function openModule(id) {
+  currentModuleId = id;
+  const m = MODULES[id];
+  document.getElementById('md-eyebrow').textContent = `Modul ${m.num} · ${m.period}`;
+  document.getElementById('md-title').innerHTML = `<strong>${m.title}</strong>`;
+  document.getElementById('md-meta').innerHTML = m.meta.map(mt => `
+    <div class="detail-meta-item">
+      <div class="label">${mt.label}</div>
+      <div class="value">${mt.value}</div>
+    </div>`).join('');
+
+  document.getElementById('md-competencies').innerHTML = m.competencies.map((c, ci) => {
+    const knowKey = `${id}-${ci}`;
+    const knowDetails = KNOWLEDGE_DETAILS[knowKey];
+    const knowHtml = knowDetails
+      ? `<div class="knowledge-accordion">
+          ${knowDetails.map((k, ki) => `
+            <div class="know-item">
+              <div class="know-item-header" onclick="toggleKnow(this, 'know-body-${id}-${ci}-${ki}')">
+                <span class="know-dot"></span>
+                <span class="know-item-title">${k.title}</span>
+                <span class="know-chevron">▼</span>
+              </div>
+              <div class="know-item-body" id="know-body-${id}-${ci}-${ki}">${k.detail}</div>
+            </div>`).join('')}
+         </div>`
+      : `<div class="knowledge-list">
+          ${c.knowledge.map(k => `
+            <div class="knowledge-item">
+              <span class="knowledge-dot-plain"></span>
+              <span>${k}</span>
+            </div>`).join('')}
+         </div>`;
+
+    return `
+    <div class="competency-card">
+      <div class="comp-header" onclick="toggleComp(this, 'comp-body-${id}-${ci}')">
+        <span class="comp-num">${ci+1}</span>
+        <div class="comp-headline">
+          <div class="comp-label">Dieťa dokáže</div>
+          <div class="comp-title">${c.title_full || c.title}</div>
+        </div>
+        <span class="comp-chevron">▼</span>
+      </div>
+      <div class="comp-body" id="comp-body-${id}-${ci}">
+        <div class="comp-tabs">
+          <div class="comp-tab active" onclick="switchTab(event, 'tab-exp-${id}-${ci}', 'tabs-${id}-${ci}')">Čo zažívajú</div>
+          <div class="comp-tab" onclick="switchTab(event, 'tab-know-${id}-${ci}', 'tabs-${id}-${ci}')">Vzdelávací obsah</div>
+        </div>
+        <div id="tabs-${id}-${ci}">
+          <div class="comp-tab-content active" id="tab-exp-${id}-${ci}">
+            <div class="exp-block">
+              <div class="exp-label">Účastníci</div>
+              <p>${c.exp_participants}</p>
+            </div>
+            <div class="exp-block">
+              <div class="exp-label">Koordinátor</div>
+              <p>${c.exp_coordinator}</p>
+            </div>
+          </div>
+          <div class="comp-tab-content" id="tab-know-${id}-${ci}">
+            ${knowHtml}
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('md-activities').innerHTML = m.activities.map(function(a) {
+    return '<div class="activity-card" onclick="openActivity(\'' + a.id + '\',' + id + ')">' +
+      '<span class="act-icon">' + a.icon + '</span>' +
+      '<div class="act-name">' + a.name + '</div>' +
+      '<div class="act-desc">' + a.desc + '</div>' +
+      '<div class="act-footer">' +
+        '<span class="act-time">⏱ ' + a.time + '</span>' +
+        '<span class="act-open">Otvoriť →</span>' +
+      '</div></div>';
+  }).join('');
+
+  document.getElementById('md-level').innerHTML = `
+    <div class="level-box">
+      <div class="level-icon">⭐</div>
+      <div><h3>Level zvládnutý, keď…</h3><p>${m.level}</p></div>
+    </div>`;
+
+  showView('module');
+  updateBreadcrumb('module', m.title);
+}
+
+function toggleComp(header, bodyId) {
+  const body = document.getElementById(bodyId);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  header.classList.toggle('open', !isOpen);
+}
+
+function toggleKnow(header, bodyId) {
+  const body = document.getElementById(bodyId);
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  header.classList.toggle('open', !isOpen);
+}
+
+function openActivity(actId, moduleId) {
+  if (moduleId !== undefined) currentModuleId = moduleId;
+  const m = MODULES[currentModuleId];
+  const actBase = m.activities.find(a => a.id === actId);
+
+  // Modul 0 — modal
+  if (currentModuleId === 0) {
+    document.getElementById('lp-modal-eyebrow').textContent = m.title + ' · Aktivita';
+    document.getElementById('lp-modal-title').textContent = actBase ? actBase.name : actId;
+    lpModalList(actId);
+    document.getElementById('lp-modal-overlay').classList.add('open');
+    return;
+  }
+
+  const actDetail = ACTIVITY_DETAILS[actId];
+  document.getElementById('act-eyebrow').textContent = `${m.title} · Aktivita`;
+  document.getElementById('act-title').innerHTML = `<strong>${actBase ? actBase.name : actId}</strong>`;
+  document.getElementById('act-back-btn').onclick = () => { showView('module'); updateBreadcrumb('module', m.title); };
+
+  if (!actDetail) {
+    document.getElementById('act-sub').textContent = actBase ? actBase.desc : '';
+    document.getElementById('act-info').innerHTML = actBase ? `<div class="info-card"><div class="label">Čas</div><div class="value">${actBase.time}</div></div>` : '';
+    document.getElementById('act-steps').innerHTML = `<div class="placeholder-note"><span class="placeholder-badge">🚧 Obsah sa dopĺňa</span><p>Podrobný popis tejto aktivity ešte nebol pridaný.</p></div>`;
+    document.getElementById('act-tip').innerHTML = '';
+    document.getElementById('act-alts-section').innerHTML = '';
+  } else {
+    document.getElementById('act-sub').textContent = actDetail.sub;
+    document.getElementById('act-info').innerHTML = actDetail.info.map(i => `<div class="info-card"><div class="label">${i.label}</div><div class="value">${i.value}</div></div>`).join('');
+    document.getElementById('act-steps').innerHTML = actDetail.steps.map((s, i) => `
+      <div class="step-row">
+        <span class="step-num">${i+1}</span>
+        <div class="step-content"><h4>${s.title}</h4><p>${s.desc}</p></div>
+      </div>`).join('');
+    document.getElementById('act-tip').innerHTML = actDetail.tip ? `<div class="tip-box"><strong>💡 Tip pre lektora</strong>${actDetail.tip}</div>` : '';
+    document.getElementById('act-alts-section').innerHTML = actDetail.alts && actDetail.alts.length ? `
+      <div class="section-label">Alternatívne verzie</div>
+      <div class="alt-grid">
+        ${actDetail.alts.map(alt => `
+          <div class="alt-card" onclick="openActivity('${alt.id}', ${currentModuleId})">
+            <span class="alt-label">${alt.label}</span>
+            <span class="alt-name">${alt.name}</span>
+            <span class="alt-diff">${alt.diff}</span>
+          </div>`).join('')}
+      </div>` : '';
+  }
+
+  showView('activity');
+  updateBreadcrumb('activity', actBase ? actBase.name : actId);
+}
+
+function switchTab(e, targetId, containerId) {
+  e.stopPropagation();
+  const container = document.getElementById(containerId);
+  const tabsRow = e.target.closest('.comp-tabs');
+  tabsRow.querySelectorAll('.comp-tab').forEach(t => t.classList.remove('active'));
+  container.querySelectorAll('.comp-tab-content').forEach(t => t.classList.remove('active'));
+  e.target.classList.add('active');
+  document.getElementById(targetId).classList.add('active');
+}
+
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + name).classList.add('active');
+  window.scrollTo(0, 0);
+  if (name === 'map') {
+    updateBreadcrumb('map');
+    document.getElementById('btn-rok1').classList.add('active');
+    document.getElementById('btn-rok2').classList.remove('active');
+    currentYear = 1;
+  } else if (name === 'rok2') {
+    updateBreadcrumb('rok2');
+  } else if (name === 'orbita') {
+    updateBreadcrumb('orbita');
+  }
+}
+
+function updateBreadcrumb(level, label) {
+  const bc = document.getElementById('breadcrumb');
+  if (level === 'orbita') {
+    bc.innerHTML = `<span class="crumb active" onclick="showView('orbita'); resetYearBtns()">Domov</span>`;
+  } else if (level === 'map') {
+    bc.innerHTML = `<span class="crumb" onclick="showView('orbita'); resetYearBtns()">Domov</span><span class="arrow">›</span><span class="crumb active" onclick="switchYear(1)">Mapa roka 1</span>`;
+  } else if (level === 'rok2') {
+    bc.innerHTML = `<span class="crumb" onclick="showView('orbita'); resetYearBtns()">Domov</span><span class="arrow">›</span><span class="crumb active">Mapa roka 2</span>`;
+  } else if (level === 'module') {
+    bc.innerHTML = `<span class="crumb" onclick="showView('orbita'); resetYearBtns()">Domov</span><span class="arrow">›</span><span class="crumb" onclick="switchYear(1)">Mapa roka 1</span><span class="arrow">›</span><span class="crumb active">${label}</span>`;
+  } else {
+    const m = MODULES[currentModuleId];
+    bc.innerHTML = `<span class="crumb" onclick="showView('orbita'); resetYearBtns()">Domov</span><span class="arrow">›</span><span class="crumb" onclick="switchYear(1)">Mapa roka 1</span><span class="arrow">›</span><span class="crumb" onclick="openModule(${currentModuleId})">${m.title}</span><span class="arrow">›</span><span class="crumb active">${label}</span>`;
+  }
+}
+
+// LESSON PLANS DATA
+var LESSON_PLANS = {
+  'timove-dohody': [
+    {
+      id: 'lp-timove-1',
+      name: 'Tímové dohody – Stretnutie 1',
+      meta: [
+        { label: 'Čas', value: '60 min' },
+        { label: 'Aktivity', value: '4' },
+        { label: 'Ročník', value: 'Rok 1' }
+      ],
+      ciel: 'Na konci stretnutia účastník dokáže pomenovať niečo spoločné s iným človekom v skupine, jednu silnú stránku celej skupiny a zreflektuje svoje očakávania a obavy o programe.',
+      kompetencia: 'Účastník dokáže po skúsenosti pomenovať, čo fungovalo, čo nefungovalo a čo chce skúsiť ďalej.',
+      priprava: ['Menovky a perá', 'Stoličky (počet detí + 1)', 'Flipchart / papier na stenu so schémou roka', 'Fixky', 'Stopky'],
+      prejav: 'Sledujem, či každý nájde partnera na rozhovor. Všímam si, kto zostáva bokom a kto prirodzene spája ostatných. V hre My Place pozorujem, ako skupina komunikuje — kto vedie, kto sleduje, kto navrhuje stratégiu. Pri schéme roka si všímam, kde na osi deti lepia svoje lístky a čo to hovorí o ich očakávaniach.',
+      aktivity: [
+        {
+          num: 1, name: 'Úvod & Menovky', time: '10 min',
+          goal: 'Každý vie, ako chce byť oslovovaný, a priestor sa cíti bezpečne.',
+          steps: [
+            '<strong>Zoznámenie s priestorom:</strong> Krátke predstavenie priestoru a dňa – deti vedia, kde sú a čo ich čaká.',
+            '<strong>Menovky:</strong> Každé dieťa si napíše, ako chce byť oslovované. Na konci dňa dopíše 1 slovo opisujúce jeho pocit → menovky zostanú visieť v priestore.'
+          ],
+          reflex: {
+            pred: ['„Ako sa dnes cítite? Čo od dnešného stretnutia očakávate?"'],
+            pocas: ['„Ako sa vám darí? Je niečo, čo potrebujete?"'],
+            po: ['„Čo si odnášaš z dnešného úvodu? Jedno slovo."']
+          }
+        },
+        {
+          num: 2, name: 'Energizer: Spoločné body', time: '15 min',
+          goal: 'Každý nájde aspoň jednu spoločnú vec s niekým, koho dobre nepozná.',
+          steps: [
+            'Každé dieťa nájde partnera (niekoho, s kým ešte nehovorilo tento týždeň) a hľadajú 1 spoločnú vec (farba, hobby, jedlo...).',
+            'Po nájdení sa vystriedajú s ďalším partnerom. Minimálne 5 výmen.'
+          ],
+          variant: 'Ak sa skupina pozná, hráči hľadajú menej zrejmé spoločné veci (napr. obľúbená ročná doba).',
+          tip: 'Forma: Každý povie iba 1 slovo → rýchle, udržiava energiu.',
+          reflex: {
+            pred: ['„Čo si myslíte, že budete mať spoločné s niekým, koho dobre nepoznáte?"', '„Ako sa cítite pred tým, než sa budete rozprávať s niekým novým?"'],
+            pocas: ['„Darí sa vám nájsť spoločné veci?"', '„Čo vás prekvapuje?"'],
+            po: ['„Ako sa vám podarilo nájsť spoločné veci?"', '„Bolo ťažké? Prečo?"', '„Čo ste zistili o seba navzájom?"']
+          }
+        },
+        {
+          num: 3, name: 'Hra „My Place"', time: '15 min',
+          goal: 'Účastníci si uvedomia, ako menili stratégiu, a pomenujú 1–2 silné stránky skupiny.',
+          steps: [
+            'Stoličky sú náhodne rozmiestnené. Deti si vyberú stoličku. Jedna zostane prázdna.',
+            '<strong>Úloha:</strong> zabrániť koordinátorovi sadnúť si na prázdnu stoličku – prázdna stolička sa musí neustále hýbať.',
+            '3–4 kolá po 4–5 min. Medzi kolami krátka pauza na stratégiu.'
+          ],
+          tip: 'Fyzická reflexia – Postav sa, ak si spolupracoval; Zostaň sedieť, ak si viac sledoval.',
+          reflex: {
+            pred: ['„Čo si myslíte, že bude na tejto hre ťažké?"', '„Čo potrebuje tím, aby uspel?"'],
+            pocas: ['„Čo vám fungovalo? Čo nie?"', '„Ako sa chcete dohodnúť pre ďalšie kolo?"'],
+            po: ['„Ako ste sa cítili počas hry?"', '„Čo vám pomohlo?" (rýchlosť, spolupráca, stratégia)', '„Čo ste si uvedomili o sebe a o skupine?"']
+          }
+        },
+        {
+          num: 4, name: 'Schéma roka & Očakávania', time: '20 min',
+          goal: 'Na časovej osi visí každého očakávanie, obava aj silná stránka — skupina vidí spoločný obraz roka.',
+          steps: [
+            'Na stene je schéma roka (časová os). Deti píšu farebne odlíšenými lístkami: 🟡 Žltý – otázka k programu, 🟢 Zelený – moje očakávanie, 🔵 Modrý – niečo, čoho sa obávam. Anonymné lístky sú povolené.',
+            '<strong>Fáza 2 – Supermoce v čase:</strong> Skupina identifikuje silné stránky a lepí na os: 🔴 Červený – „Kde v roku využijeme túto silnú stránku?"',
+            '<strong>Záver – Menovka na os:</strong> Každý dopíše 1 silnú stránku, ktorú dnes objavil u seba, a nalepí ju na os tam, kde ju najviac využije.'
+          ],
+          reflex: {
+            pred: ['„Čo od tohto roka očakávate? Čo dúfate, že sa naučíte?"', '„Je niečo, čo vás na programe zaujíma alebo naopak trápi?"'],
+            pocas: ['„Kde v roku si myslíte, že to bude najťažšie? Čo nám pomôže?"'],
+            po: ['„Čo by sme chceli povedať sami sebe o 6 mesiacov?"']
+          }
+        }
+      ]
+    }
+  ]
+};
+
+function lpModalList(actId) {
+  var lps = LESSON_PLANS[actId];
+  var html = '<div class="section-label" style="margin-bottom:16px">Lesson plány</div><div class="lp-list">';
+  if (lps && lps.length) {
+    lps.forEach(function(lp, i) {
+      html += '<div class="lp-list-item" onclick="lpModalDetail(\'' + actId + '\',' + i + ')">';
+      html += '<span class="lp-list-num">' + (i+1) + '</span>';
+      html += '<div class="lp-list-info"><div class="lp-name">' + lp.name + '</div><div class="lp-meta">&#9201; ' + lp.meta[0].value + ' &middot; ' + lp.meta[1].value + ' aktivity</div></div>';
+      html += '<span class="lp-list-arrow">&#8594;</span></div>';
+    });
+  }
+  html += '<div class="lp-placeholder-item"><span class="ph-num">+</span><span class="ph-text">Ďalší lesson plan sa dopĺňa...</span></div>';
+  html += '</div>';
+  document.getElementById('lp-modal-body').innerHTML = html;
+  document.getElementById('lp-modal-body').scrollTop = 0;
+}
+
+function lpModalDetail(actId, idx) {
+  var lp = LESSON_PLANS[actId][idx];
+  var html = '<button class="lp-back" onclick="lpModalList(\'' + actId + '\')">&#8592; Späť na zoznam</button>';
+  html += '<div class="lp-detail-eyebrow">Lesson Plan</div>';
+  html += '<div class="lp-detail-title">' + lp.name + '</div>';
+  html += '<div class="lp-detail-meta">';
+  lp.meta.forEach(function(m) { html += '<div class="lp-detail-meta-item"><div class="dlabel">' + m.label + '</div><div class="dvalue">' + m.value + '</div></div>'; });
+  html += '</div>';
+  html += '<div class="lp-full-grid">';
+  html += '<div class="lp-goal-box"><div class="glabel">Cieľ stretnutia</div><div class="gtext">' + lp.ciel + '</div></div>';
+  html += '<div class="lp-goal-box"><div class="glabel">Kompetencia</div><div class="gtext">' + lp.kompetencia + '</div></div>';
+  html += '</div>';
+  html += '<div class="lp-prep" style="margin-bottom:20px"><div class="plabel">&#127890; Čo si pripraviť</div><div class="lp-prep-chips">';
+  lp.priprava.forEach(function(p) { html += '<span class="lp-prep-chip">' + p + '</span>'; });
+  html += '</div></div>';
+  if (lp.prejav) { html += '<div class="lp-prejav"><div class="plabel">&#128065; Prejav — čo si všímam</div><div class="lp-prejav-text">' + lp.prejav + '</div></div>'; }
+  html += '<div class="lp-section-lbl">Priebeh stretnutia</div><div class="lp-full-acts">';
+  lp.aktivity.forEach(function(a, ai) {
+    var uid = 'lpm' + idx + 'x' + ai;
+    html += '<div class="lp-act-card">';
+    html += '<div class="lp-act-hdr" onclick="toggleLpAct(this,\'' + uid + '\')">';
+    html += '<span class="lp-act-num">' + a.num + '</span>';
+    html += '<div class="lp-act-info"><div class="aname">' + a.name + '</div><div class="agoal">' + a.goal + '</div></div>';
+    html += '<span class="lp-act-time">&#9201; ' + a.time + '</span><span class="lp-act-chev">&#9660;</span></div>';
+    html += '<div class="lp-act-body" id="' + uid + '">';
+    a.steps.forEach(function(s) { html += '<div class="lp-step"><span class="lp-step-dot"></span><p>' + s + '</p></div>'; });
+    if (a.variant) { html += '<div class="lp-variant"><strong>Záložný variant</strong>' + a.variant + '</div>'; }
+    html += '<div class="lp-reflex"><div class="lp-reflex-tabs">';
+    ['pred','pocas','po'].forEach(function(f, fi) {
+      html += '<div class="lp-reflex-tab' + (fi===0?' active':'') + '" onclick="switchLpReflex(event,\'' + uid + f + '\',\'' + uid + '\')">' + (fi===0?'Pred':fi===1?'Počas':'Po') + '</div>';
+    });
+    html += '</div>';
+    ['pred','pocas','po'].forEach(function(f, fi) {
+      html += '<div class="lp-reflex-content' + (fi===0?' active':'') + '" id="' + uid + f + '">';
+      if (a.reflex[f] && a.reflex[f].length) { a.reflex[f].forEach(function(q) { html += '<div class="lp-reflex-q">' + q + '</div>'; }); }
+      else { html += '<p style="font-size:12px;color:var(--gray-500)">-</p>'; }
+      html += '</div>';
+    });
+    html += '</div>';
+    if (a.tip) { html += '<div class="lp-tip"><strong>Tip pre lektora</strong>' + a.tip + '</div>'; }
+    html += '</div></div>';
+  });
+  html += '</div>';
+  document.getElementById('lp-modal-body').innerHTML = html;
+  document.getElementById('lp-modal-body').scrollTop = 0;
+}
+
+// zavriet modal kliknutim mimo
+document.addEventListener('click', function(e) {
+  var overlay = document.getElementById('lp-modal-overlay');
+  if (e.target === overlay) overlay.classList.remove('open');
+});
+
+function lpRenderList(actId) {
+  var lps = LESSON_PLANS[actId];
+  var html = '<div class="detail-section"><div class="section-label">Lesson plány</div><div class="lp-list">';
+  if (lps && lps.length) {
+    lps.forEach(function(lp, i) {
+      html += '<div class="lp-list-item" onclick="lpRenderDetail(\'' + actId + '\',' + i + ')">';
+      html += '<span class="lp-list-num">' + (i+1) + '</span>';
+      html += '<div class="lp-list-info"><div class="lp-name">' + lp.name + '</div><div class="lp-meta">&#9201; ' + lp.meta[0].value + ' &middot; ' + lp.meta[1].value + ' aktivity</div></div>';
+      html += '<span class="lp-list-arrow">&#8594;</span></div>';
+    });
+  }
+  html += '<div class="lp-placeholder-item"><span class="ph-num">+</span><span class="ph-text">&#270A;al&#353;&#237; lesson plan sa dop&#318;&#225;...</span></div>';
+  html += '</div></div>';
+  document.getElementById('lp-view-body').innerHTML = html;
+  window.scrollTo(0, 0);
+}
+
+function lpRenderDetail(actId, idx) {
+  var lp = LESSON_PLANS[actId][idx];
+  var html = '<button class="lp-back" onclick="lpRenderList(\'' + actId + '\')">&#8592; Sp&#228;&#357; na zoznam</button>';
+  html += '<div class="lp-detail-eyebrow">Lesson Plan</div>';
+  html += '<div class="lp-detail-title">' + lp.name + '</div>';
+
+  // META
+  html += '<div class="lp-detail-meta">';
+  lp.meta.forEach(function(m) {
+    html += '<div class="lp-detail-meta-item"><div class="dlabel">' + m.label + '</div><div class="dvalue">' + m.value + '</div></div>';
+  });
+  html += '</div>';
+
+  // CIEL + KOMPETENCIA v dvoch stĺpcoch
+  html += '<div class="lp-full-grid">';
+  html += '<div class="lp-goal-box"><div class="glabel">Cieľ stretnutia</div><div class="gtext">' + lp.ciel + '</div></div>';
+  html += '<div class="lp-goal-box"><div class="glabel">Kompetencia</div><div class="gtext">' + lp.kompetencia + '</div></div>';
+  html += '</div>';
+
+  // PRIPRAVA
+  html += '<div class="lp-prep" style="margin-bottom:28px"><div class="plabel">&#127890; Čo si pripraviť</div><div class="lp-prep-chips">';
+  lp.priprava.forEach(function(p) { html += '<span class="lp-prep-chip">' + p + '</span>'; });
+  html += '</div></div>';
+
+  // PREJAV
+  if (lp.prejav) {
+    html += '<div class="lp-prejav"><div class="plabel">&#128065; Prejav — čo si všímam</div><div class="lp-prejav-text">' + lp.prejav + '</div></div>';
+  }
+
+  // AKTIVITY
+  html += '<div class="lp-section-lbl">Priebeh stretnutia</div>';
+  html += '<div class="lp-full-acts">';
+
+  lp.aktivity.forEach(function(a, ai) {
+    var uid = 'lpd' + idx + 'a' + ai;
+    html += '<div class="lp-act-card">';
+    html += '<div class="lp-act-hdr" onclick="toggleLpAct(this,\'' + uid + '\')">';
+    html += '<span class="lp-act-num">' + a.num + '</span>';
+    html += '<div class="lp-act-info"><div class="aname">' + a.name + '</div><div class="agoal">' + a.goal + '</div></div>';
+    html += '<span class="lp-act-time">&#9201; ' + a.time + '</span>';
+    html += '<span class="lp-act-chev">&#9660;</span></div>';
+    html += '<div class="lp-act-body" id="' + uid + '">';
+    a.steps.forEach(function(s) {
+      html += '<div class="lp-step"><span class="lp-step-dot"></span><p>' + s + '</p></div>';
+    });
+    if (a.variant) {
+      html += '<div class="lp-variant"><strong>Zalozny variant</strong>' + a.variant + '</div>';
+    }
+    html += '<div class="lp-reflex"><div class="lp-reflex-tabs">';
+    html += '<div class="lp-reflex-tab active" onclick="switchLpReflex(event,\'' + uid + 'pred\',\'' + uid + '\')">Pred</div>';
+    html += '<div class="lp-reflex-tab" onclick="switchLpReflex(event,\'' + uid + 'pocas\',\'' + uid + '\')">Počas</div>';
+    html += '<div class="lp-reflex-tab" onclick="switchLpReflex(event,\'' + uid + 'po\',\'' + uid + '\')">Po</div>';
+    html += '</div>';
+    ['pred','pocas','po'].forEach(function(faza, fi) {
+      html += '<div class="lp-reflex-content' + (fi===0 ? ' active' : '') + '" id="' + uid + faza + '">';
+      if (a.reflex[faza] && a.reflex[faza].length) {
+        a.reflex[faza].forEach(function(q) { html += '<div class="lp-reflex-q">' + q + '</div>'; });
+      } else {
+        html += '<p style="font-size:12px;color:var(--gray-500)">-</p>';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+    if (a.tip) { html += '<div class="lp-tip"><strong>Tip pre lektora</strong>' + a.tip + '</div>'; }
+    html += '</div></div>';
+  });
+
+  html += '</div>'; // end lp-full-acts
+  document.getElementById('lp-view-body').innerHTML = html;
+  window.scrollTo(0, 0);
+}
+
+function openSlideout(actId, moduleId) {
+  var m = MODULES[moduleId];
+  var actBase = m.activities.find(function(a) { return a.id === actId; });
+  var lps = LESSON_PLANS[actId];
+
+  document.getElementById('sl-eyebrow').textContent = m.title + ' · Aktivita';
+  document.getElementById('sl-title').textContent = actBase ? actBase.name : actId;
+  document.getElementById('sl-sub').textContent = actBase ? actBase.desc : '';
+
+  if (lps && lps.length > 0) {
+    renderLpList(actId, lps);
+  } else {
+    document.getElementById('sl-body').innerHTML = '<div style="padding:32px 0; text-align:center"><div style="font-size:36px;margin-bottom:12px">🚧</div><p style="font-size:13px;color:var(--gray-500)">Lesson plány sa dopĺňajú.</p></div>';
+  }
+
+  document.getElementById('slideout-panel').classList.add('open');
+  document.getElementById('slideout-overlay').classList.add('open');
+}
+
+function renderLpList(actId, lps) {
+  var html = '<div style="font-size:10px;color:var(--gray-500);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px;font-weight:600;">Lesson plány</div>';
+  html += '<div class="lp-list">';
+  lps.forEach(function(lp, i) {
+    html += '<div class="lp-list-item" onclick="renderLpDetail(\'' + actId + '\',' + i + ')">';
+    html += '<span class="lp-list-num">' + (i+1) + '</span>';
+    html += '<div class="lp-list-info"><div class="lp-name">' + lp.name + '</div><div class="lp-meta">⏱ ' + lp.meta[0].value + ' · ' + lp.meta[1].value + ' aktivity</div></div>';
+    html += '<span class="lp-list-arrow">→</span></div>';
+  });
+  html += '<div class="lp-placeholder-item"><span class="ph-num">+</span><span class="ph-text">Ďalší lesson plan sa dopĺňa...</span></div>';
+  html += '</div>';
+  document.getElementById('sl-body').innerHTML = html;
+}
+
+function renderLpDetail(actId, idx) {
+  var lp = LESSON_PLANS[actId][idx];
+  var html = '<button class="lp-back" onclick="renderLpList(\'' + actId + '\', LESSON_PLANS[\'' + actId + '\'])">← Späť na zoznam</button>';
+
+  html += '<div class="lp-detail-eyebrow">Lesson Plan</div>';
+  html += '<div class="lp-detail-title">' + lp.name + '</div>';
+  html += '<div class="lp-detail-meta">';
+  lp.meta.forEach(function(m) {
+    html += '<div class="lp-detail-meta-item"><div class="dlabel">' + m.label + '</div><div class="dvalue">' + m.value + '</div></div>';
+  });
+  html += '</div>';
+
+  html += '<div class="lp-goal-box"><div class="glabel">Cieľ stretnutia</div><div class="gtext">' + lp.ciel + '</div></div>';
+  html += '<div class="lp-goal-box" style="margin-bottom:20px"><div class="glabel">Kompetencia</div><div class="gtext">' + lp.kompetencia + '</div></div>';
+
+  html += '<div class="lp-prep"><div class="plabel">🎒 Čo si pripraviť</div><div class="lp-prep-chips">';
+  lp.priprava.forEach(function(p) { html += '<span class="lp-prep-chip">' + p + '</span>'; });
+  html += '</div></div>';
+
+  html += '<div class="lp-section-lbl">Priebeh stretnutia</div>';
+
+  lp.aktivity.forEach(function(a, ai) {
+    var uid = 'lpa-' + idx + '-' + ai;
+    html += '<div class="lp-act-card">';
+    html += '<div class="lp-act-hdr" onclick="toggleLpAct(this,\'' + uid + '\')">';
+    html += '<span class="lp-act-num">' + a.num + '</span>';
+    html += '<div class="lp-act-info"><div class="aname">' + a.name + '</div><div class="agoal">' + a.goal + '</div></div>';
+    html += '<span class="lp-act-time">⏱ ' + a.time + '</span>';
+    html += '<span class="lp-act-chev">▼</span></div>';
+    html += '<div class="lp-act-body" id="' + uid + '">';
+
+    a.steps.forEach(function(s) {
+      html += '<div class="lp-step"><span class="lp-step-dot"></span><p>' + s + '</p></div>';
+    });
+
+    if (a.variant) {
+      html += '<div class="lp-variant"><strong>🔄 Záložný variant</strong>' + a.variant + '</div>';
+    }
+
+    // reflexia
+    html += '<div class="lp-reflex"><div class="lp-reflex-tabs">';
+    html += '<div class="lp-reflex-tab active" onclick="switchLpReflex(event,\'' + uid + '-pred\',\'' + uid + '\')">Pred</div>';
+    html += '<div class="lp-reflex-tab" onclick="switchLpReflex(event,\'' + uid + '-pocas\',\'' + uid + '\')">Počas</div>';
+    html += '<div class="lp-reflex-tab" onclick="switchLpReflex(event,\'' + uid + '-po\',\'' + uid + '\')">Po</div>';
+    html += '</div>';
+
+    ['pred','pocas','po'].forEach(function(faza, fi) {
+      html += '<div class="lp-reflex-content' + (fi===0?' active':'') + '" id="' + uid + '-' + faza + '">';
+      if (a.reflex[faza] && a.reflex[faza].length) {
+        a.reflex[faza].forEach(function(q) { html += '<div class="lp-reflex-q">' + q + '</div>'; });
+      } else {
+        html += '<p style="font-size:12px;color:var(--gray-500);padding:4px 0">–</p>';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+
+    if (a.tip) {
+      html += '<div class="lp-tip"><strong>💡 Tip pre lektora</strong>' + a.tip + '</div>';
+    }
+
+    html += '</div></div>';
+  });
+
+  document.getElementById('sl-body').innerHTML = html;
+}
+
+function toggleLpAct(header, bodyId) {
+  var body = document.getElementById(bodyId);
+  body.classList.toggle('open');
+  header.classList.toggle('open');
+}
+
+function switchLpReflex(e, targetId, uid) {
+  e.stopPropagation();
+  var wrap = document.getElementById(targetId).closest('.lp-reflex');
+  wrap.querySelectorAll('.lp-reflex-tab').forEach(function(t) { t.classList.remove('active'); });
+  wrap.querySelectorAll('.lp-reflex-content').forEach(function(c) { c.classList.remove('active'); });
+  e.target.classList.add('active');
+  document.getElementById(targetId).classList.add('active');
+}
+
+function closeSlideout() {
+  document.getElementById('slideout-panel').classList.remove('open');
+  document.getElementById('slideout-overlay').classList.remove('open');
+}
+
+renderMap();
+renderProgressBar();
+kmSelect(0);
+
+function renderProgressBar() {
+  // Determine current module by month
+  const month = new Date().getMonth(); // 0=Jan ... 11=Dec
+  // Sep(8)-Oct(9)=0, Nov(10)-Dec(11)=1, Jan(0)-Feb(1)=2, Mar(2)-Apr(3)=3, May(4)-Jun(5)=4
+  const monthToModule = { 8:0, 9:0, 10:1, 11:1, 0:2, 1:2, 2:3, 3:3, 4:4, 5:4 };
+  const currentIdx = monthToModule[month] !== undefined ? monthToModule[month] : -1;
+
+  const periods = ["Sep – Okt", "Nov – Dec", "Jan – Feb", "Mar – Apr", "Máj – Jún"];
+  const titles = ["Problém & Nápad", "Pohľady & Rozhodnutia", "Potreby & Spätná väzba", "Plán & Tím", "Prototyp & Pitch"];
+  const months = ["Január","Február","Marec","Apríl","Máj","Jún","Júl","August","September","Október","November","December"];
+  const now = months[month];
+
+  // Progress fill: each module = 20%, current gets half step
+  const fillPct = currentIdx < 0 ? 0 : Math.round(((currentIdx) / 4) * 100);
+
+  const stepsHtml = MODULES.map((m, i) => {
+    let cls = '';
+    if (i < currentIdx) cls = 'done';
+    else if (i === currentIdx) cls = 'current';
+    return `<div class="progress-step ${cls}" onclick="openModule(${i})">
+      <div class="progress-step-dot"></div>
+      <div class="progress-step-label">Level ${i+1}<br>${periods[i]}</div>
+    </div>`;
+  }).join('');
+
+  const currentLabel = currentIdx >= 0
+    ? `<span class="progress-current-badge"><span class="badge-dot"></span>Teraz: ${titles[currentIdx]}</span>`
+    : `<span class="progress-current-badge"><span class="badge-dot"></span>Prázdniny 🎉</span>`;
+
+  document.getElementById('progress-bar-wrap').innerHTML = `
+    <div class="progress-bar-header">
+      <span class="progress-bar-title">Kde ste v roku</span>
+      <span class="progress-bar-month">${now} ${new Date().getFullYear()}</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" style="width: ${fillPct}%"></div>
+    </div>
+    <div class="progress-steps">${stepsHtml}</div>
+    <div style="margin-top:12px">${currentLabel}</div>
+  `;
+}
+</script>
+<!-- SLIDE-OUT PANEL -->
+<div class="slideout-overlay" id="slideout-overlay" onclick="closeSlideout()"></div>
+<div class="slideout-panel" id="slideout-panel">
+  <div class="slideout-header">
+    <button class="slideout-close" onclick="closeSlideout()">✕</button>
+    <div class="slideout-eyebrow" id="sl-eyebrow"></div>
+    <div class="slideout-title" id="sl-title"></div>
+    <div class="slideout-sub" id="sl-sub"></div>
+  </div>
+  <div class="slideout-body" id="sl-body"></div>
+</div>
+
+<!-- LP MODAL -->
+<div class="lp-modal-overlay" id="lp-modal-overlay">
+  <div class="lp-modal">
+    <div class="lp-modal-header">
+      <div>
+        <div class="lp-modal-eyebrow" id="lp-modal-eyebrow"></div>
+        <div class="lp-modal-title" id="lp-modal-title"></div>
+      </div>
+      <button class="lp-modal-close" onclick="document.getElementById('lp-modal-overlay').classList.remove('open')">&#10005;</button>
+    </div>
+    <div class="lp-modal-body" id="lp-modal-body"></div>
+  </div>
+</div>
+
+</body>
+</html>

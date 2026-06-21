@@ -76,6 +76,88 @@
   .tool-icon:hover { border-color: var(--orange); background: var(--orange-light); transform: scale(1.1); }
   .tool-icon .tool-tooltip { position: absolute; bottom: calc(100% + 6px); left: 50%; transform: translateX(-50%); background: var(--black); color: var(--white); font-size: 11px; padding: 4px 8px; border-radius: 4px; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity 0.15s; font-family: var(--font); }
   .tool-icon:hover .tool-tooltip { opacity: 1; }
+
+  /* SLIDE-OUT PANEL */
+  .slideout-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+  .slideout-overlay.open { opacity: 1; pointer-events: all; }
+  .slideout-panel { position: fixed; top: 52px; right: 0; bottom: 0; width: 560px; max-width: 95vw; background: var(--white); z-index: 201; transform: translateX(100%); transition: transform 0.3s cubic-bezier(.4,0,.2,1); overflow-y: auto; box-shadow: -8px 0 32px rgba(0,0,0,0.12); }
+  .slideout-panel.open { transform: translateX(0); }
+  .slideout-header { background: var(--black); padding: 24px 28px 20px; color: var(--white); position: sticky; top: 0; z-index: 1; }
+  .slideout-close { position: absolute; top: 16px; right: 20px; background: none; border: none; color: var(--gray-500); font-size: 20px; cursor: pointer; font-family: var(--font); padding: 4px 8px; border-radius: 4px; transition: color 0.15s; }
+  .slideout-close:hover { color: var(--white); }
+  .slideout-eyebrow { font-size: 10px; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+  .slideout-title { font-size: 22px; font-weight: 600; line-height: 1.2; }
+  .slideout-sub { font-size: 13px; color: var(--gray-500); margin-top: 4px; }
+  .slideout-body { padding: 28px; }
+
+  /* LESSON PLAN ZOZNAM */
+  .lp-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 24px; }
+  .lp-list-item { background: var(--gray-50); border: 1px solid var(--gray-100); border-radius: var(--radius-lg); padding: 16px 20px; cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 14px; }
+  .lp-list-item:hover { border-color: var(--orange); background: var(--orange-light); }
+  .lp-list-num { width: 32px; height: 32px; border-radius: 50%; background: var(--black); color: var(--white); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .lp-list-info { flex: 1; }
+  .lp-list-info .lp-name { font-size: 14px; font-weight: 500; margin-bottom: 2px; }
+  .lp-list-info .lp-meta { font-size: 12px; color: var(--gray-500); }
+  .lp-list-arrow { font-size: 14px; color: var(--orange); opacity: 0; transition: opacity 0.15s; }
+  .lp-list-item:hover .lp-list-arrow { opacity: 1; }
+  .lp-placeholder-item { background: var(--gray-50); border: 1px dashed var(--gray-300); border-radius: var(--radius-lg); padding: 14px 20px; display: flex; align-items: center; gap: 10px; }
+  .lp-placeholder-item .ph-num { width: 32px; height: 32px; border-radius: 50%; background: var(--gray-100); color: var(--gray-500); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .lp-placeholder-item .ph-text { font-size: 13px; color: var(--gray-500); }
+
+  /* LESSON PLAN DETAIL */
+  .lp-back { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gray-500); cursor: pointer; margin-bottom: 20px; background: none; border: none; padding: 0; font-family: var(--font); transition: color 0.15s; }
+  .lp-back:hover { color: var(--black); }
+  .lp-detail-header { margin-bottom: 20px; }
+  .lp-detail-eyebrow { font-size: 10px; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+  .lp-detail-title { font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+  .lp-detail-meta { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; }
+  .lp-detail-meta-item { background: var(--gray-50); border-radius: var(--radius); padding: 6px 12px; }
+  .lp-detail-meta-item .dlabel { font-size: 10px; color: var(--gray-500); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2px; }
+  .lp-detail-meta-item .dvalue { font-size: 12px; font-weight: 500; }
+  .lp-goal-box { background: var(--off-black); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 20px; }
+  .lp-goal-box .glabel { font-size: 10px; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; font-weight: 600; }
+  .lp-goal-box .gtext { font-size: 12px; color: #ccc; line-height: 1.6; }
+  .lp-prep { background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius); padding: 14px 16px; margin-bottom: 20px; }
+  .lp-prep .plabel { font-size: 10px; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; font-weight: 600; }
+  .lp-prep-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+  .lp-prep-chip { font-size: 11px; padding: 3px 9px; border: 1px solid #e5e5e5; border-radius: 20px; color: var(--gray-700); background: var(--gray-50); }
+  .lp-section-lbl { font-size: 10px; font-weight: 600; color: var(--gray-500); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--black); }
+  .lp-act-card { background: var(--white); border: 1px solid var(--gray-100); border-radius: var(--radius-lg); margin-bottom: 10px; overflow: hidden; }
+  .lp-act-hdr { display: flex; align-items: center; gap: 12px; padding: 14px 18px; cursor: pointer; transition: background 0.15s; user-select: none; }
+  .lp-act-hdr:hover { background: var(--gray-50); }
+  .lp-act-hdr.open { background: var(--gray-50); }
+  .lp-act-num { width: 28px; height: 28px; border-radius: 50%; background: var(--black); color: var(--white); font-size: 11px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .lp-act-info { flex: 1; }
+  .lp-act-info .aname { font-size: 14px; font-weight: 600; }
+  .lp-act-info .agoal { font-size: 11px; color: var(--gray-500); line-height: 1.4; margin-top: 2px; }
+  .lp-act-time { font-size: 11px; color: var(--orange); background: var(--orange-light); padding: 3px 8px; border-radius: 20px; flex-shrink: 0; font-weight: 500; }
+  .lp-act-chev { font-size: 11px; color: var(--gray-500); transition: transform 0.25s; flex-shrink: 0; }
+  .lp-act-hdr.open .lp-act-chev { transform: rotate(180deg); }
+  .lp-act-body { display: none; border-top: 1px solid var(--gray-100); padding: 16px 18px; }
+  .lp-act-body.open { display: block; }
+  .lp-step { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--gray-100); }
+  .lp-step:last-child { border-bottom: none; }
+  .lp-step-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); flex-shrink: 0; margin-top: 6px; }
+  .lp-step p { font-size: 12px; color: var(--gray-700); line-height: 1.6; }
+  .lp-reflex { background: var(--gray-50); border-radius: var(--radius); overflow: hidden; margin-top: 12px; margin-bottom: 10px; }
+  .lp-reflex-tabs { display: flex; border-bottom: 1px solid var(--gray-100); }
+  .lp-reflex-tab { font-size: 11px; font-weight: 500; color: var(--gray-500); padding: 7px 12px; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; margin-bottom: -1px; }
+  .lp-reflex-tab:hover { color: var(--black); }
+  .lp-reflex-tab.active { color: var(--orange); border-bottom-color: var(--orange); }
+  .lp-reflex-content { display: none; padding: 12px 14px; }
+  .lp-reflex-content.active { display: block; }
+  .lp-reflex-q { font-size: 12px; color: var(--gray-700); line-height: 1.65; margin-bottom: 5px; display: flex; gap: 7px; }
+  .lp-reflex-q::before { content: '→'; color: var(--orange); flex-shrink: 0; }
+  .lp-tip { background: #FFF8F0; border-left: 3px solid var(--orange); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 12px; font-size: 12px; color: var(--gray-700); line-height: 1.55; margin-top: 10px; }
+  .lp-tip strong { color: var(--orange-dark); display: block; margin-bottom: 2px; font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+  .lp-variant { background: var(--gray-50); border: 1px dashed #ccc; border-radius: var(--radius); padding: 10px 12px; font-size: 12px; color: var(--gray-700); line-height: 1.55; margin-top: 10px; }
+  .lp-variant strong { display: block; font-size: 10px; color: var(--gray-500); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3px; }
+  .lp-listky { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+  .lp-listok { font-size: 11px; padding: 4px 10px; border-radius: 6px; font-weight: 500; }
+  .lp-listok.yellow { background: #FFF9C4; color: #7B6000; }
+  .lp-listok.green { background: #E8F5E9; color: #2E7D32; }
+  .lp-listok.blue { background: #E3F2FD; color: #1565C0; }
+  .lp-listok.red { background: #FFEBEE; color: #C62828; }
   .module-level { margin-top: 16px; background: var(--gray-50); border-radius: var(--radius); padding: 10px 12px; font-size: 11px; color: var(--gray-700); line-height: 1.5; }
   .module-level strong { display: block; font-size: 10px; color: var(--orange); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 4px; }
   .module-cta { margin-top: 16px; display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 500; color: var(--orange); opacity: 0; transition: opacity 0.15s; }
@@ -117,6 +199,22 @@
   .detail-meta-item .label { font-size: 10px; color: var(--gray-500); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 3px; }
   .detail-meta-item .value { font-size: 14px; color: var(--white); font-weight: 500; }
   .detail-body { padding: 36px 40px; max-width: 960px; }
+  #lp-view-body { max-width: 100%; padding: 36px 40px; }
+  .lp-full-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .lp-full-acts { display: flex; flex-direction: column; gap: 12px; }
+  .lp-prejav { background: var(--white); border: 1px solid var(--gray-100); border-left: 3px solid var(--orange); border-radius: 0 var(--radius-lg) var(--radius-lg) 0; padding: 20px 24px; margin-bottom: 24px; }
+  .lp-prejav .plabel { font-size: 10px; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; font-weight: 600; }
+  .lp-prejav-text { font-size: 13px; color: var(--gray-700); line-height: 1.7; }
+  .lp-modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 300; opacity: 0; pointer-events: none; transition: opacity 0.25s; display: flex; align-items: center; justify-content: center; }
+  .lp-modal-overlay.open { opacity: 1; pointer-events: all; }
+  .lp-modal { background: var(--white); width: 82vw; max-width: 1100px; height: 86vh; border-radius: var(--radius-lg); overflow: hidden; display: flex; flex-direction: column; transform: scale(0.97); transition: transform 0.25s; }
+  .lp-modal-overlay.open .lp-modal { transform: scale(1); }
+  .lp-modal-header { background: var(--black); padding: 18px 28px; color: var(--white); display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+  .lp-modal-eyebrow { font-size: 10px; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; margin-bottom: 4px; }
+  .lp-modal-title { font-size: 20px; font-weight: 600; }
+  .lp-modal-close { background: none; border: none; color: var(--gray-500); font-size: 22px; cursor: pointer; padding: 4px 8px; border-radius: 4px; transition: color 0.15s; font-family: var(--font); line-height: 1; }
+  .lp-modal-close:hover { color: var(--white); }
+  .lp-modal-body { overflow-y: auto; padding: 32px 36px; flex: 1; }
   .section-label { font-size: 10px; font-weight: 600; color: var(--gray-500); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--gray-100); }
   .detail-section { margin-bottom: 36px; }
 
@@ -364,6 +462,16 @@
       <div id="md-level"></div>
     </div>
   </div>
+</div>
+
+<!-- VIEW: LESSON PLÁNY -->
+<div class="view" id="view-lessonplans">
+  <div class="module-detail-hero">
+    <button class="back-btn" id="lp-back-btn">← Späť na modul</button>
+    <div class="detail-eyebrow" id="lp-eyebrow"></div>
+    <h2 class="detail-hero-title" id="lp-hero-title"></h2>
+  </div>
+  <div class="detail-body" id="lp-view-body"></div>
 </div>
 
 <!-- VIEW: AKTIVITA DETAIL -->
@@ -758,7 +866,10 @@ function renderMap() {
       <div class="module-tools">
         <div class="module-tools-label">Metódy</div>
         <div class="tools-icons">
-          ${m.activities.map(a => `<span class="tool-icon" onclick="event.stopPropagation(); openActivity('${a.id}', ${m.id})">${a.icon}<span class="tool-tooltip">${a.name}</span></span>`).join('')}
+          ${m.activities.map(function(a) {
+            var fn = m.id === 0 ? 'openSlideout' : 'openActivity';
+            return '<span class="tool-icon" onclick="event.stopPropagation(); ' + fn + '(\'' + a.id + '\',' + m.id + ')">' + a.icon + '<span class="tool-tooltip">' + a.name + '</span></span>';
+          }).join('')}
         </div>
       </div>
       <div class="module-level">
@@ -836,16 +947,16 @@ function openModule(id) {
     </div>`;
   }).join('');
 
-  document.getElementById('md-activities').innerHTML = m.activities.map(a => `
-    <div class="activity-card" onclick="openActivity('${a.id}', ${id})">
-      <span class="act-icon">${a.icon}</span>
-      <div class="act-name">${a.name}</div>
-      <div class="act-desc">${a.desc}</div>
-      <div class="act-footer">
-        <span class="act-time">⏱ ${a.time}</span>
-        <span class="act-open">Otvoriť →</span>
-      </div>
-    </div>`).join('');
+  document.getElementById('md-activities').innerHTML = m.activities.map(function(a) {
+    return '<div class="activity-card" onclick="openActivity(\'' + a.id + '\',' + id + ')">' +
+      '<span class="act-icon">' + a.icon + '</span>' +
+      '<div class="act-name">' + a.name + '</div>' +
+      '<div class="act-desc">' + a.desc + '</div>' +
+      '<div class="act-footer">' +
+        '<span class="act-time">⏱ ' + a.time + '</span>' +
+        '<span class="act-open">Otvoriť →</span>' +
+      '</div></div>';
+  }).join('');
 
   document.getElementById('md-level').innerHTML = `
     <div class="level-box">
@@ -875,8 +986,17 @@ function openActivity(actId, moduleId) {
   if (moduleId !== undefined) currentModuleId = moduleId;
   const m = MODULES[currentModuleId];
   const actBase = m.activities.find(a => a.id === actId);
-  const actDetail = ACTIVITY_DETAILS[actId];
 
+  // Modul 0 — modal
+  if (currentModuleId === 0) {
+    document.getElementById('lp-modal-eyebrow').textContent = m.title + ' · Aktivita';
+    document.getElementById('lp-modal-title').textContent = actBase ? actBase.name : actId;
+    lpModalList(actId);
+    document.getElementById('lp-modal-overlay').classList.add('open');
+    return;
+  }
+
+  const actDetail = ACTIVITY_DETAILS[actId];
   document.getElementById('act-eyebrow').textContent = `${m.title} · Aktivita`;
   document.getElementById('act-title').innerHTML = `<strong>${actBase ? actBase.name : actId}</strong>`;
   document.getElementById('act-back-btn').onclick = () => { showView('module'); updateBreadcrumb('module', m.title); };
@@ -954,6 +1074,363 @@ function updateBreadcrumb(level, label) {
   }
 }
 
+// LESSON PLANS DATA
+var LESSON_PLANS = {
+  'timove-dohody': [
+    {
+      id: 'lp-timove-1',
+      name: 'Tímové dohody – Stretnutie 1',
+      meta: [
+        { label: 'Čas', value: '60 min' },
+        { label: 'Aktivity', value: '4' },
+        { label: 'Ročník', value: 'Rok 1' }
+      ],
+      ciel: 'Na konci stretnutia účastník dokáže pomenovať niečo spoločné s iným človekom v skupine, jednu silnú stránku celej skupiny a zreflektuje svoje očakávania a obavy o programe.',
+      kompetencia: 'Účastník dokáže po skúsenosti pomenovať, čo fungovalo, čo nefungovalo a čo chce skúsiť ďalej.',
+      priprava: ['Menovky a perá', 'Stoličky (počet detí + 1)', 'Flipchart / papier na stenu so schémou roka', 'Fixky', 'Stopky'],
+      prejav: 'Sledujem, či každý nájde partnera na rozhovor. Všímam si, kto zostáva bokom a kto prirodzene spája ostatných. V hre My Place pozorujem, ako skupina komunikuje — kto vedie, kto sleduje, kto navrhuje stratégiu. Pri schéme roka si všímam, kde na osi deti lepia svoje lístky a čo to hovorí o ich očakávaniach.',
+      aktivity: [
+        {
+          num: 1, name: 'Úvod & Menovky', time: '10 min',
+          goal: 'Každý vie, ako chce byť oslovovaný, a priestor sa cíti bezpečne.',
+          steps: [
+            '<strong>Zoznámenie s priestorom:</strong> Krátke predstavenie priestoru a dňa – deti vedia, kde sú a čo ich čaká.',
+            '<strong>Menovky:</strong> Každé dieťa si napíše, ako chce byť oslovované. Na konci dňa dopíše 1 slovo opisujúce jeho pocit → menovky zostanú visieť v priestore.'
+          ],
+          reflex: {
+            pred: ['„Ako sa dnes cítite? Čo od dnešného stretnutia očakávate?"'],
+            pocas: ['„Ako sa vám darí? Je niečo, čo potrebujete?"'],
+            po: ['„Čo si odnášaš z dnešného úvodu? Jedno slovo."']
+          }
+        },
+        {
+          num: 2, name: 'Energizer: Spoločné body', time: '15 min',
+          goal: 'Každý nájde aspoň jednu spoločnú vec s niekým, koho dobre nepozná.',
+          steps: [
+            'Každé dieťa nájde partnera (niekoho, s kým ešte nehovorilo tento týždeň) a hľadajú 1 spoločnú vec (farba, hobby, jedlo...).',
+            'Po nájdení sa vystriedajú s ďalším partnerom. Minimálne 5 výmen.'
+          ],
+          variant: 'Ak sa skupina pozná, hráči hľadajú menej zrejmé spoločné veci (napr. obľúbená ročná doba).',
+          tip: 'Forma: Každý povie iba 1 slovo → rýchle, udržiava energiu.',
+          reflex: {
+            pred: ['„Čo si myslíte, že budete mať spoločné s niekým, koho dobre nepoznáte?"', '„Ako sa cítite pred tým, než sa budete rozprávať s niekým novým?"'],
+            pocas: ['„Darí sa vám nájsť spoločné veci?"', '„Čo vás prekvapuje?"'],
+            po: ['„Ako sa vám podarilo nájsť spoločné veci?"', '„Bolo ťažké? Prečo?"', '„Čo ste zistili o seba navzájom?"']
+          }
+        },
+        {
+          num: 3, name: 'Hra „My Place"', time: '15 min',
+          goal: 'Účastníci si uvedomia, ako menili stratégiu, a pomenujú 1–2 silné stránky skupiny.',
+          steps: [
+            'Stoličky sú náhodne rozmiestnené. Deti si vyberú stoličku. Jedna zostane prázdna.',
+            '<strong>Úloha:</strong> zabrániť koordinátorovi sadnúť si na prázdnu stoličku – prázdna stolička sa musí neustále hýbať.',
+            '3–4 kolá po 4–5 min. Medzi kolami krátka pauza na stratégiu.'
+          ],
+          tip: 'Fyzická reflexia – Postav sa, ak si spolupracoval; Zostaň sedieť, ak si viac sledoval.',
+          reflex: {
+            pred: ['„Čo si myslíte, že bude na tejto hre ťažké?"', '„Čo potrebuje tím, aby uspel?"'],
+            pocas: ['„Čo vám fungovalo? Čo nie?"', '„Ako sa chcete dohodnúť pre ďalšie kolo?"'],
+            po: ['„Ako ste sa cítili počas hry?"', '„Čo vám pomohlo?" (rýchlosť, spolupráca, stratégia)', '„Čo ste si uvedomili o sebe a o skupine?"']
+          }
+        },
+        {
+          num: 4, name: 'Schéma roka & Očakávania', time: '20 min',
+          goal: 'Na časovej osi visí každého očakávanie, obava aj silná stránka — skupina vidí spoločný obraz roka.',
+          steps: [
+            'Na stene je schéma roka (časová os). Deti píšu farebne odlíšenými lístkami: 🟡 Žltý – otázka k programu, 🟢 Zelený – moje očakávanie, 🔵 Modrý – niečo, čoho sa obávam. Anonymné lístky sú povolené.',
+            '<strong>Fáza 2 – Supermoce v čase:</strong> Skupina identifikuje silné stránky a lepí na os: 🔴 Červený – „Kde v roku využijeme túto silnú stránku?"',
+            '<strong>Záver – Menovka na os:</strong> Každý dopíše 1 silnú stránku, ktorú dnes objavil u seba, a nalepí ju na os tam, kde ju najviac využije.'
+          ],
+          reflex: {
+            pred: ['„Čo od tohto roka očakávate? Čo dúfate, že sa naučíte?"', '„Je niečo, čo vás na programe zaujíma alebo naopak trápi?"'],
+            pocas: ['„Kde v roku si myslíte, že to bude najťažšie? Čo nám pomôže?"'],
+            po: ['„Čo by sme chceli povedať sami sebe o 6 mesiacov?"']
+          }
+        }
+      ]
+    }
+  ]
+};
+
+function lpModalList(actId) {
+  var lps = LESSON_PLANS[actId];
+  var html = '<div class="section-label" style="margin-bottom:16px">Lesson plány</div><div class="lp-list">';
+  if (lps && lps.length) {
+    lps.forEach(function(lp, i) {
+      html += '<div class="lp-list-item" onclick="lpModalDetail(\'' + actId + '\',' + i + ')">';
+      html += '<span class="lp-list-num">' + (i+1) + '</span>';
+      html += '<div class="lp-list-info"><div class="lp-name">' + lp.name + '</div><div class="lp-meta">&#9201; ' + lp.meta[0].value + ' &middot; ' + lp.meta[1].value + ' aktivity</div></div>';
+      html += '<span class="lp-list-arrow">&#8594;</span></div>';
+    });
+  }
+  html += '<div class="lp-placeholder-item"><span class="ph-num">+</span><span class="ph-text">Ďalší lesson plan sa dopĺňa...</span></div>';
+  html += '</div>';
+  document.getElementById('lp-modal-body').innerHTML = html;
+  document.getElementById('lp-modal-body').scrollTop = 0;
+}
+
+function lpModalDetail(actId, idx) {
+  var lp = LESSON_PLANS[actId][idx];
+  var html = '<button class="lp-back" onclick="lpModalList(\'' + actId + '\')">&#8592; Späť na zoznam</button>';
+  html += '<div class="lp-detail-eyebrow">Lesson Plan</div>';
+  html += '<div class="lp-detail-title">' + lp.name + '</div>';
+  html += '<div class="lp-detail-meta">';
+  lp.meta.forEach(function(m) { html += '<div class="lp-detail-meta-item"><div class="dlabel">' + m.label + '</div><div class="dvalue">' + m.value + '</div></div>'; });
+  html += '</div>';
+  html += '<div class="lp-full-grid">';
+  html += '<div class="lp-goal-box"><div class="glabel">Cieľ stretnutia</div><div class="gtext">' + lp.ciel + '</div></div>';
+  html += '<div class="lp-goal-box"><div class="glabel">Kompetencia</div><div class="gtext">' + lp.kompetencia + '</div></div>';
+  html += '</div>';
+  html += '<div class="lp-prep" style="margin-bottom:20px"><div class="plabel">&#127890; Čo si pripraviť</div><div class="lp-prep-chips">';
+  lp.priprava.forEach(function(p) { html += '<span class="lp-prep-chip">' + p + '</span>'; });
+  html += '</div></div>';
+  if (lp.prejav) { html += '<div class="lp-prejav"><div class="plabel">&#128065; Prejav — čo si všímam</div><div class="lp-prejav-text">' + lp.prejav + '</div></div>'; }
+  html += '<div class="lp-section-lbl">Priebeh stretnutia</div><div class="lp-full-acts">';
+  lp.aktivity.forEach(function(a, ai) {
+    var uid = 'lpm' + idx + 'x' + ai;
+    html += '<div class="lp-act-card">';
+    html += '<div class="lp-act-hdr" onclick="toggleLpAct(this,\'' + uid + '\')">';
+    html += '<span class="lp-act-num">' + a.num + '</span>';
+    html += '<div class="lp-act-info"><div class="aname">' + a.name + '</div><div class="agoal">' + a.goal + '</div></div>';
+    html += '<span class="lp-act-time">&#9201; ' + a.time + '</span><span class="lp-act-chev">&#9660;</span></div>';
+    html += '<div class="lp-act-body" id="' + uid + '">';
+    a.steps.forEach(function(s) { html += '<div class="lp-step"><span class="lp-step-dot"></span><p>' + s + '</p></div>'; });
+    if (a.variant) { html += '<div class="lp-variant"><strong>Záložný variant</strong>' + a.variant + '</div>'; }
+    html += '<div class="lp-reflex"><div class="lp-reflex-tabs">';
+    ['pred','pocas','po'].forEach(function(f, fi) {
+      html += '<div class="lp-reflex-tab' + (fi===0?' active':'') + '" onclick="switchLpReflex(event,\'' + uid + f + '\',\'' + uid + '\')">' + (fi===0?'Pred':fi===1?'Počas':'Po') + '</div>';
+    });
+    html += '</div>';
+    ['pred','pocas','po'].forEach(function(f, fi) {
+      html += '<div class="lp-reflex-content' + (fi===0?' active':'') + '" id="' + uid + f + '">';
+      if (a.reflex[f] && a.reflex[f].length) { a.reflex[f].forEach(function(q) { html += '<div class="lp-reflex-q">' + q + '</div>'; }); }
+      else { html += '<p style="font-size:12px;color:var(--gray-500)">-</p>'; }
+      html += '</div>';
+    });
+    html += '</div>';
+    if (a.tip) { html += '<div class="lp-tip"><strong>Tip pre lektora</strong>' + a.tip + '</div>'; }
+    html += '</div></div>';
+  });
+  html += '</div>';
+  document.getElementById('lp-modal-body').innerHTML = html;
+  document.getElementById('lp-modal-body').scrollTop = 0;
+}
+
+// zavriet modal kliknutim mimo
+document.addEventListener('click', function(e) {
+  var overlay = document.getElementById('lp-modal-overlay');
+  if (e.target === overlay) overlay.classList.remove('open');
+});
+
+function lpRenderList(actId) {
+  var lps = LESSON_PLANS[actId];
+  var html = '<div class="detail-section"><div class="section-label">Lesson plány</div><div class="lp-list">';
+  if (lps && lps.length) {
+    lps.forEach(function(lp, i) {
+      html += '<div class="lp-list-item" onclick="lpRenderDetail(\'' + actId + '\',' + i + ')">';
+      html += '<span class="lp-list-num">' + (i+1) + '</span>';
+      html += '<div class="lp-list-info"><div class="lp-name">' + lp.name + '</div><div class="lp-meta">&#9201; ' + lp.meta[0].value + ' &middot; ' + lp.meta[1].value + ' aktivity</div></div>';
+      html += '<span class="lp-list-arrow">&#8594;</span></div>';
+    });
+  }
+  html += '<div class="lp-placeholder-item"><span class="ph-num">+</span><span class="ph-text">&#270A;al&#353;&#237; lesson plan sa dop&#318;&#225;...</span></div>';
+  html += '</div></div>';
+  document.getElementById('lp-view-body').innerHTML = html;
+  window.scrollTo(0, 0);
+}
+
+function lpRenderDetail(actId, idx) {
+  var lp = LESSON_PLANS[actId][idx];
+  var html = '<button class="lp-back" onclick="lpRenderList(\'' + actId + '\')">&#8592; Sp&#228;&#357; na zoznam</button>';
+  html += '<div class="lp-detail-eyebrow">Lesson Plan</div>';
+  html += '<div class="lp-detail-title">' + lp.name + '</div>';
+
+  // META
+  html += '<div class="lp-detail-meta">';
+  lp.meta.forEach(function(m) {
+    html += '<div class="lp-detail-meta-item"><div class="dlabel">' + m.label + '</div><div class="dvalue">' + m.value + '</div></div>';
+  });
+  html += '</div>';
+
+  // CIEL + KOMPETENCIA v dvoch stĺpcoch
+  html += '<div class="lp-full-grid">';
+  html += '<div class="lp-goal-box"><div class="glabel">Cieľ stretnutia</div><div class="gtext">' + lp.ciel + '</div></div>';
+  html += '<div class="lp-goal-box"><div class="glabel">Kompetencia</div><div class="gtext">' + lp.kompetencia + '</div></div>';
+  html += '</div>';
+
+  // PRIPRAVA
+  html += '<div class="lp-prep" style="margin-bottom:28px"><div class="plabel">&#127890; Čo si pripraviť</div><div class="lp-prep-chips">';
+  lp.priprava.forEach(function(p) { html += '<span class="lp-prep-chip">' + p + '</span>'; });
+  html += '</div></div>';
+
+  // PREJAV
+  if (lp.prejav) {
+    html += '<div class="lp-prejav"><div class="plabel">&#128065; Prejav — čo si všímam</div><div class="lp-prejav-text">' + lp.prejav + '</div></div>';
+  }
+
+  // AKTIVITY
+  html += '<div class="lp-section-lbl">Priebeh stretnutia</div>';
+  html += '<div class="lp-full-acts">';
+
+  lp.aktivity.forEach(function(a, ai) {
+    var uid = 'lpd' + idx + 'a' + ai;
+    html += '<div class="lp-act-card">';
+    html += '<div class="lp-act-hdr" onclick="toggleLpAct(this,\'' + uid + '\')">';
+    html += '<span class="lp-act-num">' + a.num + '</span>';
+    html += '<div class="lp-act-info"><div class="aname">' + a.name + '</div><div class="agoal">' + a.goal + '</div></div>';
+    html += '<span class="lp-act-time">&#9201; ' + a.time + '</span>';
+    html += '<span class="lp-act-chev">&#9660;</span></div>';
+    html += '<div class="lp-act-body" id="' + uid + '">';
+    a.steps.forEach(function(s) {
+      html += '<div class="lp-step"><span class="lp-step-dot"></span><p>' + s + '</p></div>';
+    });
+    if (a.variant) {
+      html += '<div class="lp-variant"><strong>Zalozny variant</strong>' + a.variant + '</div>';
+    }
+    html += '<div class="lp-reflex"><div class="lp-reflex-tabs">';
+    html += '<div class="lp-reflex-tab active" onclick="switchLpReflex(event,\'' + uid + 'pred\',\'' + uid + '\')">Pred</div>';
+    html += '<div class="lp-reflex-tab" onclick="switchLpReflex(event,\'' + uid + 'pocas\',\'' + uid + '\')">Počas</div>';
+    html += '<div class="lp-reflex-tab" onclick="switchLpReflex(event,\'' + uid + 'po\',\'' + uid + '\')">Po</div>';
+    html += '</div>';
+    ['pred','pocas','po'].forEach(function(faza, fi) {
+      html += '<div class="lp-reflex-content' + (fi===0 ? ' active' : '') + '" id="' + uid + faza + '">';
+      if (a.reflex[faza] && a.reflex[faza].length) {
+        a.reflex[faza].forEach(function(q) { html += '<div class="lp-reflex-q">' + q + '</div>'; });
+      } else {
+        html += '<p style="font-size:12px;color:var(--gray-500)">-</p>';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+    if (a.tip) { html += '<div class="lp-tip"><strong>Tip pre lektora</strong>' + a.tip + '</div>'; }
+    html += '</div></div>';
+  });
+
+  html += '</div>'; // end lp-full-acts
+  document.getElementById('lp-view-body').innerHTML = html;
+  window.scrollTo(0, 0);
+}
+
+function openSlideout(actId, moduleId) {
+  var m = MODULES[moduleId];
+  var actBase = m.activities.find(function(a) { return a.id === actId; });
+  var lps = LESSON_PLANS[actId];
+
+  document.getElementById('sl-eyebrow').textContent = m.title + ' · Aktivita';
+  document.getElementById('sl-title').textContent = actBase ? actBase.name : actId;
+  document.getElementById('sl-sub').textContent = actBase ? actBase.desc : '';
+
+  if (lps && lps.length > 0) {
+    renderLpList(actId, lps);
+  } else {
+    document.getElementById('sl-body').innerHTML = '<div style="padding:32px 0; text-align:center"><div style="font-size:36px;margin-bottom:12px">🚧</div><p style="font-size:13px;color:var(--gray-500)">Lesson plány sa dopĺňajú.</p></div>';
+  }
+
+  document.getElementById('slideout-panel').classList.add('open');
+  document.getElementById('slideout-overlay').classList.add('open');
+}
+
+function renderLpList(actId, lps) {
+  var html = '<div style="font-size:10px;color:var(--gray-500);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:14px;font-weight:600;">Lesson plány</div>';
+  html += '<div class="lp-list">';
+  lps.forEach(function(lp, i) {
+    html += '<div class="lp-list-item" onclick="renderLpDetail(\'' + actId + '\',' + i + ')">';
+    html += '<span class="lp-list-num">' + (i+1) + '</span>';
+    html += '<div class="lp-list-info"><div class="lp-name">' + lp.name + '</div><div class="lp-meta">⏱ ' + lp.meta[0].value + ' · ' + lp.meta[1].value + ' aktivity</div></div>';
+    html += '<span class="lp-list-arrow">→</span></div>';
+  });
+  html += '<div class="lp-placeholder-item"><span class="ph-num">+</span><span class="ph-text">Ďalší lesson plan sa dopĺňa...</span></div>';
+  html += '</div>';
+  document.getElementById('sl-body').innerHTML = html;
+}
+
+function renderLpDetail(actId, idx) {
+  var lp = LESSON_PLANS[actId][idx];
+  var html = '<button class="lp-back" onclick="renderLpList(\'' + actId + '\', LESSON_PLANS[\'' + actId + '\'])">← Späť na zoznam</button>';
+
+  html += '<div class="lp-detail-eyebrow">Lesson Plan</div>';
+  html += '<div class="lp-detail-title">' + lp.name + '</div>';
+  html += '<div class="lp-detail-meta">';
+  lp.meta.forEach(function(m) {
+    html += '<div class="lp-detail-meta-item"><div class="dlabel">' + m.label + '</div><div class="dvalue">' + m.value + '</div></div>';
+  });
+  html += '</div>';
+
+  html += '<div class="lp-goal-box"><div class="glabel">Cieľ stretnutia</div><div class="gtext">' + lp.ciel + '</div></div>';
+  html += '<div class="lp-goal-box" style="margin-bottom:20px"><div class="glabel">Kompetencia</div><div class="gtext">' + lp.kompetencia + '</div></div>';
+
+  html += '<div class="lp-prep"><div class="plabel">🎒 Čo si pripraviť</div><div class="lp-prep-chips">';
+  lp.priprava.forEach(function(p) { html += '<span class="lp-prep-chip">' + p + '</span>'; });
+  html += '</div></div>';
+
+  html += '<div class="lp-section-lbl">Priebeh stretnutia</div>';
+
+  lp.aktivity.forEach(function(a, ai) {
+    var uid = 'lpa-' + idx + '-' + ai;
+    html += '<div class="lp-act-card">';
+    html += '<div class="lp-act-hdr" onclick="toggleLpAct(this,\'' + uid + '\')">';
+    html += '<span class="lp-act-num">' + a.num + '</span>';
+    html += '<div class="lp-act-info"><div class="aname">' + a.name + '</div><div class="agoal">' + a.goal + '</div></div>';
+    html += '<span class="lp-act-time">⏱ ' + a.time + '</span>';
+    html += '<span class="lp-act-chev">▼</span></div>';
+    html += '<div class="lp-act-body" id="' + uid + '">';
+
+    a.steps.forEach(function(s) {
+      html += '<div class="lp-step"><span class="lp-step-dot"></span><p>' + s + '</p></div>';
+    });
+
+    if (a.variant) {
+      html += '<div class="lp-variant"><strong>🔄 Záložný variant</strong>' + a.variant + '</div>';
+    }
+
+    // reflexia
+    html += '<div class="lp-reflex"><div class="lp-reflex-tabs">';
+    html += '<div class="lp-reflex-tab active" onclick="switchLpReflex(event,\'' + uid + '-pred\',\'' + uid + '\')">Pred</div>';
+    html += '<div class="lp-reflex-tab" onclick="switchLpReflex(event,\'' + uid + '-pocas\',\'' + uid + '\')">Počas</div>';
+    html += '<div class="lp-reflex-tab" onclick="switchLpReflex(event,\'' + uid + '-po\',\'' + uid + '\')">Po</div>';
+    html += '</div>';
+
+    ['pred','pocas','po'].forEach(function(faza, fi) {
+      html += '<div class="lp-reflex-content' + (fi===0?' active':'') + '" id="' + uid + '-' + faza + '">';
+      if (a.reflex[faza] && a.reflex[faza].length) {
+        a.reflex[faza].forEach(function(q) { html += '<div class="lp-reflex-q">' + q + '</div>'; });
+      } else {
+        html += '<p style="font-size:12px;color:var(--gray-500);padding:4px 0">–</p>';
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+
+    if (a.tip) {
+      html += '<div class="lp-tip"><strong>💡 Tip pre lektora</strong>' + a.tip + '</div>';
+    }
+
+    html += '</div></div>';
+  });
+
+  document.getElementById('sl-body').innerHTML = html;
+}
+
+function toggleLpAct(header, bodyId) {
+  var body = document.getElementById(bodyId);
+  body.classList.toggle('open');
+  header.classList.toggle('open');
+}
+
+function switchLpReflex(e, targetId, uid) {
+  e.stopPropagation();
+  var wrap = document.getElementById(targetId).closest('.lp-reflex');
+  wrap.querySelectorAll('.lp-reflex-tab').forEach(function(t) { t.classList.remove('active'); });
+  wrap.querySelectorAll('.lp-reflex-content').forEach(function(c) { c.classList.remove('active'); });
+  e.target.classList.add('active');
+  document.getElementById(targetId).classList.add('active');
+}
+
+function closeSlideout() {
+  document.getElementById('slideout-panel').classList.remove('open');
+  document.getElementById('slideout-overlay').classList.remove('open');
+}
+
 renderMap();
 renderProgressBar();
 kmSelect(0);
@@ -1000,5 +1477,31 @@ function renderProgressBar() {
   `;
 }
 </script>
+<!-- SLIDE-OUT PANEL -->
+<div class="slideout-overlay" id="slideout-overlay" onclick="closeSlideout()"></div>
+<div class="slideout-panel" id="slideout-panel">
+  <div class="slideout-header">
+    <button class="slideout-close" onclick="closeSlideout()">✕</button>
+    <div class="slideout-eyebrow" id="sl-eyebrow"></div>
+    <div class="slideout-title" id="sl-title"></div>
+    <div class="slideout-sub" id="sl-sub"></div>
+  </div>
+  <div class="slideout-body" id="sl-body"></div>
+</div>
+
+<!-- LP MODAL -->
+<div class="lp-modal-overlay" id="lp-modal-overlay">
+  <div class="lp-modal">
+    <div class="lp-modal-header">
+      <div>
+        <div class="lp-modal-eyebrow" id="lp-modal-eyebrow"></div>
+        <div class="lp-modal-title" id="lp-modal-title"></div>
+      </div>
+      <button class="lp-modal-close" onclick="document.getElementById('lp-modal-overlay').classList.remove('open')">&#10005;</button>
+    </div>
+    <div class="lp-modal-body" id="lp-modal-body"></div>
+  </div>
+</div>
+
 </body>
 </html>

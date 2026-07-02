@@ -13,6 +13,9 @@
     --orange: #F26A42;
     --orange-light: #FDE8E0;
     --orange-dark: #C94E28;
+    --blue: #5EA1D7;
+    --blue-light: #E3F0FA;
+    --blue-dark: #3A7DB5;
     --black: #111111;
     --off-black: #1C1C1C;
     --gray-700: #444444;
@@ -37,6 +40,12 @@
   .year-btn { font-size: 12px; font-weight: 500; color: var(--gray-500); padding: 4px 12px; border-radius: 4px; cursor: pointer; transition: all 0.15s; border: none; background: none; font-family: var(--font); letter-spacing: 0.02em; }
   .year-btn:hover { color: var(--white); }
   .year-btn.active { background: var(--orange); color: var(--white); }
+  #btn-rok2.active { background: var(--blue); color: var(--white); }
+  .rok2-accent { color: var(--blue); }
+  .rok2-bg { background: var(--blue); }
+  #view-rok2 .map-hero { background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%); }
+  #view-rok2 .map-hero-eyebrow { color: rgba(255,255,255,0.7); }
+  #view-rok2 .map-hero h1 span { color: var(--white); opacity: 0.85; }
   .topbar-breadcrumb { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gray-500); }
   .crumb { cursor: pointer; transition: color 0.15s; }
   .crumb:hover { color: var(--white); }
@@ -69,6 +78,20 @@
   .module-goals-label { font-size: 10px; color: var(--gray-500); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
   .module-goal { display: flex; gap: 8px; align-items: flex-start; font-size: 12px; color: var(--gray-700); margin-bottom: 6px; line-height: 1.45; }
   .module-goal .g-num { width: 16px; height: 16px; background: var(--orange-light); color: var(--orange-dark); font-size: 9px; font-weight: 600; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+
+  /* ROK 2 — modrá téma v detaile */
+  .rok2-theme .detail-eyebrow { color: var(--blue) !important; }
+  .rok2-theme .comp-label { color: var(--blue) !important; }
+  .rok2-theme .module-goals-label { color: var(--blue) !important; }
+  .rok2-theme .g-num { background: var(--blue-light) !important; color: var(--blue-dark) !important; }
+  .rok2-theme .comp-headline .comp-label { color: var(--blue) !important; }
+  .rok2-theme .know-dot { background: var(--blue) !important; }
+  .rok2-theme .know-item-header:hover { color: var(--blue) !important; }
+  .rok2-theme .tab-btn.active { color: var(--blue) !important; border-bottom-color: var(--blue) !important; }
+  .rok2-theme .section-label { border-bottom-color: var(--blue) !important; }
+  .rok2-theme .detail-meta-bar { border-bottom-color: #222 !important; }
+  .rok2-theme .comp-header { border-left: none !important; }
+  .rok2-theme .comp-header.open { border-left: 3px solid var(--blue) !important; }
   .module-tools { margin-top: 14px; }
   .module-tools-label { font-size: 10px; color: var(--gray-500); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
   .tools-icons { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -433,9 +456,9 @@
     <div style="font-size: 20px; font-weight: 600; color: var(--black);">Rok 2 sa pripravuje</div>
     <div style="font-size: 14px; color: var(--gray-500); max-width: 400px; line-height: 1.7;">Obsah druhého ročníka programu Budúcnosť inak tu postupne pribudne. Sleduj aktualizácie!</div>
     <div style="margin-top: 8px; display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;">
-      <span style="font-size: 12px; padding: 6px 16px; border: 1px solid var(--gray-300); border-radius: 20px; color: var(--gray-500);">Moduly sa dopĺňajú</span>
-      <span style="font-size: 12px; padding: 6px 16px; border: 1px solid var(--gray-300); border-radius: 20px; color: var(--gray-500);">Aktivity sa dopĺňajú</span>
-      <span style="font-size: 12px; padding: 6px 16px; border: 1px solid var(--gray-300); border-radius: 20px; color: var(--gray-500);">Kompetencie sa dopĺňajú</span>
+      <span style="font-size: 12px; padding: 6px 16px; border: 1px solid var(--blue-light); border-radius: 20px; color: var(--blue);">Moduly sa dopĺňajú</span>
+      <span style="font-size: 12px; padding: 6px 16px; border: 1px solid var(--blue-light); border-radius: 20px; color: var(--blue);">Aktivity sa dopĺňajú</span>
+      <span style="font-size: 12px; padding: 6px 16px; border: 1px solid var(--blue-light); border-radius: 20px; color: var(--blue);">Kompetencie sa dopĺňajú</span>
     </div>
   </div>
 </div>
@@ -443,14 +466,14 @@
 <!-- VIEW: MODUL DETAIL -->
 <div class="view" id="view-module">
   <div class="module-detail-hero">
-    <button class="back-btn" onclick="showView('map')">← Späť na mapu roka</button>
+  <button class="back-btn" onclick="renderMap(); showView('map'); updateBreadcrumb('map');">← Späť na mapu roka</button>
     <div class="detail-eyebrow" id="md-eyebrow"></div>
     <h2 class="detail-hero-title" id="md-title"></h2>
   </div>
   <div class="detail-meta-bar" id="md-meta"></div>
   <div class="detail-body">
     <div class="detail-section">
-      <div class="section-label">Čiastkové ciele — dieťa dokáže</div>
+      <div class="section-label">Čiastkové ciele — dieťa</div>
       <div class="competency-list" id="md-competencies"></div>
     </div>
     <div class="detail-section">
@@ -519,27 +542,24 @@ const KNOWLEDGE_DETAILS = {
   ],
   // Modul 1, kompetencia 0
   "1-0": [
-    { title: "Rôzni ľudia majú rôzne pohľady na rovnaký problém (perspektíva).", detail: "Perspektíva je uhol pohľadu, z ktorého vidíme situáciu. Každý človek vidí ten istý problém inak — podľa toho, kto je, kde žije, čo prežil. Napríklad: hlučná škola môže byť pre žiaka zábava, pre suseda problém a pre riaditeľa výzva. Žiadny pohľad nie je 'správnejší' — všetky sú dôležité." },
-    { title: "Empatia – vcítenie sa do iného.", detail: "Empatia znamená pokúsiť sa pochopiť, čo druhý človek cíti a prečo koná tak, ako koná. Nie je to súhlas s jeho názorom — je to snaha porozumieť mu. Empatia nám pomáha navrhovať riešenia, ktoré naozaj fungujú pre reálnych ľudí, nielen pre nás samých." },
-    { title: "Jeden problém môže ovplyvniť ľudí rôzne.", detail: "Každý problém má viacero strán. Napríklad chýbajúce miesto na bicykle pri škole ovplyvní žiakov inak než rodičov, učiteľov alebo mesto. Keď chceme problém vyriešiť, musíme rozumieť tomu, koho sa týka a ako — inak môžeme pomôcť jedným a uškodiť druhým." },
-    { title: "Aktéri – ľudia, ktorých sa vec týka.", detail: "Aktéri sú všetci ľudia a skupiny, ktorých sa problém alebo riešenie týka — priamo alebo nepriamo. Môžu to byť tí, ktorí problém pociťujú, tí, ktorí ho spôsobujú, alebo tí, ktorí ho môžu riešiť. Dobrý návrh riešenia myslí na všetkých relevantných aktérov." },
-    { title: "Rôzne skupiny majú rôzne potreby a záujmy.", detail: "Rôzne skupiny ľudí môžu chcieť rôzne — alebo dokonca protichodné — veci. Napríklad obchod chce predávať, zákazník chce lacno kúpiť, mesto chce čistú ulicu. Riešenie, ktoré ignoruje niektorú skupinu, môže vyvolať odpor alebo zlyhať." },
-    { title: "Persóna – vymyslená postava reprezentujúca skupinu ľudí.", detail: "Persóna je fiktívna postava, ktorú vytvárame aby sme lepšie pochopili skutočných ľudí. Napríklad: 'Marek, 12 rokov, chodí pešo do školy, nemá vlastný mobil, rád kreslí.' Persóna nám pomáha myslieť na konkrétneho človeka, nie na abstraktnú skupinu." }
-  ],
-  // Modul 1, kompetencia 1
-  "1-1": [
     { title: "Brainstorming a jeho pravidlá.", detail: "Brainstorming je technika generovania čo najviac nápadov za krátky čas. Základné pravidlá: (1) Žiadna kritika počas generovania. (2) Čím viac nápadov, tým lepšie. (3) Bizarné a nezvyčajné nápady sú vítané. (4) Môžeš stavať na nápadoch iných. Cieľom je množstvo — hodnotenie príde až potom." },
     { title: "Kreatívne techniky: mindmapping, SCAMPER, 5x prečo, crazy ideas, najhorší/najlepší nápad, redesign.", detail: "Mindmapping — zapisovanie nápadov do mapy okolo centrálneho pojmu. SCAMPER — otázky: Substitute (nahraď), Combine (spoj), Adapt (uprav), Modify (zmeň), Put to other use (použi inak), Eliminate (odstráň), Reverse (otoč). 5x prečo — pýtaš sa prečo päťkrát za sebou, kým nenájdeš koreň problému. Crazy ideas — najabsurdnejší nápad môže inšpirovať reálne riešenie. Najhorší nápad — vymysli najhoršie možné riešenie a potom ho otočte naruby." },
     { title: "Pravidlo odloženej kritiky.", detail: "Počas generovania nápadov nehodnotíme — ani pozitívne, ani negatívne. Kritika zastavuje kreativitu, lebo ľudia sa začnú báť zdieľať nápady. Najprv vyprodukujeme čo najviac nápadov, a až potom ich vyhodnotíme. Toto pravidlo chráni priestor pre odvážne myslenie." },
     { title: "Rozdiel medzi generovaním a hodnotením nápadov.", detail: "Generovanie nápadov a ich hodnotenie sú dve oddelené fázy — nemajú prebiehať súčasne. Generovanie: čo najviac nápadov, žiadne filtre. Hodnotenie: vyberieme najlepšie nápady podľa kritérií (realizovateľnosť, dopad, cena...). Keď ich miešame, potláčame kreativitu." },
     { title: "Hodnota tímového vymýšľania.", detail: "Tím dokáže vymyslieť viac a lepšie nápady ako jednotlivec — každý člen prináša iné skúsenosti a perspektívy. Nápady sa navzájom rozvíjajú a inšpirujú. Tímové vymýšľanie tiež zvyšuje angažovanosť — ľudia viac podporia riešenie, na ktorom sa podieľali." }
   ],
+  // Modul 1, kompetencia 1
+  "1-1": [
+    { title: "Dôkaz vlastnej schopnosti.", detail: "Každá skúsenosť, kde som niečo zvládol, je konkrétny dôkaz, že to viem — nie len pocit. Namiesto 'asi to zvládnem' môžem povedať 'zvládol som podobnú vec vtedy a vtedy'. Toto je základ vnútornej istoty, ktorá sa nerozpadne pri prvej ťažkosti." },
+    { title: "Vnútorný archív úspechov.", detail: "Zámerné zbieranie momentov, kedy mi niečo vyšlo — aj malé veci sa počítajú. Môže to byť denník, kartičky, nástenka alebo len vedomé pomenovanie: 'Toto mi dnes vyšlo.' Čím viac takýchto dôkazov zbierame, tým ľahšie sa na ne opierame, keď prichádza niečo ťažšie." },
+    { title: "'Ešte neviem' namiesto 'neviem'.", detail: "Malý jazykový posun, ktorý mení pohľad na vlastné schopnosti. 'Neviem' zatvára dvere. 'Ešte neviem' ich necháva otvorené. Tento posun nám pomáha vidieť schopnosti nie ako niečo pevné, ale ako niečo, čo sa dá rozvíjať." },
+    { title: "Prenositeľnosť skúsenosti.", detail: "To, že som zvládol X, mi pomáha veriť, že zvládnem aj Y. Skúsenosti z rôznych oblastí sa navzájom posilňujú. Keď sme sa naučili prekonať strach zo sólového výstupu pred triedou, môžeme sa na tú skúsenosť oprieť pri prezentácii projektu pred cudzími ľuďmi." }
+  ],
   // Modul 1, kompetencia 2
   "1-2": [
-    { title: "Vlnový efekt (ripple effect).", detail: "Jedno rozhodnutie sa šíri ďalej ako kruhy na vode po hodení kameňa. Ovplyvňuje nielen mňa priamo, ale postupne aj ľudí okolo mňa — aj keď to nemusí byť hneď vidno. Malé rozhodnutia môžu mať väčší dopad, ako si myslíme." },
-    { title: "Domino efekt.", detail: "Jedno rozhodnutie spustí ďalšie, tie spustia ďalšie — ako padajúce kocky domina. Keď vidíme rozhodnutia ako reťaz príčin a dôsledkov, začneme premýšľať nielen o bezprostrednom výsledku, ale aj o tom, čo môže nasledovať ďalej." },
-    { title: "'Čo by sa stalo, keby to urobil každý?'", detail: "Moje rozhodnutie sa nedeje izolovane. Táto otázka pomáha vidieť širší dopad: keby to isté rozhodnutie urobili všetci, aký by bol výsledok? Pomáha pri rozhodnutiach o spoločných zdrojoch, pravidlách alebo správaní v tíme." },
-    { title: "Kruhy dopadu (ja → tím → okolie).", detail: "Dopad rozhodnutia sa rozširuje od najbližšieho kruhu (mňa) cez tím až po širšie okolie. Prvý kruh: ako to ovplyvní mňa? Druhý kruh: ako to ovplyvní ľudí okolo mňa — tím, rodinu, priateľov? Tretí kruh: ako to ovplyvní širšie okolie — školu, komunitu, prírodu?" }
+    { title: "Metakognícia – myslenie o vlastnom myslení.", detail: "Metakognícia je schopnosť sledovať a uvedomovať si, ako sa práve učím — nie len čo sa učím. Pýtam sa: Rozumiem tomu? Kde viaznem? Čo by mi pomohlo? Ľudia s dobrou metakogniciou sa učia efektívnejšie, lebo vedia, kedy zmeniť prístup." },
+    { title: "Rôzne kanály učenia.", detail: "Vizuálny kanál — učím sa cez obrázky, schémy, farby. Audio kanál — pomáha mi počúvanie, vysvetľovanie nahlas, rytmus. Pohybový/kinestetický kanál — učím sa robením, pohybom, skúšaním. Rôznym ľuďom pomáhajú iné kombinácie. Dôležité je vyskúšať viac kanálov — nie sa hneď uspokojiť s jedným." },
+    { title: "Experiment so sebou samým.", detail: "Namiesto toho, aby som hneď vedel 'aký typ som', skúsim jeden spôsob učenia týždeň, sledujem, ako to funguje, potom skúsim iný a porovnám. Učenie sa o sebe funguje rovnako ako každý iný experiment — potrebuje čas, pozorovanie a otvorenú myseľ." }
   ],
   // Modul 1, kompetencia 3
   "1-3": [
@@ -564,12 +584,10 @@ const KNOWLEDGE_DETAILS = {
   ],
   // Modul 2, kompetencia 2
   "2-2": [
-    { title: "Metódy zisťovania potrieb (interview, pozorovanie, aktívne počúvanie, empatické otázky).", detail: "Interview je štruktúrovaný rozhovor zameraný na pochopenie potrieb. Pozorovanie znamená sledovať ľudí v ich prirodzenom prostredí — čo robia, kde majú ťažkosti. Aktívne počúvanie je plné sústredenie na druhého — bez prerušovania, s doplňujúcimi otázkami. Empatické otázky pomáhajú dostať sa za povrch: 'Ako si sa pri tom cítil?' alebo 'Čo ti na tom najviac vadilo?'" },
-    { title: "Typy otázok (otvorené, uzavreté, exploračné, situačné).", detail: "Otvorené otázky nedávajú možnosť odpovedať len áno/nie: 'Čo ti na tom vadí?' Uzavreté otázky majú jasnú odpoveď: 'Používaš to každý deň?' Exploračné otázky idú do hĺbky: 'Prečo je to pre teba dôležité?' Situačné otázky sa pýtajú na konkrétnu situáciu: 'Keď sa to stalo, čo si urobil?' Kombinácia typov dáva bohatší obraz." },
-    { title: "Verbálna a neverbálna komunikácia.", detail: "Verbálna komunikácia sú slová — čo hovoríme. Neverbálna komunikácia je reč tela — gestá, mimika, postoj, tón hlasu, očný kontakt. Pri interview sledujeme oboje — niekedy ľudia povedia jedno, ale ich reč tela naznačuje niečo iné. To je signál na hlbšiu otázku." },
-    { title: "Empatia pri zisťovaní potrieb.", detail: "Empatia pri zisťovaní potrieb znamená pristupovať k človeku bez predpokladov a súdenia. Naším cieľom je pochopiť — nie hodnotiť. Keď sme empatickí, ľudia sa otvoria a povedia nám viac. Empatia tiež znamená, že výsledky interview ovplyvní naše vlastné predsudky — preto si ich musíme uvedomovať." },
-    { title: "Príprava na interview/pozorovanie.", detail: "Dobrý interview vyžaduje prípravu: stanovenie cieľa (čo chcem zistiť), výber respondentov (kto mi to môže povedať), príprava otázok (otvorené, konkrétne), dohodnutie stretnutia, zaznamenávanie odpovedí (zápisník, nahrávka). Improvizovaný interview môže byť chaotický a stratíme dôležité informácie." },
-    { title: "Ľudia nie vždy vedia priamo pomenovať svoje potreby.", detail: "Ľudia často hovoria o problémoch, nie o potrebách — a niekedy ani nevedia, čo naozaj potrebujú. Henry Ford vraj povedal: 'Keby som sa pýtal ľudí, čo chcú, povedali by: rýchlejšieho koňa.' Úlohou dobrého výskumníka je dostať sa za slová a pochopiť hlbšiu potrebu." }
+    { title: "Tímové superschopnosti.", detail: "Každý tím má rôzne typy ľudí: nápadár (generuje nové nápady), organizátor (udržiava poriadok a plán), dokončovateľ (dotiahne veci do konca), spájač (spája ľudí a nápady), expert (prináša špecifické znalosti). Tím funguje najlepšie keď sa tieto superschopnosti doplnia — nie keď sú všetci rovnakí." },
+    { title: "Výber role podľa toho, v čom som dobrý.", detail: "Rolu v tíme si vyberáme podľa svojich silných stránok — nie náhodne. Keď každý robí to, v čom je dobrý, tím je efektívnejší a každý je spokojnejší. Pomáha otázka: Čo mi ide prirodzene? Kde cítim, že prispievam najviac?" },
+    { title: "Rozdiel medzi 'súhlasil som' a 'naozaj to urobím'.", detail: "Dohodnutie role je len začiatok. Súhlas na stretnutí neznamená automaticky, že to naozaj urobíme. Záväzok je aktívne rozhodnutie — stojím za tým, čo som sľúbil, aj keď to bude ťažké alebo nepohodlné." },
+    { title: "Verejný záväzok zvyšuje šancu na dokončenie.", detail: "Keď nahlas pred tímom povieme, čo urobíme, je oveľa väčšia šanca, že to naozaj dotiahnem. Psychológia hovorí: verejný záväzok aktivuje náš pocit zodpovednosti voči ostatným. Preto je dôležité nielen súhlasiť v hlave, ale aj povedať to nahlas." }
   ],
   // Modul 2, kompetencia 3
   "2-3": [
@@ -583,10 +601,12 @@ const KNOWLEDGE_DETAILS = {
   ],
   // Modul 3, kompetencia 0
   "3-0": [
-    { title: "Najmenší ďalší krok (baby step).", detail: "Cieľ môže byť veľký a ohromujúci — ale jeden krok je vždy jasný. Namiesto premýšľania o celom projekte sa pýtame: čo je tá úplne prvá vec, ktorú musím urobiť? Tento prístup odbúrava prokrastináciu a pomáha sa rozbehnúť aj vtedy, keď nevieme, ako to celé dopadne." },
-    { title: "Plánovanie odzadu.", detail: "Začíname od konca — od hotového výsledku — a vraciam sa dozadu: čo muselo nastať tesne predtým? A pred tým? Táto technika funguje ako detektívna hra 'rozlúskni poradie'. Pomáha vidieť celú cestu a odhaliť kroky, na ktoré by sme pri plánovaní dopredu zabudli." },
-    { title: "Plánovací omyl.", detail: "Takmer vždy podceňujeme, ako dlho nám niečo zaberie — hovorí to aj veda. Volá sa to plánovací omyl. Riešenie: odhadni čas, skús to urobiť, porovnaj odhad s realitou. Po niekoľkých kolách sa tvoje odhady stávajú presnejšími." },
-    { title: "Neistota v pláne je normálna.", detail: "Žiadny plán nie je dokonalý — a to je v poriadku. Neistota nie je znak zlyhania, ale realita každého projektu. Dobrý plánovač neočakáva, že všetko pôjde podľa plánu — ale vie, ako reagovať, keď sa plán zmení." }
+    { title: "Rôzni ľudia majú rôzne pohľady na rovnaký problém (perspektíva).", detail: "Perspektíva je uhol pohľadu, z ktorého vidíme situáciu. Každý človek vidí ten istý problém inak — podľa toho, kto je, kde žije, čo prežil. Napríklad: hlučná škola môže byť pre žiaka zábava, pre suseda problém a pre riaditeľa výzva. Žiadny pohľad nie je 'správnejší' — všetky sú dôležité." },
+    { title: "Empatia – vcítenie sa do iného.", detail: "Empatia znamená pokúsiť sa pochopiť, čo druhý človek cíti a prečo koná tak, ako koná. Nie je to súhlas s jeho názorom — je to snaha porozumieť mu. Empatia nám pomáha navrhovať riešenia, ktoré naozaj fungujú pre reálnych ľudí, nielen pre nás samých." },
+    { title: "Jeden problém môže ovplyvniť ľudí rôzne.", detail: "Každý problém má viacero strán. Napríklad chýbajúce miesto na bicykle pri škole ovplyvní žiakov inak než rodičov, učiteľov alebo mesto. Keď chceme problém vyriešiť, musíme rozumieť tomu, koho sa týka a ako — inak môžeme pomôcť jedným a uškodiť druhým." },
+    { title: "Aktéri – ľudia, ktorých sa vec týka.", detail: "Aktéri sú všetci ľudia a skupiny, ktorých sa problém alebo riešenie týka — priamo alebo nepriamo. Môžu to byť tí, ktorí problém pociťujú, tí, ktorí ho spôsobujú, alebo tí, ktorí ho môžu riešiť. Dobrý návrh riešenia myslí na všetkých relevantných aktérov." },
+    { title: "Rôzne skupiny majú rôzne potreby a záujmy.", detail: "Rôzne skupiny ľudí môžu chcieť rôzne — alebo dokonca protichodné — veci. Napríklad obchod chce predávať, zákazník chce lacno kúpiť, mesto chce čistú ulicu. Riešenie, ktoré ignoruje niektorú skupinu, môže vyvolať odpor alebo zlyhať." },
+    { title: "Persóna – vymyslená postava reprezentujúca skupinu ľudí.", detail: "Persóna je fiktívna postava, ktorú vytvárame aby sme lepšie pochopili skutočných ľudí. Napríklad: 'Marek, 12 rokov, chodí pešo do školy, nemá vlastný mobil, rád kreslí.' Persóna nám pomáha myslieť na konkrétneho človeka, nie na abstraktnú skupinu." }
   ],
   // Modul 3, kompetencia 1
   "3-1": [
@@ -605,9 +625,13 @@ const KNOWLEDGE_DETAILS = {
   ],
   // Modul 4, kompetencia 0
   "4-0": [
-    { title: "Strom cieľa.", detail: "Strom cieľa je vizuálna technika plánovania: hlavný cieľ je kmeň, väčšie kroky sú vetvy, konkrétne úlohy sú lístky. Prepojenie na mindmapping — pomáha vidieť celok aj detaily naraz. Keď vidíme cieľ ako strom, ľahšie nájdeme, kde začať." },
-    { title: "Test 'vie to urobiť aj iný človek bez vysvetlenia?'", detail: "Jednoduchý filter, či je krok dosť malý a konkrétny. Ak by iný človek vedel splniť úlohu bez toho, aby som mu musel vysvetľovať čo presne má robiť — krok je dostatočne konkrétny. Ak nie, treba ho rozdeliť ďalej." },
-    { title: "Kontrolný zoznam (checklist).", detail: "Odškrtávanie splnených krokov dáva pocit postupu a motivuje pokračovať. Je to malá dopamínová odmena z toho, že sa niečo deje. Piloti, chirurgovia aj stavitelia používajú checklisty — nie preto, že by zabudli, ale preto, že to funguje." }
+    { title: "Chyba ako súčasť učenia.", detail: "Chyba nie je dôkaz zlyhania — je to prirodzená súčasť každého procesu učenia a tvorby. Všetky veľké vynálezy a inovácie vznikli cez mnohé chyby. Dôležité nie je nechybovať, ale vedieť s chybou pracovať — rozumieť jej, poučiť sa a skúsiť znova." },
+    { title: "Iterácia – opakované zlepšovanie.", detail: "Iterácia znamená opakovať cyklus: urob – otestuj – zlepši – urob znova. Každé kolo prináša lepšiu verziu. Digitálne produkty, hry, lieky — všetko vzniká cez iteráciu. Namiesto toho, aby sme čakali na dokonalé riešenie, robíme rýchle verzie a zlepšujeme ich na základe spätnej väzby." },
+    { title: "Prototyp – testovacia verzia.", detail: "Prototyp je prvá hrubá verzia riešenia — nie finálny produkt, ale nástroj na testovanie. Môže byť z papiera, kartónu, nakresleného, simulovaného. Cieľom prototypu je rýchlo zistiť, či nápad funguje, skôr než doň investujeme veľa času a peňazí." },
+    { title: "Pivot – zmena stratégie.", detail: "Pivot je situácia, keď zistíme, že naša pôvodná stratégia nefunguje — a rozhodneme sa zmeniť smer. Nie je to vzdanie sa, ale inteligentná reakcia na spätnú väzbu. Mnoho úspešných firiem (Instagram, YouTube, Slack) začínalo ako niečo úplne iné a po pivote našli svoju pravú podobu." },
+    { title: "Growth mindset vs. fixed mindset.", detail: "Fixed mindset hovorí: 'Som taký, aký som — nedá sa to zmeniť.' Growth mindset hovorí: 'Môžem sa zlepšiť, ak sa snažím a učím.' Pri práci s chybami je kľúčový growth mindset — bez neho každá chyba demotivuje, s ním každá chyba učí." },
+    { title: "Kroky práce s chybou.", detail: "Keď sa niečo nepodarí, pomáha štruktúrovaný postup: (1) Pozorovanie — čo sa stalo? (2) Feedback — čo hovoria ostatní? (3) Analýza — prečo sa to stalo? (4) Úprava — čo zmeníme? (5) Nový pokus — skúsime znova. Tento cyklus premení každú chybu na krok vpred." },
+    { title: "Neistota je prirodzená. Rozdiel medzi neúspechom a zlyhaním.", detail: "Neistota je normálna súčasť každého tvorivého procesu — nikdy nevieme vopred, či niečo bude fungovať. Neúspech je situácia, keď výsledok nezodpovedá očakávaniu — ale môžeme sa z neho poučiť. Zlyhanie je iba vtedy, keď sa vzdáme a prestaneme skúšať." }
   ],
   // Modul 4, kompetencia 1
   "4-1": [
@@ -635,22 +659,22 @@ const MODULES = [
     ],
     competencies: [
       {
-        title: "Pomenuje problém vo svojom okolí a príležitosť na zmenu.",
-        title_full: "Účastník dokáže pomenovať, čo je v situácii problém, aká potreba za ním stojí a kde sa skrýva príležitosť na zmenu.",
+        title: "Skúša pomenovať problém, potrebu a príležitosť na zmenu.",
+        title_full: "Účastník skúša pomenovať, čo je v situácii problém, aká potreba za ním stojí a kde sa skrýva príležitosť na zmenu.",
         exp_participants: "Účastníci pozorujú problémy zo svojho okolia, skúmajú potreby, ktoré sa za nimi skrývajú a hľadajú príležitosti na zmenu alebo zlepšenie.",
         exp_coordinator: "Koordinátor podporuje vnímanie potrieb ľudí, kladenie otázok a prepájanie problémov s možnými riešeniami.",
         knowledge: ["Rozdiel medzi problémom, potrebou a riešením (problém = potreba + prekážka).", "Základy pozorovania a kladenia otázok (otvorené vs. zatvorené otázky, pozorovanie vs. interpretácia).", "Príležitosti na zmenu v každodenných situáciách (príležitosť sa skrýva v medzere medzi 'ako je to teraz' a 'ako by to mohlo byť').", "Princíp, že problémy môžu byť zdrojom nápadov a zlepšení (reframing – preformulovanie problému otvára nové možnosti riešenia)."]
       },
       {
-        title: "Dohodne sa s tímom na pravidlách a drží sa ich.",
-        title_full: "Účastník dokáže využívať slobodu pri práci tak, že rešpektuje dohodnuté pravidlá, záväzky a potreby tímu.",
+        title: "Objavuje, ako využívať slobodu pri rešpektovaní pravidiel tímu.",
+        title_full: "Účastník objavuje, ako využívať slobodu pri práci tak, aby rešpektoval dohodnuté pravidlá, záväzky a potreby tímu.",
         exp_participants: "Účastníci zažívajú situácie, v ktorých miera slobody a samostatnosti závisí od toho, ako dodržiavajú dohody, správajú sa k ostatným a plnia svoje záväzky voči tímu.",
         exp_coordinator: "Koordinátor podporuje zodpovednosť, reflexiu správania a prepájanie slobody s dôverou a spoľahlivosťou.",
         knowledge: ["Pojmy: tímová dohoda, záväzok, autonómia, dôvera, spoľahlivosť, reflexia.", "Princípy tímovej spolupráce: vzájomný respekt, spoľahlivosť, zodpovednosť za spoločný výsledok.", "Dôsledky nedodržiavania dohôd na fungovanie tímu (strata dôvery, konflikty, obmedzenie autonómie)."]
       },
       {
-        title: "Povie, čo fungovalo a čo by skúsil inak.",
-        title_full: "Účastník dokáže po skúsenosti pomenovať, čo fungovalo, čo nefungovalo a čo chce skúsiť ďalej.",
+        title: "Začína pomenovávať čo fungovalo a čo chce skúsiť inak.",
+        title_full: "Účastník začína po skúsenosti pomenovávať, čo fungovalo, čo nefungovalo a čo chce skúsiť ďalej.",
         exp_participants: "Účastníci reflektujú svoje skúsenosti z aktivít, projektov alebo tímovej práce a pomenúvajú, čo im fungovalo, čo bolo náročné a čo by nabudúce urobili inak.",
         exp_coordinator: "Koordinátor podporuje reflexiu, učenie sa zo skúsenosti a hľadanie ďalších krokov na zlepšenie.",
         knowledge: ["Pojem reflexia a jej význam pre učenie sa.", "Štruktúra reflexie: čo fungovalo – čo nefungovalo – čo ďalej.", "Pojmy: spätná väzba, retrospektíva, sebahodnotenie.", "Princíp učenia sa z chýb a skúseností.", "Rozdiel medzi hodnotením a hľadaním zlepšení."]
@@ -670,10 +694,9 @@ const MODULES = [
     id: 1, num: "02", period: "November – December", title: "Pohľady & Rozhodnutia",
     meta: [{ label: "Obdobie", value: "Nov – Dec" }, { label: "Level", value: "2 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Empatia" }],
     competencies: [
-      { title: "Pomenujem, koho sa problém týka — rôzne skupiny ľudí.", title_full: "Účastník dokáže pomenovať rôzne skupiny ľudí, ktorých sa problém týka, a opísať, ako ich ovplyvňuje.", exp_participants: "Účastníci sa vcítia do rôznych perspektív a skúmajú, kto všetko je ovplyvnený daným problémom.", exp_coordinator: "Koordinátor podporuje empatiu a rozširovanie pohľadu za vlastnú skúsenosť.", knowledge: ["Pojem empatia a perspektíva.", "Rôzne skupiny ľudí (aktéri) v situácii.", "Nástroje na mapovanie pohľadov (mapa aktérov, persony)."] },
-      { title: "Vymyslím viac rôznych riešení jedného problému.", title_full: "Účastník dokáže vytvoriť viac rôznych nápadov na riešenie jedného problému pomocou jednoduchých techník.", exp_participants: "Účastníci trénujú kreatívne myslenie cez generovanie mnohých nápadov bez okamžitého hodnotenia.", exp_coordinator: "Koordinátor podporuje otvorenosť a hodnotu diverzity nápadov.", knowledge: ["Pravidlá brainstormingu.", "Kreatívne techniky: SCAMPER, crazy ideas.", "Rozdiel medzi generovaním a hodnotením nápadov."] },
-      { title: "Poviem, ako moje rozhodnutia ovplyvňujú mňa, tím alebo okolie.", title_full: "Účastník dokáže pomenovať, ako jeho rozhodnutia ovplyvňujú jeho, tím alebo okolie.", exp_participants: "Účastníci robia rozhodnutia v tímových situáciách a následne skúmajú, aký dopad mali na nich, ostatných alebo spoločnú prácu.", exp_coordinator: "Koordinátor podporuje uvedomovanie si dôsledkov rozhodnutí, reflexiu a zodpovednosť za svoje konanie.", knowledge: ["Vlnový efekt (ripple effect) – jedno rozhodnutie sa šíri ďalej ako kruhy na vode. Ovplyvňuje nielen mňa, ale postupne aj iných, aj keď to nemusí byť hneď vidno.", "Domino efekt – jedno rozhodnutie spustí ďalšie, tie spustia ďalšie, ako padajúce kocky.", "'Čo by sa stalo, keby to urobil každý?' – moje rozhodnutie sa nedeje izolovane. Keby ho urobili všetci, dopad by bol väčší.", "Kruhy dopadu (ja → tím → okolie) – ako sa dopad rozhodnutia rozširuje od najbližšieho kruhu až po širšie okolie."] },
-      { title: "Skúšam rôzne spôsoby učenia a viem, čo mi pomáha najviac.", title_full: "Účastník dokáže skúšať rôzne spôsoby učenia a pomenovať, ktoré mu pri učení alebo práci pomáhajú najviac.", exp_participants: "Účastníci skúšajú rôzne spôsoby učenia, riešenia úloh a spolupráce a reflektujú, čo im pomáha sústrediť sa, zapamätať si informácie alebo zvládnuť úlohu.", exp_coordinator: "Koordinátor podporuje experimentovanie s rôznymi prístupmi a uvedomovanie si vlastného spôsobu učenia.", knowledge: ["Metakognícia ('myslenie o vlastnom myslení') – schopnosť sledovať a uvedomovať si, ako sa práve učím, nie len čo sa učím.", "Rôzne kanály učenia (vizuálny, audio, pohybový/kinestetický) – rôznym ľuďom pomáhajú iné spôsoby. Dôležité je vyskúšať viac kanálov, nie sa hneď uspokojiť s jedným.", "Experiment so sebou samým – skús jeden spôsob učenia týždeň, sleduj, ako to funguje, potom skús iný a porovnaj. Namiesto toho, aby som hneď vedel 'aký typ som'."] }
+      { title: "Objavuje, ako vytvoriť viac rôznych nápadov na riešenie jedného problému.", title_full: "Účastník objavuje, ako vytvoriť viac rôznych nápadov na riešenie jedného problému pomocou jednoduchých techník.", exp_participants: "Účastníci hľadajú viac možností riešenia jedného problému a skúšajú jednoduché techniky na tvorbu nápadov.", exp_coordinator: "Koordinátor podporuje kreativitu, otvorenosť k rôznym možnostiam a prepájanie nápadov.", knowledge: ["Brainstorming a jeho pravidlá.", "Kreatívne techniky: mindmapping, SCAMPER, 5x prečo, crazy ideas, najhorší/najlepší nápad, redesign.", "Pravidlo odloženej kritiky.", "Rozdiel medzi generovaním a hodnotením nápadov.", "Hodnota tímového vymýšľania."] },
+      { title: "Začína zbierať vlastné skúsenosti ako dôkaz, že niečo zvládol.", title_full: "Účastník začína zbierať vlastné skúsenosti ako konkrétne dôkazy toho, čo zvládol, a učí sa oprieť sa o ne, keď prichádza niečo ťažšie alebo neisté.", exp_participants: "Účastníci zbierajú vlastné skúsenosti ako konkrétne dôkazy toho, čo zvládli, a učia sa oprieť sa o ne, keď prichádza niečo ťažšie alebo neisté.", exp_coordinator: "Koordinátor podporuje všímanie si aj malých úspechov, pomenúvanie toho, čo účastníkovi vyšlo, a prepájanie minulých skúseností s novými výzvami.", knowledge: ["Dôkaz vlastnej schopnosti – každá skúsenosť, kde som niečo zvládol, je konkrétny dôkaz, že to viem, nie len pocit.", "Vnútorný archív úspechov – zámerné zbieranie momentov, kedy mi niečo vyšlo, aj malé veci sa počítajú.", "'Ešte neviem' namiesto 'neviem' – malý jazykový posun, ktorý mení pohľad na vlastné schopnosti.", "Prenositeľnosť skúsenosti – to, že som zvládol X, mi pomáha veriť, že zvládnem aj Y."] },
+      { title: "Experimentuje s rôznymi spôsobmi učenia a hľadá čo mu pomáha najviac.", title_full: "Účastník experimentuje s rôznymi spôsobmi učenia a hľadá, ktoré mu pri učení alebo práci pomáhajú najviac.", exp_participants: "Účastníci skúšajú rôzne spôsoby učenia, riešenia úloh a spolupráce a reflektujú, čo im pomáha sústrediť sa, zapamätať si informácie alebo zvládnuť úlohu.", exp_coordinator: "Koordinátor podporuje experimentovanie s rôznymi prístupmi a uvedomovanie si vlastného spôsobu učenia.", knowledge: ["Metakognícia ('myslenie o vlastnom myslení') – schopnosť sledovať a uvedomovať si, ako sa práve učím, nie len čo sa učím.", "Rôzne kanály učenia (vizuálny, audio, pohybový/kinestetický) – rôznym ľuďom pomáhajú iné spôsoby. Dôležité je vyskúšať viac kanálov, nie sa hneď uspokojiť s jedným.", "Experiment so sebou samým – skús jeden spôsob učenia týždeň, sleduj, ako to funguje, potom skús iný a porovnaj. Namiesto toho, aby som hneď vedel 'aký typ som'."] }
     ],
     level: "Dieťa sa vie vžiť do iných, navrhne viac nápadov a chápe, že rozhodnutia majú dôsledky.",
     activities: [
@@ -689,10 +712,9 @@ const MODULES = [
     id: 2, num: "03", period: "Január – Február", title: "Potreby & Spätná väzba",
     meta: [{ label: "Obdobie", value: "Jan – Feb" }, { label: "Level", value: "3 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Testovanie" }],
     competencies: [
-      { title: "Pomenujem svoje potreby a chápem, že iní môžu mať iné.", title_full: "Účastník dokáže pomenovať svoje potreby a uvedomiť si, že rôzni ľudia môžu mať odlišné potreby a pohľady.", exp_participants: "Účastníci pozorujú problémy zo svojho okolia, skúmajú potreby, ktoré sa za nimi skrývajú a hľadajú príležitosti na zmenu alebo zlepšenie.", exp_coordinator: "Koordinátor podporuje vnímanie potrieb ľudí, kladenie otázok a prepájanie problémov s možnými riešeniami.", knowledge: ["Need vs. want – rozdiel medzi potrebou a chcením. Za každým 'chcem' alebo 'nepáči sa mi to' je často skutočná potreba (oddych, bezpečie, byť videný).", "Ľadovec (iceberg model) – to, čo je navonok vidieť (slová, správanie), je len malá časť. Väčšina potrieb a pocitov je 'pod hladinou'. Platí to pre mňa aj pre druhých.", "Perspective taking – schopnosť predstaviť si situáciu z pohľadu druhého človeka. Rovnaká situácia môže vyvolať iný pohľad alebo potrebu u inej osoby."] },
-      { title: "Vysvetlím, ako môj nápad môže niekomu pomôcť.", title_full: "Účastník dokáže vysvetliť, ako jeho nápad môže niekomu pomôcť alebo uľahčiť situáciu.", exp_participants: "Účastníci predstavujú svoj nápad na konkrétnych situáciách a vysvetľujú, komu pomáha, čo uľahčuje alebo aký problém rieši.", exp_coordinator: "Koordinátor podporuje prepájanie riešení s reálnymi potrebami ľudí a pomenovávanie konkrétneho prínosu nápadu.", knowledge: ["Pojem prínos a cieľová skupina.", "Štruktúra pitchu (problém – komu – ako – prínos).", "Formy prezentácie (ústny pitch, poster, video, role-play, marketplace).", "Druhy feedbacku (oceňujúci, konštruktívny, otázky).", "Rozdiel medzi popisom a prínosom.", "Testovanie a prototyp."] },
-      { title: "Zistím, čo ľudia potrebujú, cez rozhovor alebo pozorovanie.", title_full: "Účastník dokáže zisťovať, čo ľudia potrebujú, pomocou rozhovoru, otázok alebo pozorovania.", exp_participants: "Účastníci reflektujú svoje skúsenosti z aktivít, projektov alebo tímovej práce a pomenúvajú, čo im fungovalo, čo bolo náročné a čo by nabudúce urobili inak.", exp_coordinator: "Koordinátor podporuje reflexiu, učenie sa zo skúsenosti a hľadanie ďalších krokov na zlepšenie.", knowledge: ["Metódy zisťovania potrieb (interview, pozorovanie, aktívne počúvanie, empatické otázky).", "Typy otázok (otvorené, uzavreté, exploračné, situačné).", "Verbálna a neverbálna komunikácia.", "Empatia pri zisťovaní potrieb.", "Príprava na interview/pozorovanie.", "Ľudia nie vždy vedia priamo pomenovať svoje potreby."] },
-      { title: "Pracujem s chybou — získam spätnú väzbu a upravím ďalší krok.", title_full: "Účastník dokáže pracovať s chybou alebo neistotou tak, že získa spätnú väzbu a upraví ďalší krok.", exp_participants: "Účastníci zažívajú situácie, v ktorých sa im niečo nepodarí podľa plánu alebo si nie sú istí ďalším postupom, a učia sa získať spätnú väzbu, upraviť svoj nápad alebo zmeniť ďalší krok.", exp_coordinator: "Koordinátor podporuje experimentovanie, učenie sa z chýb a bezpečné skúšanie nových riešení.", knowledge: ["Chyba ako súčasť učenia.", "Iterácia – opakované zlepšovanie.", "Prototyp – testovacia verzia.", "Pivot – zmena stratégie.", "Growth mindset vs. fixed mindset.", "Kroky práce s chybou (pozorovanie – feedback – analýza – úprava – nový pokus).", "Neistota je prirodzená. Rozdiel medzi neúspechom a zlyhaním."] }
+      { title: "Postupne objavuje svoje potreby a uvedomuje si, že iní môžu mať iné.", title_full: "Účastník postupne objavuje svoje vlastné potreby a uvedomuje si, že rôzni ľudia môžu mať odlišné potreby a pohľady.", exp_participants: "Účastníci pozorujú problémy zo svojho okolia, skúmajú potreby, ktoré sa za nimi skrývajú a hľadajú príležitosti na zmenu alebo zlepšenie.", exp_coordinator: "Koordinátor podporuje vnímanie potrieb ľudí, kladenie otázok a prepájanie problémov s možnými riešeniami.", knowledge: ["Need vs. want – rozdiel medzi potrebou a chcením. Za každým 'chcem' alebo 'nepáči sa mi to' je často skutočná potreba (oddych, bezpečie, byť videný).", "Ľadovec (iceberg model) – to, čo je navonok vidieť (slová, správanie), je len malá časť. Väčšina potrieb a pocitov je 'pod hladinou'. Platí to pre mňa aj pre druhých.", "Perspective taking – schopnosť predstaviť si situáciu z pohľadu druhého človeka. Rovnaká situácia môže vyvolať iný pohľad alebo potrebu u inej osoby."] },
+      { title: "Skúša vysvetliť, ako jeho nápad môže niekomu pomôcť.", title_full: "Účastník skúša vysvetliť, ako jeho nápad môže niekomu pomôcť alebo uľahčiť situáciu.", exp_participants: "Účastníci predstavujú svoj nápad na konkrétnych situáciách a vysvetľujú, komu pomáha, čo uľahčuje alebo aký problém rieši.", exp_coordinator: "Koordinátor podporuje prepájanie riešení s reálnymi potrebami ľudí a pomenovávanie konkrétneho prínosu nápadu.", knowledge: ["Pojem prínos a cieľová skupina.", "Štruktúra pitchu (problém – komu – ako – prínos).", "Formy prezentácie (ústny pitch, poster, video, role-play, marketplace).", "Druhy feedbacku (oceňujúci, konštruktívny, otázky).", "Rozdiel medzi popisom a prínosom.", "Testovanie a prototyp."] },
+      { title: "Prvýkrát sa odváži prevziať rolu v tíme a dokončiť úlohu.", title_full: "Účastník sa prvýkrát odváži prevziať jednoduchú rolu v tíme a dokončiť úlohu, na ktorej sa dohodol.", exp_participants: "Účastníci si prvýkrát vyberajú alebo preberajú konkrétnu rolu v tíme a zažívajú, čo to znamená dokončiť práve tú svoju časť — nie celú úlohu, len tú svoju.", exp_coordinator: "Koordinátor podporuje odvahu prevziať zodpovednosť, dokončenie dohodnutého aj keď je to náročné a prepojenie medzi tým, čo som sľúbil, a tým, čo som naozaj urobil.", knowledge: ["Tímové superschopnosti – nápadár, organizátor, dokončovateľ, spájač, expert. Tím funguje najlepšie keď sa schopnosti doplnia.", "Výber role podľa toho, v čom som dobrý — nie náhodné prideľovanie.", "Rozdiel medzi 'súhlasil som' a 'naozaj to urobím' – dohodnutie role je len začiatok.", "Verejný záväzok pred tímom zvyšuje šancu, že to naozaj dotiahnem."] }
     ],
     level: "Dieťa vie pomenovať potrebu konkrétneho človeka a po spätnej väzbe svoj nápad zlepší.",
     activities: [
@@ -708,9 +730,9 @@ const MODULES = [
     id: 3, num: "04", period: "Marec – Apríl", title: "Plán & Tím",
     meta: [{ label: "Obdobie", value: "Mar – Apr" }, { label: "Level", value: "4 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Realizácia" }],
     competencies: [
-      { title: "Stanovím jednoduchý cieľ, plán krokov a priority.", title_full: "Účastník dokáže stanoviť jednoduchý cieľ, vytvoriť základný plán krokov a určiť priority.", exp_participants: "Účastníci zažijú situácie, v ktorých potrebujú naplánovať postup pri spoločnej úlohe alebo projekte, rozdeliť si kroky a rozhodnúť, čo je najdôležitejšie spraviť ako prvé.", exp_coordinator: "Koordinátor podporuje stanovovanie cieľov, plánovanie krokov a určovanie priorít.", knowledge: ["Najmenší ďalší krok (baby step) – cieľ je veľký, ale jeden krok je vždy jasný. Otázka: čo je tá úplne prvá vec, ktorú musím urobiť?", "Plánovanie odzadu – od hotového cieľa sa vraciam dozadu a hľadám, čo muselo nastať tesne predtým. Ako detektívna hra 'rozlúskni poradie'.", "Plánovací omyl – takmer vždy podceňujeme, ako dlho nám niečo zaberie. Odhadni – skús – porovnaj.", "Neistota v pláne je normálna, nie znak zlyhania."] },
-      { title: "Prevezmem rolu v tíme a dokončím úlohu, na ktorej sme sa dohodli.", title_full: "Účastník dokáže prevziať jednoduchú rolu v tíme a dokončiť úlohu, na ktorej sa dohodol.", exp_participants: "Účastníci pracujú v tíme, rozdeľujú si jednoduché roly a nesú zodpovednosť za splnenie svojej časti úlohy.", exp_coordinator: "Koordinátor podporuje spoluprácu, spoľahlivosť a dokončovanie dohodnutých úloh.", knowledge: ["Tímové superschopnosti – nápadár, organizátor, dokončovateľ, spájač, expert. Každý má svoju silnú stránku a tím funguje najlepšie, keď sa schopnosti doplnia, nie keď sú všetci rovnakí.", "Výber role podľa toho, v čom som dobrý — nie náhodné prideľovanie.", "Rozdiel medzi 'súhlasil som' a 'naozaj to urobím' – dohodnutie role je len začiatok.", "Verejný záväzok pred tímom zvyšuje šancu, že to naozaj dotiahnem."] },
-      { title: "Zreflektujem skúsenosť a dám druhým konštruktívnu spätnú väzbu.", title_full: "Účastník dokáže jednoducho reflektovať svoju skúsenosť, rozlíšiť reflexiu od spätnej väzby a dať druhým jednoduchú konštruktívnu spätnú väzbu.", exp_participants: "Účastníci sa učia pomenovať svoju skúsenosť, rozlišovať medzi reflexiou a spätnou väzbou a formulovať jednoduchú konštruktívnu spätnú väzbu voči ostatným.", exp_coordinator: "Koordinátor podporuje bezpečné zdieľanie, aktívne počúvanie a konkrétne pomenovávanie skúseností a postrehov.", knowledge: ["Reflexia – 3 otázky: čo sa stalo – ako mi to bolo – čo by som nabudúce inak. Pohľad do vlastného vnútra.", "Spätná väzba – pohľad smerom k inému človeku. Rozdiel: zrkadlo vs. odovzdaný odkaz.", "Typy spätnej väzby – pozitívna (čo fungovalo), rozvojová (čo zlepšiť), sendvičová metóda (pozitívne – zlepšenie – pozitívne).", "Aktívne počúvanie – parafrázovanie (zopakuj vlastnými slovami), reflektovanie pocitov, otvorené otázky, ticho a priestor pre druhého.", "Rešpektujúca komunikácia – ja-výroky namiesto 'ty vždy', spätná väzba na správanie nie na osobu, prijatie spätnej väzby bez obhajovania sa."] }
+      { title: "Začína všímať si rôzne skupiny ľudí, ktorých sa problém týka.", title_full: "Účastník začína všímať si rôzne skupiny ľudí, ktorých sa problém týka, a opisovať, ako ich ovplyvňuje.", exp_participants: "Účastníci skúmajú problém z pohľadu rôznych ľudí a zisťujú, že každého ovplyvňuje inak.", exp_coordinator: "Koordinátor podporuje empatiu, prepínanie perspektív a premýšľanie o potrebách rôznych skupín ľudí.", knowledge: ["Rôzni ľudia majú rôzne pohľady na rovnaký problém (perspektíva).", "Empatia – vcítenie sa do iného.", "Jeden problém môže ovplyvniť ľudí rôzne.", "Aktéri – ľudia, ktorých sa vec týka.", "Rôzne skupiny majú rôzne potreby a záujmy.", "Persóna – vymyslená postava reprezentujúca skupinu ľudí."] },
+      { title: "Učí sa zisťovať, čo ľudia potrebujú, cez rozhovor alebo pozorovanie.", title_full: "Účastník sa učí zisťovať, čo ľudia potrebujú, pomocou rozhovoru, otázok alebo pozorovania.", exp_participants: "Účastníci pracujú v tíme, rozdeľujú si jednoduché roly a nesú zodpovednosť za splnenie svojej časti úlohy.", exp_coordinator: "Koordinátor podporuje spoluprácu, spoľahlivosť a dokončovanie dohodnutých úloh.", knowledge: ["Tímové superschopnosti – nápadár, organizátor, dokončovateľ, spájač, expert. Každý má svoju silnú stránku a tím funguje najlepšie, keď sa schopnosti doplnia, nie keď sú všetci rovnakí.", "Výber role podľa toho, v čom som dobrý — nie náhodné prideľovanie.", "Rozdiel medzi 'súhlasil som' a 'naozaj to urobím' – dohodnutie role je len začiatok.", "Verejný záväzok pred tímom zvyšuje šancu, že to naozaj dotiahnem."] },
+      { title: "Spoznáva, ako reflektovať skúsenosť a dávať konštruktívnu spätnú väzbu.", title_full: "Účastník spoznáva, ako jednoducho reflektovať svoju skúsenosť, rozlišovať reflexiu od spätnej väzby a dávať druhým jednoduchú konštruktívnu spätnú väzbu.", exp_participants: "Účastníci sa učia pomenovať svoju skúsenosť, rozlišovať medzi reflexiou a spätnou väzbou a formulovať jednoduchú konštruktívnu spätnú väzbu voči ostatným.", exp_coordinator: "Koordinátor podporuje bezpečné zdieľanie, aktívne počúvanie a konkrétne pomenovávanie skúseností a postrehov.", knowledge: ["Reflexia – 3 otázky: čo sa stalo – ako mi to bolo – čo by som nabudúce inak. Pohľad do vlastného vnútra.", "Spätná väzba – pohľad smerom k inému človeku. Rozdiel: zrkadlo vs. odovzdaný odkaz.", "Typy spätnej väzby – pozitívna (čo fungovalo), rozvojová (čo zlepšiť), sendvičová metóda (pozitívne – zlepšenie – pozitívne).", "Aktívne počúvanie – parafrázovanie (zopakuj vlastnými slovami), reflektovanie pocitov, otvorené otázky, ticho a priestor pre druhého.", "Rešpektujúca komunikácia – ja-výroky namiesto 'ty vždy', spätná väzba na správanie nie na osobu, prijatie spätnej väzby bez obhajovania sa."] }
     ],
     level: "Tím má plán krokov, každý vie svoju rolu, dieťa dokončí svoju časť a vie dať feedback.",
     activities: [
@@ -725,9 +747,9 @@ const MODULES = [
     id: 4, num: "05", period: "Máj – Jún", title: "Prototyp & Pitch",
     meta: [{ label: "Obdobie", value: "Máj – Jún" }, { label: "Level", value: "5 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Finále" }],
     competencies: [
-      { title: "Rozdelím väčší cieľ na malé, realizovateľné kroky.", title_full: "Účastník dokáže rozdeliť väčší cieľ na malé, realizovateľné kroky.", exp_participants: "Účastníci plánujú väčší cieľ (napr. podujatie, spoločný projekt alebo zmenu vo svojom okolí) a učia sa rozdeliť ho na konkrétne malé kroky, úlohy a poradie činností.", exp_coordinator: "Koordinátor podporuje realistické plánovanie, určovanie priorít a premýšľanie nad tým, čo je potrebné spraviť ako prvé.", knowledge: ["Strom cieľa – hlavný cieľ je kmeň, väčšie kroky sú vetvy, konkrétne úlohy sú lístky. Prepojenie na mindmapping.", "Test 'vie to urobiť aj iný človek bez vysvetlenia?' – jednoduchý filter, či je krok dosť malý a konkrétny.", "Kontrolný zoznam (checklist) – odškrtávanie krokov ako pocit postupu. Malá dopamínová odmena z toho, že sa niečo deje."] },
-      { title: "Vytvorím prvú jednoduchú verziu riešenia a overím reakcie ostatných.", title_full: "Účastník dokáže vytvoriť prvú jednoduchú verziu riešenia (prototyp) a overiť si, ako na ňu reagujú ostatní.", exp_participants: "Účastníci vytvárajú jednoduché návrhy riešení (napr. model, poster, scénku, digitálny návrh alebo ukážku produktu) a skúšajú si ich predstaviť ostatným, získať spätnú väzbu a upraviť ich podľa reakcií.", exp_coordinator: "Koordinátor podporuje experimentovanie, skúšanie nápadov a prácu so spätnou väzbou.", knowledge: ["MVP (najjednoduchšia možná verzia) – prototyp nemusí byť krásny ani hotový, len musí ukázať hlavnú myšlienku. Papierový náčrt stačí.", "Fail fast – čím skôr zistím, že niečo nefunguje, tým lacnejšie a jednoduchšie to opravím. Prototyp existuje na to, aby zlyhal rýchlo, nie na konci.", "3 otázky na reakciu – čo sa páčilo – čo bolo mätúce – čo by si zmenil."] },
-      { title: "Vysvetlím nápad: komu pomôže a prečo dáva zmysel.", title_full: "Účastník dokáže vysvetliť svoj nápad, komu má pomôcť a prečo dáva zmysel.", exp_participants: "Účastníci predstavujú svoj nápad na konkrétnych situáciách a vysvetľujú, komu pomáha, čo uľahčuje alebo aký problém rieši.", exp_coordinator: "Koordinátor podporuje prepájanie riešení s reálnymi potrebami ľudí a pomenovávanie konkrétneho prínosu nápadu.", knowledge: ["Elevator pitch (výťahová rýchlosť) – vysvetliť nápad tak krátko, že by sa zmestil do jazdy výťahom. Núti to ísť na podstatu.", "Štruktúra: problém – riešenie – pre koho. Jednoduchá kostra vysvetlenia namiesto rozprávania od detailov.", "Test 'vysvetli to babke' – ak to dokážem vysvetliť niekomu, kto o téme nič nevie, znamená to, že tomu naozaj rozumiem.", "Konkrétny príbeh jedného človeka – namiesto 'pomôže to ľuďom' si predstaviť jednu konkrétnu osobu a jej deň. Robí to živšie a zrozumiteľnejšie."] }
+      { title: "Učí sa pracovať s chybou alebo neistotou a upraviť ďalší krok.", title_full: "Účastník sa učí pracovať s chybou alebo neistotou tak, že získa spätnú väzbu a upraví ďalší krok.", exp_participants: "Účastníci zažívajú situácie, v ktorých sa im niečo nepodarí podľa plánu alebo si nie sú istí ďalším postupom, a učia sa získať spätnú väzbu, upraviť svoj nápad alebo zmeniť ďalší krok.", exp_coordinator: "Koordinátor podporuje experimentovanie, učenie sa z chýb a bezpečné skúšanie nových riešení.", knowledge: ["Chyba ako súčasť učenia.", "Iterácia – opakované zlepšovanie.", "Prototyp – testovacia verzia.", "Pivot – zmena stratégie.", "Growth mindset vs. fixed mindset.", "Kroky práce s chybou (pozorovanie – feedback – analýza – úprava – nový pokus).", "Neistota je prirodzená. Rozdiel medzi neúspechom a zlyhaním."] },
+      { title: "Prvýkrát sa odváži vytvoriť jednoduchú verziu riešenia a zistiť reakcie.", title_full: "Účastník sa prvýkrát odváži vytvoriť jednoduchú verziu riešenia (prototyp) a zistiť, ako na ňu reagujú ostatní.", exp_participants: "Účastníci vytvárajú jednoduché návrhy riešení (napr. model, poster, scénku, digitálny návrh alebo ukážku produktu) a skúšajú si ich predstaviť ostatným, získať spätnú väzbu a upraviť ich podľa reakcií.", exp_coordinator: "Koordinátor podporuje experimentovanie, skúšanie nápadov a prácu so spätnou väzbou.", knowledge: ["MVP (najjednoduchšia možná verzia) – prototyp nemusí byť krásny ani hotový, len musí ukázať hlavnú myšlienku. Papierový náčrt stačí.", "Fail fast – čím skôr zistím, že niečo nefunguje, tým lacnejšie a jednoduchšie to opravím. Prototyp existuje na to, aby zlyhal rýchlo, nie na konci.", "3 otázky na reakciu – čo sa páčilo – čo bolo mätúce – čo by si zmenil."] },
+      { title: "Hľadá spôsob, ako vysvetliť nápad, komu pomôže a prečo dáva zmysel.", title_full: "Účastník hľadá spôsob, ako vysvetliť svoj nápad, komu má pomôcť a prečo dáva zmysel.", exp_participants: "Účastníci predstavujú svoj nápad na konkrétnych situáciách a vysvetľujú, komu pomáha, čo uľahčuje alebo aký problém rieši.", exp_coordinator: "Koordinátor podporuje prepájanie riešení s reálnymi potrebami ľudí a pomenovávanie konkrétneho prínosu nápadu.", knowledge: ["Elevator pitch (výťahová rýchlosť) – vysvetliť nápad tak krátko, že by sa zmestil do jazdy výťahom. Núti to ísť na podstatu.", "Štruktúra: problém – riešenie – pre koho. Jednoduchá kostra vysvetlenia namiesto rozprávania od detailov.", "Test 'vysvetli to babke' – ak to dokážem vysvetliť niekomu, kto o téme nič nevie, znamená to, že tomu naozaj rozumiem.", "Konkrétny príbeh jedného človeka – namiesto 'pomôže to ľuďom' si predstaviť jednu konkrétnu osobu a jej deň. Robí to živšie a zrozumiteľnejšie."] }
     ],
     level: "Tím má hotový prototyp, vie ho odprezentovať a je pripravený na Quest Fest pred celým Slovenskom.",
     activities: [
@@ -736,6 +758,192 @@ const MODULES = [
       { id: "mini-pitch-2", icon: "🎤", name: "Mini pitch (finálny)", desc: "Tréning 2-minútovej prezentácie pre Quest Fest.", time: "30–40 min" },
       { id: "marketplace", icon: "🏪", name: "Marketplace", desc: "Deti prezentujú nápady na simulovanom trhu.", time: "45–60 min" },
       { id: "feedback-hry", icon: "🎮", name: "Feedback hry", desc: "Herné formáty na zbieranie a dávanie spätnej väzby.", time: "25–35 min" }
+    ]
+  }
+];
+
+// ── ROK 2 ──
+const KNOWLEDGE_DETAILS2 = {
+  "r2-0-0": [
+    { title: "5 Whys (rozšírenie).", detail: "Začneme pri viditeľnom probléme a päťkrát za sebou sa pýtame 'prečo sa to stalo?'. Každá odpoveď nás posúva hlbšie — od symptomu k skutočnej príčine. Napr.: Projekt mešká → Prečo? Nikto nevedel, čo má robiť → Prečo? Roly neboli jasne rozdelené → Prečo? Na začiatku sme sa nevenovali plánovaniu." },
+    { title: "Fishbone diagram (rybia kosť).", detail: "Vizuálna technika, kde hlavnú kosť tvorí problém a bočné kosti reprezentujú kategórie možných príčin (ľudia, pravidlá, okolie, nástroje, procesy). Do každej vetvy zapisujeme konkrétne príčiny z danej kategórie. Pomáha vidieť, že problém málokedy má jednu príčinu — je to sieť faktorov." },
+    { title: "Root cause analysis.", detail: "Symptóm je to, čo vidíme — 'tím sa hádal', 'projekt meškal'. Koreňová príčina je to, čo to skutočne spôsobilo — chýbajúce pravidlá, nejasné zadanie, strach z hodnotenia. Ak riešime len symptóm, problém sa vráti v inej podobe." },
+    { title: "Brainstorming príčin.", detail: "Namiesto brainstormingu riešení robíme brainstorming príčin — čo všetko môže problém spôsobovať? Bez hodnotenia, len generujeme. Potom zoskupíme a hľadáme vzory. Tento prístup zabraňuje skákaniu k riešeniu skôr, než problém naozaj rozumieme." },
+    { title: "Pareto princíp (80/20).", detail: "Malá časť príčin (okolo 20%) spôsobuje väčšinu problémov (okolo 80%). Pomáha vybrať, na čo sa zamerať ako prvé — nie riešiť všetko naraz, ale nájsť tú najdôležitejšiu príčinu, ktorej odstránenie prinesie najväčšiu zmenu." }
+  ],
+  "r2-0-1": [
+    { title: "Štýly riešenia konfliktu.", detail: "Existuje päť základných štýlov: (1) Vyhýbanie — ignorujem konflikt. (2) Ústup — ustúpim druhému. (3) Kompromis — obaja niečo dáme. (4) Presadzovanie — trvám na svojom. (5) Spolupráca — hľadáme riešenie, pri ktorom obaja získame. Žiadny štýl nie je univerzálne správny — záleží od situácie." },
+    { title: "Pozícia vs. záujem.", detail: "Pozícia je to, čo niekto hovorí, že chce ('Chcem okno otvorené!'). Záujem je to, čo skutočne potrebuje ('Chcem čerstvý vzduch.'). Keď riešime konflikty na úrovni záujmov, nie pozícií, oveľa ľahšie nájdeme riešenie, ktoré vyhovuje obom stranám." },
+    { title: "Win-win vs. win-lose myslenie.", detail: "Win-lose: niekto vyhrá, niekto prehrá — konflikt je súťaž. Win-win: hľadáme riešenie, pri ktorom obaja získame niečo dôležité. Win-win vyžaduje väčšiu kreativitu a ochotu počúvať, ale vedie k trvalým riešeniam a lepším vzťahom v tíme." },
+    { title: "Fázy tímového vývoja.", detail: "Forming: tím sa spoznáva. Storming: vznikajú konflikty a trenia — toto je normálna fáza! Norming: tím nachádza spoločné pravidlá a rytmus. Performing: tím funguje efektívne a s radosťou. Konflikt (storming) nie je znak, že tím nefunguje — je to znak, že rastie." }
+  ],
+  "r2-0-2": [
+    { title: "After Action Review (AAR).", detail: "AAR je štruktúrovaná reflexia po akcii: (1) Čo sa malo stať? — plán, zámer, cieľ. (2) Čo sa naozaj stalo? — popis reality. (3) Prečo je rozdiel? — analýza príčin. (4) Čo si z toho zoberiem? — poučenie do budúcna." },
+    { title: "Lessons learned.", detail: "Jasné zapísanie toho, čo sme sa naučili — aby sa nestratilo a dalo sa použiť nabudúce. Lessons learned nie sú kritika, sú to dary budúcemu ja alebo tímu. Najlepší tímy si vedú systematický záznam lessons learned po každom väčšom projekte." },
+    { title: "Postmortem (pitva neúspechu).", detail: "Spätné pozretie na to, čo sa stalo, bez obviňovania. Cieľom je poučenie, nie potrestanie. Kľúčové pravidlo: systém a proces kritizujeme, nie ľudí. Otázky: Čo sme vedeli? Čo sme nevedeli? Čo sme predpokladali? Čo by sme urobili inak?" },
+    { title: "Najmenšia zmena s najväčším efektom.", detail: "Po poučení nehľadáme revolúciu — hľadáme najmenšiu zmenu, ktorá prinesie najväčší posun. Táto otázka zabraňuje zahlteniu ('musíme zmeniť úplne všetko') a pomáha konať konkrétne a rýchlo." }
+  ],
+  "r2-1-0": [
+    { title: "Six Thinking Hats (6 klobúkov).", detail: "Biely klobúk: fakty a čísla. Červený klobúk: emócie a intuícia. Čierny klobúk: kritika a riziká. Žltý klobúk: optimizmus a prínosy. Zelený klobúk: kreativita a nové nápady. Modrý klobúk: riadenie procesu a záver. Každý klobúk núti myslieť inak — a tím vidí problém z viacerých uhlov naraz." },
+    { title: "Worst possible idea.", detail: "Zámerné vymýšľanie najhorších, najabsurdnejších riešení. Paradoxne to odblokuje kreativitu — keď prestaneme hľadať 'správnu' odpoveď a dovolíme si byť absurdní, mozog sa uvoľní a začne generovať nové, neočakávané nápady." },
+    { title: "Round robin brainstorming.", detail: "Každý v kruhu pridá jeden nápad, nikto nedominuje. Tichí ľudia majú priestor. Dominantní nemôžu zabrať celý čas. Keď sa kruhy opakujú, nápady sa navzájom inšpirujú a vyvíjajú." },
+    { title: "Random input.", detail: "Náhodné slovo alebo obrázok ako odrazový mostík pre nový nápad. Mozog hľadá spojenie medzi zdanlivo nesúvisiacimi vecami — a práve v tých spojeniach sa rodí kreativita." },
+    { title: "Mapa techník.", detail: "Jednoduchý prehľad: ktorá technika sedí na ktorý typ úlohy. Brainstorming pre množstvo, 5 Whys pre príčiny, SCAMPER pre vylepšenie existujúceho, Six Hats pre tímové rozhodovanie. Vedieť vybrať správnu techniku je rovnako dôležité ako techniku ovládať." }
+  ],
+  "r2-1-1": [
+    { title: "Vedomé používanie skúsenosti ako dôkazu.", detail: "Aktívne si pripomínam konkrétne momenty zvládnutia, keď čelím novej výzve. Nie všeobecné 'som dobrý', ale konkrétne: 'Keď som musel prezentovať pred triedou, zvládol som to napriek strachu.' Konkrétnosť robí dôkaz silnejším." },
+    { title: "Prekonanie blokácie.", detail: "Blokácia ('neviem kde začať', 'čo ak to nebude dobré') je normálna. Pomáha otázka: Čo som už zvládol, čo bolo podobne ťažké? A čo mi vtedy pomohlo začať? Dôkazy z minulosti sú kotva, ktorá nás stabilizuje v neistote." },
+    { title: "Komfortná zóna vs. zóna rastu.", detail: "Komfortná zóna: viem to, je to bezpečné, nerástiem. Zóna rastu: je to nové, je to neisté, ale tu sa učím. Zóna paniky: príliš veľa naraz, zahlcuje. Rast sa deje na hrane neistoty — nie úplne bezpečne, ale ani nie v chaose." },
+    { title: "Self-efficacy ako sval.", detail: "Self-efficacy je viera vo vlastnú schopnosť zvládnuť konkrétnu úlohu. Čím viac skúšam náročné veci a zvládam ich, tým silnejší tento sval je. Keď sa vyhýbam náročným veciam, sval slabne. Každé zvládnutie je tréning." }
+  ],
+  "r2-1-2": [
+    { title: "Spaced repetition.", detail: "Kratšie učenie viackrát v čase funguje lepšie ako jedno dlhé biflenie na poslednú chvíľu. Mozog si lepšie pamätá informácie, ku ktorým sa opakovane vracia s prestávkami. Namiesto 2 hodín v nedeľu — 20 minút v pondelok, stredu a piatok." },
+    { title: "Retrieval practice.", detail: "Aktívne vybavovanie si toho, čo viem, je efektívnejšie ako pasívne čítanie alebo opakovanie. Namiesto 'prečítam si to ešte raz' si položím otázku 'čo si pamätám?' bez pozerania. Tento akt vybavenia posilňuje pamäť oveľa viac ako opakované čítanie." },
+    { title: "Interleaving.", detail: "Striedanie rôznych tém pri učení je efektívnejšie ako učenie jednej veci do úplného konca. Mozog je nútený rozlišovať medzi témami a budovať hlbšie pochopenie. Príklad: striedaj matematiku a históriu namiesto toho, aby si dokončil celú matematiku pred históriou." },
+    { title: "Vlastná učebná stratégia.", detail: "Nie len 'som vizuálny typ', ale vedome si navrhnúť, ako sa budem učiť konkrétnu vec. Otázky: Čo presne sa chcem naučiť? Aké techniky vyskúšam? Ako spoznám, že som sa to naučil? Kedy a kde budem učiť? Toto je metakognícia v praxi." }
+  ],
+  "r2-2-0": [
+    { title: "Hodnotová mapa.", detail: "Zaznamenanie, čo rôzni ľudia v situácii považujú za dôležité — nie len čo potrebujú. Napríklad pri navrhovaní ihriska: deti chcú dobrodružstvo, rodičia bezpečnosť, mesto nízke náklady, susedia ticho. Všetky hodnoty sú legitímne — aj keď sú protichodné." },
+    { title: "Hierarchia hodnôt.", detail: "Rovnaká vec môže mať pre rôznych ľudí inú váhu. Pre jedného je rýchlosť najdôležitejšia, pre druhého bezpečie, pre tretieho cena. Keď poznáme hierarchiu hodnôt každého aktéra, vieme navrhnúť riešenie, ktoré rešpektuje to, na čom každému najviac záleží." },
+    { title: "Win-win analýza.", detail: "Systematické hľadanie, čo získa každá strana pri rôznych riešeniach. Cieľom nie je rovnaký zisk pre všetkých, ale riešenie, kde každý získa niečo z toho, čo mu je dôležité. Hľadáme prienik medzi rôznymi hodnotami, nie kompromis, kde všetci niečo stratia." },
+    { title: "Empatická mapa (hovorí – robí – myslí – cíti).", detail: "Nástroj na zachytenie viacerých vrstiev toho, čo je pre človeka dôležité: Čo hovorí nahlas? Čo skutočne robí? Čo si myslí, ale nehovorí? Čo cíti? Tieto štyri vrstvy dávajú oveľa bohatší obraz ako len odpoveď na otázku 'čo chceš?'" }
+  ],
+  "r2-2-1": [
+    { title: "Hodnota vs. vlastnosti.", detail: "Vlastnosť je to, čo môj nápad robí: 'App odosiela pripomienky.' Hodnota je to, čo to prináša konkrétnemu človeku: 'Vďaka tomu nezabudneš na lieky a budeš sa cítiť pokojnejšie.' Ľudia nekupujú vlastnosti — kupujú hodnoty." },
+    { title: "Storytelling ako presviedčanie.", detail: "Príbeh človeka pred a po riešení je presvedčivejší ako zoznam výhod. 'Marek každý deň zabudol zobrať lieky a bál sa následkov. Teraz dostáva pripomienku a cíti sa pokojne.' Príbeh aktivuje emócie a pomáha poslucháčovi predstaviť si seba v tej situácii." },
+    { title: "Práca s námietkami.", detail: "Keď niekto povie 'ale čo ak...', neobraňujem sa — reagujem argumentom. Najprv potvrdím, že námietka dáva zmysel: 'Rozumiem, to je dobrá otázka.' Potom odpoviem konkrétne: 'Na to sme mysleli — funguje to tak, že...' Obhajovanie sa vyzerá slabo, argumentovanie vyzerá sebavedomo." },
+    { title: "Sociálny dôkaz.", detail: "'Funguje to aj iným' je silný argument. Reálny feedback od testovacích používateľov ('testovali sme to s 5 ľuďmi a povedali nám...') je oveľa presvedčivejší ako 'myslíme si, že to bude fungovať'. Dôkazy z reality posilňujú dôveryhodnosť nápadu." }
+  ],
+  "r2-2-2": [
+    { title: "Flexibilita v role.", detail: "Keď sa situácia zmení (niekto vypadne, zadanie sa upresnilo, čas sa skrátil), viem svoju rolu upraviť alebo dočasne prevziať inú bez toho, aby sa tím zasekol. Flexibilita neznamená robiť všetko — znamená vedieť reagovať bez paniky a s ohľadom na potreby tímu." },
+    { title: "Accountability.", detail: "Accountability nie je len splniť úlohu — je to aktívne informovať tím o pokroku, problémoch a zmenách. Keď mám problém, poviem to skôr, nie neskôr. Tím, kde každý aktívne komunikuje, funguje oveľa lepšie ako tím, kde každý čaká, kým ho niekto spýta." },
+    { title: "Eskalácia problému.", detail: "Keď neviem alebo nestíham, poviem to tímu včas namiesto čakania do poslednej chvíle. Skorá eskalácia dáva tímu čas reagovať. Neskorá eskalácia (alebo žiadna) spôsobuje krízu. Povedať 'mám problém' nie je zlyhanie — je to zodpovedná komunikácia." },
+    { title: "Spoľahlivosť ako dôvera.", detail: "Ako plním svoje záväzky priamo ovplyvňuje, ako mi tím dôveruje pri ďalších úlohách. Každé dodržané slovo buduje dôveru, každé nedodržané ju erózuje. Dôvera v tíme sa buduje pomaly a stráca rýchlo — a závisí od konkrétnych skutkov, nie od zámerov." }
+  ],
+  "r2-3-0": [
+    { title: "Pilotné testovanie.", detail: "Vyskúšanie riešenia v malom rozsahu v reálnej situácii, predtým než sa nasadí naplno. Pilot nám ukáže, čo sme nevideli pri plánovaní — reálni ľudia reagujú inak, ako sme predpokladali. Lepšie zlyhať na pilote ako na finálnom nasadení." },
+    { title: "Field test.", detail: "Rozdiel medzi testovaním v bezpečnom prostredí (trieda, spolužiaci) a testovaním tam, kde sa riešenie naozaj použije (škola, okolie, rodina). Field test odhalí problémy, ktoré v triede nevidíme — iné podmienky, iní ľudia, iný kontext." },
+    { title: "Metriky úspechu.", detail: "Vopred určiť, podľa čoho poznám, že test fungoval. Nie pocitovo ('zdalo sa mi, že sa im páčilo'), ale konkrétne: počet ľudí, ktorí riešenie použili, čas potrebný na úlohu, počet chýb, spokojnosť na škále. Metriky nám umožňujú porovnávať verzie riešenia objektívne." },
+    { title: "Build – Measure – Learn.", detail: "Postav riešenie → Zmeraj, čo sa stalo → Nauč sa z toho → Opakuj. Tento cyklus, inšpirovaný Lean Startup, je základom každého úspešného iteratívneho projektu. Kľúčové je, že 'Measure' má byť konkrétne — nie len pocit, ale dáta." }
+  ],
+  "r2-3-1": [
+    { title: "Predpoklad vs. overená potreba.", detail: "Predpoklad je to, čo si myslím, že človek potrebuje — bez overenia. Overená potreba je to, čo som zistil konkrétnou otázkou alebo pozorovaním. Väčšina projektov zlyháva nie preto, že riešenie bolo zlé, ale preto, že riešilo predpokladaný problém, nie skutočný." },
+    { title: "Testovanie predpokladov.", detail: "Najprv pomenujem, čo predpokladám. Potom zistím, ako to overím. Potom to naozaj overím. Tento postup zabraňuje 'confirmation bias' — tendencii hľadať len dôkazy, ktoré potvrdzujú, čo si myslím." },
+    { title: "Najriskantnejší predpoklad.", detail: "Zo všetkého, čo predpokladám, overím najprv to, na čom najviac závisí, či má nápad zmysel. Ak sa ukáže, že tento predpoklad je nesprávny, celý nápad treba prehodnotiť. Má zmysel to zistiť čo najskôr, nie až po mesiacoch práce." },
+    { title: "'Skús ma vyvrátiť'.", detail: "Namiesto hľadania dôkazu, že mám pravdu, aktívne hľadám dôkaz, že sa mýlim. Tento prístup je silnejší — ak nenájdem žiadny dôkaz, že sa mýlim, môj predpoklad je pevnejší. Ak nájdem, ušetril som si veľa zbytočnej práce." }
+  ],
+  "r2-3-2": [
+    { title: "Reflexia 4F (Facts – Feelings – Findings – Future).", detail: "Facts: čo sa stalo, bez hodnotenia. Feelings: ako som sa cítil počas toho. Findings: čo som si z toho odniesol, čo som sa naučil. Future: čo urobím nabudúce inak. Rozšírenie 3 otázok z prvého ročníka — pridáva emocionálnu vrstvu a explicitné rozhodnutie do budúcna." },
+    { title: "Semafor reflexia.", detail: "Rýchla vizuálna reflexia: zelená — išlo dobre, spokojný som. Žltá — na pol ceste, niečo fungovalo, niečo nie. Červená — nefungovalo, potrebujem zmenu. Rýchla, ale účinná — každý vie okamžite, kde stojí, a tím vidí celkový obraz." },
+    { title: "360° reflexia.", detail: "Kombinácia vlastného pohľadu na seba a pohľadu tímu na mňa. Najprv hodnotím sám seba, potom dostávam spätnú väzbu od ostatných. Porovnanie oboch pohľadov odhalí mŕtve uhly — veci, ktoré o sebe neviem, ale ostatní vidia." },
+    { title: "Reflexia cez metaforu/obrázok.", detail: "Vyjadrenie skúsenosti výberom symbolu alebo metafory namiesto slov. 'Táto hodina bola pre mňa ako...' Metafora umožňuje vyjadriť niečo, čo sa ťažko pomenováva priamo. Otvára priestor pre emocionálne a kreatívne vyjadrenie." }
+  ],
+  "r2-4-0": [
+    { title: "Spätná väzba ako informácia, nie útok.", detail: "Feedback nie je o mne ako osobe — je to dáta, ktoré môžem použiť. Keď niekto povie 'toto mi nebolo jasné', nehovorí 'si hlúpy' — hovorí 'toto miesto potrebuje zlepšenie'. Oddelenie emócie od obsahu mi umožňuje feedbackom skutočne pracovať." },
+    { title: "Retrospektíva (Start – Stop – Continue).", detail: "Start: čo začnem robiť, čo doteraz nerobím, ale malo by som? Stop: čo prestane robiť, čo mi nepomáha? Continue: čo budem robiť ďalej, lebo funguje? Jednoduchá, ale mocná štruktúra pre tímovú reflexiu po projekte." },
+    { title: "Slučka učenia (Plan – Do – Check – Act).", detail: "Naplánuj — Urob — Over — Uprav. Opakovaný cyklus zlepšovania. Kľúčové je 'Check' — skutočné overenie, či plán fungoval, nie len pocit. A 'Act' — konkrétna úprava na základe toho, čo sme zistili." },
+    { title: "Fakt vs. názor v feedbacku.", detail: "Fakt: 'Prezentácia trvala 10 minút namiesto 5.' Názor: 'Prezentácia bola príliš dlhá.' Fakt je overiteľný. Názor závisí od perspektívy. Keď dostávam feedback, rozlišujem, čo je fakt a čo je názor — a oboje beriem vážne, ale inak s nimi pracujem." },
+    { title: "Filter na feedback.", detail: "Nie každý feedback je rovnako užitočný. Vedomé rozhodnutie: Toto použijem, lebo... Toto nepoujem, lebo... Kritériá: Je to od niekoho, kto pozná kontext? Je to konkrétne alebo len pocit? Je to v súlade s cieľom nápadu? Filter mi pomáha neprisposobovať sa každej pripomienke." }
+  ],
+  "r2-4-1": [
+    { title: "Iterácia na základe feedbacku.", detail: "Vedome rozhodujem, ktorý feedback použijem a ktorý nie — a viem prečo. Nie každý feedback je rovnako hodnotný. Feedback od ľudí, ktorých sa problém týka, má väčšiu váhu ako feedback od tých, ktorí ho nepoznajú." },
+    { title: "Testovanie na reálnych používateľoch.", detail: "Rozdiel medzi feedbackom od spolužiakov a od ľudí, ktorých sa problém naozaj týka, je obrovský. Spolužiaci sú hodní, chcú pomôcť — ale nie sú cieľová skupina. Reálni používatelia odhalia problémy, ktoré spolužiaci nevidia." },
+    { title: "Fidelity prototypu.", detail: "Nízka vernosť (low fidelity): papierový náčrt, skica, lepenkový model. Vysoká vernosť (high fidelity): detailný digitálny návrh, funkčný prototyp. Kedy čo použiť: v ranej fáze low fidelity — rýchle a lacné. Pred finálnym testovaním high fidelity — bližšie realite." },
+    { title: "Testovací scenár.", detail: "Vopred si pripravím: Čo chcem pri testovaní zistiť? Aké úlohy dám používateľovi? Aké otázky položím? Čo budem sledovať? Testovací scenár zabraňuje tomu, aby sme len 'ukázali nápad' a pýtali sa 'páčilo sa ti to?' — to nie je testovanie, to je prezentácia." }
+  ],
+  "r2-4-2": [
+    { title: "Kto ma počúva.", detail: "Pred každou prezentáciou si položím otázky: Čo táto osoba vie o téme? Čo ju zaujíma? Čo potrebuje počuť, aby pochopila hodnotu nápadu? Iná príprava pre spolužiaka, iná pre učiteľa, iná pre starostu mesta." },
+    { title: "Jazyk pre publikum.", detail: "Iné slová a príklady pre rôznych ľudí. Pre dieťa: konkrétny príbeh z každodenného života. Pre odborníka: presné termíny a čísla. Pre dospelého bez kontextu: jednoduchá metafora. Správny jazyk nie je zjednodušovanie — je to rešpekt k tomu, kto počúva." },
+    { title: "Forma podľa publika.", detail: "Ukážka, príbeh, poster, rozhovor — každá forma funguje pre iné publikum a situáciu. Pri prezentácii pred spolužiakmi funguje živá ukážka. Pri prezentácii pre dospelých môže fungovať lepšie poster s dátami. Forma je rovnako dôležitá ako obsah." },
+    { title: "Silná vs. slabá prezentácia.", detail: "Silná: konkrétny príbeh jedného človeka, jasná štruktúra (problém → riešenie → dôkaz), nadšenie a kontakt s publikom. Slabá: čítanie z papiera, zoznam vlastností bez hodnoty, všeobecné tvrdenia bez príkladu. Rozdiel nie je v obsahu — je v tom, ako obsah podávame." },
+    { title: "Príbeh jedného človeka.", detail: "Namiesto 'pomôže to ľuďom' si predstavíme jednu konkrétnu osobu a popíšeme jej deň pred a po riešení. Konkrétny príbeh aktivuje emócie a pomáha publiku predstaviť si seba v tej situácii. Všeobecné tvrdenia sú ľahko zabudnuteľné — príbehy zostávajú." }
+  ]
+};
+
+const MODULES2 = [
+  {
+    id: 0, num: "01", period: "September – Október", title: "Príčiny & Konflikty",
+    meta: [{ label: "Obdobie", value: "Sep – Okt" }, { label: "Level", value: "1 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Prehĺbenie" }],
+    competencies: [
+      { title: "Vie pomenovať, čo je za problémom a kde sa skrýva príležitosť.", title_full: "Účastník dokáže pomenovať, čo je v situácii problém, aká potreba za ním stojí a kde sa skrýva príležitosť na zmenu.", exp_participants: "Účastníci skúmajú problémy ako malí detektívi a hľadajú, čo všetko môže stáť za ich vznikom, nielen tú najbližšiu alebo najviditeľnejšiu príčinu.", exp_coordinator: "Koordinátor podporuje hľadanie viacerých možných príčin, overovanie si svojich odhadov a rozlišovanie medzi tým, čo sa len 'deje spolu' a tým, čo problém naozaj spôsobuje.", knowledge: ["5 Whys (rozšírenie) – opakované pýtanie 'prečo?' až k skutočnej príčine.", "Fishbone diagram (rybia kosť) – vizuálne rozvetvenie možných príčin do kategórií (ľudia, pravidlá, okolie, nástroje).", "Root cause analysis – skúmanie koreňovej príčiny, nie len povrchového symptomu.", "Brainstorming príčin – brainstorming zameraný na to, čo všetko môže problém spôsobovať, nie na riešenia.", "Pareto princíp (80/20) – malá časť príčin často spôsobuje väčšinu problému."] },
+      { title: "Zvláda konflikt v tíme a hľadá riešenie bez víťaza a porazeného.", title_full: "Účastník dokáže využívať slobodu pri práci tak, že rešpektuje dohodnuté pravidlá, záväzky a potreby tímu.", exp_participants: "Účastníci zažívajú situácie tímovej spolupráce, v ktorých vzniká nezhoda alebo konflikt, a učia sa rozpoznať, čo spolupráci pomáha a čo ju brzdí.", exp_coordinator: "Koordinátor podporuje pozorovanie tímovej dynamiky, rozlišovanie medzi tým, čo niekto hovorí, že chce, a tým, čo skutočne potrebuje, a hľadanie riešení, pri ktorých nemusí byť víťaz a porazený.", knowledge: ["Štýly riešenia konfliktu (vyhýbanie, ústup, kompromis, presadzovanie, spolupráca) – žiadny nie je univerzálne správny.", "Pozícia vs. záujem – rozdiel medzi tým, čo niekto hovorí, že chce, a tým, čo skutočne potrebuje.", "Win-win vs. win-lose myslenie – riešenie konfliktu nemusí mať víťaza a porazeného.", "Fázy tímového vývoja (forming – storming – norming – performing) – konflikt (storming) je normálna fáza vývoja tímu, nie znak, že nefunguje."] },
+      { title: "Vie sa pozrieť na neúspech bez obviňovania a vybrať ďalší krok.", title_full: "Účastník dokáže po skúsenosti pomenovať, čo fungovalo, čo nefungovalo a čo chce skúsiť ďalej.", exp_participants: "Účastníci po neúspechu alebo nefunkčnom riešení pomenúvajú, čo sa naučili, a rozhodujú sa, aký ďalší krok im pomôže riešenie zlepšiť.", exp_coordinator: "Koordinátor podporuje pozeranie sa na neúspech bez obviňovania, jasné pomenovanie poučenia a hľadanie najmenšej zmeny, ktorá môže priniesť najväčší posun.", knowledge: ["After Action Review (AAR) – 4 otázky: čo sa malo stať, čo sa naozaj stalo, prečo je rozdiel, čo si z toho zoberiem.", "Lessons learned – jasné zapísanie poučenia, aby sa nestratilo a dalo sa použiť nabudúce.", "Postmortem (pitva neúspechu) – spätné pozretie bez obviňovania, cieľom je poučenie nie potrestanie.", "Najmenšia zmena s najväčším efektom – po poučení hľadať, čo stačí zmeniť, nie robiť všetko inak."] }
+    ],
+    level: "Účastník vie analyzovať problém do hĺbky, zvládnuť konflikt v tíme a poučiť sa z neúspechu.",
+    activities: [
+      { id: "r2-detektivne", icon: "🔎", name: "Detektívne vyšetrovanie", desc: "Skúmanie príčin problémov cez 5 Whys a fishbone diagram.", time: "40–50 min" },
+      { id: "r2-mystery-case", icon: "🕵️", name: "Mystery case aktivity", desc: "Záhadné prípady, kde tím hľadá skutočnú príčinu problému.", time: "30–45 min" },
+      { id: "r2-konflikt-roleplay", icon: "🎭", name: "Konflikt role-play", desc: "Simulácie konfliktných situácií s rôznymi štýlmi riešenia.", time: "35–45 min" },
+      { id: "r2-aar", icon: "🔄", name: "After Action Review", desc: "Štruktúrovaná reflexia po projektovej úlohe (4 otázky).", time: "25–35 min" },
+      { id: "r2-postmortem", icon: "🩺", name: "Postmortem kruh", desc: "Spätné pozretie na neúspech bez obviňovania.", time: "30–40 min" }
+    ]
+  },
+  {
+    id: 1, num: "02", period: "November – December", title: "Kreativita & Sebarozvoj",
+    meta: [{ label: "Obdobie", value: "Nov – Dec" }, { label: "Level", value: "2 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Prehĺbenie" }],
+    competencies: [
+      { title: "Vie vybrať techniku, ktorá sedí na daný typ úlohy.", title_full: "Účastník dokáže vytvoriť viac rôznych nápadov na riešenie jedného problému pomocou jednoduchých techník.", exp_participants: "Účastníci spoznávajú nové techniky na generovanie nápadov a skúšajú vybrať tú, ktorá najlepšie sedí na daný typ úlohy.", exp_coordinator: "Koordinátor podporuje vedomý výber techniky podľa situácie a experimentovanie s menej známymi prístupmi.", knowledge: ["Six Thinking Hats (6 klobúkov) – každý klobúk predstavuje iný uhol pohľadu (fakty, emócie, kritika, optimizmus, kreativita, proces).", "Worst possible idea – zámerné vymýšľanie najhorších riešení, ktoré paradoxne odblokuje kreativitu.", "Round robin brainstorming – každý v kruhu pridá jeden nápad, nikto nedominuje.", "Random input – náhodné slovo alebo obrázok ako odrazový mostík pre nový nápad.", "Mapa techník – jednoduchý prehľad, ktorá technika sedí na ktorý typ úlohy."] },
+      { title: "Dokáže sa oprieť o vlastné skúsenosti, keď prichádza náročná výzva.", title_full: "Účastník dokáže vedome použiť svoje doterajšie skúsenosti ako dôkaz vlastnej schopnosti a oprieť sa o ne pri nových, náročnejších výzvach.", exp_participants: "Účastníci vedome pracujú so svojimi doterajšími skúsenosťami ako dôkazom vlastnej schopnosti a učia sa oprieť sa o ne pri nových, náročnejších výzvach – aj keď výsledok nie je istý.", exp_coordinator: "Koordinátor podporuje vedomé prepájanie minulých úspechov s aktuálnymi výzvami, prekonávanie počiatočnej blokácie a budovanie odvahy začať aj v neistote.", knowledge: ["Vedomé používanie skúsenosti ako dôkazu – aktívne si pripomínam konkrétne momenty zvládnutia, keď čelím novej výzve.", "Prekonanie blokácie – schopnosť začať aj keď si nie som istý výsledkom, opretá o dôkazy z minulosti.", "Komfortná zóna vs. zóna rastu – rast sa deje na hrane neistoty, nie v bezpečnom priestore.", "Self-efficacy ako sval – čím viac skúšam náročné veci a zvládam ich, tým silnejšia je moja viera vo vlastné schopnosti."] },
+      { title: "Zvláda si navrhnúť, ako sa bude učiť konkrétnu vec.", title_full: "Účastník dokáže skúšať rôzne spôsoby učenia a pomenovať, ktoré mu pri učení alebo práci pomáhajú najviac.", exp_participants: "Účastníci už vedia, že rôzni ľudia sa učia inak, a teraz idú hlbšie – vedome si navrhujú vlastnú stratégiu učenia pre konkrétnu úlohu a skúšajú techniky, ktoré sú vedecky overené ako efektívne.", exp_coordinator: "Koordinátor podporuje vedomé plánovanie učenia, experimentovanie s novými technikami a reflexiu toho, čo konkrétne pomohlo a prečo.", knowledge: ["Spaced repetition – kratšie učenie viackrát v čase funguje lepšie ako jedno dlhé biflenie na poslednú chvíľu.", "Retrieval practice – aktívne vybavovanie si toho, čo viem, je efektívnejšie ako pasívne čítanie alebo opakovanie.", "Interleaving – striedanie rôznych tém pri učení je efektívnejšie ako učenie jednej veci do úplného konca.", "Vlastná učebná stratégia – nie len 'som vizuálny typ', ale vedome si navrhnúť, ako sa budem učiť konkrétnu vec."] }
+    ],
+    level: "Účastník vie vedome vybrať kreatívnu techniku, oprieť sa o vlastné skúsenosti a navrhnúť si stratégiu učenia.",
+    activities: [
+      { id: "r2-six-hats", icon: "🎩", name: "Six Thinking Hats", desc: "Tímová aktivita s 6 klobúkmi – každý pohľad má svoju farbu.", time: "40–50 min" },
+      { id: "r2-worst-idea", icon: "💡", name: "Worst possible idea", desc: "Zámerné vymýšľanie najhorších riešení ako odrazový mostík.", time: "25–35 min" },
+      { id: "r2-dovkazovy-spis", icon: "📁", name: "Dôkazový spis", desc: "Osobná zbierka momentov zvládnutia a dôkazov vlastnej schopnosti.", time: "30–40 min" },
+      { id: "r2-retrieval", icon: "🧠", name: "Retrieval practice", desc: "Hra na aktívne vybavovanie si — efektívnejšie ako čítanie.", time: "20–30 min" },
+      { id: "r2-ucebny-plan", icon: "📋", name: "Vlastný učebný plán", desc: "Tvorba stratégie učenia pre konkrétnu úlohu.", time: "30–40 min" }
+    ]
+  },
+  {
+    id: 2, num: "03", period: "Január – Február", title: "Hodnoty & Presviedčanie",
+    meta: [{ label: "Obdobie", value: "Jan – Feb" }, { label: "Level", value: "3 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Prehĺbenie" }],
+    competencies: [
+      { title: "Vie, že rôzni ľudia majú rôzne hodnoty, a hľadá prienik.", title_full: "Účastník dokáže pomenovať svoje potreby a uvedomiť si, že rôzni ľudia môžu mať odlišné potreby a pohľady.", exp_participants: "Účastníci skúmajú rovnakú situáciu z pohľadu rôznych ľudí a zisťujú, že to, čo je pre jedného najdôležitejšie, nemusí byť hodnotné pre druhého.", exp_coordinator: "Koordinátor podporuje rozlišovanie hodnôt jednotlivých aktérov, hľadanie prieniku medzi ich potrebami a uvedomenie si, že 'hodnotné' nie je univerzálne, ale závisí od toho, kto sa pýta.", knowledge: ["Hodnotová mapa – zaznamenanie, čo rôzni ľudia v situácii považujú za dôležité, nie len čo potrebujú.", "Hierarchia hodnôt – rovnaká vec môže mať pre rôznych ľudí inú váhu (pre jedného rýchlosť, pre druhého bezpečie).", "Win-win analýza – čo získa každá strana, hľadanie prieniku medzi rôznymi hodnotami.", "Empatická mapa (hovorí – robí – myslí – cíti) – nástroj na zachytenie viacerých vrstiev toho, čo je pre človeka dôležité."] },
+      { title: "Dokáže prispôsobiť príbeh rôznym ľuďom a zvládnuť námietky.", title_full: "Účastník dokáže vysvetliť, ako jeho nápad môže niekomu pomôcť alebo uľahčiť situáciu.", exp_participants: "Účastníci už vedia vysvetliť prínos svojho nápadu a teraz sa učia presviedčať rôznych ľudí – pracovať s námietkami, prispôsobiť príbeh publiku a ukázať hodnotu riešenia nie cez zoznam vlastností, ale cez konkrétny príbeh človeka, ktorému pomohlo.", exp_coordinator: "Koordinátor podporuje rozlišovanie medzi vlastnosťou a hodnotou riešenia, prácu s námietkami bez obhajovania sa a používanie reálnych dôkazov ako argumentu.", knowledge: ["Hodnota vs. vlastnosti – rozdiel medzi tým, čo môj nápad robí (vlastnosť), a čo to konkrétnemu človeku prináša (hodnota).", "Storytelling ako presviedčanie – príbeh človeka pred a po riešení je presvedčivejší ako zoznam výhod.", "Práca s námietkami – keď niekto povie 'ale čo ak...', reagujem argumentom, nie obhajovaním sa.", "Sociálny dôkaz – 'funguje to aj iným' ako argument, reálny feedback od testovacích používateľov posilňuje dôveryhodnosť nápadu."] },
+      { title: "Zvláda svoju rolu v tíme aj keď sa situácia zmení.", title_full: "Účastník dokáže prevziať jednoduchú rolu v tíme a dokončiť úlohu, na ktorej sa dohodol.", exp_participants: "Účastníci už vedia prevziať rolu a dokončiť úlohu, a teraz sa učia vedome pracovať so svojou rolou aj keď sa situácia zmení – flexibilne reagovať, včas informovať tím o problémoch a uvedomovať si, že spoľahlivosť voči tímu buduje dôveru do budúcna.", exp_coordinator: "Koordinátor podporuje aktívnu komunikáciu v rámci roly, včasnú eskaláciu problémov a prepojenie medzi plnením záväzkov a dôverou v tíme.", knowledge: ["Flexibilita v role – keď sa situácia zmení, viem svoju rolu upraviť alebo dočasne prevziať inú bez toho, aby sa tím zasekol.", "Accountability – nie len splniť úlohu, ale aktívne informovať tím o pokroku, problémoch a zmenách.", "Eskalácia problému – keď neviem alebo nestíham, poviem to tímu včas namiesto čakania do poslednej chvíle.", "Spoľahlivosť ako dôvera – ako plním svoje záväzky priamo ovplyvňuje, ako mi tím dôveruje pri ďalších úlohách."] }
+    ],
+    level: "Účastník vie pracovať s hodnotami rôznych aktérov, presviedčať rôzne publiká a spoľahlivo fungovať v tíme aj pri zmene situácie.",
+    activities: [
+      { id: "r2-hodnotova-mapa", icon: "🗺️", name: "Hodnotová mapa", desc: "Mapovanie toho, čo rôzni aktéri považujú za dôležité.", time: "35–45 min" },
+      { id: "r2-namiertka", icon: "🤝", name: "Hra námietka a odpoveď", desc: "Jeden háda námietky, druhý reaguje bez obhajovania sa.", time: "25–35 min" },
+      { id: "r2-storytelling", icon: "📖", name: "Storytelling challenge", desc: "Pred a po príbeh konkrétneho človeka ako argument.", time: "30–40 min" },
+      { id: "r2-eskalacia", icon: "⚡", name: "Eskaluj včas", desc: "Simulácia, kde neskorá komunikácia má viditeľný dopad na tím.", time: "35–45 min" },
+      { id: "r2-marketplace2", icon: "🏪", name: "Marketplace s rôznymi publíkami", desc: "Prezentácia nápadu rôznym typom poslucháčov.", time: "45–60 min" }
+    ]
+  },
+  {
+    id: 3, num: "04", period: "Marec – Apríl", title: "Testovanie & Predpoklady",
+    meta: [{ label: "Obdobie", value: "Mar – Apr" }, { label: "Level", value: "4 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Prehĺbenie" }],
+    competencies: [
+      { title: "Vie navrhnúť a vyskúšať test riešenia v reálnej situácii.", title_full: "Účastník dokáže zisťovať, čo ľudia potrebujú, pomocou rozhovoru, otázok alebo pozorovania.", exp_participants: "Účastníci navrhujú jednoduchý test svojho riešenia a vyskúšajú ho v reálnej situácii, nielen medzi spolužiakmi, a podľa toho, čo zistia, riešenie upravujú.", exp_coordinator: "Koordinátor podporuje vopred určenie, podľa čoho sa pozná úspech testu, odvahu vyskúšať riešenie v skutočnom prostredí a prácu so zistenými výsledkami namiesto pocitového hodnotenia.", knowledge: ["Pilotné testovanie – vyskúšanie riešenia v malom rozsahu v reálnej situácii, predtým než sa nasadí naplno.", "Field test – rozdiel medzi testovaním v bezpečnom prostredí a testovaním tam, kde sa riešenie naozaj použije.", "Metriky úspechu – vopred určiť, podľa čoho poznám, že test fungoval (napr. počet ľudí, rýchlosť, spokojnosť).", "Build – Measure – Learn – postav riešenie, zmeraj, čo sa stalo, nauč sa z toho, opakovaný cyklus testovania v realite."] },
+      { title: "Dokáže overiť, čo si myslí, že je pravda, skôr ako tomu uverí.", title_full: "Účastník dokáže pomenovať rôzne skupiny ľudí, ktorých sa problém týka, a opísať, ako ich ovplyvňuje.", exp_participants: "Účastníci si pomenúvajú, čo si myslia, že ľudia potrebujú, a následne si to overujú v realite pomocou otázok alebo pozorovania.", exp_coordinator: "Koordinátor podporuje rozlišovanie predpokladu od overenej informácie, aktívne hľadanie dôkazov, že sa môžu mýliť, a uprednostnenie overenia najriskantnejšieho predpokladu ako prvého.", knowledge: ["Predpoklad vs. overená potreba – rozdiel medzi tým, čo si myslím, že človek potrebuje, a tým, čo som si naozaj overil.", "Testovanie predpokladov – najprv pomenovať, čo predpokladám, potom to overiť konkrétnou otázkou alebo pozorovaním.", "Najriskantnejší predpoklad – zo všetkého, čo si myslím, overiť najprv to, na čom najviac závisí, či má nápad zmysel.", "'Skús ma vyvrátiť' – namiesto hľadania dôkazu, že mám pravdu, aktívne hľadať dôkaz, že sa mýlim."] },
+      { title: "Zvláda rôzne formy reflexie a vie vyhodnotiť vlastný postup.", title_full: "Účastník dokáže jednoducho reflektovať svoju skúsenosť, rozlíšiť reflexiu od spätnej väzby a dať druhým jednoduchú konštruktívnu spätnú väzbu.", exp_participants: "Účastníci skúšajú rôzne formy reflexie na vyhodnotenie svojej práce, učenia a tímovej spolupráce, nielen jeden zaužívaný spôsob.", exp_coordinator: "Koordinátor podporuje rozmanitosť reflexných formátov, kombinovanie rýchlej a hlbšej reflexie a prepájanie vlastného pohľadu s pohľadom tímu.", knowledge: ["Reflexia 4F (Facts – Feelings – Findings – Future) – čo sa stalo, ako som sa cítil, čo som si odniesol, čo urobím nabudúce. Rozšírenie 3 otázok z prvého ročníka.", "Semafor reflexia – rýchla vizuálna reflexia (zelená – išlo dobre, žltá – na pol ceste, červená – nefungovalo).", "360° reflexia – kombinácia vlastného pohľadu na seba a pohľadu tímu na mňa.", "Reflexia cez metaforu/obrázok – vyjadrenie skúsenosti výberom symbolu, nie len slovami."] }
+    ],
+    level: "Účastník vie otestovať riešenie v realite, overiť si predpoklady a vyhodnocovať vlastný proces rôznymi formami reflexie.",
+    activities: [
+      { id: "r2-pilotny-test", icon: "🧪", name: "Pilotné testovanie", desc: "Vyskúšanie riešenia v malom rozsahu v reálnej situácii.", time: "45–60 min" },
+      { id: "r2-predpoklad", icon: "🔍", name: "Predpoklad vs. realita", desc: "Overovanie predpokladov v teréne pred spustením riešenia.", time: "35–45 min" },
+      { id: "r2-skus-me-vyvrátit", icon: "⚖️", name: "Skús ma vyvrátiť", desc: "Aktívne hľadanie dôkazov, že sa mýlim — silnejšia než obhajoba.", time: "25–35 min" },
+      { id: "r2-reflexia-4f", icon: "🪞", name: "Reflexia 4F", desc: "Štruktúrovaná reflexia: Facts – Feelings – Findings – Future.", time: "20–30 min" },
+      { id: "r2-360-reflexia", icon: "🔄", name: "360° reflexia", desc: "Kombinácia sebareflexie a pohľadu tímu.", time: "30–40 min" }
+    ]
+  },
+  {
+    id: 4, num: "05", period: "Máj – Jún", title: "Iterácia & Prezentácia",
+    meta: [{ label: "Obdobie", value: "Máj – Jún" }, { label: "Level", value: "5 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Finále" }],
+    competencies: [
+      { title: "Vie pracovať so spätnou väzbou a upraviť riešenie na základe nej.", title_full: "Účastník dokáže pracovať s chybou alebo neistotou tak, že získa spätnú väzbu a upraví ďalší krok.", exp_participants: "Účastníci sa učia vedome pracovať so spätnou väzbou, ktorú dostávajú, vyhodnocovať svoj vlastný proces a na základe reálnych výsledkov upravovať svoje ďalšie rozhodnutia.", exp_coordinator: "Koordinátor podporuje oddelenie emócie od obsahu spätnej väzby, štruktúrované vyhodnocovanie procesu a vedomé rozhodovanie, čo z feedbacku použiť a čo nie.", knowledge: ["Spätná väzba ako informácia, nie útok – feedback nie je o mne ako osobe, je to dáta, ktoré môžem použiť.", "Retrospektíva (Start – Stop – Continue) – čo začať robiť, čo prestať robiť, čo robiť ďalej.", "Slučka učenia (Plan – Do – Check – Act) – naplánuj, urob, over, uprav, opakovaný cyklus zlepšovania.", "Fakt vs. názor v feedbacku – feedback môže byť založený na tom, čo sa stalo, alebo na tom, ako to niekto vníma.", "Filter na feedback – vedomé rozhodnutie, čo z feedbacku je užitočné a čo pustiť."] },
+      { title: "Dokáže testovať na reálnych ľuďoch a rozhodnúť, čo z feedbacku použiť.", title_full: "Účastník dokáže vytvoriť prvú jednoduchú verziu riešenia (prototyp) a overiť si, ako na ňu reagujú ostatní.", exp_participants: "Účastníci už vedia vytvoriť jednoduchý prototyp a získať spätnú väzbu, a teraz sa učia vedome iterovať – rozhodovať, ktorý feedback použijú a ktorý nie, testovať na reálnych používateľoch (nie len spolužiakoch) a vopred si pripraviť, čo pri testovaní budú sledovať.", exp_coordinator: "Koordinátor podporuje vedomú prácu s feedbackom, rozlišovanie medzi užitočnou a menej užitočnou spätnou väzbou a posun od testovania 'doma' k testovaniu v reálnom prostredí.", knowledge: ["Iterácia na základe feedbacku – vedome rozhodujem, ktorý feedback použijem a ktorý nie, a viem prečo.", "Testovanie na reálnych používateľoch – rozdiel medzi feedbackom od spolužiakov a od ľudí, ktorých sa problém naozaj týka.", "Fidelity prototypu – nízka vs. vysoká vernosť, kedy stačí papierový náčrt a kedy potrebujem detailnejšiu verziu.", "Testovací scenár – vopred si pripravím, ako budem testovanie viesť, čo budem sledovať a aké otázky položím."] },
+      { title: "Zvláda vysvetliť nápad rôznym ľuďom tak, aby to zaujalo práve ich.", title_full: "Účastník dokáže vysvetliť svoj nápad, komu má pomôcť a prečo dáva zmysel.", exp_participants: "Účastníci skúšajú vysvetliť svoj nápad rôznym ľuďom a zisťujú, že to, čo funguje pri spolužiakoch, nemusí fungovať pri dospelých alebo pri tých, ktorých sa riešenie priamo týka. Porovnávajú, čo robí prezentáciu silnou alebo slabou.", exp_coordinator: "Koordinátor podporuje premýšľanie o publiku vopred, hľadanie správnych slov a formy pre každého poslucháča a rozlišovanie medzi tým, čo zaujme a čo nudí.", knowledge: ["Kto ma počúva – čo vie, čo ho zaujíma, čo potrebuje počuť.", "Jazyk pre publikum – iné slová a príklady pre rôznych ľudí.", "Forma podľa publika – ukážka, príbeh, poster, rozhovor.", "Silná vs. slabá prezentácia – konkrétny príbeh, jasná štruktúra, nadšenie vs. čítanie z papiera.", "Príbeh jedného človeka namiesto všeobecného vysvetlenia."] }
+    ],
+    level: "Účastník vie vedome iterovať riešenie, pracovať s feedbackom a prezentovať nápad rôznym typom publika.",
+    activities: [
+      { id: "r2-retrospektiva", icon: "🔄", name: "Retrospektíva", desc: "Start – Stop – Continue po projektovej úlohe.", time: "25–35 min" },
+      { id: "r2-iteracia", icon: "🏗️", name: "Iteračné kolo", desc: "Prototyp → feedback → úprava → nový test na reálnych používateľoch.", time: "60–90 min" },
+      { id: "r2-ktory-feedback", icon: "🃏", name: "Ktorý feedback použijem?", desc: "Vedomé rozhodovanie, čo z feedbacku je užitočné a čo pustiť.", time: "20–30 min" },
+      { id: "r2-pitch-rozne-publikum", icon: "🎤", name: "Pitch rôznym publíkám", desc: "Rovnaký nápad vysvetlený spolužiakovi, rodičovi a cudziemu dospelému.", time: "40–50 min" },
+      { id: "r2-silny-slaby-pitch", icon: "⚡", name: "Silný vs. slabý pitch", desc: "Porovnanie dvoch verzií a hľadanie, čo je inak.", time: "25–35 min" }
     ]
   }
 ];
@@ -842,22 +1050,38 @@ function switchYear(year) {
   currentYear = year;
   document.getElementById('btn-rok1').classList.toggle('active', year === 1);
   document.getElementById('btn-rok2').classList.toggle('active', year === 2);
-  if (year === 1) {
-    showView('map');
-  } else {
-    showView('rok2');
-  }
+  renderMap();
+  showView('map');
 }
 let currentModuleId = null;
 
 function renderMap() {
-  document.getElementById('modules-grid').innerHTML = MODULES.map(m => `
+  const modules = currentYear === 2 ? MODULES2 : MODULES;
+  const isRok2 = currentYear === 2;
+
+  // Update hero
+  const hero = document.querySelector('#view-map .map-hero');
+  if (hero) {
+    hero.style.background = isRok2 ? 'linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 100%)' : '';
+    const eyebrow = hero.querySelector('.map-hero-eyebrow');
+    if (eyebrow) eyebrow.style.color = isRok2 ? 'rgba(255,255,255,0.7)' : '';
+    const title = hero.querySelector('h1');
+    if (title) title.innerHTML = isRok2
+      ? 'Mapa roka 2 — <strong>Prehĺbenie</strong>'
+      : 'Mapa roka 1 — <strong>Objavovanie</strong>';
+    const sub = hero.querySelector('.map-hero-sub');
+    if (sub) sub.textContent = isRok2
+      ? 'Druhý ročník programu Budúcnosť inak — ideme hlbšie.'
+      : 'Prvý ročník programu Budúcnosť inak — objavujeme, skúšame, rastieme.';
+  }
+
+  document.getElementById('modules-grid').innerHTML = modules.map(m => `
     <div class="module-card" onclick="openModule(${m.id})">
       <div class="module-num"><span class="num-box">${m.num}</span> Level ${m.id + 1}</div>
       <div class="module-period">${m.period}</div>
       <div class="module-title">${m.title}</div>
       <div class="module-divider"></div>
-      <div class="module-goals-label">Dieťa dokáže</div>
+      <div class="module-goals-label">Dieťa</div>
       ${m.competencies.map((c, i) => `
         <div class="module-goal">
           <span class="g-num">${i+1}</span>
@@ -881,7 +1105,11 @@ function renderMap() {
 
 function openModule(id) {
   currentModuleId = id;
-  const m = MODULES[id];
+  const modules = currentYear === 2 ? MODULES2 : MODULES;
+  const kd = currentYear === 2 ? KNOWLEDGE_DETAILS2 : KNOWLEDGE_DETAILS;
+  const accentColor = currentYear === 2 ? 'var(--blue)' : 'var(--orange)';
+  const accentLight = currentYear === 2 ? 'var(--blue-light)' : 'var(--orange-light)';
+  const m = modules[id];
   document.getElementById('md-eyebrow').textContent = `Modul ${m.num} · ${m.period}`;
   document.getElementById('md-title').innerHTML = `<strong>${m.title}</strong>`;
   document.getElementById('md-meta').innerHTML = m.meta.map(mt => `
@@ -891,8 +1119,8 @@ function openModule(id) {
     </div>`).join('');
 
   document.getElementById('md-competencies').innerHTML = m.competencies.map((c, ci) => {
-    const knowKey = `${id}-${ci}`;
-    const knowDetails = KNOWLEDGE_DETAILS[knowKey];
+    const knowKey = currentYear === 2 ? `r2-${id}-${ci}` : `${id}-${ci}`;
+    const knowDetails = kd[knowKey];
     const knowHtml = knowDetails
       ? `<div class="knowledge-accordion">
           ${knowDetails.map((k, ki) => `
@@ -918,7 +1146,7 @@ function openModule(id) {
       <div class="comp-header" onclick="toggleComp(this, 'comp-body-${id}-${ci}')">
         <span class="comp-num">${ci+1}</span>
         <div class="comp-headline">
-          <div class="comp-label">Dieťa dokáže</div>
+          <div class="comp-label">Dieťa</div>
           <div class="comp-title">${c.title_full || c.title}</div>
         </div>
         <span class="comp-chevron">▼</span>
@@ -966,6 +1194,7 @@ function openModule(id) {
 
   showView('module');
   updateBreadcrumb('module', m.title);
+  document.getElementById('view-module').classList.toggle('rok2-theme', currentYear === 2);
 }
 
 function toggleComp(header, bodyId) {
@@ -984,7 +1213,7 @@ function toggleKnow(header, bodyId) {
 
 function openActivity(actId, moduleId) {
   if (moduleId !== undefined) currentModuleId = moduleId;
-  const m = MODULES[currentModuleId];
+  const m = (currentYear === 2 ? MODULES2 : MODULES)[currentModuleId];
   const actBase = m.activities.find(a => a.id === actId);
 
   // Modul 0 — modal
@@ -1048,9 +1277,8 @@ function showView(name) {
   window.scrollTo(0, 0);
   if (name === 'map') {
     updateBreadcrumb('map');
-    document.getElementById('btn-rok1').classList.add('active');
-    document.getElementById('btn-rok2').classList.remove('active');
-    currentYear = 1;
+    document.getElementById('btn-rok1').classList.toggle('active', currentYear === 1);
+    document.getElementById('btn-rok2').classList.toggle('active', currentYear === 2);
   } else if (name === 'rok2') {
     updateBreadcrumb('rok2');
   } else if (name === 'orbita') {
@@ -1060,17 +1288,19 @@ function showView(name) {
 
 function updateBreadcrumb(level, label) {
   const bc = document.getElementById('breadcrumb');
+  const mapLabel = currentYear === 2 ? 'Mapa roka 2' : 'Mapa roka 1';
+  const mapClick = currentYear === 2 ? 'switchYear(2)' : 'switchYear(1)';
   if (level === 'orbita') {
     bc.innerHTML = `<span class="crumb active" onclick="showView('orbita'); resetYearBtns()">Domov</span>`;
   } else if (level === 'map') {
-    bc.innerHTML = `<span class="crumb" onclick="showView('orbita'); resetYearBtns()">Domov</span><span class="arrow">›</span><span class="crumb active" onclick="switchYear(1)">Mapa roka 1</span>`;
+    bc.innerHTML = `<span class="crumb" onclick="showView('orbita'); resetYearBtns()">Domov</span><span class="arrow">›</span><span class="crumb active" onclick="${mapClick}">${mapLabel}</span>`;
   } else if (level === 'rok2') {
     bc.innerHTML = `<span class="crumb" onclick="showView('orbita'); resetYearBtns()">Domov</span><span class="arrow">›</span><span class="crumb active">Mapa roka 2</span>`;
   } else if (level === 'module') {
-    bc.innerHTML = `<span class="crumb" onclick="showView('orbita'); resetYearBtns()">Domov</span><span class="arrow">›</span><span class="crumb" onclick="switchYear(1)">Mapa roka 1</span><span class="arrow">›</span><span class="crumb active">${label}</span>`;
+    bc.innerHTML = `<span class="crumb" onclick="showView('orbita'); resetYearBtns()">Domov</span><span class="arrow">›</span><span class="crumb" onclick="${mapClick}">${mapLabel}</span><span class="arrow">›</span><span class="crumb active">${label}</span>`;
   } else {
-    const m = MODULES[currentModuleId];
-    bc.innerHTML = `<span class="crumb" onclick="showView('orbita'); resetYearBtns()">Domov</span><span class="arrow">›</span><span class="crumb" onclick="switchYear(1)">Mapa roka 1</span><span class="arrow">›</span><span class="crumb" onclick="openModule(${currentModuleId})">${m.title}</span><span class="arrow">›</span><span class="crumb active">${label}</span>`;
+    const m = (currentYear === 2 ? MODULES2 : MODULES)[currentModuleId];
+    bc.innerHTML = `<span class="crumb" onclick="showView('orbita'); resetYearBtns()">Domov</span><span class="arrow">›</span><span class="crumb" onclick="${mapClick}">${mapLabel}</span><span class="arrow">›</span><span class="crumb" onclick="openModule(${currentModuleId})">${m.title}</span><span class="arrow">›</span><span class="crumb active">${label}</span>`;
   }
 }
 

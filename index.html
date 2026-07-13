@@ -683,7 +683,7 @@ const MODULES = [
     level: "Dieťa vie ukázať konkrétny problém okolo seba, má naň prvé nápady a tím má vlastné pravidlá.",
     activities: [
       { id: "terenne-patranie", icon: "🔍", name: "Terénne pátranie", desc: "Deti mapujú problémy priamo v teréne — škola, ulica, domov.", time: "45–60 min" },
-      { id: "mystery-challenge", icon: "🕵️", name: "Mystery challenge", desc: "Záhadný prípad, ktorý deti spoločne rozlúštia a odkryjú skrytý problém.", time: "30–45 min" },
+      { id: "mystery-challenge", icon: "🔐", name: "Escape room", desc: "Úlohová hra, cez ktorú účastníci objavujú princípy podnikavosti.", time: "75 min" },
       { id: "mini-interview", icon: "🎙️", name: "Mini interview", desc: "Každé dieťa spraví krátky rozhovor s niekým zo svojho okolia.", time: "20–30 min" },
       { id: "timove-dohody", icon: "🤝", name: "Zážitkové hry", desc: "Tím si nastaví vlastné pravidlá spolupráce a priestoru.", time: "30 min" },
       { id: "co-nas-stve", icon: "💭", name: "Reflexia", desc: "Techniky reflexie — ako sa pozrieť na skúsenosť a poučiť sa z nej.", time: "20–95 min" }
@@ -1428,6 +1428,112 @@ var LESSON_PLANS = {
             pred: [],
             pocas: [],
             po: ['Ktorá zásada, ktorú si počul od iných, ťa prekvapila alebo oslovila?', 'Je tvoja zásada podobná tej skupinovej z flipchartu, alebo iná? Prečo asi?']
+          }
+        }
+      ]
+    }
+  ],
+  'mystery-challenge': [
+    {
+      id: 'lp-escape-1',
+      name: 'Vstup — Mystery Challenge',
+      meta: [
+        { label: 'Čas', value: '75 min' },
+        { label: 'Aktivity', value: '5 stanovíšť' },
+        { label: 'Ročník', value: 'Rok 1' }
+      ],
+      ciel: 'Účastníci sa prostredníctvom úlohovej hry (mystery challenge) oboznámia so štyrmi kľúčovými princípmi podnikavosti na príklade života M. R. Štefánika a slávnostne vstúpia do programu Budúcnosť Inak.',
+      kompetencia: 'Účastníci riešia problém a hľadajú riešenia, plnia záväzky voči tímu, reflektujú svoje skúsenosti z aktivít a pomenúvajú, čo fungovalo a čo nefungovalo.',
+      prejav: 'Sledujem, kto v tíme preberá vedenie pri lúštení šifier. Všímam si, ako tím rieši spor pri výbere, ktorú prekážku riešiť ako prvú. Pozorujem, ako si účastníci rozdeľujú úlohy (kto číta, kto počíta, kto koordinuje). Sledujem reakcie na neúspech a frustráciu pri hľadaní kódov. Všímam si, či skupina, ktorá skončí skôr, ide pomôcť inej, alebo len čaká.',
+      priprava: [
+        '4 farby náramkov/kartičiek (podľa počtu detí, rozdeliť čo najrovnomernejšie)',
+        'St. 1 – Vízia: vytlačený text stanovišťa, 5 hviezd nalepených na stene v pevnom poradí zľava doprava (na rube čísla 22, 9, 26, 9, 1), obyčajná abeceda A–Z bez čísel (jedna pre každý tím)',
+        'St. 2 – Taliansky front: vytlačený text, rozhádzané stoličky ("trosky lietadla"), ukryté čísla/lístky v priestore (tvoria kód k zámku), visiaci zámok, krabička (vnútri: kartička RIZIKO A VYTRVALOSŤ), kartičky s "prekážkami" pripnuté k číslam',
+        'St. 3 – Sen o novom štáte: vytlačený text, 16 viet vytlačených a rozstrihaných s číslom v rohu (1–16), voľne na stole',
+        'St. 4 – Mierová konferencia: vytlačený text, diplomatický dokument (viditeľný text bežným perom + skrytý UV atramentom), UV pero s lampou (cca 3–5€), deka alebo kartón na zatienenie kúta',
+        'St. 5 – Finále: vytlačený list s doplňovačkou denníka — JEDEN spoločný pre celú skupinu, záväzná prihláška pre každého účastníka, drobný darček/sladkosť'
+      ],
+      aktivity: [
+        {
+          num: 1, name: 'Úvod — príbeh a rozdelenie', time: '10 min',
+          goal: 'U detí rozvíjam záujem a motiváciu cez príbeh Štefánika.',
+          steps: [
+            'Prečítaj nahlas: "Rok 1919. Generál Milan Rastislav Štefánik sa vracia domov. Za sebou má neuveriteľnú cestu — z chudobného rodáka z Košarísk sa stal astronómom, diplomatom a generálom, ktorý presvedčil tri veľmoci, aby podporili vznik úplne nového štátu. Mal denník, v ktorom si zapisoval svoje princípy úspechu. Časť denníka sa stratila. Vy ste tím mladých objaviteľov, ktorí musia poskladať jeho stratené princípy skôr, než zmiznú navždy. Každé stanovište vám odhalí jeden princíp — a vy ste JEDEN tím, ktorý spolu skladá jeden denník, aj keď na chvíľu pracujete v 4 skupinách."',
+            'Rozdeľ účastníkov podľa náramkov na 4 skupiny čo najrovnomernejšie.',
+            'Každá skupina rieši svoje stanovište sama a nezávisle. Keď skupina skončí, zapamätá si princíp a ide pomôcť inej skupiny.'
+          ],
+          tip: 'Priebežne prizvukuj, že to nie sú 4 súťažiace tímy, ale 4 pracovné skupiny v rámci jedného veľkého tímu. Radšej hovor "skupina" pre štvoricu pri stanovišti a nechaj slovo "tím" pre celok. Na konci to jeden bez druhého nedá — denník vo Finále potrebuje všetky 4 princípy naraz.',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 2, name: 'Stanovište 1 — Vízia (šifra na stenách)', time: '15 min',
+          goal: 'U detí rozvíjam systematické myslenie a schopnosť dekódovať informácie.',
+          steps: [
+            'TEXT PRE ÚČASTNÍKOV: "Na stenách sú hviezdy. Niečo sa skrýva na ich zadnej strane. Zistite to v správnom poradí — táto abeceda vám pomôže rozlúštiť, čo vám chce Štefánik povedať." (+ priložená obyčajná abeceda A–Z)',
+            'Na stenu nalep 5 hviezd v pevnom poradí zľava doprava. Na zadnej strane každej hviezdy je číslo — v poradí 22, 9, 26, 9, 1. Deti hviezdy obrátia, čísla si zapíšu a prísť na to, že číslo = poradie písmena v abecede (napr. 1. písmeno je A). Dostanú V-I-Z-I-A — princíp VÍZIA.',
+            'Ak tím po pár minútach nevie, čo s číslami, nadhoď: "Čo keby ste skúsili počítať písmená v abecede?" — nie viac.'
+          ],
+          tip: 'Abeceda je obyčajná A–Z bez dĺžňov a mäkčeňov — preto VIZIA bez dĺžňa. Hviezdy nalep v poradí, ktoré sa nedá prehliadnuť.',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 3, name: 'Stanovište 2 — Taliansky front (zámok)', time: '25 min',
+          goal: 'U detí rozvíjam tímovú spoluprácu, hľadanie a rozhodovanie pod tlakom.',
+          steps: [
+            'TEXT PRE ÚČASTNÍKOV: "V troskách lietadla (aj inde v miestnosti) sa ukrývajú čísla. Nájdite ich všetky a poskladajte z nich kód na zámok. To, čo nájdete vnútri, je váš princíp." + "Ku každému číslu patrí kartička s prekážkou. Predtým, než pokračujete, sa v skupine dohodnite, ktorú prekážku by ste riešili ako prvú a prečo (1 min)."',
+            'V priestore ukry čísla ("na troskách lietadla", pod stoličkami...), ktoré spolu tvoria kód k zámku (kód si vopred urč sám/sama). V krabičke po otvorení nájdu kartičku RIZIKO A VYTRVALOSŤ. Ku každému číslu pripni kartičku s "prekážkou" (napr. "Došli ti peniaze", "Konkurencia ťa predbehla", "Nikto ti neverí", "Nemohol si nastúpiť pre zlé počasie").'
+          ],
+          tip: 'Kód k zámku si urč vopred. Kartičky s prekážkami vymysli podľa vlastného uváženia — dôležité je, aby boli reálne a zrozumiteľné pre deti.',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 4, name: 'Stanovište 3 — Sen o novom štáte (prejav)', time: '25 min',
+          goal: 'U detí rozvíjam kritické myslenie a rozlišovanie silných a slabých argumentov.',
+          steps: [
+            'TEXT PRE ÚČASTNÍKOV: "Na stole leží rozstrihaný prejav. Niektoré vety ho posilňujú, iné oslabujú. Nájdite tie, ktoré patria do silného prejavu, a poskladajte ich do správneho poradia."',
+            'Prejav je rozstrihaný na 16 viet (každá má číslo v rohu). Slabých viet je 6 — deti ich odložia bokom. Zvyšných 10 silných zoradia vzostupne podľa čísla v rohu. Prvé písmená takto zoradených viet odhalia princíp S-I-E-Ť-O-V-A-N-I-E.',
+            'KĽÚČ (len pre teba): silné vety v poradí 1, 3, 4, 6, 8, 9, 11, 13, 14, 16. Slabé: 2, 5, 7, 10, 12, 15.',
+            'Silné vety: 1-<strong style="color:#F26A42">S</strong>ieť priateľov a spojencov je dnes mojou najväčšou zbraňou. 3-<strong style="color:#F26A42">I</strong>ba vďaka spoločnej dôvere môžeme dosiahnuť to, čo sám nikdy nedokážem. 4-<strong style="color:#F26A42">E</strong>šte nikdy nestála pred vami taká jasná príležitosť ako teraz. 6-<strong style="color:#F26A42">Ť</strong>ažké chvíle vojny nás naučili, že sila je v spojení, nie v osamelosti. 8-<strong style="color:#F26A42">O</strong>d Paríža po Rím som stretol ľudí, ktorí uverili rovnakému snu ako ja. 9-<strong style="color:#F26A42">V</strong>erím, že aj vy dnes uvidíte v našom národe spoľahlivého partnera. 11-<strong style="color:#F26A42">A</strong> práve preto vás prosím o vašu podporu a dôveru. 13-<strong style="color:#F26A42">N</strong>ijaká armáda nezmôže toľko, koľko dokáže dobre postavená sieť spojencov. 14-<strong style="color:#F26A42">I</strong>ba spoločným krokom postavíme štát, ktorý obstojí pred celým svetom. 16-<strong style="color:#F26A42">E</strong>urópa potrebuje nový, stabilný hlas uprostred svojho srdca — a tým hlasom môže byť môj národ.',
+            'Slabé vety: 2-Nie som si istý, či sa mi vás dnes podarí presvedčiť. 5-Sám všetko zvládnem, cudziu pomoc nepotrebujem. 7-Neviem, či je vôbec vhodná chvíľa na túto prosbu. 10-Skúsme počkať, kým sa situácia vyrieši sama. 12-Radšej nič neurobím, aby som nič nepokazil. 15-Nie som si istý, či je to dobrý nápad, ale za pokus to stojí.'
+          ],
+          tip: 'Slabé vety obsahujú izoláciu, pochybnosti a pasivitu — presný opak toho, čo robí sieťovanie funkčným. Na reflexiu: "Ktoré vety by nikdy nepresvedčili spojenca?"',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 5, name: 'Stanovište 4 — Mierová konferencia (UV pero)', time: '25 min',
+          goal: 'U detí rozvíjam empatiu a schopnosť vidieť hodnotu pre druhého.',
+          steps: [
+            'TEXT PRE ÚČASTNÍKOV: "Pred vami leží diplomatický list M. R. Štefánika francúzskej vláde. Preskúmajte ho poriadne — a skúste všetko, čo máte k dispozícii."',
+            'Na stanovišti je UV pero, no nikde sa im nehovorí, na čo slúži — majú prísť sami na to, že ho treba posvietiť na dokument. UV lampa odhalí skrytý text.',
+            'Viditeľný text (bežné pero): "Vážení páni zástupcovia francúzskej vlády, obraciam sa na vás s naliehavou žiadosťou. Potrebujem, aby ste podporili vznik samostatného československého štátu. Potrebujem vaše uznanie, vaše zbrane a vašich vojakov pre naše légie. Žiadam vás o miesto pri rokovacom stole, keď sa bude rozhodovať o hraniciach Európy. Verím, že moja žiadosť nájde u vás pochopenie. S úctou, M. R. Štefánik"',
+            'Neviditeľný text (UV): "Páni, uvedomujem si, že žiadosť sama o sebe vás nepresvedčí. Preto vám ponúkam toto: Náš národ leží presne tam, kde potrebujete spoľahlivého spojenca proti spoločnému nepriateľovi. Naše légie už dnes bojujú po vašom boku a dokazujú svoju vernosť v boji. Ak podporíte náš vznik, získate stabilného partnera v srdci Európy, ktorý vám nikdy nezabudne, kto mu pomohol na nohy. Skrátka: neponúkam vám žiadosť, ale HODNOTU PRE _______."',
+            'Slovo, ktoré doplnia na základe kontextu, je ich princíp — HODNOTA PRE DRUHÝCH.',
+            'Mikro-diskusia po rozlúštení: Prečo je dôležitejšie ukázať druhému, čo z toho bude mať on, než len povedať, čo chceš ty?',
+            'Ak si UV pero vôbec nevšimnú, nadhoď: "Nemáte na stole niečo, čo ste ešte nepoužili?" — nie viac.',
+            'Ak tím napíše blízky synonym (iných, partnerov, spojencov), uznaj to — ide o pochopenie princípu, nie o presné slovo.'
+          ],
+          tip: 'UV pero: bežne dostupné ako "neviditeľné atramentové pero s UV lampou" (detské špionážne sety, cca 3–5€). Kútik pri tomto stanovišti trochu zatieň (deka/kartón). Alternatíva bez UV: roztok mlieka alebo citrónovej šťavy + teplo — toto robí VÝHRADNE koordinátor/ka, nikdy dieťa (riziko popálenia).',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 6, name: 'Finále — Denník a slávnostný vstup', time: '30 min',
+          goal: 'U detí rozvíjam zmysel pre spoločný cieľ a schopnosť reflektovať vlastnú skúsenosť.',
+          steps: [
+            'Prestávka 5 minút pred Finále.',
+            'Všetky 4 skupiny sa stretnú. Pred nimi leží JEDEN spoločný denník (nie kópia). Každá skupina doplní svoj princíp na správne miesto: "Nemal som na začiatku nič, iba _____ (víziu). Odišiel som študovať do zahraničia... Nebál som sa podstúpiť _____ (riziko). Mojou najväčšou zbraňou pri realizácii sna sa stalo _____ (sieťovanie). Zistil som, že nápad musí mať _____, aby mohlo dôjsť k jeho úspešnej realizácii. (hodnotu pre druhých)"',
+            'Koordinátor/ka zagratuluje — účastníci môžu officiálne vstúpiť do Budúcnosti Inak. Záväzná prihláška + drobný darček.'
+          ],
+          tip: 'Nechaj reflexiu plynúť — deti budú po intenzívnej hre nabudené. Daj im priestor. Okrem záväznej prihlášky je vhodné, aby každý dostal drobný spomienkový darček alebo sladkosť na privítanie v programe.',
+          reflex: {
+            pred: [],
+            pocas: [],
+            po: [
+              'Čo sa stalo? Ktoré stanovište bolo najťažšie a prečo?',
+              'Čo z toho, čo použil Štefánik, ste dnes použili aj vy ako tím? (vízia, rozdelenie úloh, riešenie prekážok, argumentácia)',
+              'Ako sa vám darilo riešiť problémy alebo konflikty?',
+              'Kde vo svojom živote môžete použiť princíp "ukáž druhému, čo z toho bude mať on"?',
+              'Aký je podnikavý človek? (má víziu, je ochotný podstúpiť riziko, vie argumentovať, networkuje, učí sa z chýb...)'
+            ]
           }
         }
       ]

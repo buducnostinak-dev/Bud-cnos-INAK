@@ -477,7 +477,7 @@
       <div class="competency-list" id="md-competencies"></div>
     </div>
     <div class="detail-section">
-      <div class="section-label">Aktivity & metódy</div>
+      <div class="section-label">Metódy</div>
       <div class="activities-grid" id="md-activities"></div>
     </div>
     <div class="detail-section">
@@ -685,9 +685,8 @@ const MODULES = [
       { id: "terenne-patranie", icon: "🔍", name: "Terénne pátranie", desc: "Deti mapujú problémy priamo v teréne — škola, ulica, domov.", time: "45–60 min" },
       { id: "mystery-challenge", icon: "🕵️", name: "Mystery challenge", desc: "Záhadný prípad, ktorý deti spoločne rozlúštia a odkryjú skrytý problém.", time: "30–45 min" },
       { id: "mini-interview", icon: "🎙️", name: "Mini interview", desc: "Každé dieťa spraví krátky rozhovor s niekým zo svojho okolia.", time: "20–30 min" },
-      { id: "brainstorming", icon: "💡", name: "Brainstorming", desc: "Rýchle generovanie nápadov bez filtrov — všetky sú OK.", time: "20–30 min" },
-      { id: "timove-dohody", icon: "🤝", name: "Tímové dohody", desc: "Tím si nastaví vlastné pravidlá spolupráce a priestoru.", time: "30 min" },
-      { id: "co-nas-stve", icon: "😤", name: "Čo nás štve plagáty", desc: "Vizuálna aktivita — deti kreslia a píšu čo im vadí vo svete okolo.", time: "20–25 min" }
+      { id: "timove-dohody", icon: "🤝", name: "Zážitkové hry", desc: "Tím si nastaví vlastné pravidlá spolupráce a priestoru.", time: "30 min" },
+      { id: "co-nas-stve", icon: "💭", name: "Reflexia", desc: "Techniky reflexie — ako sa pozrieť na skúsenosť a poučiť sa z nej.", time: "20–95 min" }
     ]
   },
   {
@@ -1306,10 +1305,248 @@ function updateBreadcrumb(level, label) {
 
 // LESSON PLANS DATA
 var LESSON_PLANS = {
+  'terenne-patranie': [
+    {
+      id: 'lp-terenne-1',
+      name: 'Think like a traveler',
+      meta: [
+        { label: 'Čas', value: '80 min' },
+        { label: 'Aktivity', value: '3' },
+        { label: 'Ročník', value: 'Rok 1' }
+      ],
+      ciel: 'Na konci stretnutia účastník dokáže pomenovať jednu vec, ktorá v jeho okolí funguje a jednu, ktorú vníma ako problém a príležitosť na zmenu.',
+      kompetencia: 'Účastník pozoruje svoje okolie a skúša hľadať príležitosti na zmenu.',
+      prejav: 'Sledujem, ako obhajovatelia reagujú na neúspech — skúšajú ďalej, alebo sa vzdajú. Všímam si, kto v kmeni prevezme rolu strážcu pravidiel. V hre Cestovateľ pozorujem, kto sa prirodzene zapojí do skupiny aj bez toho, že by ho poznal. Všímam si, či deti fotia len zjavné veci, alebo sa zastavia nad niečím neočakávaným. Pri prezentácii sledujem, kto hovorí za tím a kto zostáva ticho.',
+      priprava: ['Zelené a červené rámčeky (jeden z každej farby na skupinu)', 'Tablety / foťák (aspoň jeden na tím)', 'Perá a papiere', 'Podpísané informované súhlasy (ak sa ide mimo centrum)'],
+      aktivity: [
+        {
+          num: 1, name: 'Energizér: "Objavovanie tajomného kmeňa"', time: '10 min',
+          goal: 'U detí rozvíjam schopnosť všímať si skryté pravidlá a vidieť situáciu ako outsider.',
+          steps: [
+            'Dvaja účastníci — objavitelia — opustia miestnosť.',
+            'Zvyšok skupiny (kmeň) sa dohodne na tajných pravidlách správania (napr. keď Adam zívne, Sofia zamáva; keď sa povie "okno", Filip zašteká...).',
+            'Objavitelia sa vrátia a snažia sa odhaliť fungovanie kmeňa. Kmeň odpovedá iba kývaním hlavy (áno/nie).',
+            'Hra končí, keď objavitelia odhalia systém.'
+          ],
+          tip: 'To, čo sa práve stalo v kmeni — že niektorí poznali pravidlá a niektorí nie — sa deje aj v skutočnom živote. Nová škola, nová krajina, nový kolektív... vždy existujú "insideri" a "outsideri". A outsideri majú jednu superschopnosť: vidia veci, ktoré insideri už nevidia. Presne to teraz skúsime — pozrieť sa na známe miesto ako cudzinec.',
+          reflex: {
+            pred: ['Čo robí skupinu skupinou?'],
+            pocas: ['(Objavitelia) Čo vnímate, že sa v kmeni deje?'],
+            po: ['(Objavitelia) Čo bolo najťažšie a čo vám pomohlo?', '(Kmeň) Chceli ste pravidlá prezradiť? Ako sa cítili tí, čo ich poznali, a tí, čo nie?', 'Zažili ste podobné "nevedel som, ako to tu chodí" aj naozaj?']
+          }
+        },
+        {
+          num: 2, name: 'Cestovateľ na známom mieste', time: '40 min',
+          goal: 'U detí rozvíjam kritické pozorovanie a rozlišovanie problémov od príležitostí.',
+          steps: [
+            'Účastníci sú rozdelení do trojíc — v každej by mal byť niekto, koho pred BI nepoznali, a niekto so spoločným záujmom.',
+            'Každá trojica dostane zelený a červený rámček + mobil/tablet alebo foťák.',
+            'Úloha: za 20 minút odfotiť veci v okolí — do zeleného rámčeka to, čo funguje; do červeného to, čo sa im nepáči.',
+            'Cieľ: minimálne 2 fotky v zelenom a 2 v červenom rámčeku.'
+          ],
+          tip: 'Váš mozog má mechanizmus, ktorý veci, ktoré vidíte každý deň, postupne "vypína" — volá sa habituácia. Mozog ignoruje to, čo sa nemení, aby šetril energiu. Presne preto miestny nevidí rozbitý chodník, ale turista áno. Dnes ste na chvíľu oklamali vlastný mozog.',
+          reflex: {
+            pred: ['Čo si všimneš, keď prídeš niekam prvýkrát — a čo miestni už nevidia?', 'Čo môže byť ťažké na kritickom pohľade na miesto, ktoré dobre poznáš?'],
+            pocas: [],
+            po: ['Čo ťa prekvapilo — na mieste, alebo na sebe?', 'Zhodli ste sa v trojici, alebo každý videl niečo iné?']
+          }
+        },
+        {
+          num: 3, name: 'Prezentácia zistení', time: '30 min',
+          goal: 'U detí rozvíjam schopnosť komunikovať vlastný pohľad a obhájiť ho pred ostatnými.',
+          steps: [
+            'Každý tím vyberie jednu fotku z červeného a jednu zo zeleného rámčeka.',
+            'Úloha: pripraviť 2-minútovú prezentáciu (možnosť vybrať si formu — Canva, PowerPoint, báseň, prejav...).',
+            'V prezentácii odpovedajú: Prečo si vybrali daný objekt? Prečo ho vnímajú ako problém? A pri zelenom — čo by sme stratili, keby to zmizlo?'
+          ],
+          tip: 'Vedeli by ste, čo majú spoločné Dánsko a IKEA? Obe používajú presne tú techniku, ktorú ste dnes skúšali — pozerať sa na známe miesto očami cudzinca. Mesto Kodaň takto testuje verejné priestory, IKEA takto sleduje, ako sa ľudia pohybujú v predajniach. Posielajú ľudí, ktorí miesto nikdy nevideli, aby si všimli, čo miestni už "nevidia". Práve to ste dnes robili vy.',
+          reflex: {
+            pred: [],
+            pocas: [],
+            po: ['Ktorá prezentácia vás zaujala najviac a prečo?', 'Všimli viaceré tímy ten istý problém?', 'Čo by sa muselo stať, aby sa niečo z červeného rámčeka naozaj zmenilo?']
+          }
+        }
+      ]
+    }
+  ],
+  'mini-interview': [
+    {
+      id: 'lp-mini-interview-1',
+      name: 'Interview – Go outside',
+      meta: [
+        { label: 'Čas', value: '80 min' },
+        { label: 'Aktivity', value: '3' },
+        { label: 'Ročník', value: 'Rok 1' }
+      ],
+      ciel: 'Na konci stretnutia účastník dokáže pomenovať minimálne dve zásady vedenia rozhovoru a zhodnotiť, čo mu počas rozhovoru fungovalo a čo nie.',
+      kompetencia: 'Účastník reflektuje, čo fungovalo a nefungovalo, a čo by nabudúce spravil inak.',
+      prejav: 'Pri Čelovke sledujem, či deti kladú skôr otvorené alebo uzavreté otázky a ako reagujú na neúspech. Pri Interview si všímam, ako zvládajú výzvu osloviť cudzieho človeka, ako pracujú s odmietnutím a či vedia po skončení pomenovať, čo im nefungovalo. Pri Mojich zásadách si všímam, či dokážu pomenovať vlastnú, osobnú zásadu, alebo len opakujú niečo, čo počuli od iných.',
+      priprava: ['Post-it lístky', 'Fixky / perá', 'Papiere', 'Flipcharty', 'Informované súhlasy'],
+      aktivity: [
+        {
+          num: 1, name: 'Energizér: Čelovka', time: '20 min',
+          goal: 'U detí rozvíjam schopnosť klásť cielené a otvorené otázky.',
+          steps: [
+            'Každý účastník napíše na post-it jednu postavu, vec alebo zviera (ideálne známejšie – vyhnúť sa členom rodiny, učiteľom a menej známym hercom).',
+            'Účastníci sedia v kruhu, na čele majú prilepený post-it, ktorý napísal niekto iný. Postupne sa pýtajú otázky o svojej postave — ostatní odpovedajú len áno/nie. Pri "nie" sa pýta ďalší v rade.',
+            'Cieľ: uhádnuť, kým/čím som. Hra končí, keď všetci uhádnu. Pri nedostatku času možno deťom jemne dopomôcť nápovedami.'
+          ],
+          tip: 'PREPOJENIE: Presne túto stratégiu — postupne sa cez áno/nie otázky dopátrať k odpovedi — používajú detektívi, ale aj počítače. Volá sa to binárne vyhľadávanie. Presne to ste práve trénovali.\n\nMOSTÍK: To, čo sme trénovali — premyslené, postupné otázky — budete teraz potrebovať naozaj. Rozdiel je, že človek neodpovie len áno/nie. Budete musieť sami premýšľať, na čo sa spýtať ďalej.',
+          reflex: {
+            pred: ['Čo bude na tejto aktivite podľa vás najťažšie?', 'Ako sa vám bežne darí pri hádaní pred ostatnými?'],
+            pocas: [],
+            po: ['Aké otázky vám pomáhali najviac?', 'Je lepšie klásť veľa náhodných otázok, alebo menej, ale premyslenejších?', 'Kde v škole alebo bežnom živote by sa oplatilo pýtať sa systematicky?']
+          }
+        },
+        {
+          num: 2, name: 'Interview s neznámym človekom', time: '50 min',
+          goal: 'U detí rozvíjam prvý kontakt s potrebami ľudí cez priamy rozhovor.',
+          steps: [
+            'Účastníci sa rozdelia do dvojíc podľa vlastného výberu.',
+            'Úloha: v okolí klubu alebo námestia dvojice za 20 minút spravia rozhovor s neznámym človekom (okoloidúci, predavačka, študenti...).',
+            'Cieľ rozhovoru: zistiť kto je daný človek (stačí krstné meno), čomu sa venuje, čo vníma ako problém v meste.',
+            'Po návrate: na jeden flipchart zapíšu objavené problémy, na druhý — čo im pri rozhovore fungovalo.',
+            'Časovanie: inštrukcie (5 min) → terén (20 min) → flipcharty (10 min) → reflexia (10 min).'
+          ],
+          tip: 'FYZICKÝ RESET: Deti sa vracajú z terénu nabudené — rovno sadnúť na reflexiu môže byť náročné. Zaraďte krátky reset: "Postav sa, ak sa ti rozhovor podaril bez problémov. Zostaň sedieť, ak to bolo náročné."\n\nPREPOJENIE: Presne to, čo ste dnes robili, je základná metóda, ktorou pracujú novinári aj UX výskumníci. Volá sa to user interview a firmy ako Google alebo Spotify takto zisťujú, čo ľudia naozaj potrebujú.\n\nV teréne: vopred si určite viditeľný okruh. Ak dvojica do 10 minút nikoho neoslovila, nasmerujte ju na iné miesto alebo k predajcovi/personálu.',
+          reflex: {
+            pred: ['Ako by ste pri interview využili skúsenosť z Čelovky?', 'Stalo sa vám, že ste sa museli niečo pýtať cudzieho človeka? Čo vám pomohlo prekonať trému?'],
+            pocas: [],
+            po: ['Ako ľudia reagovali, keď ste ich oslovili? Prekvapilo vás niečo?', 'Prečo je lepšie pýtať sa priamo ľudí, než si o probléme mesta len myslieť niečo sami?', 'Odmietol vás niekto? Ako ste sa cítili a čo ste urobili ďalej?']
+          }
+        },
+        {
+          num: 3, name: 'Moje dve zásady', time: '10 min',
+          goal: 'U detí rozvíjam schopnosť premeniť zážitok na osobnú vedomosť a záväzok.',
+          steps: [
+            'Každý účastník si individuálne a v tichosti napíše na post-it svoje vlastné dve zásady vedenia rozhovoru — na základe toho, čo sa mu osobne osvedčilo alebo nefungovalo. Nejde o kopírovanie skupinového flipchartu.',
+            'Postupne v kruhu (pri väčšej skupine v dvojiciach) každý nahlas povie svoje dve zásady.',
+            'Post-ity sa nalepia na spoločný flipchart "Moje zásady" vedľa toho skupinového z Interview.'
+          ],
+          tip: 'Tento krok je krátky, ale kľúčový — bez neho zostane cieľ splnený len na úrovni skupiny, nie jednotlivca. Pri veľkom časovom tlaku sa dá urobiť aj len písomne bez kruhu, ale odporúčame aspoň krátke zdieľanie nahlas: verejný záväzok zvyšuje šancu, že si to dieťa naozaj zapamätá.',
+          reflex: {
+            pred: [],
+            pocas: [],
+            po: ['Ktorá zásada, ktorú si počul od iných, ťa prekvapila alebo oslovila?', 'Je tvoja zásada podobná tej skupinovej z flipchartu, alebo iná? Prečo asi?']
+          }
+        }
+      ]
+    }
+  ],
+  'co-nas-stve': [
+    {
+      id: 'lp-reflexia-1',
+      name: 'Painstorming',
+      meta: [
+        { label: 'Čas', value: '95 min' },
+        { label: 'Aktivity', value: '2' },
+        { label: 'Ročník', value: 'Rok 1' }
+      ],
+      ciel: 'Účastníci si prostredníctvom hry a skupinovej diskusie osvoja techniku painstormingu — hľadania problémov ako základu pre nápady na riešenia.',
+      kompetencia: 'Účastníci pozorujú problémy zo svojho okolia, skúmajú potreby, ktoré sa za nimi skrývajú, a hľadajú príležitosti na zmenu alebo riešenie.',
+      prejav: 'Sledujem, kto v tíme preberá iniciatívu pri hľadaní párov problém–riešenie. Všímam si, ako účastníci reagujú na rotáciu pri stoloch — či dokážu nadviazať na prácu predchádzajúcej skupiny. Pozorujem, kto sa aktívne zapája do diskusie a kto ostáva pasívny.',
+      priprava: ['Červené lístočky s problémami (umiestnené v miestnosti)', 'Zelené lístočky s riešeniami pre účastníkov', '4 flipcharty (alebo 1 rozdelený na 4× A3)', 'Fixky', 'Zvonček alebo iný zvukový signál na rotáciu', 'Lepiaca páska'],
+      aktivity: [
+        {
+          num: 1, name: 'Energizér – Problémy a riešenia', time: '20 min',
+          goal: 'U detí rozvíjam pochopenie, že veľké nápady vznikajú z reálnych problémov.',
+          steps: [
+            'Červené lístočky s problémami sú skryté v miestnosti. Zelené lístočky s riešeniami dostanú účastníci.',
+            'Úlohou tímu je nájsť k svojmu riešeniu správny problém a spojiť ich. Príklady párov: Jedlo rýchlo hnilo → chladnička · Preklepy na písacom stroji → biely opravný lak · Ťažké kufre → kufre na kolieskach · Ťažko zapínateľné oblečenie → suchý zips · Chýbal spôsob poznačiť myšlienku → Post-it · Studená káva → termohrnček · Deti sa strácali rodičom → reflexné náramky.',
+            'Počet použitých párov prispôsob veľkosti skupiny (1–2 páry na účastníka).'
+          ],
+          tip: 'Počet párov prispôsob veľkosti skupiny — pri všetkých 18 pároch môže hľadanie ľahko presiahnuť 20 minút.',
+          reflex: {
+            pred: [],
+            pocas: [],
+            po: ['Veľké nápady vznikali preto, že ľudia mali problém, ktorý potrebovali vyriešiť. Podnikatelia a vynálezcovia často používajú techniku painstorming — najprv hľadajú problémy, nie riešenia, tak ako práve teraz vy.', 'Kde v bežnom živote (škola, kamaráti, rodina) by ti pomohlo najprv si "vypainstormovať" problémy, než začneš konať?', 'Čo sa stane, keď riešime problém, ktorý sme si poriadne neujasnili?']
+          }
+        },
+        {
+          num: 2, name: 'World café – Painstorming v skupinách', time: '75 min',
+          goal: 'U detí rozvíjam schopnosť hľadať problémy a príležitosti na zmenu v rôznych oblastiach života.',
+          steps: [
+            'Účastníci sú rozdelení do 4 skupín pri stoloch, ku každému je pripravený flipchart. Každý stôl má tému: rodina, škola, obec/mesto, krajina.',
+            '1. časť (28 min, ~7 min/stôl): Skupiny diskutujú o problémoch a frustráciách v danej oblasti a zapisujú ich. Pri presune si najprv prečítajú zápisky predchádzajúcej skupiny, potom dopĺňajú vlastné. Papier prezentuje skupina, ktorá bola pri stole posledná.',
+            '2. časť (20 min, ~5 min/stôl): Rovnaký princíp rotácie. Tentokrát sa sústreďujú na hľadanie riešení problémov identifikovaných v 1. časti.',
+            'Aktivitu deťom predstav opisom (stoly, rotácia, témy), nie názvom "world café" — ten sa má objaviť až v reflexnej otázke na konci.'
+          ],
+          tip: 'Pri stole "krajina" nasmeruj na praktické veci z ich životného okolia (doprava, životné prostredie, verejné služby), nie na politické názory. Krok "najprv si prečítaj, čo napísala predchádzajúca skupina" pripomeň nahlas pri každej rotácii — ľahko sa zabudne.',
+          reflex: {
+            pred: ['Čo podľa vás robí z bežnej sťažnosti ("to ma štve") užitočný podnet na zlepšenie?'],
+            pocas: ['Bolo jednoduché nájsť problémy, alebo ste sa museli viac zamyslieť?', 'Objavili ste pri niektorom stole niečo, na čo by ste sami neprišli?', 'Ako sa vám menili nápady, keď prišli noví ľudia k stolu?'],
+            po: ['Bolo jednoduchšie nájsť problémy alebo riešenia? Prečo?', 'Ako sa vám spolupracovalo, keď sa pri stole striedali stále iní ľudia?', 'Čo myslíte, prečo sa táto forma hľadania nápadov volá world café? Čo má s kaviarňou spoločné?', 'Myslíte si, že v daných problémoch je niečo, čo by ste vedeli vyriešiť aj vy sami?']
+          }
+        }
+      ]
+    },
+    {
+      id: 'lp-reflexia-2',
+      name: 'Patch Notes',
+      meta: [
+        { label: 'Čas', value: '80 min' },
+        { label: 'Aktivity', value: '3' },
+        { label: 'Ročník', value: 'Rok 1' }
+      ],
+      ciel: 'Na konci stretnutia účastník dokáže po skúsenosti pomenovať, čo fungovalo, čo nefungovalo a čo chce skúsiť ďalej.',
+      kompetencia: 'Účastník reflektuje svoju skúsenosť z aktivity a pomenúva, čo mu fungovalo, čo bolo náročné a čo by nabudúce urobil inak.',
+      prejav: 'Sledujem, či vie účastník pri reflexii povedať niečo konkrétne, alebo zostane len pri "bolo to dobré/zlé". Všímam si, či sa sústredí na hľadanie zlepšenia, alebo len hodnotí a obviňuje. Sledujem, či si tím medzi 1. a 2. kolom naozaj niečo zmenil, alebo robí to isté.',
+      priprava: ['Papierové/plastové poháre (5 na dvojicu)', 'A4 papiere (12 na tím — 6 na každé kolo)', 'Lepiaca páska (3 m na tím — 1,5 m na každé kolo)', '1 ľahšia kniha rovnaká pre všetky tímy + 1 ťažká kniha', 'Stopky alebo telefón s časomierou', 'Flipchart na retro tabuľu a spoločnú tabuľku výsledkov', 'Post-ity v 3 farbách (zelená/červená/žltá)', 'Fixky', 'Kartičky na Moje Patch Notes'],
+      aktivity: [
+        {
+          num: 1, name: 'Energizér: "Slepá veža"', time: '10 min',
+          goal: 'U detí rozvíjam uvedomenie si rozdielu medzi povrchnou a konkrétnou reflexiou.',
+          steps: [
+            'Vo dvojiciach — jeden zavrie oči, druhý vidí, ale nesmie sa dotknúť ani pohárov, ani spolužiaka.',
+            'Úloha: postaviť vežu z 5 pohárov len podľa slovných inštrukcií druhého. Čas na pokus: 90 sekúnd.'
+          ],
+          tip: 'Túto reflexiu nechajte plynúť voľne a stručne — je to zámerne "chudá" verzia reflexie. Deti spravidla odpovedia len "dobré/chaotické/frustrujúce". V Aktivite 2 sa k tomuto momentu vrátime ako ku kontrastu.',
+          reflex: {
+            pred: [],
+            pocas: [],
+            po: ['Tak, ako to bolo?']
+          }
+        },
+        {
+          num: 2, name: 'Patch Notes: Verzia 1.0 → 2.0', time: '50 min',
+          goal: 'U detí rozvíjam schopnosť konkrétne reflexovať skúsenosť a vedome ju využiť na zlepšenie.',
+          steps: [
+            'Lektor na 30 sekúnd ukáže princíp: papier zrolovaný do úzkej rúrky a zlepený na švíku je v zvislom smere prekvapivo pevný. Ukazuje len princíp, nie celé riešenie veže.',
+            'Tímy (2–3 osoby) dostanú 6 hárkov A4 a 1,5 m pásky. Úloha: postaviť samostatne stojaciu vežu, ktorá udrží knihu na vrchu čo najdlhšie. Čas na stavbu: 12 minút = Verzia 1.0.',
+            'Test: položíte knihu na vrch veže a stopkami meriate, koľko sekúnd vydrží (max 30 s, ak dlhšie — zapíšete 30+). Ak všetky tímy zvládli túto výzvu, lektor použije v druhom kole ťažkú knihu.',
+            'Po teste Verzie 1.0: retro tabuľa s 3 stĺpcami — 🟩 FUNGOVALO / 🟥 NEFUNGOVALO / 🟨 SKÚSIME INAK. Každý napíše aspoň jeden post-it do každého stĺpca.',
+            'Tím si vyberie TOP 1 vec z červeného a TOP 1 zo žltého, ktorú v druhom kole naozaj vyskúša.',
+            'Nové materiály (6 hárkov, 1,5 m pásky), 12 minút = Verzia 2.0, rovnaký test. Výsledky sa zapíšu do spoločnej tabuľky.',
+            'Orientačné časovanie: úvod a ukážka (2 min) → stavba V1.0 (12 min) → test (2 min) → retro tabuľa (8 min) → stavba V2.0 (12 min) → test + tabuľka (3 min) → záverečná reflexia (8 min) → rezerva (3 min).'
+          ],
+          tip: 'Ak sa veža nezlepší: niektorému tímu sa v druhom kole nemusí podariť lepšie — to je v poriadku a je to bohatý materiál na reflexiu. Spýtajte sa: "Zmenili ste niečo, a napriek tomu to nezabralo — bola zmena nesprávna, alebo sme ju nevykonali dobre?"',
+          reflex: {
+            pred: ['Čo bude najťažšie na veži, ktorá unesie knihu?'],
+            pocas: [],
+            po: ['Zlepšila sa vaša veža medzi verziami? Čo presne to spôsobilo?', 'Bolo ľahšie písať do "fungovalo", "nefungovalo", alebo "skúsime inak"? Prečo?', 'Je rozdiel medzi "bolo to zlé" a "toto konkrétne nefungovalo, skúsime toto"? Aký?']
+          }
+        },
+        {
+          num: 3, name: 'Moje Patch Notes', time: '20 min',
+          goal: 'U detí rozvíjam schopnosť premeniť skupinovú skúsenosť na osobné poučenie.',
+          steps: [
+            'Každý si na kartičku napíše svoje osobné patch notes — nie o veži, ale o sebe v tíme: 🟩 čo mi fungovalo, 🟥 čo mi nefungovalo, 🟨 čo skúsim nabudúce inak.',
+            'V malých skupinách (3–4) si to nahlas prečítajú ako "oznámenie novej verzie".'
+          ],
+          tip: 'POJMY: To, čo ste dnes robili — najprv s vežou, potom so sebou — sa volá reflexia.\n\nPREPOJENIE: Vedeli ste, že presne toto robia aj profesionálne futbalové tímy? Po polčase aj po zápase si tréneri a hráči pozrú zostrih a rozoberú, čo vyšlo, čo nevyšlo a čo zmenia. Aj v kluboch, kde hrá Messi, na to majú celé tímy analytikov.\n\nPREPOJENIE: Vedeli ste, že presne toto robia herné štúdiá po každej väčšej aktualizácii hry? Vydajú "patch notes" — zoznam, čo funguje, čo opravili, a čo plánujú nabudúce. Vy ste si dnes vydali svoju vlastnú verziu 1.0.',
+          reflex: {
+            pred: [],
+            pocas: [],
+            po: ['Bolo ťažšie napísať fungovalo, nefungovalo, alebo skúsim inak?', 'Kde inde v živote by sa ti oplatilo takto si napísať vlastné patch notes?']
+          }
+        }
+      ]
+    }
+  ],
   'timove-dohody': [
     {
       id: 'lp-timove-1',
-      name: 'Tímové dohody – Stretnutie 1',
+      name: 'Let\'s start',
       meta: [
         { label: 'Čas', value: '60 min' },
         { label: 'Aktivity', value: '4' },
@@ -1378,6 +1615,69 @@ var LESSON_PLANS = {
           }
         }
       ]
+    },
+    {
+      id: 'lp-timove-2',
+      name: 'Tvoríme pravidlá',
+      meta: [
+        { label: 'Čas', value: '80 min' },
+        { label: 'Aktivity', value: '3' },
+        { label: 'Ročník', value: 'Rok 1' }
+      ],
+      ciel: 'Účastník si na vlastnej skúsenosti overí, že spoločné fungovanie si vyžaduje komunikáciu, kompromis a rešpektovanie pravidiel – a aktívne sa podieľa na tvorbe pravidiel klubu.',
+      kompetencia: 'Účastník zažije situácie, v ktorých miera jeho samostatnosti závisí od toho, ako dodržiava dohody, správa sa k ostatným a plní svoje záväzky voči tímu.',
+      prejav: 'Sledujem kto v skupine preberá iniciatívu a navrhuje stratégiu. Všímam si ako skupina reaguje na neúspech (frustrácia, humor, hľadanie riešenia). Kontrolujem dodržiavanie bezpečnosti pri manipulácii so stoličkami (výška stohu, žiadne behanie). Pozorujem kto sa nezapája do diskusie o pravidlách a prečo.',
+      priprava: ['1 loptička (malá, ľahko uchopiteľná)', '10 stoličiek', 'Červené a zelené papierové lístky (2 ks na účastníka)', 'Flipchart, fixky', 'Lepiaca páska alebo špendlíky na pripevnenie lístkov'],
+      aktivity: [
+        {
+          num: 1, name: 'Energizér – Loptičky', time: '10 min',
+          goal: 'U detí rozvíjam strategické myslenie a schopnosť dohodnúť sa na postupe.',
+          steps: [
+            'Každý účastník drží loptičku a postupne povie svoje krstné meno. Cieľom skupiny je zvládnuť to do 1 minúty. Pred pokusom majú chvíľu na dohodnutie stratégie.',
+            'Spôsob podávania si skupina zvolí sama (hádzanie, podávanie z ruky do ruky, pevné či voľné poradie) – je to súčasť stratégie.',
+            'Stop pravidlo: pokus končí, keď čas presiahne 1 minútu.'
+          ],
+          tip: 'Prepojenie na aktivitu Stoličky nechaj zatiaľ nevyslovené – aha moment príde neskôr, keď skupina sama zistí, že rovnaké princípy (stratégia, počúvanie sa) fungujú aj tam.',
+          reflex: {
+            pred: [],
+            pocas: ['Aké taktiky ste zvolili? Ktorá vám pomohla znížiť čas?', 'Čo by bolo treba urobiť inak, aby sa vám to podarilo?'],
+            po: ['Čo ste museli spraviť, aby sa vám podarilo úlohu zdolať?', 'Aké reakcie ostatných boli nápomocné a aké naopak vôbec?']
+          }
+        },
+        {
+          num: 2, name: 'Stoličky', time: '40 min',
+          goal: 'U detí rozvíjam schopnosť spolupracovať a nachádzať riešenia, ktoré fungujú pre všetkých.',
+          steps: [
+            'Účastníci sa rozdelia na 3 skupiny. Každá skupina pozná iba svoj cieľ: 1. skupina – dostať stoličky do stredu miestnosti, 2. skupina – dostať stoličky tak, aby ležali na boku, 3. skupina – dať stoličky na seba (do stohu).',
+            'Skupiny rozostavte do rôznych kútov miestnosti. Skupiny sa môžu medzi sebou rozprávať a sledovať, čo robia ostatní – to je súčasť úlohy.',
+            'Úloha je riešiteľná: stoličky poukladané na seba, ležiace na boku a umiestnené v strede naraz napĺňajú ciele všetkých troch skupín. Skupiny k tomu musia dospieť vzájomnou dohodou.',
+            'Stop pravidlo: prvé kolo trvá max. 3–4 minúty. Nečakajte na úspech – cieľom je, aby skupiny zistili, že niečo nefunguje. Ak sa nepodarí ani druhý pokus, ponúknite malú nápovedu: „Musia byť ciele všetkých skupín na rôznych miestach, alebo môžu platiť na tom istom mieste naraz?"'
+          ],
+          tip: 'Bezpečnosť: vopred stanov maximálnu výšku stohu a zákaz behania. Ak si dve skupiny naraz nárokujú tú istú stoličku, riešia to slovom, nie silou – v prípade fyzického ťahania okamžite zastav kolo. Riešenie úlohy zámerne nehovor vopred – má vyplynúť zo skupinovej dohody.',
+          reflex: {
+            pred: [],
+            pocas: ['Komu sa podarilo cieľ splniť?', 'Skúste opísať atmosféru, ktorá tu vládla. Ako ste sa v tom cítili?', 'Je podľa vás možné, aby sa podarilo naplniť ciele všetkých? Čo je k tomu treba urobiť?', 'Viete využiť niečo, čo ste sa naučili pri prvej aktivite?'],
+            po: ['Čo ste museli urobiť, aby sa vám spoločne podarilo naplniť cieľ?', 'Práve ste vyslovili isté pravidlá fungovania – kde všade v živote ich viete použiť?']
+          }
+        },
+        {
+          num: 3, name: 'Tvorenie pravidiel', time: '30 min',
+          goal: 'U detí rozvíjam schopnosť vyjednávať, argumentovať a spoločne tvoriť pravidlá.',
+          steps: [
+            'Každý účastník dostane jeden červený a jeden zelený lístok. Na zelený píše, čo chce aby sa v klube dialo; na červený čo nechce. Lístky sa nalepia na flipcharty.',
+            'Účastníci majú čas pozrieť si, čo ostatní chcú a nechcú. Na základe toho spoločne sformulujú 3 pravidlá, ktorými sa chcú v centre riadiť – diskusia prebieha v kruhu, každý hlas je platný.',
+            'Ak sa do 10 minút nedohodnete na presnom znení, dajte o návrhoch hlasovať – väčšina rozhoduje, ale každý názor sa musí najprv vypočuť.',
+            'Dohodnuté pravidlá sa spíšu na flipchart a vyvesia na stenu. Musia byť formulované pozitívne (nie „nebijeme sa", ale „sme k sebe dobrí").',
+            'Orientačné časovanie: písanie lístkov (5 min) → prezeranie lístkov (5 min) → vyjednanie pravidiel (10 min) → zápis a vyvesenie (3 min).'
+          ],
+          tip: 'Historické príklady nahraď príkladmi z bežného sveta detí (škola, krúžok) – vyhneš sa tomu, že diskusia odbočí na históriu namiesto pravidiel klubu.\n\nPREPOJENIE: Vedeli ste, že právo detí vyjadrovať sa k pravidlám, ktoré sa ich týkajú, je zakotvené v Dohovore o právach dieťaťa? Presne to, čo ste dnes robili – vyjednať si pravidlá vlastného priestoru – robia aj dospelí: napríklad firmy si takto so zamestnancami tvoria interné kódexy správania.',
+          reflex: {
+            pred: ['Prečo si myslíte, že pravidlá existujú v spoločnosti, škole, meste?', 'Môžu byť pravidlá dobré a zlé? Ako by mali vyzerať tie dobré?'],
+            pocas: [],
+            po: ['Čo vám pomáhalo sa dohodnúť?', 'Prečo sú podľa vás pravidlá dôležité?', 'Čo treba urobiť pre to, aby sa pravidlá dodržiavali?']
+          }
+        }
+      ]
     }
   ]
 };
@@ -1426,18 +1726,21 @@ function lpModalDetail(actId, idx) {
     html += '<div class="lp-act-body" id="' + uid + '">';
     a.steps.forEach(function(s) { html += '<div class="lp-step"><span class="lp-step-dot"></span><p>' + s + '</p></div>'; });
     if (a.variant) { html += '<div class="lp-variant"><strong>Záložný variant</strong>' + a.variant + '</div>'; }
-    html += '<div class="lp-reflex"><div class="lp-reflex-tabs">';
-    ['pred','pocas','po'].forEach(function(f, fi) {
-      html += '<div class="lp-reflex-tab' + (fi===0?' active':'') + '" onclick="switchLpReflex(event,\'' + uid + f + '\',\'' + uid + '\')">' + (fi===0?'Pred':fi===1?'Počas':'Po') + '</div>';
-    });
-    html += '</div>';
-    ['pred','pocas','po'].forEach(function(f, fi) {
-      html += '<div class="lp-reflex-content' + (fi===0?' active':'') + '" id="' + uid + f + '">';
-      if (a.reflex[f] && a.reflex[f].length) { a.reflex[f].forEach(function(q) { html += '<div class="lp-reflex-q">' + q + '</div>'; }); }
-      else { html += '<p style="font-size:12px;color:var(--gray-500)">-</p>'; }
+    var fazyAll3 = [['pred','Pred'],['pocas','Počas'],['po','Po']];
+    var fazyMa3 = fazyAll3.filter(function(f) { return a.reflex[f[0]] && a.reflex[f[0]].length > 0; });
+    if (fazyMa3.length > 0) {
+      html += '<div class="lp-reflex"><div class="lp-reflex-tabs">';
+      fazyMa3.forEach(function(f, fi) {
+        html += '<div class="lp-reflex-tab' + (fi===0?' active':'') + '" onclick="switchLpReflex(event,\'' + uid + f[0] + '\',\'' + uid + '\')">' + f[1] + '</div>';
+      });
       html += '</div>';
-    });
-    html += '</div>';
+      fazyMa3.forEach(function(f, fi) {
+        html += '<div class="lp-reflex-content' + (fi===0?' active':'') + '" id="' + uid + f[0] + '">';
+        a.reflex[f[0]].forEach(function(q) { html += '<div class="lp-reflex-q">' + q + '</div>'; });
+        html += '</div>';
+      });
+      html += '</div>';
+    }
     if (a.tip) { html += '<div class="lp-tip"><strong>Tip pre lektora</strong>' + a.tip + '</div>'; }
     html += '</div></div>';
   });
@@ -1517,21 +1820,21 @@ function lpRenderDetail(actId, idx) {
     if (a.variant) {
       html += '<div class="lp-variant"><strong>Zalozny variant</strong>' + a.variant + '</div>';
     }
-    html += '<div class="lp-reflex"><div class="lp-reflex-tabs">';
-    html += '<div class="lp-reflex-tab active" onclick="switchLpReflex(event,\'' + uid + 'pred\',\'' + uid + '\')">Pred</div>';
-    html += '<div class="lp-reflex-tab" onclick="switchLpReflex(event,\'' + uid + 'pocas\',\'' + uid + '\')">Počas</div>';
-    html += '<div class="lp-reflex-tab" onclick="switchLpReflex(event,\'' + uid + 'po\',\'' + uid + '\')">Po</div>';
-    html += '</div>';
-    ['pred','pocas','po'].forEach(function(faza, fi) {
-      html += '<div class="lp-reflex-content' + (fi===0 ? ' active' : '') + '" id="' + uid + faza + '">';
-      if (a.reflex[faza] && a.reflex[faza].length) {
-        a.reflex[faza].forEach(function(q) { html += '<div class="lp-reflex-q">' + q + '</div>'; });
-      } else {
-        html += '<p style="font-size:12px;color:var(--gray-500)">-</p>';
-      }
+    var fazyAll = [['pred','Pred'],['pocas','Počas'],['po','Po']];
+    var fazyMa = fazyAll.filter(function(f) { return a.reflex[f[0]] && a.reflex[f[0]].length > 0; });
+    if (fazyMa.length > 0) {
+      html += '<div class="lp-reflex"><div class="lp-reflex-tabs">';
+      fazyMa.forEach(function(f, fi) {
+        html += '<div class="lp-reflex-tab' + (fi===0?' active':'') + '" onclick="switchLpReflex(event,\'' + uid + f[0] + '\',\'' + uid + '\')">' + f[1] + '</div>';
+      });
       html += '</div>';
-    });
-    html += '</div>';
+      fazyMa.forEach(function(f, fi) {
+        html += '<div class="lp-reflex-content' + (fi===0?' active':'') + '" id="' + uid + f[0] + '">';
+        a.reflex[f[0]].forEach(function(q) { html += '<div class="lp-reflex-q">' + q + '</div>'; });
+        html += '</div>';
+      });
+      html += '</div>';
+    }
     if (a.tip) { html += '<div class="lp-tip"><strong>Tip pre lektora</strong>' + a.tip + '</div>'; }
     html += '</div></div>';
   });
@@ -1614,22 +1917,21 @@ function renderLpDetail(actId, idx) {
     }
 
     // reflexia
-    html += '<div class="lp-reflex"><div class="lp-reflex-tabs">';
-    html += '<div class="lp-reflex-tab active" onclick="switchLpReflex(event,\'' + uid + '-pred\',\'' + uid + '\')">Pred</div>';
-    html += '<div class="lp-reflex-tab" onclick="switchLpReflex(event,\'' + uid + '-pocas\',\'' + uid + '\')">Počas</div>';
-    html += '<div class="lp-reflex-tab" onclick="switchLpReflex(event,\'' + uid + '-po\',\'' + uid + '\')">Po</div>';
-    html += '</div>';
-
-    ['pred','pocas','po'].forEach(function(faza, fi) {
-      html += '<div class="lp-reflex-content' + (fi===0?' active':'') + '" id="' + uid + '-' + faza + '">';
-      if (a.reflex[faza] && a.reflex[faza].length) {
-        a.reflex[faza].forEach(function(q) { html += '<div class="lp-reflex-q">' + q + '</div>'; });
-      } else {
-        html += '<p style="font-size:12px;color:var(--gray-500);padding:4px 0">–</p>';
-      }
+    var fazyAll2 = [['pred','Pred'],['pocas','Počas'],['po','Po']];
+    var fazyMa2 = fazyAll2.filter(function(f) { return a.reflex[f[0]] && a.reflex[f[0]].length > 0; });
+    if (fazyMa2.length > 0) {
+      html += '<div class="lp-reflex"><div class="lp-reflex-tabs">';
+      fazyMa2.forEach(function(f, fi) {
+        html += '<div class="lp-reflex-tab' + (fi===0?' active':'') + '" onclick="switchLpReflex(event,\'' + uid + '-' + f[0] + '\',\'' + uid + '\')">' + f[1] + '</div>';
+      });
       html += '</div>';
-    });
-    html += '</div>';
+      fazyMa2.forEach(function(f, fi) {
+        html += '<div class="lp-reflex-content' + (fi===0?' active':'') + '" id="' + uid + '-' + f[0] + '">';
+        a.reflex[f[0]].forEach(function(q) { html += '<div class="lp-reflex-q">' + q + '</div>'; });
+        html += '</div>';
+      });
+      html += '</div>';
+    }
 
     if (a.tip) {
       html += '<div class="lp-tip"><strong>💡 Tip pre lektora</strong>' + a.tip + '</div>';

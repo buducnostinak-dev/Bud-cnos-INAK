@@ -847,11 +847,9 @@ const MODULES2 = [
     ],
     level: "Účastník vie analyzovať problém do hĺbky, zvládnuť konflikt v tíme a poučiť sa z neúspechu.",
     activities: [
-      { id: "r2-detektivne", icon: "🔎", name: "Detektívne vyšetrovanie", desc: "Skúmanie príčin problémov cez 5 Whys a fishbone diagram.", time: "40–50 min" },
-      { id: "r2-mystery-case", icon: "🕵️", name: "Mystery case aktivity", desc: "Záhadné prípady, kde tím hľadá skutočnú príčinu problému.", time: "30–45 min" },
-      { id: "r2-konflikt-roleplay", icon: "🎭", name: "Konflikt role-play", desc: "Simulácie konfliktných situácií s rôznymi štýlmi riešenia.", time: "35–45 min" },
-      { id: "r2-aar", icon: "🔄", name: "After Action Review", desc: "Štruktúrovaná reflexia po projektovej úlohe (4 otázky).", time: "25–35 min" },
-      { id: "r2-postmortem", icon: "🩺", name: "Postmortem kruh", desc: "Spätné pozretie na neúspech bez obviňovania.", time: "30–40 min" }
+      { id: "r2-terenne-patranie", icon: "🔍", name: "Terénne pátranie", desc: "Skúmanie príčin problémov do hĺbky — 5 Whys, fishbone diagram." },
+      { id: "r2-reflexia", icon: "💭", name: "Reflexia", desc: "Spätné pozretie na skúsenosť bez obviňovania — čo fungovalo, čo nie, čo ďalej." },
+      { id: "r2-role-play", icon: "🎭", name: "Role play", desc: "Simulácia konfliktných situácií a hľadanie riešenia bez víťaza a porazeného." }
     ]
   },
   {
@@ -2246,6 +2244,254 @@ var LESSON_PLANS = {
           ],
           tip: 'Nechaj to jednoduché a pokojné, po predchádzajúcej aktívnejšej časti. Kresba alebo krátke heslo je rovnako platná odpoveď ako celá veta.',
           reflex: { pred: [], pocas: [], po: ['Predstav si, že zajtra dostaneš v škole úlohu, ktorej vôbec nerozumieš. Čo bude prvá vec, ktorú skúsiš?'] }
+        }
+      ]
+    },
+    {
+      id: 'lp-metakog-2',
+      name: 'Beh nie o preteky',
+      meta: [
+        { label: 'Čas', value: '90 min' },
+        { label: 'Aktivity', value: '2' },
+        { label: 'Ročník', value: 'Rok 1' }
+      ],
+      ciel: 'Na konci stretnutia účastník dokáže si všimnúť, že dobré rozhodnutie – v behu aj pri učení – závisí od toho, ako dobre pozná sám seba.',
+      kompetencia: 'Účastníci skúšajú rôzne spôsoby učenia, riešenia úloh a spolupráce, reflektujú, čo im pomáha sústrediť sa, zapamätať si informácie alebo zvládnuť úlohu.',
+      prejav: 'Sledujem, ako si účastníci stanovujú svoj časový cieľ (opatrne/odvážne) a ako reagujú na rozdiel medzi odhadom a skutočným výsledkom. Všímam si, akú formu učenia si vyberajú pri tvorbe krokomera a ako spolupracujú v dvojici/trojici pri riešení technickej úlohy.',
+      priprava: ['Vopred vyznačený bežecký úsek – ideálne v exteriéri, alternatíva v interiéri', 'Stopky/časomiera', 'Papiere a perá na zapisovanie odhadovaných a skutočných časov', 'Microbit sady pre každú dvojicu/trojicu', 'Prístup na internet alebo papierový návod na vyhľadanie/vytlačenie postupu na krokomer'],
+      aktivity: [
+        {
+          num: 1, name: 'Beh na odhadnutý čas', time: '45 min',
+          goal: 'U detí rozvíjam schopnosť odhadnúť vlastný výkon na základe poznania seba samého, nie súťaživosti.',
+          steps: [
+            'Povedz nahlas hneď na začiatku: „Toto nie je o tom, kto je najrýchlejší. Je to o tom, ako dobre poznáte sami seba – svoje telo, svoje tempo."',
+            'Koordinátor/ka vopred vyznačí bežecký úsek – ideálne v exteriéri, ak sa nedá, tak aj v interiéri.',
+            'Koordinátor/ka svojím tempom (nemusí byť rýchle) zabehne danú vzdialenosť, časovo si ju odmeria a oznámi účastníkom svoj čas.',
+            'Každý účastník si stanoví čas, v ktorom si myslí, že danú vzdialenosť zabehne, a potom ju odbehne.',
+            '2. kolo: Účastníci sa môžu rozhodnúť, či si svoj cieľový čas ponechajú (a zapíše sa im najbližší z oboch výsledkov), alebo si ho zmenia – v tom prípade platí už len nasledujúci čas. Účastníci potom zabehnú druhé kolo. Víťazom je ten, kto bol najbližšie k svojmu odhadu.'
+          ],
+          tip: 'Dôležité: nejde o to, kto je najrýchlejší – ide o to, kto je najbližšie k svojmu vlastnému vytipovanému času. Toto je jadro celej aktivity, nie vedľajšia poznámka – povedz to hneď na začiatku, ešte pred tým, ako si stanovia odhad.\n\nPOJMY: Ak niekto povie niečo blízke („sledoval som sa", „odhadoval som svoje telo", „rozmýšľal som nad sebou"), zopakuj to nahlas a povedz: „Presne tomuto sa hovorí metakognícia – schopnosť premýšľať o vlastnom výkone." Nechaj to vzniknúť z ich slov, nehovor to ako prvý.',
+          reflex: {
+            pred: [],
+            pocas: ['Ako blízko svojho odhadu ste boli?', 'Boli ste rýchlejší alebo pomalší, než ste čakali? Čo vás prekvapilo?', 'Čo ste pri behu robili, aby ste sa snažili trafiť svoj čas (spomalili ste, zrýchlili ste)?'],
+            po: ['Zmenili ste svoj cieľ v druhom kole, alebo ste ho nechali? Prečo?', 'Čo vám pomohlo lepšie trafiť svoj čas v druhom kole?', 'Čo si myslíte, že je ťažšie – byť rýchly, alebo presne odhadnúť svoj vlastný výkon?', 'Kde v živote je dôležitejšie „trafiť odhad" než byť najrýchlejší? (napríklad skúšky, projekty, plánovanie času)', 'Čo ste museli sledovať vo svojej hlave, aby ste trafili svoj čas?']
+          }
+        },
+        {
+          num: 2, name: 'Krokomer z microbitu', time: '45 min',
+          goal: 'U detí rozvíjam schopnosť vedome si vybrať spôsob učenia a overiť, či skutočne funguje.',
+          steps: [
+            'Účastníci sú rozdelení do dvojíc/trojíc. Ich úlohou je vytvoriť z microbitu krokomer.',
+            'Tímy sa môžu rozhodnúť, akým spôsobom sa to naučia – opýtaním sa niekoho, návodom na internete, napísaným návodom na papieri, alebo vlastným pokusom a omylom.',
+            'Dôležité: po zostavení si tím musí krokomer aj vyskúšať a overiť, či naozaj funguje v praxi (napríklad prejdením niekoľkých krokov a kontrolou, či sedí počet).'
+          ],
+          tip: 'Deti si môžu pomôcť so svojimi „Návodmi na seba", ak už ich realizovali na predchádzajúcich stretnutiach.\n\nPripravte si vopred papierový návod na krokomer z microbitu pre tých, ktorí si vyberú túto formu. Ak je to možné, povzbuďte tímy, aby si vyberali rôzne formy učenia – reflexia bude mať potom z čoho porovnávať.\n\nPREPOJENIE: Ak nikto sám nepríde na spojenie, pomôž: „Pri behu ste odhadovali svoj výkon. Pri krokomeri ste odhadovali, ktorý spôsob učenia vám sadne. Oboje je to isté – poznanie seba samého." Nechaj to zaznieť až na úplný záver, nie na začiatku stretnutia.',
+          reflex: {
+            pred: ['Spomeňte si na aktivitu skladania origami. Pamätáte sa, ktorý typ učenia vám bol vtedy najlepší?', 'Potrebujete veci vyskúšať najprv sami, alebo ste typ, čo sa učí z návodu, prípadne tak, že vám to niekto vysvetlí?', 'Ktorý spôsob si myslíte, že vám dnes pôjde najlepšie? Tipnite si – presne ako ste si tipli svoj bežecký čas.'],
+            pocas: [],
+            po: ['Trafili ste sa? Bol to spôsob, ktorý ste si na začiatku tipli?', 'Akú formu učenia ste si vybrali a prečo?', 'Bolo pre vás jednoduchšie učiť sa z papierového návodu, z internetu, opýtaním sa niekoho, alebo vlastným pokusom a omylom? Prečo?', 'Čo bol prvý signál, že váš spôsob učenia vám nefunguje (ak sa to stalo)?', 'Keby ste mohli začať znova, zmenili by ste spôsob, akým ste sa to učili?', 'Kedy je podľa vás lepšie opýtať sa niekoho a kedy si niečo nájsť či prečítať sami?', 'V čom môže byť výhoda mať v tíme ľudí, ktorí sa učia rôznym spôsobom?', 'Čo majú dnešný beh a krokomer spoločné?']
+          }
+        }
+      ]
+    },
+    {
+      id: 'lp-metakog-3',
+      name: 'Dva brehy, jeden most',
+      meta: [
+        { label: 'Čas', value: '58 min' },
+        { label: 'Aktivity', value: '5' },
+        { label: 'Ročník', value: 'Rok 1' }
+      ],
+      ciel: 'Na konci stretnutia účastník dokáže priebežne si všímať, či mu spôsob, akým niečo robí, ešte funguje – a keď nie, zmeniť ho na iný.',
+      kompetencia: 'Účastník experimentuje s rôznymi spôsobmi učenia a hľadá, ktoré mu pri učení alebo práci pomáhajú najviac.',
+      prejav: 'Sledujem, ako reagujú na otázku o dôkaze, že im to funguje – majú konkrétny dôkaz, alebo len dojem. Všímam si, ako zástupca využíva obmedzený čas s druhým tímom – ide tam s jasným plánom, alebo improvizuje.',
+      priprava: ['Stavebný materiál – 2 rovnaké sady (lepidlo, lepiaca páska, papier, kartón, kotúčiky z toaletného papiera, nožnice, ceruzky, obaly od jogurtov, slamky a iný dostupný materiál)', 'Prázdna PET fľaša (0,5 l) – kritérium na otestovanie mosta, musí vydržať aspoň 5 sekúnd v strede spojeného mosta', 'Oddelený priestor pre 2 tímy – ideálne 2 miestnosti; ak nie je možné, oddeľte tímy v jednej miestnosti plachtou alebo radom nábytku', 'Vopred určené miesto na stretnutie zástupcov, napr. chodba medzi oboma priestormi', 'Stopky na časovanie kôl a stretnutí zástupcov'],
+      aktivity: [
+        {
+          num: 1, name: 'Energizér: Pozdrav, ktorý sa mení', time: '3 min',
+          goal: 'U detí rozvíjam pohotovosť rýchlo zmeniť spôsob správania na nový signál.',
+          steps: [
+            'Všetci chodia po miestnosti.',
+            'Povedz nahlas prvé pravidlo: „Podajte si ruku s každým, koho stretnete." Nechaj 15–20 sekúnd.',
+            'Zavolaj: „ZMENA!" a povedz nové pravidlo (napr. „urobte si high five", „ukloňte sa", „zatlieskajte si dlaňami nad hlavou"). Zopakuj 3–4×, vždy po 15–20 sekundách.'
+          ],
+          tip: 'Meň pravidlá rýchlo, bez varovania – práve to je zámer.\n\nPREPOJENIE: Povedz nahlas: „Práve ste menili spôsob niekoľkokrát za pár sekúnd – a bolo to úplne v poriadku. Presne to dnes budete robiť aj pri stavaní mosta."',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 2, name: 'Úvod', time: '10 min',
+          goal: 'U detí rozvíjam pochopenie zadania a pravidiel spolupráce medzi dvomi oddelenými tímami.',
+          steps: [
+            'Rozdeľte účastníkov na 2 tímy. Každý tím dostane rovnakú sadu materiálu a odíde do svojho priestoru (iná miestnosť, alebo oddelený kút tej istej miestnosti).',
+            'Zadanie: „Obidva tímy žijú na opačných brehoch rieky. Každý tím postaví svoju polovicu mosta. Obe polovice musia do seba na konci perfektne zapadnúť a spojený most musí uniesť prázdnu fľašu."',
+            'Každý tím si zvolí jedného zástupcu. Zástupcovia sa môžu počas stavby stretnúť na vopred určenom mieste – koľkokrát a ako dlho, závisí od zvolenej verzie.'
+          ],
+          tip: 'VERZIA NÁROČNOSTI: Ľahšia verzia: zástupcovia sa môžu stretnúť koľkokrát potrebujú, kedykoľvek počas stavby. Ťažšia verzia: zástupcovia majú k dispozícii len 2 stretnutia za celú stavbu – musia si dobre premyslieť, kedy ich využijú. Zvoľ verziu podľa skúsenosti skupiny – ťažšia sedí skupine, ktorá už podobnú aktivitu absolvovala.\n\nNÁROČNEJŠIE KRITÉRIUM: Ak je skupina šikovná a PET fľaša je pre nich príliš ľahká výzva, použite namiesto nej sklenenú fľašu alebo knihu – ťažší a menej stabilný predmet výrazne zvýši nároky na pevnosť spoja.',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 3, name: 'Stavba mosta', time: '35 min',
+          goal: 'U detí rozvíjam schopnosť priebežne si overovať, či zvolený postup naozaj funguje, a upraviť ho, keď nefunguje.',
+          steps: [
+            '5 min – rozmyslenie: tím si v tichosti premyslí, akým spôsobom bude stavať. Potom to zástupca povie nahlas druhému tímu (ak je verzia s otvorenou komunikáciou), alebo si to tím len potvrdí medzi sebou.',
+            'Stavba začína.',
+            'Zastavenie č. 1 (uprostred stavby): opýtaj sa nahlas oboch tímov: „Aký máte dôkaz, že vám váš spôsob funguje?" Nechaj ich odpovedať nahlas – niektorí povedia „myslíme si", iní „most už čiastočne stojí a drží". Potom sa opýtaj: „Chcete niečo zmeniť?" Ak áno, daj 2 minúty na poradenie sa.',
+            'Stavba pokračuje.',
+            'Zastavenie č. 2 (tesne pred koncom, ešte pred spojením): polož jednu z dvoch otázok podľa toho, ako to tímu ide (pozri reflexiu nižšie).',
+            'Spojenie oboch polovíc mosta a otestovanie fľašou.'
+          ],
+          tip: 'Zastavenie č. 1 rob naozaj nahlas a pre oba tímy naraz – aj tím, ktorému sa darí, má počuť, že priebežne si všímať, či to funguje, je normálna súčasť procesu, nie len núdzové riešenie pre tých, čo zaostávajú.\n\nOtázka „Aký máte dôkaz?" je zámerne prísnejšia než „chcete niečo zmeniť?" – núti tím rozlíšiť medzi dojmom („myslíme si, že to ide dobre") a overiteľným faktom („most už čiastočne stojí").',
+          reflex: {
+            pred: [],
+            pocas: ['Ak to ide dobre: Aký máte dôkaz, že vám to ide dobre? Kedy presne ste si všimli, že váš spôsob funguje?', 'Ak to ide zle: Kedy ste si uvedomili, že váš pôvodný spôsob nestačí? Čo bol moment, keď ste si povedali: takto to ďalej nepôjde?'],
+            po: []
+          }
+        },
+        {
+          num: 4, name: 'Čo sme si všimli', time: '7 min',
+          goal: 'U detí rozvíjam schopnosť pomenovať si vlastnými slovami, že zmena postupu je súčasť úspechu, nie zlyhanie.',
+          steps: [
+            'Nakresli na tabuľu/flipchart: Skús → Všimni si → Uprav → Skús znova.',
+            'Krátke kolo: každý tím povie, kedy si všimol, že jeho pôvodný spôsob nestačí (ak vôbec).'
+          ],
+          tip: 'POJMY: Nechaj koncept vzniknúť z ich vlastných slov – nemusíte použiť žiadny odborný termín ako „stratégia" alebo „metakognícia". Ak niekto povie niečo blízke („zistili sme, že to nejde, tak sme to zmenili"), zopakuj to nahlas a potvrď, že presne to je dnešná hlavná vec.\n\nPREPOJENIE: Rovnaký vzorec (Skús → Všimni si → Uprav → Skús znova) sa objavuje aj v stretnutí „Od problému k prototypu" pri Prototype a Mini teste. Ak skupina absolvovala oboje, pripomeň im tú súvislosť.',
+          reflex: { pred: [], pocas: [], po: ['Čo sa stane, keď sa rozhodneš ísť jedným smerom, a uprostred cesty zistíš, že to nefunguje?', 'Je to zlyhanie, keď spôsob zmeníš, alebo je to súčasť toho, ako sa niečo darí dokončiť?'] }
+        },
+        {
+          num: 5, name: 'Kde inde to platí', time: '3 min',
+          goal: 'U detí rozvíjam schopnosť preniesť si dnešný princíp mimo tejto aktivity.',
+          steps: ['Krátke kolo naprieč skupinou.'],
+          tip: 'PREPOJENIE: Modeluj deťom konkrétnu, prenositeľnú vetu, ktorú môžu použiť aj v škole: „Tento spôsob mi nefunguje, skúsim iný." Táto veta funguje rovnako pri učení, pri riešení úlohy, aj pri hocijakom probléme mimo BI.',
+          reflex: { pred: [], pocas: [], po: ['Kde inde – v škole, doma, na krúžku – sa ti oplatí všimnúť si, že spôsob, akým niečo robíš, nefunguje, a skúsiť iný?'] }
+        }
+      ]
+    }
+  ],
+  'r2-reflexia': [
+    {
+      id: 'lp-r2-reflexia-1',
+      name: 'Žraloci útočia',
+      meta: [
+        { label: 'Čas', value: '85 min' },
+        { label: 'Aktivity', value: '3' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Na konci stretnutia účastník dokáže na fyzickej aktivite vyskúšať prácu s neúspechom a prostredníctvom techniky „postmortem" reflektovať, čo fungovalo a čo nie, bez obviňovania konkrétnych ľudí.',
+      kompetencia: 'Účastníci po neúspechu alebo nefunkčnom riešení pomenúvajú, čo sa naučili, a rozhodujú sa, aký ďalší krok im pomôže riešenie zlepšiť.',
+      prejav: 'Sledujem, ako skupina reaguje na neúspech alebo stratu stoličky, a ako spolu komunikujú počas tichej fázy neverbálnymi signálmi. Všímam si, či sa niekto v kruhu napriek pravidlu snaží obviňovať konkrétnu osobu, a ku ktorému papieriku (zelený/červený/žltý) sa účastníci pri záverečnej reflexii postavia.',
+      priprava: ['Stoličky (1 na každého účastníka)', 'Papierová páska na vyznačenie línií ostrovov', 'Predmet na podávanie v kruhu (plyšák, loptička...)', 'Veľký flipchart rozdelený na 3 farebné zóny (zelená, žltá, červená)', 'Post-ity v troch farbách (zelená, žltá, červená) – 3 ks na účastníka', 'Fixky', 'Zelený, červený a žltý papierik rozmiestnené po miestnosti na záverečnú reflexiu'],
+      aktivity: [
+        {
+          num: 1, name: 'Žraloci útočia', time: '25 min',
+          goal: 'U detí rozvíjam skúsenosť s rizikom, spoluprácou a neúspechom vo fyzickej aktivite.',
+          steps: [
+            'Všetky stoličky sú uložené do jedného rohu. Na zemi je vyznačená línia (napr. papierovou páskou) tesne pred stoličkami a v rovnakej šírke na druhej strane miestnosti. Úsek medzi oboma líniami predstavuje more, priestor za líniami – teda jedna aj druhá strana miestnosti – predstavuje ostrovy.',
+            'Úlohou účastníkov je prejsť z jedného ostrova na druhý s použitím stoličiek, ktoré predstavujú ich loď. Na každého účastníka je jedna stolička.',
+            'V mori je však veľmi dravý žralok, ktorého predstavuje koordinátor/ka.',
+            'Dôležité pravidlá: žiadna stolička nesmie ostať bez dotyku človeka (akonáhle ostane prázdna, žralok ju berie); žiadna stolička nesmie pri presúvaní vydať zvuk (akonáhle zaznie zvuk, buchnutie a pod., žralok stoličku berie); ak ktokoľvek vstúpi do mora, teda sa dotkne zeme mimo línií ostrovov, žralok ho „zožerie" a celá hra pre skupinu končí – cieľ sa nepodarilo dosiahnuť.',
+            'Účastníci majú na úspešný prechod na druhý ostrov len dva pokusy. Toto pravidlo je potrebné účastníkom vopred oznámiť.'
+          ],
+          tip: 'Úspešné dokončenie aktivity nie je až tak dôležité. Skús si všímať práve tie chvíle, kedy sa účastníkom nedarilo. Ak je skupina veľmi šikovná alebo podobnú aktivitu už v minulosti robila, môžeš zvýšiť náročnosť určením časového limitu, ktorý majú na prejdenie na druhý ostrov.',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 2, name: '„Postmortem" po útoku žralokov', time: '40 min',
+          goal: 'U detí rozvíjam schopnosť reflektovať neúspech bez obviňovania konkrétnych ľudí.',
+          steps: [
+            'Účastníci sedia v kruhu. Koordinátor/ka má pri sebe predmet, ktorý sa bude podávať do kruhu (plyšák, loptička...). Pred nimi leží flipchart rozdelený na tri farebné zóny – zelenú, žltú a červenú.',
+            'Povedz nahlas: „V mori nám ‚zomrelo´ niekoľko námorníkov. Poďme spoločne rozobrať, čo sa stalo. V tejto technike vynechávame obviňovanie konkrétnych ľudí – ‚už sú post mortem´. Zamerajte sa skôr na opis situácie."',
+            'Krok 1 – Tichá fáza / Pitva (5 min): Každý účastník dostane 3 post-ity rôznych farieb a samostatne, v tichosti napíše: na zelený – jednu vec, ktorá pri danej aktivite fungovala; na červený – jednu vec, ktorá nefungovala alebo bola náročná; na žltý – jednu konkrétnu vec, ktorú by nabudúce urobili inak.',
+            'Krok 2 – Kruh so slovom / Odhalenie pitevných výsledkov (12–15 min): Predmet sa podáva po kruhu. Kto ho má, prečíta nahlas svoje 3 post-ity a nalepí ich do príslušnej zóny na veľký papier. Ostatní počúvajú bez komentárov a diskusie – iba počúvanie a lepenie.',
+            'Krok 3 – Spoločný pohľad / Spoločná porada patológov (5 min): Po skončení kruhu sa celá skupina spolu pozrie na papier. Koordinátor/ka nahlas zhrnie 2–3 opakujúce sa témy, ktoré sa objavili vo viacerých post-itoch (napr. „veľa z vás napísalo, že ste potrebovali viac pokusov.").'
+          ],
+          tip: 'Koordinátor/ka zdôrazní, že post mortem kruh nie je o hľadaní vinníka, ale o tom, aby sa rovnaká chyba nemusela opakovať a aby sa to, čo fungovalo, dalo použiť znova. Táto technika sa dá použiť po akomkoľvek spoločnom projekte – v škole, v krúžku, aj v budúcom zamestnaní. Úspešné firmy a startupy pravidelne robia presne toto – po skončení projektu, produktu alebo aj neúspešného nápadu si sadnú a systematicky si povedia, čo fungovalo a čo nie, bez obviňovania konkrétnych ľudí.',
+          reflex: {
+            pred: ['Ako sa po aktivite cítite? (môžu to pokojne naznačiť prstami od 1 do 5)', 'Aktivita priniesla aj konfliktnejšie situácie. Skúste teraz zaloviť v pamäti, možno aj z minulého roka. Dostali ste niekedy spätnú väzbu, ktorá bola voči vám vyslovene kritická? Ako ste sa vtedy cítili?'],
+            pocas: [],
+            po: ['Bolo ťažké napísať vec do červenej zóny bez toho, aby ste obviňovali konkrétnu osobu?', 'Prekvapilo vás, že niekto iný napísal na zelený post-it presne to, čo vy na červený?', 'Ako sa cítite teraz, keď je všetko na jednom papieri, v porovnaní s tým, ako by ste sa cítili, keby ste o tom hovorili len s jednou osobou a bez pravidiel kruhu?', 'Čo z tejto skúsenosti si viete odniesť ďalej?', 'Kde v bežnom živote ju viete využiť?']
+          }
+        },
+        {
+          num: 3, name: 'Ako sa poučiť z „pitvy"', time: '20 min',
+          goal: 'U detí rozvíjam schopnosť premeniť poznanie z reflexie na konkrétny uskutočniteľný krok.',
+          steps: [
+            'Úloha: V dvojiciach vyberte jeden žltý post-it (čo nabudúce urobiť inak) zo spoločného papiera a rozveďte ho do konkrétneho, uskutočniteľného kroku: „Nabudúce urobíme ... tak, že konkrétne ..." Niekoľko dvojíc svoj krok prečíta nahlas.',
+            'Záverečná reflexia „štyri rohy": Koordinátor/ka rozostaví po miestnosti zelený, červený a žltý papierik – zelený: naučil/a som sa niečo nové; červený: myslím si, že toto naozaj nikdy nevyužijem; žltý: potrebujem ešte niečo dovysvetliť. Každý sa postaví k tomu, ktorý sedí na neho najviac.'
+          ],
+          tip: 'Slovo sa dá najmä účastníkom pri žltom papieriku, ale pokojne aj ostatným, ktorí sa budú chcieť podeliť.',
+          reflex: { pred: [], pocas: [], po: [] }
+        }
+      ]
+    }
+  ],
+  'r2-terenne-patranie': [
+    {
+      id: 'lp-r2-terenne-1',
+      name: 'Predpoklad a realita',
+      meta: [
+        { label: 'Čas', value: '90 min' },
+        { label: 'Aktivity', value: '5' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Na konci stretnutia účastník dokáže porovnať svoj predpoklad o potrebe konkrétnej skupiny ľudí (a reakcii na svoje riešenie) so skutočnou spätnou väzbou od ľudí, ktorých sa to týka.',
+      kompetencia: 'Účastník dokáže pomenovať, čo je v situácii problém, aká potreba za ním stojí a kde sa skrýva príležitosť na zmenu.',
+      prejav: 'Sledujem, ako tímy tvoria svoj predpoklad – na základe reálneho pozorovania, alebo len z hlavy/dojmu. Všímam si, ako reagujú na rozdiel medzi predpokladom a tým, čo sa dozvedeli v teréne – bránia si ho, alebo ho ochotne prehodnotia.',
+      priprava: ['Staré fotky/flipcharty z „Think like a traveler" (ak sú dostupné – over si to vopred, nie až na mieste)', 'Zelené a červené rámčeky (záložné, pre prípad rýchlej obnovy pozorovania)', 'Kartičky „Náš predpoklad / Čo sme zistili" (obojstranné, jedna na tím)', 'Tablety/foťák (aspoň jeden na tím)', 'Papiere, perá, fixky (na rýchly návrh riešenia)', 'Podpísané informované súhlasy (ak sa ide mimo centrum)'],
+      aktivity: [
+        {
+          num: 1, name: 'Krátky návrat', time: '10 min',
+          goal: 'U detí rozvíjam schopnosť nadviazať na minuloročné pozorovanie problémov a rozšíriť ho o vnímanie potrieb.',
+          steps: [
+            'Opýtaj sa nahlas: „Pred rokom ste robili aktivitu, kde ste sa pozerali na okolie centra očami cudzinca. Pamätáte si niečo?"',
+            'Ak je materiál dostupný a/alebo si skupina pamätá: pozrite sa spolu na staré fotky alebo flipcharty zo zeleného a červeného rámčeka.'
+          ],
+          tip: 'ZÁLOHA: Ak materiál nie je dostupný, alebo si skupina nič nepamätá, urob rýchlu 5-minútovú verziu „Think like a traveler" namiesto spomínania. Choďte na 5 minút pred budovu alebo po chodbe a nech si každý všimne jednu vec, čo funguje, a jednu, čo nefunguje. Dôležité je, aby tímy mali v Aktivite 2 z čoho vychádzať skutočné pozorovanie, nie prázdnu pamäť.\n\nPREPOJENIE: Minulý rok ste sa naučili všímať si problémy. Dnes zistíte niečo náročnejšie: aj keď si problém všimneme, ešte nemusíme rozumieť potrebe človeka, ktorého sa týka. Túto vetu si odlož na koniec stretnutia – k nej sa vrátite.',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 2, name: 'Komu vieme dnes pomôcť?', time: '18 min',
+          goal: 'U detí rozvíjam schopnosť vybrať si dostupnú skupinu ľudí ako prvý krok, ešte pred hľadaním problému.',
+          steps: [
+            'Namiesto toho, aby ste hľadali problém a potom hocikoho, koho sa opýtate, začnite opačne.',
+            'Krok 1 – opýtaj sa nahlas: „Koho dnes viete reálne osloviť?" Príklady: učitelia, spolužiaci, rodičia pred budovou, zamestnanci centra, deti v klube, predavačka, personál na recepcii.',
+            'Krok 2 – tímy si vyberú jednu takúto dostupnú skupinu ľudí.',
+            'Krok 3 – opýtaj sa: „Aké problémy môže mať práve táto skupina ľudí?" Ak potrebujete inšpiráciu, ponúknite oblasti, na ktoré vie odpovedať skoro každý: orientácia v budove, lavičky, odpadkové koše, prechod pre chodcov, čakáreň, zastávka, pitná voda, značenie.',
+            'Krok 4 – tím zapíše na prednú stranu kartičky „Náš predpoklad": „Myslíme si, že [táto skupina] ___." (zatiaľ len potreba, riešenie príde v Aktivite 3).'
+          ],
+          tip: 'Ak tím povie „veď nám sa to zdalo logické", nechaj to tak – presne túto vetu si pripomeniete v Aktivite 5, keď zistíte, že logické neznamená pravdivé.',
+          reflex: { pred: ['Na základe čoho odhadujete túto potrebu – videli ste niekoho priamo v tejto situácii, alebo si to len domýšľate?', 'Prečo ste si boli tým odhadom takí istí?'], pocas: [], po: [] }
+        },
+        {
+          num: 3, name: 'Návrh riešenia', time: '20 min',
+          goal: 'U detí rozvíjam schopnosť rýchlo navrhnúť jednoduché riešenie na základe predpokladu, nie dokonalý produkt.',
+          steps: [
+            'Na základe predpokladu z Aktivity 2 navrhnite jednoduché riešenie – plagát, kartička, krátky opis, náčrt.',
+            'Nemusí byť dokonalé – stačí jasný nápad, ktorý viete niekomu ukázať a opísať za 30 sekúnd.',
+            'Doplňte kartičku „Náš predpoklad" o druhú časť vety: „...preto sme navrhli ___."'
+          ],
+          tip: 'Ak tím nevie, ako začať, opýtaj sa: „Čo by najrýchlejšie pomohlo skupine ľudí, ktorú ste si vybrali v Aktivite 2?"',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 4, name: 'Terénne overenie', time: '25 min',
+          goal: 'U detí rozvíjam schopnosť overiť si predpoklad priamo u tých ľudí, ktorých sa týka.',
+          steps: [
+            'Tímy idú za skupinou ľudí, ktorú si vybrali v Aktivite 2 – nie za náhodnými okoloidúcimi. Ak je to skupina dostupná priamo v budove (učitelia, personál, deti v klube), terénom môže byť aj samotné centrum.',
+            'Zisťujte DVE veci naraz: (1) Je to, čo považujete za problém, naozaj problém pre týchto ľudí? (2) Čo by povedali na vaše navrhované riešenie?',
+            'Orientačné otázky: „Je pre vás toto problém?" / „Čo si myslíte o tomto nápade?" / „Použili by ste to?"'
+          ],
+          tip: 'FYZICKÝ RESET: Presne ako pri Interview – deti sa vracajú z terénu „nabudené". Zaraď krátky fyzický reset pred reflexiou: „Postav sa, ak vás niečo prekvapilo. Zostaň sedieť, ak to bolo presne podľa očakávania."\n\nVopred si s deťmi urč viditeľný okruh a maj tímy počas celej aktivity na dohľad, nielen na dohodnutom mieste na koniec.',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 5, name: 'Porovnanie predpokladu s realitou', time: '17 min',
+          goal: 'U detí rozvíjam schopnosť porovnať predpoklad so skutočnosťou a byť ochotný prehodnotiť svoje riešenie.',
+          steps: [
+            'Každý tím otočí svoju kartičku a na zadnú stranu „Čo sme zistili" napíše: „Zistili sme, že ľudia v skutočnosti ___."',
+            'Vyveste kartičky vedľa seba (predpoklad / realita), nech ich vidí celá skupina.'
+          ],
+          tip: 'PREPOJENIE: Až po tom, čo odpovedia na poslednú otázku vlastnými slovami, uzavri: „Presne preto sa dobré riešenia nezačínajú nápadom. Začínajú overovaním toho, či sme problém naozaj pochopili." Pripomeň aj vetu z Aktivity 1: minulý rok ste sa naučili všímať si problémy – dnes ste zistili, že aj vtedy sa môžete mýliť v tom, akú potrebu za nimi vidíte.',
+          reflex: { pred: [], pocas: [], po: ['Sedel váš predpoklad s tým, čo povedali ľudia?', 'Čo vás najviac prekvapilo – na probléme, alebo na reakcii na vaše riešenie?', 'Zmenili by ste teraz svoje riešenie? Ako?', 'Predstavte si, že by ste dnes nešli medzi ľudí a rovno by ste začali svoje riešenie vyrábať. Čo by sa mohlo stať?'] }
         }
       ]
     }

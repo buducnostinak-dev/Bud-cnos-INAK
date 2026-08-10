@@ -108,7 +108,13 @@
   .module-goal .g-num { width: 16px; height: 16px; background: var(--orange-light); color: var(--orange-dark); font-size: 9px; font-weight: 600; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
 
   /* ROK 2 — obsah bude štylisticky zhodný s Rokom 1 (rovnaká oranžová), odlíšenie je len na úrovni hero banneru vyššie */
-  .rok2-theme .detail-meta-bar { border-bottom-color: #222 !important; }
+  .rok2-theme .detail-meta-bar { background: var(--orange) !important; border-bottom-color: rgba(0,0,0,0.15) !important; }
+  .rok2-theme .detail-meta-item .label { color: rgba(0,0,0,0.6) !important; }
+  .rok2-theme .detail-meta-item .value { color: var(--black) !important; }
+  .rok2-theme .module-detail-hero,
+  .rok2-theme .activity-detail-hero { background: var(--orange) !important; color: var(--black) !important; }
+  .rok2-theme .detail-eyebrow { color: var(--black) !important; }
+  .rok2-theme .back-btn { color: var(--black) !important; }
   .module-tools { margin-top: 14px; }
   .module-tools-label { font-size: 10px; color: var(--gray-500); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
   .tools-icons { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -669,7 +675,7 @@ const MODULES = [
     meta: [
       { label: "Obdobie", value: "Sep – Okt" },
       { label: "Level", value: "1 / 5" },
-      { label: "Počet stretnutí", value: "≈ 4–6" },
+      { label: "Počet stretnutí", value: "8" },
       { label: "Fáza", value: "Objavovanie" }
     ],
     competencies: [
@@ -706,7 +712,7 @@ const MODULES = [
   },
   {
     id: 1, num: "02", period: "November – December", title: "Pohľady & Rozhodnutia",
-    meta: [{ label: "Obdobie", value: "Nov – Dec" }, { label: "Level", value: "2 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Empatia" }],
+    meta: [{ label: "Obdobie", value: "Nov – Dec" }, { label: "Level", value: "2 / 5" }, { label: "Počet stretnutí", value: "8" }, { label: "Fáza", value: "Empatia" }],
     competencies: [
       { title: "Objavuje, ako vytvoriť viac rôznych nápadov na riešenie jedného problému.", title_full: "Účastník objavuje, ako vytvoriť viac rôznych nápadov na riešenie jedného problému pomocou jednoduchých techník.", exp_participants: "Účastníci hľadajú viac možností riešenia jedného problému a skúšajú jednoduché techniky na tvorbu nápadov.", exp_coordinator: "Koordinátor podporuje kreativitu, otvorenosť k rôznym možnostiam a prepájanie nápadov.", knowledge: ["Brainstorming a jeho pravidlá.", "Kreatívne techniky: mindmapping, SCAMPER, 5x prečo, crazy ideas, najhorší/najlepší nápad, redesign.", "Pravidlo odloženej kritiky.", "Rozdiel medzi generovaním a hodnotením nápadov.", "Hodnota tímového vymýšľania."] },
       { title: "Začína zbierať vlastné skúsenosti ako dôkaz, že niečo zvládol.", title_full: "Účastník začína zbierať vlastné skúsenosti ako konkrétne dôkazy toho, čo zvládol, a učí sa oprieť sa o ne, keď prichádza niečo ťažšie alebo neisté.", exp_participants: "Účastníci zbierajú vlastné skúsenosti ako konkrétne dôkazy toho, čo zvládli, a učia sa oprieť sa o ne, keď prichádza niečo ťažšie alebo neisté.", exp_coordinator: "Koordinátor podporuje všímanie si aj malých úspechov, pomenúvanie toho, čo účastníkovi vyšlo, a prepájanie minulých skúseností s novými výzvami.", knowledge: ["Dôkaz vlastnej schopnosti – každá skúsenosť, kde som niečo zvládol, je konkrétny dôkaz, že to viem, nie len pocit.", "Vnútorný archív úspechov – zámerné zbieranie momentov, kedy mi niečo vyšlo, aj malé veci sa počítajú.", "'Ešte neviem' namiesto 'neviem' – malý jazykový posun, ktorý mení pohľad na vlastné schopnosti.", "Prenositeľnosť skúsenosti – to, že som zvládol X, mi pomáha veriť, že zvládnem aj Y."] },
@@ -875,7 +881,7 @@ const KNOWLEDGE_DETAILS2 = {
 const MODULES2 = [
   {
     id: 0, num: "01", period: "September – Október", title: "Príčiny & Konflikty",
-    meta: [{ label: "Obdobie", value: "Sep – Okt" }, { label: "Level", value: "1 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Prehĺbenie" }],
+    meta: [{ label: "Obdobie", value: "Sep – Okt" }, { label: "Level", value: "1 / 5" }, { label: "Počet stretnutí", value: "8" }, { label: "Fáza", value: "Prehĺbenie" }],
     competencies: [
       { title: "Vie pomenovať, čo je za problémom a kde sa skrýva príležitosť.", title_full: "Účastník dokáže pomenovať, čo je v situácii problém, aká potreba za ním stojí a kde sa skrýva príležitosť na zmenu.", exp_participants: "Účastníci skúmajú problémy ako malí detektívi a hľadajú, čo všetko môže stáť za ich vznikom, nielen tú najbližšiu alebo najviditeľnejšiu príčinu.", exp_coordinator: "Koordinátor podporuje hľadanie viacerých možných príčin, overovanie si svojich odhadov a rozlišovanie medzi tým, čo sa len 'deje spolu' a tým, čo problém naozaj spôsobuje.", knowledge: ["5 Whys (rozšírenie) – opakované pýtanie 'prečo?' až k skutočnej príčine.", "Fishbone diagram (rybia kosť) – vizuálne rozvetvenie možných príčin do kategórií (ľudia, pravidlá, okolie, nástroje).", "Root cause analysis – skúmanie koreňovej príčiny, nie len povrchového symptomu.", "Brainstorming príčin – brainstorming zameraný na to, čo všetko môže problém spôsobovať, nie na riešenia.", "Pareto princíp (80/20) – malá časť príčin často spôsobuje väčšinu problému."] },
       { title: "Zvláda konflikt v tíme a hľadá riešenie bez víťaza a porazeného.", title_full: "Účastník dokáže využívať slobodu pri práci tak, že rešpektuje dohodnuté pravidlá, záväzky a potreby tímu.", exp_participants: "Účastníci zažívajú situácie tímovej spolupráce, v ktorých vzniká nezhoda alebo konflikt, a učia sa rozpoznať, čo spolupráci pomáha a čo ju brzdí.", exp_coordinator: "Koordinátor podporuje pozorovanie tímovej dynamiky, rozlišovanie medzi tým, čo niekto hovorí, že chce, a tým, čo skutočne potrebuje, a hľadanie riešení, pri ktorých nemusí byť víťaz a porazený.", knowledge: ["Štýly riešenia konfliktu (vyhýbanie, ústup, kompromis, presadzovanie, spolupráca) – žiadny nie je univerzálne správny.", "Pozícia vs. záujem – rozdiel medzi tým, čo niekto hovorí, že chce, a tým, čo skutočne potrebuje.", "Win-win vs. win-lose myslenie – riešenie konfliktu nemusí mať víťaza a porazeného.", "Fázy tímového vývoja (forming – storming – norming – performing) – konflikt (storming) je normálna fáza vývoja tímu, nie znak, že nefunguje."] },
@@ -1235,6 +1241,7 @@ function openActivity(actId, moduleId) {
   document.getElementById('act-eyebrow').textContent = `${m.title} · Aktivita`;
   document.getElementById('act-title').innerHTML = `<strong>${actBase ? actBase.name : actId}</strong>`;
   document.getElementById('act-back-btn').onclick = () => { showView('module'); updateBreadcrumb('module', m.title); };
+  document.getElementById('view-activity').classList.toggle('rok2-theme', currentYear === 2);
 
   if (!actDetail) {
     document.getElementById('act-sub').textContent = actBase ? actBase.desc : '';
@@ -2464,6 +2471,89 @@ var LESSON_PLANS = {
           reflex: { pred: [], pocas: [], po: [] }
         }
       ]
+    },
+    {
+      id: 'lp-r2-reflexia-2',
+      name: 'Myšlienka, ktorá stojí za šírenie',
+      meta: [
+        { label: 'Čas', value: '95 + 70–100 min (2 stretnutia)' },
+        { label: 'Aktivity', value: '6' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Na konci stretnutia má účastník scenár TED Talku, ktorý rozpráva o tom, čo sa počas questu naučil – nie o tom, čo robil – a jasne v ňom pomenuje problém, potrebu, ktorá za ním stála, a jednu myšlienku, ktorú by mal odniesť divák.',
+      kompetencia: 'Účastník dokáže pomenovať, čo je v situácii problém, aká potreba za ním stojí a kde sa skrýva príležitosť na zmenu.',
+      prejav: 'Sledujem, či scenár rozpráva o tom, čo tím NAUČIL, alebo sa vracia k opisu toho, čo robil. Všímam si, ako tímy využívajú AI – ako nástroj na písanie za nich, alebo ako partnera na spresnenie vlastnej myšlienky.',
+      priprava: ['Klip z TED Talku Adory Svitak „What adults can learn from kids" (ted.com/talks/adora_svitak_what_adults_can_learn_from_kids) – pozri si ho vopred a nájdi miesto, kde ho zastaviť', 'Prístup k AI chatbotu – pre každý tím/dvojicu, aspoň jedno zariadenie', 'Materiály z questu – fotky, poznámky, čokoľvek, čo tímy majú z priebehu celého questu', 'Zariadenia na tvorbu multimédií (ak dostupné) – telefóny na video, Canva/podobný nástroj', 'Papier/dokument na scenár'],
+      aktivity: [
+        {
+          num: 1, name: 'Čo robí TED Talk dobrým', time: '20 min',
+          goal: 'U detí rozvíjam schopnosť analyzovať štruktúru silného príbehu, nie len jeho obsah.',
+          steps: [
+            'Pusti klip „What adults can learn from kids" (Adora Svitak, TED 2010, hovorkyňa mala v tom čase 12 rokov) – pozri si ho vopred a nájdi si čas, kde ho zastaviť, aby to dávalo zmysel.',
+            'Po skončení klipu dostanú dvojice jednoduchý pracovný list a spoločne odpovedia: 1. Ako začala? 2. Kedy sa publikum smialo? 3. Aký príbeh použila? 4. Akú jednu hlavnú myšlienku chcela odovzdať? 5. Prečo podľa teba ľudia počúvali práve ju?',
+            'Povedz nahlas: „TED Talk nie je prezentácia questu. Je to myšlienka, ktorá stojí za šírenie – ‚idea worth spreading´."',
+            'Povedz nahlas: „Predstavte si, že organizátori TEDx vás pozvali, aby ste porozprávali príbeh vášho questu ďalším mladým ľuďom. Nezaujíma ich len výsledok. Chcú vedieť, čo ste sa naučili."'
+          ],
+          tip: 'Pracovný list zámerne nepýta „o čom hovorila" – pýta sa na FORMU (začiatok, smiech, príbeh, myšlienka, prečo ju počúvali), nie na obsah. Tímy tak analyzujú, ako je talk postavený, nie len o čom je.\n\nAdora Svitak otvára provokatívnou otázkou, používa konkrétne mená a príklady, a končí výzvou k činu. Táto štruktúra – hák, príklady, výzva – je presne to, čo tímy budú stavať vo zvyšku stretnutia.',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 2, name: 'Nájdenie jadra myšlienky', time: '20 min',
+          goal: 'U detí rozvíjam schopnosť zúžiť skúsenosť na jednu jasnú myšlienku.',
+          steps: [
+            'Polož celej skupine jedinú otázku: „Akú jednu vec ste sa počas questu naučili, ktorá by mohla pomôcť ďalším deťom?"',
+            'Tímy sa najprv chvíľu rozprávajú medzi sebou, potom skúsia AI chatbot ako kouča – nech im pomôže myšlienku zúžiť a spresniť. Prompt pre AI (kouč): „Polož mi otázky, ktoré mi pomôžu nájsť hlavnú myšlienku môjho TED Talku."'
+          ],
+          tip: 'Cieľom je JEDNA veta, nie zoznam. Ak tím povie viac vecí naraz, opýtaj sa: „Keby ste mohli povedať len jednu z nich, ktorú by ste si vybrali?"',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 3, name: 'Stavba príbehu', time: '25 min',
+          goal: 'U detí rozvíjam schopnosť postaviť príbeh okolo myšlienky, nie chronologicky podľa priebehu.',
+          steps: [
+            'Namiesto poradia „čo sme chceli zmeniť → čo sme urobili → čo sme zistili → čo by sme urobili inak" postavte scenár takto:\n1. Moment, ktorý upúta – nie „Náš quest bol...", ale napríklad: „Mysleli sme si, že zachránime svet. Po dvoch týždňoch sme zistili, že nikto nechce to, čo sme pripravili."\n2. Aký problém ste riešili a akú potrebu ste tým vlastne naplnili? (nielen ČO bol problém, ale PREČO stál za to ho riešiť)\n3. Čo ste skúšali?\n4. Čo vám realita ukázala?\n5. Aká je jedna myšlienka, ktorú si má publikum odniesť? (jadro z Aktivity 2)'
+          ],
+          tip: 'Bod 2 je najdôležitejší a najčastejšie sa preskočí. Ak tím povie len problém („chýbali odpadkové koše"), opýtaj sa ďalej: „A prečo je to dôležité? Akú potrebu ľudí to riešilo?" Bez potreby znie príbeh ako opis úlohy, nie ako myšlienka.\n\nPríklady formulácií z bodu 4, ktoré fungujú ako „aha moment": „Mysleli sme si, že najťažšie bude získať peniaze. Nakoniec bolo najťažšie presvedčiť ľudí." alebo „Mysleli sme si, že máme perfektný nápad. Až keď sme sa rozprávali s ľuďmi, zistili sme, že riešime zlý problém."',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 4, name: 'AI ako váš tím', time: '35 min',
+          goal: 'U detí rozvíjam schopnosť použiť AI ako viacero rôznych partnerov na spresnenie myšlienky, nie ako nástroj, čo napíše text za nich.',
+          steps: [
+            'Predstav AI nie ako nástroj, ktorý napíše text za nich, ale ako tím rôznych profesionálov, z ktorých každý pomôže inak. Vyskúšajte postupne:',
+            'AI ako kouč: „Aké otázky si musíme zodpovedať, aby sme pripravili dobrý TED Talk?"',
+            'AI ako dramaturg: „Pomôž mi vytvoriť silný úvod, ktorý zaujme publikum počas prvých 30 sekúnd."',
+            'AI ako publikum: „Vypočuj si môj scenár a povedz mi, ktoré časti sú nudné alebo nejasné."',
+            'AI ako scenárista: „Navrhni tri metafory, ktoré vysvetlia, čo sme sa naučili počas questu."',
+            'AI ako režisér: „Navrhni, kde by sa hodila krátka animácia alebo vizuál."'
+          ],
+          tip: 'Nemusíte použiť všetky päť rolí. Kouč je dobré začať vždy – ukáže, čo v scenári ešte chýba. Z ostatných štyroch vyberte aspoň dve, ktoré sa hodia na to, kde má váš scenár najväčšiu slabinu.',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 5, name: 'Viac než človek a PowerPoint', time: '20 min',
+          goal: 'U detí rozvíjam schopnosť naplánovať, ako odovzdať myšlienku publiku, nie len ju povedať.',
+          steps: [
+            'Povzbuď tímy, aby do svojho TED Talku zaradili aj iné formy než len rozprávanie: krátke videá z questu, AI obrázky, jednoduché animácie v Canve, titulky, zvukové efekty, fotografie „pred a po", krátke hrané scénky.',
+            'Naplánujte aspoň jeden takýto prvok – nemusíte ho dnes celý dotvoriť, stačí vedieť, kde presne v scenári bude a čo bude potrebovať.'
+          ],
+          tip: 'ČASOVANIE: Skutočná tvorba multimédií (strih videa, animácie) sa väčšinou nezmestí do tohto stretnutia celá – naplánujte ju ako domácu prácu alebo ďalšie stretnutie. Dôvod, prečo to zaraďujeme, nie je krajší vzhľad, ale to, že sa učia odovzdať myšlienku publiku, nie len ju povedať.',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 6, name: 'Prezentácie a spätná väzba', time: '50–80 min',
+          goal: 'U detí rozvíjam schopnosť odprezentovať myšlienku pred skupinou a dať aj prijať štruktúrovanú spätnú väzbu.',
+          steps: [
+            'Každý tím predstúpi a odprezentuje svoj TED Talk pred celou skupinou (cieľová dĺžka 3–5 minút na tím).',
+            'Po každej prezentácii dá skupina krátku spätnú väzbu podľa pravidiel z Feedback kruhov: Oceňujúci / Konštruktívny / Otázka.'
+          ],
+          tip: 'Rozpočítaj si čas vopred podľa počtu tímov: 3–5 min prezentácia + 3–4 min spätná väzba na tím. Pri 8 tímoch to vychádza na 55–70 min len na samotné prezentácie.\n\nPREPOJENIE: Na úplný záver povedz: „Práve ste sa naučili niečo, čo je jadrom Budúcnosti Inak – quest nekončí tým, čo ste postavili. Končí myšlienkou, ktorú z neho odnesiete a odovzdáte ďalej."',
+          reflex: {
+            pred: [], pocas: [],
+            po: ['Znel scenár ako rozprávanie o tom, čo tím robil, alebo o tom, čo sa naučil?', 'Čo by si z tohto TED Talku odniesol niekto, kto ich quest nikdy nevidel?']
+          }
+        }
+      ]
     }
   ],
   'r2-terenne-patranie': [
@@ -2534,6 +2624,305 @@ var LESSON_PLANS = {
           ],
           tip: 'PREPOJENIE: Až po tom, čo odpovedia na poslednú otázku vlastnými slovami, uzavri: „Presne preto sa dobré riešenia nezačínajú nápadom. Začínajú overovaním toho, či sme problém naozaj pochopili." Pripomeň aj vetu z Aktivity 1: minulý rok ste sa naučili všímať si problémy – dnes ste zistili, že aj vtedy sa môžete mýliť v tom, akú potrebu za nimi vidíte.',
           reflex: { pred: [], pocas: [], po: ['Sedel váš predpoklad s tým, čo povedali ľudia?', 'Čo vás najviac prekvapilo – na probléme, alebo na reakcii na vaše riešenie?', 'Zmenili by ste teraz svoje riešenie? Ako?', 'Predstavte si, že by ste dnes nešli medzi ľudí a rovno by ste začali svoje riešenie vyrábať. Čo by sa mohlo stať?'] }
+        }
+      ]
+    },
+    {
+      id: 'lp-r2-terenne-2',
+      name: 'Dobrovoľníctvo',
+      meta: [
+        { label: 'Čas', value: '90 min' },
+        { label: 'Aktivity', value: '3' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Na konci stretnutia účastník dokáže prostredníctvom painstormingu a rybieho diagramu (fishbone) rozpoznať problém a jeho skutočnú príčinu vo svojom okolí a naplánovať konkrétny, uskutočniteľný dobrovoľnícky nápad na jeho riešenie, vrátane rozdelenia úloh v tíme.',
+      kompetencia: 'Účastník dokáže pomenovať, čo je problém, aká potreba za ním stojí a kde sa skrýva príležitosť na zmenu.',
+      prejav: 'Sledujem, aké vety zaznievajú pri Pavučine pomoci – konkrétne, alebo len všeobecné frázy, a za akými problémami hlasujú účastníci pri painstormingu a prečo. Všímam si, či skupina pri rybom diagrame naozaj objaví skrytú príčinu, alebo sa zastaví pri prvom, najviditeľnejšom vysvetlení, a ako si skupiny rozdeľujú úlohy pri plánovaní – rovnomerne, alebo nerovnomerne.',
+      priprava: ['Klbko vlny alebo špagátu (Pavučina pomoci)', '1 veľký spoločný flipchart a fixky na kresbu rybieho diagramu (fishbone)', 'Papiere a perá na plán realizácie (kroky, zodpovednosti, termíny)', 'Fotky, videá alebo zápisy z minuloročnej návštevy dobrovoľníka či exkurzie s témou dobrovoľníctva, ak sú k dispozícii'],
+      aktivity: [
+        {
+          num: 1, name: 'Energizér – Pavučina pomoci', time: '20 min',
+          goal: 'U detí rozvíjam uvedomenie si, že sme navzájom prepojení a komunita funguje, keď si ľudia pomáhajú.',
+          steps: [
+            'Účastníci stoja alebo sedia v kruhu. Koordinátor/ka drží klbko vlny alebo špagátu, pridrží si koniec nite a klbko hodí niekomu v kruhu, pričom povie jednu vetu o tom, kedy mu/jej niekto pomohol, alebo koho by chcel/a raz podporiť.',
+            'Úloha: Kto klbko chytí, omotá si niť okolo prsta alebo zápästia, povie svoju vlastnú vetu a hodí klbko ďalej niekomu inému. Postupne vznikne v strede kruhu pavučina.'
+          ],
+          tip: 'Na konci ukáž, čo sa stane, keď čo i len jeden človek pustí niť – celá pavučina sa naruší. Je to symbol toho, že komunita funguje len vtedy, keď si ľudia navzájom pomáhajú.\n\nAk sú k dispozícii fotky, videá alebo zápisy detí z ich minuloročnej návštevy dobrovoľníka, prípadne exkurzie s témou dobrovoľníctva, je dobré si ich teraz pripomenúť.',
+          reflex: { pred: [], pocas: [], po: ['Prečo je podľa vás dobré pomáhať iným?', 'Myslíte si, že vo vašom okolí sú ľudia, ktorí by potrebovali pomoc? Prípadne problémy, ktoré by bolo treba vyriešiť?', 'Teraz sa ukázalo, že ste pomohli minimálne jednému človeku v tejto miestnosti – čo by sa vám mohlo podariť, keby ste spojili svoje sily?', 'Čo všetko by ste mohli vyriešiť?'] }
+        },
+        {
+          num: 2, name: 'Náš dobrovoľnícky nápad', time: '45 min',
+          goal: 'U detí rozvíjam schopnosť skúmať problém z viacerých uhlov a objaviť jeho skutočnú príčinu, nie len tú najviditeľnejšiu.',
+          steps: [
+            'Krok 0 – Painstorming problémov: Účastníci nahlas hovoria problémy, ktoré vnímajú vo svojom okolí (obec, škola, susedia, zvieratá, príroda) – koordinátor/ka ich zapisuje na tabuľu alebo flipchart.',
+            'Hlasovanie: Každý účastník pripíše svoj hlas k tomu problému, ktorý vníma, že by vedel/vedela vyriešiť. V prípade rovnakého počtu hlasov účastníci hlasujú znova, len medzi víťaznými (najviac hlasovanými) možnosťami.',
+            'Rybí diagram (fishbone) – ako na to, krok po kroku:\n1. Na veľký spoločný papier (napr. flipchart) napíšte vybraný problém – to je „hlava" ryby. Od hlavy nakreslite dlhú čiaru smerom dozadu – to je „chrbtová kosť".\n2. Rozdeľte účastníkov do menších skupín (ideálne 4). Každá skupina dostane na starosť jednu „kosť" toho istého diagramu:\n– Skupina ĽUDIA: kto sa na probléme podieľa, kto by mohol a kto nemohol pomôcť?\n– Skupina PROSTREDIE: kde a kedy problém vzniká, čo v okolí ho ovplyvňuje?\n– Skupina ZDROJE: čo chýba – peniaze, materiál, čas, informácie?\n– Skupina KOMUNIKÁCIA: čo sa nekomunikuje, kto o probléme nevie?\n3. Každá skupina nakreslí svoju kosť k spoločnej chrbtovej kosti a dopíše na ňu konkrétne príčiny, ktoré do jej oblasti patria – pri jednej kosti môže byť aj viac príčin, dopisujú sa ako malé čiarky pripojené k danej kosti.\n4. Skupiny sa vrátia k spoločnému diagramu a spoločne sa pozrú, ktoré príčiny sa im zdajú najzávažnejšie alebo najľahšie riešiteľné.'
+          ],
+          tip: 'Techniku painstorming účastníci už poznajú z 1. ročníka – pokojne im to pripomeň, nemusíš ju znova podrobne vysvetľovať.\n\nPríklad: pri probléme „Na brigády do útulku chodí málo dobrovoľníkov" môže skupina ĽUDIA napísať „nikto to nezorganizoval", „ľudia nevedia, že sa to dá"; skupina KOMUNIKÁCIA môže napísať „chýba plagát", „nikto to nezdieľal na sociálnych sieťach".\n\nNie je nutné, aby mala každá kosť rovnako veľa príčin – dôležité je, že sa problém preskúmal zo 4 rôznych uhlov naraz, nielen z toho najviditeľnejšieho. Pri menšom počte detí (menej než 8) zredukuj počet kostí na 2–3, aby mala každá skupina aspoň 2–3 ľudí.',
+          reflex: {
+            pred: [],
+            pocas: ['Aj keď to nemusel byť váš prvý výber, čo na tomto probléme vnímate ako dôležité?', 'Čo vás na ňom osobne trápi?'],
+            po: ['Zmenil sa váš pohľad na problém po tom, čo ste videli aj kosti ostatných skupín?', 'Bolo ťažšie nájsť skutočné príčiny, než ste čakali?', 'Prečo je dôležité poznať príčinu problému skôr, než navrhneme riešenie?']
+          }
+        },
+        {
+          num: 3, name: 'Plánovanie', time: '25 min',
+          goal: 'U detí rozvíjam schopnosť rozplánovať konkrétne kroky a spravodlivo si rozdeliť úlohy v tíme.',
+          steps: [
+            'Na základe najzávažnejšej príčiny (príčin), ktoré ste v rybom diagrame spoločne označili, navrhnite ako klub jeden konkrétny dobrovoľnícky nápad, ktorý reálne viete zrealizovať.',
+            'Úloha: Celá skupina si spoločne rozplánuje konkrétne kroky potrebné na realizáciu vybraného dobrovoľníckeho nápadu. Pre každý krok si zapíšu: čo presne treba urobiť, kto to zabezpečí, čo na to potrebujú a dokedy to musí byť hotové.',
+            'Odporúčaná štruktúra plánu (na papier alebo tabuľku): Krok / Kto to zabezpečí / Čo na to potrebujeme / Dokedy'
+          ],
+          tip: 'Je dôležité, aby si účastníci pri plánovaní postupne položili tieto otázky: Čo máme k dispozícii? Čo vieme urobiť my? – to sú naše hlavné zdroje. Čo ešte na realizáciu potrebujeme? A kto z ľudí, ktorých poznáme, nám s tým vie pomôcť? Zdôrazni to nahlas ešte skôr, než skupina začne plánovať.\n\nAk sa dá, skús vybraný nápad reálne zrealizovať s klubom v nasledujúcich týždňoch – prepojí to dnešnú prácu so skutočným dopadom.',
+          reflex: { pred: [], pocas: [], po: ['Bolo ťažké rozdeliť si úlohy spravodlivo?', 'Čo by sa stalo, keby ste tento plán nemali a chceli nápad zrealizovať hneď, bez prípravy?', 'Ako sa cítite, že ste práve naplánovali niečo, čo môže reálne niekomu pomôcť?', 'Ktoré myšlienky, poznatky z dnešného stretnutia podľa vás bude dôležité mať na pamäti pri realizácii vašej dobrovoľníckej aktivity?'] }
+        }
+      ]
+    },
+    {
+      id: 'lp-r2-terenne-3',
+      name: 'Dobrovoľníctvo – realizácia',
+      meta: [
+        { label: 'Čas', value: '90 min' },
+        { label: 'Aktivity', value: '3' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Na konci stretnutia účastník dokáže spracovať svoje obavy pred reálnou dobrovoľníckou činnosťou, premeniť plán z predchádzajúceho stretnutia na skutočný čin a po aktivite reflektovať svoj zážitok.',
+      kompetencia: 'Účastník dokáže po skúsenosti pomenovať, čo fungovalo, čo nefungovalo a čo chce skúsiť ďalej.',
+      prejav: 'Sledujem, aké typy hrozieb sa objavujú – praktické (čo robiť, ako to urobiť) alebo emocionálne (strach, neistota), a ktoré pomôcky si účastníci vyberajú, aby svoje obavy zvládli. Všímam si, ako sa účastníci správajú počas samotnej dobrovoľníckej činnosti – nadšenie, neistota, iniciatíva, a ako úprimne a konkrétne píšu do Dobrovoľníckeho denníka.',
+      priprava: ['2 flipcharty na stenu s nápismi HROZBY a POMÔCKY', 'Post-ity a perá pre každého účastníka', 'Materiál a pomôcky potrebné na samotnú realizáciu dobrovoľníckej aktivity (podľa plánu z predchádzajúceho stretnutia)', 'Fotoaparát alebo telefón na fotky/videá z aktivity', 'Papier alebo zošit pre každého účastníka na Dobrovoľnícky denník', 'Informované súhlasy rodičov – v prípade, že sa dobrovoľnícka aktivita odohráva mimo priestorov centra'],
+      aktivity: [
+        {
+          num: 1, name: 'Hrozby a pomôcky', time: '15 min',
+          goal: 'U detí rozvíjam schopnosť spracovať svoje obavy pred reálnou činnosťou a nájsť si konkrétnu pomôcku.',
+          steps: [
+            'Na stene sú dva flipcharty – na jednom je napísané HROZBY, na druhom POMÔCKY.',
+            'Úloha: Účastníci napíšu na post-ity veci, ktoré vnímajú ako hrozby pred aktivitou – z čoho majú stres, v čom sú si neistí, z čoho sú nervózni, aké majú pocity. Post-ity sú anonymné, nepodpisujú sa. Všetky pocity sú vítané – je v poriadku napísať aj, že sa im do aktivity nechce, alebo že mali dnes ťažký deň. Post-ity nalepia na flipchart HROZBY.',
+            'Následne účastníci na post-ity skúsia napísať, čo by mohlo pomôcť tieto hrozby zažehnať, a nalepia ich na flipchart POMÔCKY.'
+          ],
+          tip: 'Nech deti prichádzajú s akýmikoľvek hrozbami – nekomentuj ich verejne pred skupinou, nechaj ich tak, ako prišli. Zároveň si však všímaj, či niektorá hrozba nesignalizuje niečo väčšie než bežnú výkonovú obavu (napr. dlhotrvajúce zlé pocity, nie len jednorazový ťažký deň) – v takom prípade je vhodné dieťaťu po aktivite ponúknuť individuálny rozhovor, nie riešiť to verejne.',
+          reflex: { pred: [], pocas: [], po: ['Ktoré z pomôcok viete použiť hneď teraz, priamo na mieste?'] }
+        },
+        {
+          num: 2, name: 'Dobrovoľnícka činnosť', time: '60 min',
+          goal: 'U detí rozvíjam schopnosť premeniť naplánovaný nápad na skutočný čin.',
+          steps: ['Účastníci realizujú dobrovoľnícku aktivitu, ktorú si naplánovali na predchádzajúcom stretnutí.'],
+          tip: 'Ak sa aktivita odohráva mimo klubu, over si ešte pred týmto stretnutím, že máte vybavené informované súhlasy rodičov, dohodnutý dozor a kontakt na mieste realizácie.\n\nDo 60 minút nie je zahrnutý presun na miesto realizácie ani príprava materiálu na mieste – naplánuj si tento čas zvlášť, podľa toho, kde sa aktivita odohráva.\n\nBolo by ideálne, aby sa z aktivity urobili fotky alebo videá. Prípadne, ak je to vhodné a možné, aby deti dostali písomnú alebo ústnu spätnú väzbu od niekoho, komu pomohli. Odporúča sa, aby sa koordinátor/ka sám/sama zapojil/a do dobrovoľníckej činnosti a viedol/a tak deti príkladom.',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 3, name: 'Dobrovoľnícky denník', time: '15 min',
+          goal: 'U detí rozvíjam schopnosť osobne a konkrétne reflektovať čerstvý zážitok.',
+          steps: [
+            'Účastníci sú plní dojmov z aktivity. Každý si sám za seba zapíše svoje odpovede.',
+            'Otázky do denníka: Ako sa cítite po dobrovoľníckej aktivite? Naplnili sa niektoré z hrozieb, ktorých ste sa báli? Ako sa vám ich podarilo prekonať? Čo sa vám na aktivite podarilo naozaj dobre? Čo by ste nabudúce spravili inak?'
+          ],
+          tip: 'Na úplný záver môžeš ponúknuť možnosť (nie povinnosť): kto chce, môže sa so skupinou podeliť o jednu vetu z toho, čo si napísal/a.',
+          reflex: { pred: [], pocas: [], po: [] }
+        }
+      ]
+    }
+  ],
+  'r2-role-play': [
+    {
+      id: 'lp-r2-roleplay-1',
+      name: 'Šakal a žirafa',
+      meta: [
+        { label: 'Čas', value: '70 min' },
+        { label: 'Aktivity', value: '5' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Na konci stretnutia účastník dokáže premeniť aspoň jeden reálny konfliktný výrok (svoj alebo z hry) do štruktúry žirafieho jazyka – čo vidím/počujem, čo cítim, čo potrebujem, o čo prosím.',
+      kompetencia: 'Účastník dokáže využívať slobodu pri práci tak, že rešpektuje dohodnuté pravidlá, záväzky a potreby tímu.',
+      prejav: 'Sledujem, ako rýchlo (a či vôbec) dvojice spochybnia svoj prvý predpoklad o partnerovi. Všímam si, ako ľahko alebo ťažko im ide premena vlastných výrokov na žirafí jazyk oproti cudzím z energizéra.',
+      priprava: ['Vlastná príprava na koncept nenásilnej komunikácie (NVC) – ak koncept nepoznáš, naštuduj si ho pred stretnutím, aby si vedel/a žirafí jazyk prirodzene modelovať a reagovať na otázky', 'Kartičky „Verzia A / Verzia B" – 6 párov (zoznam v Aktivite 1). Popíš ich len ako „A" a „B", nie ako šakalie/žirafie – terminológia prichádza až v Aktivite 4', 'Dve tajné priority na papierikoch – „Tvojou prioritou je vyrobiť čo najdlhšiu reťaz, čo najrýchlejšie" a „Tvojou prioritou je, aby bol každý článok rovnaký, pevný a úhľadne zlepený" – po jednej pre každého partnera v každej dvojici', 'Prúžky papiera na reťaz (viacero farieb, aspoň 15–20 na dvojicu)', 'Lepiaca páska alebo lepidlo/spinky na spájanie článkov', 'Tabuľa/flipchart – na zápis výrokov a neskôr na 4-krokový vzorec'],
+      aktivity: [
+        {
+          num: 1, name: 'Ktorá veta znie lepšie?', time: '10 min',
+          goal: 'U detí rozvíjam schopnosť všimnúť si rozdiel medzi obviňujúcou a potrebu-pomenujúcou vetou, bez toho, aby to bolo vopred pomenované.',
+          steps: [
+            'Rozlož 6 kartičiek „Verzia A" a 6 kartičiek „Verzia B" (pomiešané, nepopísané ako šakalie/žirafie).',
+            'V dvojiciach/malých skupinách priraďte k sebe vždy dvojicu A+B, ktorá hovorí o tej istej situácii.',
+            'Verzie A: „Ty si taký lenivý, nikdy nič neurobíš!" / „Vždy mi ničíš plány!" / „Nikdy ma nepočúvaš!" / „Si hlúpy, veď to je jasné!" / „Kašleš na všetkých, len na seba myslíš!" / „Vôbec ma to nezaujíma, čo si povedal!"',
+            'Verzie B (pomiešané): „Keď nestihneme upratať, som frustrovaný, potrebujem čistý stôl – mohol by si mi pomôcť?" / „Keď zmeníš plán bez slova, cítim sa nepočutý, potrebujem to vedieť vopred – mohol by si mi to povedať?" / „Keď sa pozeráš do telefónu, keď rozprávam, cítim sa ignorovaný – mohol by si ho odložiť?" / „Keď niečo nechápeš rovnako rýchlo, cítim netrpezlivosť, potrebujem to vysvetliť inak – môžem to skúsiť ukázať?" / „Keď si vyberieš len to, čo chceš ty, cítim sa prehliadaný – môžeme sa dohodnúť na niečom pre oboch?" / „Keď hovoríš dlho o niečom, čo ma nezaujíma, je pre mňa ťažké sústrediť sa – môžeme si to povedať neskôr?"'
+          ],
+          tip: 'Nepomenúvaj zatiaľ nič – ani „nenásilná komunikácia", ani žiadny termín. Nech si všimnú rozdiel vlastnými slovami. Pomenovanie prichádza až v Aktivite 4.',
+          reflex: { pred: [], pocas: [], po: ['Ktorá verzia – A alebo B – znie lepšie? Prečo?', 'Čo presne je v tej lepšej verzii iné?'] }
+        },
+        {
+          num: 2, name: 'Rýchlo a presne', time: '18 min',
+          goal: 'U detí rozvíjam skúsenosť, že napätie s druhým môže prameniť z odlišnej, neznámej priority, nie z toho, aký ten druhý je.',
+          steps: [
+            'Skôr než vysvetlíš čokoľvek o pravidlách, polož skupine otázky z REFLEXIE (Pred aktivitou) – nech odpovedia bez toho, aby vedeli, čo ich čaká.',
+            'Až potom rozdeľ účastníkov do dvojíc. Spoločná úloha pre každú dvojicu: „Vyrobte spolu čo najdlhšiu papierovú reťaz." Rozdaj prúžky papiera a lepiacu pásku/lepidlo.',
+            'Partner 1 dostane tajne: „Tvojou prioritou je vyrobiť čo najdlhšiu reťaz, čo najrýchlejšie." Partner 2 dostane tajne: „Tvojou prioritou je, aby bol každý článok rovnaký, pevný a úhľadne zlepený." Partneri sa navzájom NESMÚ dozvedieť, akú prioritu má ten druhý.',
+            'Nechaj dvojice pracovať 3–4 minúty. Až potom odhaľ obe priority naraz, celej skupine.'
+          ],
+          tip: 'Napätie tu nevzniká jedným veľkým momentom, ale opakovanou, plynulou trenicou – jeden ťahá reťaz do dĺžky ďalej, druhý sa vracia a prerába článok, ktorý mu nesedí. Sleduj a zapamätaj si konkrétne vety, ktoré padnú – budeš ich potrebovať v Aktivite 3.\n\nDeti pri Pred-otázkach odpovedia typicky „musíme sa dohodnúť", „musíme spolupracovať" – netušia, že majú protichodné priority. To je zámer, nie chyba.',
+          reflex: {
+            pred: ['Čo bude podľa vás pri tejto úlohe najdôležitejšie?', 'Ak sa niečo pokazí, ako zistíte, čo sa deje?'],
+            pocas: ['Zdá sa, že sa v niečom nezhodnete. Podľa čoho ste to zistili?', 'Čo si práve myslíte o tom, ako váš partner pristupuje k úlohe?', 'Ste si istí, že máte rovnakú predstavu o tom, čo je dôležité?'],
+            po: ['Bol problém v tom, aký je váš partner, alebo v tom, že mal inú prioritu, o ktorej ste nevedeli?']
+          }
+        },
+        {
+          num: 3, name: 'Čo sme si mysleli o partnerovi', time: '12 min',
+          goal: 'U detí rozvíjam schopnosť všimnúť si, že si o druhom vytvorili príbeh bez toho, aby poznali jeho skutočnú prioritu.',
+          steps: [
+            'Opýtaj sa nahlas: „Čo si si pomyslel o svojom partnerovi, keď ťa štvalo, ako pristupuje k úlohe? A čo by si mu najradšej povedal, keby si mohol?"',
+            'Zapíšte spoločne 4–5 reálnych výrokov na tabuľu – necháme ich tam, budeme ich potrebovať v Aktivite 4.'
+          ],
+          tip: 'Toto je jadro dnešnej lekcie – nepomenúvaj to ešte žiadnym odborným slovom, len to potvrď vlastnými slovami: „Vytvorili sme si príbeh o svojom partnerovi bez toho, aby sme poznali jeho prioritu. To sa nám bežne stáva aj mimo tejto hry."',
+          reflex: { pred: [], pocas: [], po: ['Čo ste si v tej chvíli mysleli o svojom partnerovi – bol pomalý/nedôsledný, alebo netrpezlivý/nedbalý?', 'Čo z toho, čo ste si mysleli, sa ukázalo ako nesprávny predpoklad?'] }
+        },
+        {
+          num: 4, name: 'Za výrokom sa skrýva potreba', time: '15 min',
+          goal: 'U detí rozvíjam schopnosť rozpoznať potrebu skrytú za obviňujúcim výrokom a vyjadriť ju cez žirafí jazyk.',
+          steps: [
+            'Vyber jeden zo zapísaných výrokov (napr. „Prečo sa tak ponáhľaš?!" alebo „Poď už, veď to stačí!") a opýtaj sa: „Čo asi ten človek potreboval, keď to povedal?"',
+            'Nechaj skupinu hádať – napríklad: aby ho počúvali, aby mu nekazili prácu, aby rozumel situácii, aby sa cítil rešpektovaný.',
+            'Povedz: „Skúsme to povedať tak, aby tú potrebu bolo počuť." Vyves na tabuľu/flipchart: Vidím/Počujem... → Cítim sa... → Potrebujem... → Mohol by si...?',
+            'Spoločne premeňte 1–2 výroky z tabule na túto štruktúru.'
+          ],
+          tip: 'Až teraz pomenuj: „Toto sa volá žirafí jazyk – reč, ktorá nahlas pomenúva potrebu. Opak, obviňovanie, sa volá šakalí jazyk. Oba názvy pochádzajú od psychológa Marshalla Rosenberga."\n\nNechaj vzorec vyvesený viditeľne po zvyšok stretnutia – dvojice sa k nemu budú vracať v Aktivite 5.',
+          reflex: { pred: [], pocas: [], po: ['Čo bolo ťažšie – zmeniť vetu, alebo zmeniť spôsob, akým ste rozmýšľali o tom druhom?'] }
+        },
+        {
+          num: 5, name: 'Premena', time: '15 min',
+          goal: 'U detí rozvíjam schopnosť samostatne použiť vzorec žirafieho jazyka na vlastný aj cudzí výrok.',
+          steps: ['V pároch premeňte zvyšné výroky z Aktivity 1 alebo Aktivity 3 (alebo vlastné, ak si na niečo spomenú) do žirafieho jazyka podľa vzorca na tabuli.'],
+          tip: 'Povedz nahlas na záver: „Keď sa ľudia hádajú, väčšinou nebojujú o veci. Bojujú o svoje potreby. Ak sa naučíme tie potreby pomenovať, oveľa ľahšie nájdeme riešenie, ktoré funguje pre oboch." Táto myšlienka – pozrieť sa hlbšie pod povrch – je tá istá niť, ktorá spája aj stretnutie „Predpoklad a realita": nepredpokladaj, že vieš, čo druhý potrebuje, bez toho, aby si sa opýtal.',
+          reflex: { pred: [], pocas: [], po: ['Bolo ťažšie premeniť cudzí výrok (z Aktivity 1), alebo vlastný (z hry)? Prečo?', 'Čo si dnes uvedomil o tom, ako reaguješ, keď nerozumieš tomu druhému?'] }
+        }
+      ]
+    },
+    {
+      id: 'lp-r2-roleplay-2',
+      name: 'Stopka',
+      meta: [
+        { label: 'Čas', value: '85 min' },
+        { label: 'Aktivity', value: '5' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Na konci stretnutia účastník dokáže po zážitku umelo vyvolaného konfliktu v tíme spoznať teóriu o vzniku a riešení konfliktov, v roleplayoch si vyskúšať päť spôsobov riešenia konfliktu a prenesť si aspoň jeden z nich do vlastného života.',
+      kompetencia: 'Účastník dokáže využívať slobodu pri práci tak, že rešpektuje dohodnuté pravidlá, záväzky a potreby tímu.',
+      prejav: 'Sledujem, koho účastníci označia za „kaziča" a na základe čoho, a aká je atmosféra v skupine po odhalení, že karty boli celý čas prázdne. Všímam si, či si účastníci vedia spomenúť na situácie z vlastného života pri jednotlivých štýloch, ako rýchlo sa trojice prispôsobia zmene štýlu po zazvonení, a aké konkrétne zmeny a využitie v živote menujú na záver.',
+      priprava: ['Kartičky pre každého účastníka – v skutočnosti všetky prázdne, žiadna nemá bodku (Aktivita 1)', 'Dostatočne veľký priestor na vytvorenie formácie z častí tiel, bez stoličiek a stolov (Aktivita 1)', 'Kartičky s opisom piatich štýlov riešenia konfliktu, pre koordinátora, prípadne aj pre účastníkov (Aktivita 3)', 'Kartičky s konfliktnými témami pre trojice (Aktivita 4)', 'Zvonček alebo iný zvukový signál na oznámenie zmeny štýlu (Aktivita 4)', 'Dostatočne veľký priestor, aby mohlo súčasne hrať viacero trojíc (Aktivita 4)', 'Kartičky a fixky pre každého účastníka, veľký papier/plagát na spoločné tipy (Aktivita 5)'],
+      aktivity: [
+        {
+          num: 1, name: 'Kaziči a chaos', time: '20 min',
+          goal: 'U detí rozvíjam skúsenosť s tímovou úlohou, do ktorej je umelo vnesené podozrievanie a konflikt.',
+          steps: [
+            'Všetci účastníci fungujú ako jeden tím. Ich úlohou je vytvoriť na zemi formáciu z častí tiel (napríklad 6 nôh, 4 ruky, 2 lakte) – nesmú pri tom použiť žiadne stoličky ani stoly a musia sa zapojiť všetci účastníci.',
+            'Účastníci dostanú informáciu, že dvaja z ich skupiny im to budú zámerne kaziť. Ich úlohou je prísť na to, kto sú tí dvaja. Účastníci si ťahajú karty – je im povedané, že ak je na karte malá bodka, sú jedným z kazičov. Všetky karty sú však v skutočnosti prázdne, o čom účastníci netušia.',
+            'Túto aktivitu si zatiaľ nereflektujte do hĺbky – krátka diskusia a odhalenie prichádzajú v nasledujúcom bloku.'
+          ],
+          tip: 'Priprav si vopred viac variantov tejto úlohy (rôzne kombinácie počtu nôh/rúk/lakťov) a nechaj deti skúsiť formáciu viackrát – s každým ďalším kolom zadaj inú kombináciu. Viac pokusov dáva viac príležitostí sledovať, ako sa v skupine opakuje vzorec obviňovania, a nie je to závislé len od jedného, možno náhodného priebehu.\n\nPočty častí tela je vhodné určiť podľa počtu účastníkov – ideálne tak, aby to nebolo ľahko zvládnuteľné, no na druhej strane ani úplne nemožné.\n\nV realite nie je dôležité, či úlohu naplnia – dôležité je umelo vyvolať konflikt a sledovať, ako ho budú deti riešiť. Aj keď to bude vyzerať ako chaos, treba v ňom deti nechať chvíľu byť.',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 2, name: 'Reflexia – konflikty a pocity', time: '15 min',
+          goal: 'U detí rozvíjam schopnosť spracovať zážitok z Kazičov a všimnúť si, čo sa dialo s obviňovaním.',
+          steps: [
+            'Diskusia: „Ktorí dvaja boli podľa vás tí kaziči a prečo?"',
+            'Po diskusii koordinátor/ka prezradí, že všetky karty boli od začiatku prázdne a nikto nemal kartu zámerného kaziča.'
+          ],
+          reflex: { pred: [], pocas: [], po: ['Ako sa cítite teraz, keď ste sa to dozvedeli?', 'Ako ste sa cítili, keď sa vám formáciu nedarilo poskladať?', 'Ako ste sa cítili tí, ktorých niekto obvinil, že to zámerne kazia?', 'Ako ste sa cítili tí, čo niekoho obvinili?', 'Zmenilo sa niečo vo vašom správaní k tým, ktorých ste podozrievali?', 'Kde sa vám v bežnom živote stáva, že niekoho obvinili, hoci ste si neboli úplne istí?'] }
+        },
+        {
+          num: 3, name: 'Teória o konflikte', time: '15 min',
+          goal: 'U detí rozvíjam poznanie, kedy konflikt vzniká a že existuje viacero spôsobov, ako ho riešiť.',
+          steps: [
+            'Konflikt vzniká, keď majú dvaja alebo viacerí ľudia rozdielne potreby, záujmy alebo názory a aspoň jeden z nich to vníma ako problém. Konflikt sám o sebe nie je automaticky niečo zlé – je to normálna súčasť spolupráce a záleží najmä na tom, ako sa rieši.',
+            '5 spôsobov riešenia konfliktu: 1. Vyhýbanie — ignorujem konflikt. 2. Ústup — ustúpim druhému. 3. Kompromis — obaja niečo dáme. 4. Presadzovanie — trvám na svojom. 5. Spolupráca — hľadáme riešenie, pri ktorom obaja získame.'
+          ],
+          tip: 'Namiesto samotného vysvetľovania sa najprv odvolaj na konfliktnú situáciu, ktorú práve prežili v aktivite Kaziči a chaos: „Ktorý z týchto spôsobov ste tam využili vy, a ako vám fungoval?" Následne sa opýtaj aj na ich vlastný život: „Vedeli by ste si spomenúť na konfliktnú situáciu, ktorú ste riešili niektorým z týchto spôsobov – možno aj bez toho, že by ste si to vtedy uvedomovali?" Teória potom bude len pomenovaním niečoho, čo už poznajú z vlastnej skúsenosti.',
+          reflex: { pred: [], pocas: [], po: ['Napadá vám situácia z vášho života, kde by sa dal použiť iný spôsob, než ste vtedy zvolili?', 'Je niektorý spôsob podľa vás vždy najlepší, alebo to závisí od situácie?'] }
+        },
+        {
+          num: 4, name: 'Roleplays v trojici', time: '20 min',
+          goal: 'U detí rozvíjam schopnosť aktívne vyskúšať rôzne spôsoby riešenia konfliktu v hranej scénke.',
+          steps: [
+            'Účastníci sa rozdelia do trojíc. Každá trojica si vytiahne kartičku s konfliktnou témou a rozdelí si roly. Scénku zahrajú tak, že sa v nej postupne pokúsia použiť aspoň dva rôzne spôsoby riešenia konfliktu z teórie.',
+            'Príklady konfliktných tém: 1. Kuchárka/kuchár, riaditeľka/riaditeľ školy a predsedníčka/predseda školského parlamentu sa hádajú o jedlo v školskej jedálni (žiaci chcú lepšie jedlo, kuchári kvalitnejšie suroviny, vedenie nechce zvyšovať platby). 2. Rodič a dieťa sa nevedia dohodnúť na tom, koľko času môže dieťa stráviť na telefóne. 3. Traja kamaráti sa nevedia dohodnúť, na čo sa pozrú počas spoločného filmového večera. 4. Traja spolužiaci robia spoločný projekt a jeden z nich dlho nerobí svoju časť práce.',
+            'Po skončení niekoľko trojíc krátko porozpráva, aký spôsob riešenia konfliktu použili a čo sa v scénke stalo.'
+          ],
+          tip: 'Keď koordinátor/ka zazvoní, nahlas oznámi, na aký spôsob riešenia konfliktu majú všetky trojice naraz prepnúť – priamo v prebiehajúcej scénke. Odporúčame dať každému spôsobu cca 2–3 minúty priestoru.',
+          reflex: { pred: [], pocas: [], po: ['Ktorý spôsob riešenia konfliktu sa vám hral najľahšie a ktorý najťažšie? Prečo?', 'Zmenil sa výsledok konfliktu podľa toho, aký spôsob riešenia ste použili?', 'Kedy je podľa vás vhodné použiť ústup, kedy presadzovanie a kedy je najlepšia spolupráca?'] }
+        },
+        {
+          num: 5, name: 'Prenos do praxe', time: '15 min',
+          goal: 'U detí rozvíjam schopnosť preniesť naučené spôsoby riešenia konfliktu do vlastného života.',
+          steps: ['Plagát s tipmi na riešenie konfliktov: Každý účastník napíše na kartičku jeden tip na riešenie konfliktov, ktorý si z dnešného stretnutia odnáša. Spoločným hlasovaním vyberte tipy, ktoré sa dostanú na spoločný plagát.'],
+          tip: 'Napríklad: každý účastník má 2–3 hlasy a rozdelí si ich medzi navrhnuté tipy (aj viac hlasov jednému tipu). Tipy s najviac hlasmi sa prepíšu na plagát. Plagát môže zostať vyvesený v klube ako pripomienka aj na ďalšie stretnutia.',
+          reflex: { pred: [], pocas: [], po: ['Čo by ste teraz zmenili v prvej aktivite (Kaziči a chaos), keby ste ju robili ešte raz?', 'Kde chcete tieto techniky využiť vo svojom vlastnom živote?'] }
+        }
+      ]
+    },
+    {
+      id: 'lp-r2-roleplay-3',
+      name: 'Nesúď knihu podľa obalu',
+      meta: [
+        { label: 'Čas', value: '105 min' },
+        { label: 'Aktivity', value: '4' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Na konci stretnutia účastník dokáže v role žiadateľa aj rozhodujúceho štátu pomenovať problém, potrebu a príležitosť na zmenu v príbehu druhého človeka, a všimne si, ako rýchlo si vytvára úsudok len na základe vzhľadu.',
+      kompetencia: 'Účastníci zažívajú situácie tímovej spolupráce, v ktorých vzniká nezhoda alebo konflikt, a učia sa rozpoznať, čo spolupráci pomáha a čo ju brzdí.',
+      prejav: 'Sledujem, aké kritériá deti navrhujú pre „svoj štát" – bezpečnostné, morálne, alebo diskriminačné, a ako skupina v role štátu spolupracuje pri tvorbe kritérií, či medzi nimi vznikla nezhoda a ako ju riešili. Všímam si, ako žiadatelia argumentujú v prospech príbehu, ktorý predstavujú, a či komisia rozhoduje podľa dohodnutých kritérií, alebo podľa sympatie/emócie. Pri aktivite Neposuď podľa vzhľadu sledujem, ako rýchlo účastníci priraďujú výroky na základe výzoru, a aké sú ich reakcie po odhalení skutočnosti.',
+      priprava: ['4 kartičky/nápisy s pojmami MIGRÁCIA, AZYL, EMIGRANT, IMIGRANT do rohov priestoru (energizér)', 'Krátke príbehové výroky na energizér (pripravené vopred)', 'Opisy alebo fiktívne, ale realistické príbehy osôb/dvojíc pre žiadateľov o azyl', 'Papiere a perá pre žiadateľov na prípravu príbehu', 'Veľký papier na zapísanie 5 kritérií „štátu"', 'Očíslované fotografie 7 reálnych osôb pre aktivitu Neposuď podľa vzhľadu (fotky z ich oficiálnych stránok/Wikipédie)', 'Vopred overené fakty o živote/úspechoch týchto osôb', 'Papier pre každého účastníka na zapisovanie priradení'],
+      aktivity: [
+        {
+          num: 1, name: 'Energizér – Kto je kto?', time: '15 min',
+          goal: 'U detí rozvíjam schopnosť odvodiť si význam pojmov migrácia/azyl/emigrant/imigrant z konkrétneho príbehu.',
+          steps: [
+            'Do štyroch rohov priestoru koordinátor/ka umiestni kartičky s pojmami: MIGRÁCIA, AZYL, EMIGRANT, IMIGRANT.',
+            'Koordinátor/ka nahlas prečíta krátky príbeh alebo situáciu. Účastníci majú za úlohu čo najrýchlejšie zabehnúť do rohu, ktorý podľa nich zodpovedá danému pojmu. Po každom kole sa spýta, prečo si to tak vybrali, a spoločne pojem stručne vysvetlia/potvrdia.',
+            'Príklady výrokov: „Milan sa presťahoval z Bratislavy do Berlína za prácou." → migrácia. „Peter odišiel zo Slovenska žiť do Kanady." (z pohľadu Slovenska) → emigrant. „Peter prišiel do Kanady žiť." (z pohľadu Kanady) → imigrant. „Amina musela utiecť zo svojej krajiny, pretože jej tam hrozilo nebezpečenstvo, a v novej krajine požiadala o ochranu." → azyl.'
+          ],
+          tip: 'Pojmy najprv nevysvetľuj – nech si ich účastníci najprv skúsia odvodiť z príbehu. Definície doplň až po tom, čo si vybrali rohy.',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 2, name: 'Azyl', time: '45 min',
+          goal: 'U detí rozvíjam schopnosť v role rozhodnúť o osude druhého na základe dohodnutých kritérií a v role žiadateľa pomenovať problém, potrebu a príležitosť.',
+          steps: [
+            'Skupina detí (max. 4) predstavuje fiktívny štát. Ich úlohou je spoločne sa dohodnúť a vypísať si 5 kritérií, na základe ktorých budú udeľovať azyl – teda zjednodušenú verziu toho, koho do štátu chcú a koho nie.',
+            'Zvyšné deti predstavujú žiadateľov o azyl. Dostanú iba obrázok osoby alebo dvojice osôb (ideálne využiť fotky z fotobánk alebo prostredníctvom AI) a na základe neho si vymyslia a opíšu príbeh – prečo by mali dostať azyl práve oni.',
+            'Krok pred prezentáciou – problém, potreba, príležitosť: Predtým, než žiadatelia predstúpia pred komisiu, nech si vo svojom príbehu označia tri veci: aký problém daný človek riešil (v čom je jeho situácia zlá), aká potreba stojí za jeho rozhodnutím požiadať o azyl, a čo by mohlo byť riešením – príležitosťou na zmenu.\nPríklad: Príbeh: „Musela som utiecť, pretože mi doma hrozilo prenasledovanie." → Problém: Nie je v bezpečí. → Potreba: Bezpečie. → Príležitosť na zmenu: Štát jej poskytne ochranu a možnosť začať nový život.',
+            'Žiadatelia postupne prezentujú svoj príbeh (vrátane problému, potreby a príležitosti na zmenu) azylovej komisii (skupine detí v role štátu), ktorá sa na základe dopredu stanovených kritérií rozhodne, či ich do svojho štátu prijme, alebo nie.'
+          ],
+          tip: 'Ak sa medzi kritériami objaví niečo diskriminačné (napr. podľa pôvodu, náboženstva), nezasahuj hneď – ale pri reflexii sa spýtaj: „A čo by sa stalo, keby toto kritérium platilo aj pre vás, keby ste museli emigrovať?" Cieľom je, aby si to uvedomili sami.\n\nIde o citlivú tému, ak sa v skupine nachádza niekto, koho sa osobne dotýka. Ak koordinátor/ka vie, že má v skupine účastníkov, ktorí sami imigrovali na Slovensko, je ideálne postaviť ich do role štátu, a nie do role žiadateľa.\n\nPri reflexii môžeš vysvetliť: žiadosť o azyl je formálna prosba človeka, ktorý utiekol zo svojej krajiny, o ochranu v novej krajine. O tom, či človek azyl získa, rozhoduje na základe zákona príslušný štátny úrad (na Slovensku napríklad Migračný úrad Ministerstva vnútra SR) – posudzuje, či mu v jeho krajine skutočne hrozilo nebezpečenstvo, nie napríklad len to, či sa mu v cudzine chce lepšie žiť.',
+          reflex: {
+            pred: ['Čo si myslíte, že je pre človeka najťažšie na tom, musieť opustiť svoj domov?', 'Podľa čoho by sa mal štát rozhodovať, koho prijme?'],
+            pocas: [],
+            po: ['Ako sa vám hralo v role žiadateľa? Cítili ste sa vypočutí?', 'Ako sa vám rozhodovalo v role štátu? Bolo ťažké niekoho odmietnuť?', 'Bola v skupine štátu nezhoda pri tvorbe kritérií? Čo pomohlo, a čo naopak sťažilo, aby ste sa dohodli?', 'Akým spôsobom ste sa v skupine rozhodovali – hlasovaním, spoločnou dohodou, presvedčil niekto ostatných?', 'Zmenili by ste teraz niektoré z vašich 5 kritérií? Prečo?', 'Ovplyvnil rozhodovanie komisie viac samotný príbeh, alebo to, ako presvedčivo bol odprezentovaný?', 'Čo z tejto aktivity si viete odniesť do bežného života?']
+          }
+        },
+        {
+          num: 3, name: 'Neposuď podľa vzhľadu', time: '35 min',
+          goal: 'U detí rozvíjam uvedomenie si, ako rýchlo a automaticky si vytvárame úsudok o človeku len z jeho vzhľadu.',
+          steps: [
+            'Na stole sú rozmiestnené očíslované fotografie osôb. Každý účastník má svoj papier, na ktorý si k očíslovaným osobám zapisuje svoje priradenia.',
+            'Koordinátor/ka číta výroky (fakty o živote/povolaní osôb) a každý účastník sa rozhodne, ku ktorej osobe daný výrok priradí. Nakoniec si to spolu prejdú a účastníci zdôvodnia, prečo konkrétny výrok priradili k danej osobe. Potom sa dozvedia skutočnosť.',
+            '7 očíslovaných osôb (fotky si nájdi na Wikipédii/oficiálnych stránkach): Christopher Paolini, Václav Staněk („Vašek z Vasiek"), Chris Gardner, Joan MacDonald, Edith Eger, Katherine Johnson, Malala Yousafzai.',
+            'Výroky na čítanie (poradie premiešaj, nečítaj v poradí 1–7): „Píše svetové bestsellery. Prvý vyšiel, keď mal 15 rokov." → Christopher Paolini. „Má vlastnú miliónovú firmu na výrobu tenisiek." → Václav Staněk. „Kedysi bol so svojím synom bez domova." → Chris Gardner. „Aktívne sa venuje fitnesu a točí o tom videá." → Joan MacDonald. „Lieči traumy vojnových veteránov." → Edith Eger. „Venuje sa matematike." → Katherine Johnson. „Má Nobelovu cenu za mier." → Malala Yousafzai.'
+          ],
+          tip: 'Vyberajte také fotky, z ktorých nie je úplne zjavné, čo daný človek robí alebo dokázal – napr. fotka z bežného, neformálneho kontextu, nie fotka z pódia či z ocenenia. Všetci uvedení ľudia svoj príbeh sami verejne zdieľajú (rozhovory, knihy, vlastné weby), preto je použitie ich príbehu v poriadku. Fotografie si nájdi na ich oficiálnych stránkach, Wikipédii alebo v spravodajských zdrojoch – a fakty si pred stretnutím overte, keďže sa časom môžu meniť.',
+          reflex: {
+            pred: ['Myslíte si, že vieme o človeku veľa povedať len z toho, ako vyzerá?', 'Stalo sa vám niekedy, že vás niekto neprávom odsúdil len podľa výzoru?'],
+            pocas: [],
+            po: ['Koľko z vašich priradení sa ukázalo správnych?', 'Čo vás najviac prekvapilo?', 'Prečo myslíte, že sme si niektoré veci spájali s niektorými ľuďmi automaticky?', 'Ako sa to podobá na to, čo sa dialo pri rozhodovaní o žiadateľoch o azyl v predchádzajúcej aktivite?', 'Čo môžeme urobiť, aby sme menej podliehali takýmto automatickým odhadom?', 'Akú potrebu sme prehliadli, keď sme človeka posudzovali len podľa vzhľadu? (Napríklad pri Edith Eger – uvidíme staršiu pani, po odhalení zistíme, že je psychologička, ktorá pomáha ľuďom po traumách. Aký problém rieši? Akú potrebu ľudí napĺňa?)', 'Ako vieme poznatky z dnešného stretnutia využiť pri našich questoch alebo v bežnom živote?', 'Ak by ste boli starosta mesta, čo by ste zmenili, aby sa novým ľuďom ľahšie začlenilo?', 'Aký malý krok môže urobiť škola, aby sa nový žiak cítil prijatý?', 'Čo môže urobiť jednotlivec, keď vidí, že niekoho ostatní odsudzujú?']
+          }
+        },
+        {
+          num: 4, name: 'Ako som premýšľal?', time: '10 min',
+          goal: 'U detí rozvíjam schopnosť metakognitívne si všimnúť, ako sám premýšľal a rozhodoval sa, nie len čo sa stalo.',
+          steps: [
+            'Každý účastník si sám za seba písomne odpovie na otázky – nejde o to, čo sa stalo, ale o to, ako pri tom premýšľal a rozhodoval sa.',
+            'Otázky na zapísanie: Ako som sa počas dnešných aktivít rozhodoval? Podľa čoho? Čo mi pri rozhodovaní alebo posudzovaní druhých pomohlo, a čo ma naopak zmiatlo alebo sťažilo situáciu? Zmenil by som svoj spôsob uvažovania, keby som si dnešné aktivity mohol zopakovať? Čo si z toho, ako som dnes premýšľal, chcem odniesť do bežného života?'
+          ],
+          tip: 'Nie je potrebné, aby účastníci svoje zápisky nahlas čítali – ide o osobnú reflexiu. Ak bude niekto chcieť, môže sa dobrovoľne podeliť.',
+          reflex: { pred: [], pocas: [], po: [] }
         }
       ]
     }

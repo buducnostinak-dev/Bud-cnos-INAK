@@ -729,7 +729,7 @@ const MODULES = [
     activities: [
       { id: "brainstorming", icon: "💡", name: "Brainstorming", desc: "Deti spoločne generujú čo najviac nápadov bez okamžitého hodnotenia." },
       { id: "kooperativne-ucenie", icon: "🤝", name: "Kooperatívne učenie", desc: "Deti sa učia v malých tímoch, kde úspech jedného závisí od spolupráce všetkých." },
-      { id: "metakognitivne-strategie", icon: "🧠", name: "Metakognitívne stratégie", desc: "Deti skúmajú a porovnávajú rôzne spôsoby učenia, aby zistili, čo im pomáha najviac." }
+      { id: "metakognitivne-strategie", icon: "🧠", name: "Stratégie učenia", desc: "Deti skúmajú a porovnávajú rôzne spôsoby učenia, aby zistili, čo im pomáha najviac." }
     ]
   },
   {
@@ -912,7 +912,7 @@ const MODULES2 = [
     level: "Účastník vie vedome vybrať kreatívnu techniku, oprieť sa o vlastné skúsenosti a navrhnúť si stratégiu učenia.",
     activities: [
       { id: "r2-l2-brainstorming", icon: "💡", name: "Brainstorming", desc: "Deti spoločne generujú čo najviac nápadov bez okamžitého hodnotenia." },
-      { id: "r2-l2-metakognitivne-strategie", icon: "🧠", name: "Metakognitívne stratégie", desc: "Deti skúmajú a porovnávajú rôzne spôsoby učenia, aby zistili, čo im pomáha najviac." }
+      { id: "r2-l2-metakognitivne-strategie", icon: "🧠", name: "Stratégie učenia", desc: "Deti skúmajú a porovnávajú rôzne spôsoby učenia, aby zistili, čo im pomáha najviac." }
     ]
   },
   {
@@ -2958,6 +2958,451 @@ var LESSON_PLANS = {
             'Otázky na zapísanie: Ako som sa počas dnešných aktivít rozhodoval? Podľa čoho? Čo mi pri rozhodovaní alebo posudzovaní druhých pomohlo, a čo ma naopak zmiatlo alebo sťažilo situáciu? Zmenil by som svoj spôsob uvažovania, keby som si dnešné aktivity mohol zopakovať? Čo si z toho, ako som dnes premýšľal, chcem odniesť do bežného života?'
           ],
           tip: 'Nie je potrebné, aby účastníci svoje zápisky nahlas čítali – ide o osobnú reflexiu. Ak bude niekto chcieť, môže sa dobrovoľne podeliť.',
+          reflex: { pred: [], pocas: [], po: [] }
+        }
+      ]
+    }
+  ],
+  'r2-l2-brainstorming': [
+    {
+      id: 'lp-r2-l2-brainstorming-1',
+      name: '6 Klobúkov',
+      meta: [
+        { label: 'Čas', value: '75 min' },
+        { label: 'Aktivity', value: '5' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Účastníci si na vlastnom probléme vyskúšajú techniku šesť klobúkov myslenia a zažijú rozdiel medzi neusporiadanou a usporiadanou skupinovou diskusiou.',
+      kompetencia: 'Účastník dokáže vytvoriť viac rôznych nápadov na riešenie jedného problému pomocou jednoduchých techník.',
+      prejav: 'Sledujem, ako chaoticky alebo usporiadane prebieha voľná diskusia bez štruktúry, a či sa účastníci pri klobúkoch držia danej perspektívy, alebo skáču do iných. Všímam si, ktorý klobúk je pre skupinu najprirodzenejší a ktorý najťažší, a ako zdôvodňujú výber techniky pre rôzne typy úloh na konci.',
+      priprava: ['Papier s opisom problému na voľnú diskusiu (napr. plánovanie vianočného večierka s rozpočtom 50 €)', '6 farebných klobúkov/šiltoviek alebo kartičiek/pások (biela, červená, čierna, žltá, zelená, modrá) pre každú skupinu', 'Veľký papier/flipchart na zápis nápadov pri každom klobúku', 'Kartičky s opisom 4 čiastkových úloh okolo večierka (Aktivita 5)', 'Stručný prehľad predtým naučených techník (brainstorming, fishbone, SCAMPER) na pripomenutie'],
+      aktivity: [
+        {
+          num: 1, name: 'Voľná diskusia', time: '10 min',
+          goal: 'Bez zážitku neusporiadanej diskusie by výhoda šiestich klobúkov zostala len teóriou — najprv treba sami zažiť chaos, aby bol cítiť rozdiel.',
+          steps: [
+            'Úloha: Všetci spolu diskutujte o tom, ako zorganizovať vianočný večierok v klube s rozpočtom 50 €. Diskutujte úplne voľne, bez akýchkoľvek pravidiel — hovorte tak, ako by ste to bežne robili.'
+          ],
+          tip: 'Nechaj diskusiu prebehnúť naozaj bez zásahov — aj keby bola chaotická alebo neefektívna. Presne to je zámer tejto aktivity.',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 2, name: 'Reflexia po voľnej diskusii', time: '10 min',
+          goal: 'Tu sa čerstvý zážitok chaosu mení na konkrétne pozorovania, ktoré o chvíľu vytvoria kontrast s usporiadanou verziou tej istej úlohy.',
+          steps: [
+            'Skupina spoločne reflektuje, ako práve prebehla voľná diskusia — čo v nej fungovalo a čo nie.'
+          ],
+          reflex: { pred: [], pocas: [], po: ['Ako táto diskusia prebiehala? Bola usporiadaná, alebo chaotická?', 'Hovorili ste všetci o tom istom, alebo každý riešil niečo iné naraz (jeden riziká, druhý nápady, tretí pocity)?', 'Stalo sa, že ste si navzájom skákali do reči, alebo že sa na niečo zabudlo?', 'Čo by pomohlo, aby bola takáto diskusia usporiadanejšia?'] }
+        },
+        {
+          num: 3, name: 'Šesť klobúkov myslenia', time: '15 min',
+          goal: 'Tu sa deti dozvedajú, prečo bola diskusia chaotická — a dostávajú nástroj, ktorý to priamo rieši.',
+          steps: [
+            'Technika „Šesť klobúkov myslenia" (Edward de Bono) hovorí, že chaos v diskusii často vzniká preto, že každý v skupine premýšľa iným „spôsobom" naraz. Riešením je, aby celá skupina premýšľala rovnakým spôsobom v tom istom čase — a tento spôsob sa postupne mení.',
+            '6 klobúkov a ich otázky:\n⚪ Biely klobúk – fakty: Aké fakty a informácie o tejto úlohe máme?\n🔴 Červený klobúk – pocity: Aké máme pocity a intuíciu ohľadom tohto nápadu?\n⚫ Čierny klobúk – riziká: Čo môže zlyhať? Aké sú riziká a slabé stránky?\n🟡 Žltý klobúk – prínosy: Aké sú výhody a prínosy tohto nápadu?\n🟢 Zelený klobúk – kreativita: Aké nové nápady a alternatívy môžeme vymyslieť?\n🔵 Modrý klobúk – riadenie: Kto riadi celý proces? Čo sme doteraz zistili a aký je ďalší krok?'
+          ],
+          tip: 'Modrý klobúk môže mať na starosti koordinátor/ka, alebo jeden účastník — jeho úlohou je len usmerňovať poradie klobúkov a na konci zhrnúť, nie prispievať vlastnými nápadmi.',
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 4, name: 'Aplikácia šiestich klobúkov', time: '25 min',
+          goal: 'Tu sa overuje, či technika naozaj funguje — rovnaký problém, rovnakí ľudia, len iný spôsob myslenia.',
+          steps: [
+            'Úloha: Všetci spolu sa vráťte k rovnakej úlohe — zorganizovať vianočný večierok v klube s rozpočtom 50 €. Tentokrát postupne prejdite všetkými šiestimi klobúkmi (cca 3–4 minúty na klobúk), a v každom kole diskutujte len z pohľadu daného klobúka.'
+          ],
+          tip: 'Odporúčané poradie: modrý (na úvod – čo je cieľom), biely, červený, žltý, čierny, zelený, modrý (na záver – zhrnutie a rozhodnutie).',
+          reflex: { pred: [], pocas: [], po: ['V čom sa táto diskusia líšila od tej prvej, voľnej?', 'Ktorý klobúk vám robil najväčšie ťažkosti udržať sa v ňom (nezačať premýšľať aj v inom štýle)?', 'Zmenil sa výsledný nápad oproti tomu, k čomu by ste dospeli bez klobúkov?'] }
+        },
+        {
+          num: 5, name: 'Doplňujeme plán večierka', time: '15 min',
+          goal: 'Toto je moment metakognície — nie len použiť jednu techniku, ale vedome si vybrať, ktorá sa hodí na akú úlohu.',
+          steps: [
+            'Doteraz ste sa v klube stretli aj s inými technikami na generovanie nápadov a riešenie problémov — napríklad brainstorming (voľné generovanie čo najviac nápadov), rybí diagram/fishbone (hľadanie skutočnej príčiny problému), SCAMPER (vylepšovanie existujúcej veci) a teraz šesť klobúkov myslenia (usporiadané zhodnotenie nápadu z viacerých uhlov).',
+            'Náš vianočný večierok ešte potrebuje doriešiť niekoľko ďalších vecí. V skupinách si vyberte (alebo vám bude pridelená) jedna z nasledujúcich čiastkových úloh a rozhodnite sa, ktorú z týchto štyroch techník na ňu použijete.',
+            'Čiastkové úlohy okolo večierka:\n1. Vymyslite čo najviac nápadov na vianočnú výzdobu alebo program večierka.\n2. V skupine sú rôzne názory na to, aké občerstvenie na večierku bude – zhodnoťte možnosti z viacerých uhlov.\n3. Na spoločné aktivity chodí málo ľudí z ostatných ročníkov – zistite, prečo.\n4. Na vianočnom večierku by sme chceli mať hru Secret Santa – vylepšite ju.',
+            'Skupiny na záver krátko predstavia, akú úlohu riešili, akú techniku zvolili a k čomu prišli – výsledky sa môžu naozaj použiť pri organizácii večierka.'
+          ],
+          tip: 'Neexistuje jediná „správna" technika pre danú úlohu — dôležité je zdôvodnenie výberu. Skupiny nemusia úlohu do detailu doriešiť, stačí, že si vyberú techniku, krátko ju použijú a vedia povedať, prečo im sadla.',
+          reflex: { pred: [], pocas: [], po: ['Akým spôsobom ste sa v skupine rozhodovali, ktorú techniku vybrať?', 'Akú techniku si vyberiete najbližšie, keď budete riešiť podobnú úlohu, a prečo?', 'Čo vám dnes pomohlo si uvedomiť, ako vlastne premýšľate, keď riešite problém v skupine?'] }
+        }
+      ]
+    },
+    {
+      id: 'lp-r2-l2-brainstorming-2',
+      name: 'Najhorší možný nápad',
+      meta: [
+        { label: 'Čas', value: '55–65 min' },
+        { label: 'Aktivity', value: '2' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Účastníci si na vlastnej skúsenosti overia, že zámerné zlyhanie a technika Worst Possible Idea môžu byť cestou k uvoľnenej tvorbe, a použijú ju na riešenie reálnych problémov klubu.',
+      kompetencia: 'Účastník dokáže vytvoriť viac rôznych nápadov na riešenie jedného problému pomocou jednoduchých techník.',
+      prejav: 'Sledujem, kedy sa účastníkom pri „zlej" kresbe viditeľne uvoľní tempo alebo sa zasmejú, a ako ľahko alebo ťažko skupinám idú naozaj zlé, absurdné nápady. Všímam si, ktoré skupiny sa vracajú k inému zlému nápadu, keď prvý nikam nevedie, a reakcie publika pri prezentácii najhorších nápadov.',
+      priprava: ['16 kartičiek s postavami na kreslenie (Aktivita 1)', '2 papiere A4 na účastníka, alebo 1 papier rozdelený na 2 polia (Aktivita 1)', 'Ceruzka/fixka na účastníka (Aktivita 1)', 'Časomiera/telefón na meranie 2 minút (obe aktivity)', 'Špendlíky/lepiaca páska na vyvesenie obrázkov (Aktivita 1)', 'Papieriky s číslami na označenie obrázkov pre galériu (Aktivita 1)', '4 kartičky s reálnymi problémami klubu (Aktivita 2)', 'A3 papier pre každú skupinu rozdelený na 2 zóny „Najhoršie nápady" / „Náš nápad" (Aktivita 2)', 'Fixky pre skupiny (Aktivita 2)'],
+      aktivity: [
+        {
+          num: 1, name: 'Portrétista naopak', time: '15–20 min',
+          goal: 'Bez zážitku rozdielu medzi tvorbou pod tlakom a uvoľnenou tvorbou by Aktivita 2 pôsobila len ako teoretický trik — najprv treba tento rozdiel cítiť na vlastnej koži.',
+          steps: [
+            '<strong>1. Rozdanie kartičiek (2 min):</strong> Každý účastník si potiahne jednu kartičku s postavou bez toho, aby ju ukázal ostatným. Kartičku si necháva zakrytú, kým sa nezačne kresliť. Postavy na kartičkách: Harry Potter, Spider-Man, Mimoň, Kocúr v čižmách, Shrek, Elsa, Mickey Mouse, Pikachu, Super Mario, SpongeBob, Batman, Buzz Lightyear, Woody, Yoda, Olaf, Darth Vader.',
+            '<strong>2. Kolo 1 – Najlepšia verzia (2–3 min):</strong> Máte 2 minúty na to, aby ste postavu z kartičky nakreslili čo najlepšie viete. Snažte sa, aby bola čo najviac podobná a rozpoznateľná. Koordinátor/ka spustí časomieru na 2 minúty, po uplynutí čas zastaví aj bez ohľadu na to, či je kresba dokončená.',
+            '<strong>3. Kolo 2 – Najhoršia verzia (2–3 min):</strong> Teraz nakreslite tú istú postavu na druhý papier/pole, ale čo najhoršie to len ide. Cieľom je, aby bola kresba naozaj zlá – neforemná, s chybami, čo najmenej podobná. Opäť 2 minúty na časomieru.',
+            '<strong>4. Galéria (5–8 min):</strong> Obe kresby od každého účastníka sa vyvesia na stenu/tabuľu vedľa seba, očíslované (bez mena autora). Účastníci chodia po triede a na papierik si skúšajú tipovať, akú postavu vidia na jednotlivých dvojiciach obrázkov. Na záver sa spoločne prejdú vybrané dvojice a odhalí sa, kto ktorú postavu kreslil.'
+          ],
+          tip: 'Niektorí účastníci sa pri druhom kole zasmejú alebo sa im viditeľne uvoľní tempo kreslenia — toto je presne moment, ktorý budete chcieť neskôr v reflexii pripomenúť.\n\nPREPOJENIE: Keď máme za úlohu urobiť niečo najlepšie, náš mozog neustále porovnáva výsledok s ideálnou predstavou, čo spomaľuje a niekedy až blokuje tvorbu. Keď je cieľom zlyhať, tento vnútorný kritik stráca zmysel — a paradoxne často vzniknú uvoľnenejšie a rýchlejšie výsledky. Táto skúsenosť je vstupnou bránou k technikám ako Worst Possible Idea, ktoré sa dajú použiť aj pri riešení reálnych problémov, nie len pri kresbe.',
+          reflex: { pred: [], pocas: [], po: ['Ktorá kresba vám išla ľahšie – tá „dobrá" alebo tá „zlá"? Prečo?', 'Pri ktorej kresbe ste sa viac bavili?', 'Cítili ste sa inak, keď ste kreslili niečo čo najlepšie, oproti tomu, keď ste mali za úlohu spraviť to čo najhoršie? V čom bol ten rozdiel?'] }
+        },
+        {
+          num: 2, name: 'Od najhoršieho k použiteľnému nápadu', time: '40–45 min',
+          goal: 'Toto je jadro stretnutia — rovnaký princíp uvoľnenia sa teraz aplikuje na niečo užitočnejšie: na skutočné problémy klubu.',
+          steps: [
+            'Rovnaký princíp, ktorý sme si práve zažili pri kresbe — že vedomé zlyhanie uvoľní tvorbu — teraz použijeme na niečo užitočnejšie: na skutočné problémy nášho klubu.',
+            '<strong>1. Zadanie problému (3 min):</strong> Účastníci sú rozdelení do skupín po 3–4. Každá skupina si vytiahne kartičku s jedným reálnym problémom klubu. Problémy na kartičkách: Ako zlepšiť snacky v klube? / Ako informovať tých, čo chýbali, o tom, čo sa v klube dialo? / Ako zabezpečiť, aby bola elektronika v klube vždy nabitá? / Ako zabezpečiť v klube pitný režim? Túto úlohu budete riešiť v dvoch kolách — najprv naopak, potom naozaj.',
+            '<strong>2. Fáza 1 – Najhoršie možné nápady (5 min):</strong> Máte 5 minút na to, aby ste vymysleli aspoň 5 najhorších možných riešení vášho problému. Čím absurdnejšie, nefunkčnejšie a smiešnejšie, tým lepšie. Zapisujte všetky nápady do prvej zóny na A3 papieri.',
+            '<strong>3. Fáza 2 – Obrátenie (12–15 min):</strong> Vyberte si z vašich zlých nápadov jeden, ktorý vás najviac rozosmial alebo sa vám zdal najabsurdnejší. Potom si ako skupina postupne odpovedzte na tri otázky: 1. Prečo je tento nápad zlý? Čo presne na ňom nefunguje? 2. Čo je presný opak tejto vlastnosti? 3. Dá sa z tohto opaku vytvoriť nápad, ktorý by reálne pomohol vášmu problému v klube? Zapíšte výsledný nápad do druhej zóny na A3 papieri („Náš nápad").',
+            '<strong>4. Prezentácie (8–10 min):</strong> Každá skupina má cca 2 minúty na prezentáciu, rovnaký postup pre všetkých: 1. Najprv povedia svoj problém. 2. Potom predstavia svoj najhorší nápad (očakávajte smiech u ostatných). 3. Na záver predstavia nápad, k čomu sa cez obrátenie dopracovali.'
+          ],
+          tip: 'Prispôsob počet problémov na kartičkách počtu detí. Ak je detí viac, pokojne pridaj problém, ktorý riešite v klube — niečo jednoduché. Ak je počet detí menší, je v poriadku niektorý problém vynechať.\n\nPočas Fázy 1 chodí koordinátor/ka medzi skupinami a povzbudzuje k väčšej absurdnosti, ak sa skupina drží príliš realistických „zlých" nápadov (napr. „Skúste to dotiahnuť do úplného extrému.").\n\nNiektoré skupiny sa môžu chcieť vrátiť k druhému alebo tretiemu zlému nápadu, ak prvý nikam nevedie — to je v poriadku, nechajte im túto voľnosť.\n\nPRÍKLAD OBRÁTENIA: Zlý nápad na pitný režim — „Nech si každý nosí vodu v diere v topánke." Prečo je zlý? Voda sa vyleje, je to nepohodlné a nehygienické. Opak toho? Voda je bezpečne uzavretá a ľahko dostupná. Použiteľný nápad: „Každý má vlastnú fľašu s menom na spoločnej poličke, ktorú si na začiatku stretnutia dopĺňa."\n\nNápad, na ktorom sa každá skupina dohodne, sa oplatí — pokiaľ je to možné — aj reálne zrealizovať. Realizácia neprebieha už na tomto stretnutí, ale zaraď ju do plánu na niektoré z najbližších stretnutí — prepojí to dnešnú aktivitu so skutočným dopadom a ukáže deťom, že ich nápady majú váhu.',
+          reflex: {
+            pred: [],
+            pocas: ['Ako sa vám vymýšľali zlé nápady – ľahko, alebo to bolo prekvapivo náročné?', 'Ako ste sa pri tom cítili? Aké to pre vás bolo?', 'Bolo jednoduchšie vymyslieť zlý nápad, než by bolo vymyslieť hneď dobrý?'],
+            po: ['Dali by sa niektoré z obrátených nápadov využiť na najbližších kluboch?', 'Na ktorý spôsob hľadania nápadov, ktoré sme už spolu v minulosti objavili, sa vám to najviac podobá a prečo?', 'V čom je to iné ako brainstorming?']
+          }
+        }
+      ]
+    },
+    {
+      id: 'lp-r2-l2-brainstorming-3',
+      name: 'Dokonalá stolička',
+      meta: [
+        { label: 'Čas', value: '100 min' },
+        { label: 'Aktivity', value: '2' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Na konci aktivity si účastník vyskúša round robin brainstorming ako jednu z jednoduchých techník na generovanie väčšieho množstva nápadov na riešenie problému a vie porovnať, ako sa mu pri nej pracovalo oproti inej technike (painstorming), ktorú si už vyskúšal skôr.',
+      kompetencia: 'Účastník dokáže vytvoriť viac rôznych nápadov na riešenie jedného problému pomocou jednoduchých techník.',
+      prejav: 'Sledujem, či tímy v Kroku 2 dokážu konkrétne pomenovať, ktoré ich prvé nápady z round robin brainstormingu nesedeli s reálnou potrebou, a ako reagujú, keď musia prototyp poskladať z rozmanitého a obmedzeného materiálu. Všímam si, či energizér (Random Input) ovplyvnil, ako voľne a nezvyčajne tímy generovali nápady v round robin brainstormingu.',
+      priprava: ['Kartičky s príbehmi – 8 ks (v tipe pri Aktivite 2)', 'Kartičky s náhodnými predmetmi (energizér) – 15–20 ks (napr. dáždnik, žirafa, budík, magnet, klobúk, gitara, mesiac, vlak, sekera, medveď...)', 'Lepiaca páska na prichytenie kartičiek s predmetmi', 'Hudba/reproduktor (nepovinné)', 'Veľký papier/flipchart na round robin brainstorming – 1 na tím', 'Kancelársky papier na skicovanie – 5 hárkov na dieťa', 'Fixky/ceruzky', 'Rozmanitý materiál na prototyp – kartón, alobal, slamky, špagát, plastové kelímky, viečka, textilné zvyšky, špajdle, drôtiky, lepiaca páska, papierové taniere...', 'Časomiera'],
+      aktivity: [
+        {
+          num: 1, name: 'Náhodné veci v pohybe', time: '10 min',
+          goal: 'Bez tohto pohybového zážitku prepájania nesúvisiacich vecí by round robin brainstorming v hlavnej aktivite začínal bez rozbehu — telo aj myseľ potrebujú najprv zažiť princíp naživo.',
+          steps: [
+            'Pohybový energizér v štýle Random Input techniky — núti prepojiť dve nesúvisiace veci a pripraví telo aj myseľ na kreatívne myslenie ešte pred samotným brainstormingom. Kartičky s náhodnými predmetmi sú rozmiestnené po celom priestore.',
+            'Účastníci sa voľne pohybujú (rýchla chôdza) po priestore, kým hrá hudba alebo kým koordinátor/ka netlesne. Úloha: Keď hudba/tlesknutie prestane, bež k najbližšej kartičke a chyť sa jej. S osobou, ktorá je najbližšie k tebe, vytvoríte dvojicu.',
+            'Koordinátor/ka potom nahlas povie krátky náhodný problém (napr. „Ako by tento predmet mohol pomôcť človeku, ktorý sa ráno nevie zobudiť?" alebo „Ako by tento predmet mohol pomôcť človeku, ktorý sa nudí v čakárni?"). Úloha: Máte 30 sekúnd na to, aby ste bez slov, iba pohybom a mimikou, predviedli vymyslený „vynález", ktorý spája váš náhodný predmet s daným problémom. Ostatné dvojice hádajú, o čo ide.',
+            'Opakujte 2–3 kolá s novým predmetom, novým problémom a (ideálne) novou dvojicou.'
+          ],
+          tip: 'Nechajte prvé kolo trochu chaotické a smiešne — to je zámer. Absurdné spojenia predmetu a problému sú jadrom Random Input techniky: keď sa mozog musí prepojiť dve veci, ktoré spolu nesúvisia, prichádza na nápady, na ktoré by inak neprišiel.\n\nPREPOJENIE: Po reflexii povedz: „Presne toto, čo sme si teraz vyskúšali — nútiť sa prepojiť veci, ktoré spolu na prvý pohľad nesúvisia — budeme o chvíľu robiť pri vymýšľaní nápadov na dokonalú stoličku. Najprv si ale spoločne vyskúšame inú techniku — round robin brainstorming."',
+          reflex: { pred: [], pocas: [], po: ['Ako sa vám darilo prepojiť náhodný predmet s problémom?', 'Bol nejaký nápad na prvý pohľad absurdný, ale nakoniec fungoval?', 'Všimli ste si, ako presne ste pri hľadaní spojenia rozmýšľali? Hľadali ste podobnosť, alebo skôr protiklad?', 'Čo z tohto pocitu si zoberieme do dnešnej hlavnej aktivity?'] }
+        },
+        {
+          num: 2, name: 'Dokonalá stolička', time: '90 min',
+          goal: 'Toto je jadro stretnutia — tímy najprv vymyslia nápady narýchlo, potom spoznajú človeka do hĺbky, a zažijú silný „aha moment", keď časť rýchlych nápadov nesedí so skutočnou potrebou.',
+          steps: [
+            'Účastníci vytvoria nové tímy 3–4. Kľúčová zmena oproti klasickému postupu: tímy najprv brainstormujú nápady round robin technikou na základe krátkeho zoznámenia s príbehom a až potom sa vrátia k príbehu do hĺbky, aby zistili, či ich prvé nápady naozaj sedia s reálnymi potrebami človeka. Toto vytvára silný „aha moment" — časť nápadov z prvého kola nebude sedieť, keď spoznajú človeka lepšie.',
+            '<strong>Krok 1 – Konkrétna skúsenosť: Round robin brainstorming (10 min).</strong> Tímy dostanú svoju kartičku s príbehom, ale len na rýchle prelistovanie — nie na dôkladné čítanie (to prichádza až v ďalšom kroku). Sadnite si do kruhu vo svojom tíme. Na základe toho, čo ste si z príbehu všimli na prvý pohľad, budete striedavo, jeden po druhom, hovoriť nahlas jeden nápad na stoličku/kreslo pre túto osobu — ide sa v kruhu, kolo za kolom, kým sa nápady „neminú" alebo nevyprší čas. Jeden člen tímu (zapisovateľ) zapisuje všetky nápady na spoločný papier, v poradí, ako padli.',
+            '<strong>Krok 2 – Pozorovanie a reflexia: Príbeh a skutočné potreby (15 min).</strong> Teraz si celý príbeh v tíme prečítajte poriadne, do hĺbky. Na základe informácií v príbehu si sformulujte need statement: Vytvoríme naše riešenie pre... (meno a krátky popis) / Rozpoznali sme u neho/nej tieto konkrétne problémy, nedostatky, výzvy: (2 príklady) / Myslíme si, že tieto veci sú dôležité pre vytvorenie riešenia, pretože... Potom sa vráťte k zoznamu nápadov z round robin brainstormingu a ku každému napíšte ✓ (sedí s reálnou potrebou) alebo ✗ (nesedí / bol založený na domnienke, ktorá sa nepotvrdila).',
+            '<strong>Krok 3 – Abstraktná konceptualizácia: Výber a spresnenie nápadu (10 min).</strong> Z nápadov, ktoré prešli (✓), vyberte jeden — buď priamo z brainstormingu, alebo jeho vylepšenú/skombinovanú verziu — ktorý najlepšie reaguje na potreby z vášho need statementu. Skúste ho zhrnúť do jednej vety: „Naša stolička/kreslo pomôže [meno] tým, že..."',
+            '<strong>Krok 4 – Aktívne experimentovanie: Prototypovanie v dvoch kolách (20 min).</strong> Prvé kolo (5 min): Nakreslite svoj koncept na papier. Čím podrobnejší nákres a čím menej vysvetlenia vyžaduje, tým lepšie. Druhé kolo (15 min): Vytvorte prototyp z vecí, ktoré máte k dispozícii.',
+            '<strong>Krok 5 – Prezentácia prototypov (20 min).</strong> Pripravte krátku prezentáciu (1,5–2 min na tím) s troma časťami: 1. Stručné predstavenie — ako ste prišli k nápadu, aké potreby ste zohľadnili (vrátane toho, ktorý nápad z round robin kola neprešiel a prečo). 2. Stručný popis prototypu — aký je jeho účel, ako funguje. 3. Krátka reflexia — silné a slabé stránky, ktoré kolo prototypovania bolo najťažšie. Koordinátor/ka počas prezentácií poskytuje spätnú väzbu a vyzýva do diskusie aj ostatné tímy.'
+          ],
+          tip: 'Round robin brainstorming núti aj tichších členov tímu prispieť — každý musí povedať nápad, keď na neho prejde rad, nie len tí najhlasnejší. Ak niekto v kole nemá nápad, môže povedať „prepínam" a ide sa ďalej, ale povzbuďte ich skúsiť to aj tak.\n\nPREPOJENIE: Toto je jadro celej aktivity — ukázať, že rýchle nápady bez pochopenia potrieb môžu byť vedľa, aj keď znejú dobre. Nechajte tímy nahlas povedať aspoň jeden nápad, ktorý neprešiel testom potreby — normalizuje to, že „zlý" prvý nápad je súčasť procesu, nie zlyhanie.\n\nPRÍPRAVA MATERIÁLU: Prineste čo najrozmanitejšiu zmes voľne dostupného materiálu — kartón, alobal, slamky, provázky, plastové kelímky, viečka, textilné zvyšky, špajdle, drôtiky, lepiacu pásku, papierové taniere. Čím rozmanitejší výber, tým viac tímy musia riešiť, ako skombinovať rôzne materiály na jeden prototyp — núti to k väčšej kreativite než jeden jasne daný materiál.\n\nKrátky čas na prototypovanie je zámerný — núti tímy rozhodovať sa rýchlo a nezamotávať sa do detailov. Ak niektorý tím zamrzne pri výbere materiálu, pripomeňte: „Nemusí to byť perfektné, len to musí niečo ukázať."\n\nKARTIČKY S PRÍBEHMI (8 ks, vytlač a rozstrihaj, 1 pre každý tím):\n1. Zuzana (10) – veľa domácich úloh, po sedení ju bolí chrbát, rada by sa pri učení trochu hýbala → stoličku na sedenie pri písaní domácich úloh.\n2. Starý otec Jozef (78) – problémy s kolenami, ťažko sa mu vstáva, najradšej sedí na terase a pozoruje vtáky → kreslo na sedenie vonku na terase.\n3. Sára (7) – veľmi živé dieťa, ťažko jej ide vydržať sedieť v pokoji celú hodinu v škole → stoličku do školskej triedy.\n4. Tomáš (13) – hráva počítačové hry hodiny denne, bolí ho chrbát a zápästia → stoličku k počítaču.\n5. Mama s bábätkom – potrebuje počas dňa často sedieť a dojčiť, chce mať voľné ruky a cítiť sa pohodlne → kreslo na dojčenie.\n6. Peter, vodič kamiónu – sedí za volantom aj 8 hodín denne, na prestávkach by si rád pohodlne sadol aj vonku → prenosnú stoličku na cesty.\n7. Ela (4) – chce sedieť pri stole s rodičmi počas večere, stôl je pre ňu príliš vysoko → stoličku k jedálenskému stolu pre malé dieťa.\n8. Simona, trénerka jogy – vedie hodiny jogy v malej miestnosti, potrebuje niečo na sedenie, čo sa dá rýchlo odložiť → skladaciu stoličku do telocvične.',
+          reflex: {
+            pred: [],
+            pocas: ['Koľko nápadov vám sedelo na potreby vašej postavy?', 'Prečo myslíte, že sa to stalo — čo chýbalo pri prvom kole nápadov?', 'Zmenil sa váš pohľad na osobu z príbehu po dôkladnom prečítaní?', 'Čo si všimol/všimla o vlastnom rozmýšľaní, keď ste tvorili prvé nápady bez toho, aby ste poznali celý príbeh?'],
+            po: ['Ako sa vám páčilo vytvárať niečo na základe potrieb, ktoré ste najprv museli overiť?', 'Zmenili ste niečo počas prototypovania? Naučili ste sa niečo v tomto kroku?', 'S ktorým materiálom sa vám pracovalo najlepšie/najhoršie? Prečo?', 'Čo by sa stalo, keby ste rovno prešli od round robin brainstormingu k prototypu, bez toho, aby ste si príbeh poriadne prečítali?', 'Ako ste pri round robin brainstormingu rozmýšľali inak, než keby ste nápady vymýšľali sami, bez skupiny?', 'Minule sme skúšali inú techniku brainstormingu — painstorming. V čom vnímate zmenu medzi painstormingom a dnešným round robin brainstormingom?', 'Ktorý typ brainstormingu — painstorming alebo round robin — vám osobne vyhovoval viac? Prečo?', 'Čo z dnešného stretnutia využijete v reálnom živote?']
+          }
+        }
+      ]
+    },
+    {
+      id: 'lp-r2-l2-brainstorming-4',
+      name: 'Rube Goldberg stroj',
+      meta: [
+        { label: 'Čas', value: '80 min' },
+        { label: 'Aktivity', value: '2' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Na konci aktivity tím vygeneruje viacero nápadov na zbytočne komplikované kroky, postaví z nich Rube Goldberg mechanizmus a vie prepojiť tento princíp s technikou najhorší možný nápad (Worst Possible Idea).',
+      kompetencia: 'Účastník dokáže vytvoriť viac rôznych nápadov na riešenie jedného problému pomocou jednoduchých techník.',
+      prejav: 'Sledujem, či tímy v Kroku 1 dokážu vygenerovať viacero rôznych nápadov, alebo sa hneď upnú na prvý, ktorý padne, a ako reagujú, keď mechanizmus na prvý pokus nezaberie. Všímam si, či dokážu v Kroku 3 konkrétne pomenovať vynaliezavú časť svojho mechanizmu, a ako vo finálnej reflexii prepájajú dnešnú skúsenosť s technikou najhorší možný nápad.',
+      priprava: ['Malé loptičky – 1 na tím (pingpongová, ideálne ešte menšia)', 'Papierové poháre – 1 na tím + niekoľko náhradných', 'Rozmanitý stavebný materiál – kartón, trubice/rolky od papiera, špagát, kartičky/dominové kocky, lepiaca páska, plastové kelímky, špajdle, akýkoľvek odpadový materiál z klubu', 'Zariadenie na premietanie videa – tablet/projektor + reproduktor', 'Papier a pero pre každého účastníka – na zápis nápadov v Kroku 1', 'Časomiera'],
+      aktivity: [
+        {
+          num: 1, name: 'Spusti guličku do pohára', time: '20 min',
+          goal: 'Bez zážitku, aké ľahká je táto úloha urobená priamo, by kontrast so zámerne komplikovaným Rube Goldberg mechanizmom v Aktivite 2 nedával zmysel.',
+          steps: [
+            'Tímy po 3–4 dostanú malú loptičku a papierový pohárik. Úloha: Spustite guličku do pohára. Máte na to 2 minúty. Úloha je zámerne triviálna — väčšina tímov ju zvládne za pár sekúnd jednoduchým pustením guličky priamo do pohára.',
+            '<strong>Krátke vysvetlenie: Kto bol Rube Goldberg (5 min).</strong> Koordinátor/ka predstaví Rube Goldberga — amerického karikaturistu, ktorý sa stal slávnym kresbami extrémne komplikovaných strojov na jednoduché úlohy (napr. mechanizmus na 20 krokov, ktorý len utrie ústa po jedle). Odtiaľ pochádza pojem „Rube Goldberg stroj" — zariadenie, ktoré robí jednoduchú vec čo najzložitejšou a najnepriamejšou cestou, zámerne pre humor a vynaliezavosť.',
+            '<strong>Video (5 min):</strong> <a href="https://www.youtube.com/watch?v=qybUFnY7Y8w" target="_blank" rel="noopener">OK Go – This Too Shall Pass (Rube Goldberg Machine verzia)</a>. Slávny hudobný klip, kde celá skladba je „odohraná" jedným dlhým Rube Goldberg mechanizmom — vizuálne veľmi pôsobivé, dobre funguje ako inšpirácia pred stavaním.'
+          ],
+          reflex: { pred: [], pocas: [], po: ['Aká ťažká bola pre vás táto úloha?', 'Koľko krokov/času ste na to potrebovali?', 'Čo by sa stalo, keby vašou úlohou bolo urobiť presný opak — vyriešiť to čo najzložitejšie, na čo najviac krokov?'] }
+        },
+        {
+          num: 2, name: 'Rube Goldberg mechanizmus', time: '60 min',
+          goal: 'Toto je jadro stretnutia — teraz robíte presný opak triviálnej úlohy z Aktivity 1, a objavíte, že v zámernej zložitosti sa skrýva aj niečo skutočne vynaliezavé.',
+          steps: [
+            '<strong>Krok 1 – Generovanie nápadov na komplikované kroky (5 min).</strong> Predtým, než začnete stavať, každý člen tímu postupne (round robin, jeden po druhom) navrhne 2–3 nápady na „zbytočne komplikovaný krok", ktorý by mohol byť súčasťou vášho mechanizmu (napr. „gulička najprv zrazí domino, ktoré spustí..."). Zapisujte všetky nápady na papier. Tím potom spoločne vyberie alebo skombinuje 3–4 najlepšie nápady, ktoré sa stanú základom finálneho mechanizmu.',
+            '<strong>Krok 2 – Postavte mechanizmus (20 min).</strong> Vaša úloha ostáva rovnaká ako v Aktivite 1 — gulička musí skončiť v pohári. Postavte mechanizmus na základe nápadov, ktoré ste si vybrali v Kroku 1, s použitím dostupného materiálu. Čím viac zbytočných krokov, prekážok a odbočiek, tým lepšie.',
+            '<strong>Krok 3 – Obrátenie (10 min).</strong> Pozrite sa na svoj postavený mechanizmus. Je v ňom nejaká časť alebo mechanizmus, ktorý je naozaj vynaliezavý a dal by sa použiť samostatne na niečo skutočne užitočné? Vyberte jednu takú časť a povedzte, na čo by sa reálne mohla použiť.',
+            '<strong>Krok 4 – Krátka prezentácia mechanizmov (8 min).</strong> Krátko ukážte ostatným tímom svoj mechanizmus (alebo aspoň jeho časť) a povedzte, ktorú časť ste v Kroku 3 vybrali ako „vynaliezavú" a prečo.'
+          ],
+          tip: 'Mechanizmy na prvý pokus takmer nikdy nezaberú — to je v poriadku a je to súčasť procesu. Normalizujte opakované skúšanie: „Nezabralo? Skvelé, presne o tomto Rube Goldberg stroje sú."',
+          reflex: {
+            pred: [],
+            pocas: ['Mala vaša „zbytočne komplikovaná" časť mechanizmu aj niečo skutočne vynaliezavé? Čo presne?', 'Ako presne ste sa rozhodovali, ktorý ďalší krok do mechanizmu pridať?', 'Všimli ste si, kedy vaše myslenie prešlo z „toto je smiešne" na „toto by mohlo naozaj niečo riešiť"?', 'Ako si spoznal/a, že daná časť mechanizmu je tá „vynaliezavá"? Podľa čoho si to posúdil/a?'],
+            po: ['Ako súvisí to, čo sme dnes robili, s technikou „najhorší možný nápad"?', 'Bolo pre vás ľahšie vymyslieť zložité riešenie než jednoduché? Prečo?', 'Aké výhody má robiť niečo zámerne najhoršie/najzložitejšie, predtým než hľadáme dobré riešenie?', 'Kde inde by sa dala táto technika (najprv absurdne, potom nájsť užitočné jadro) použiť pri riešení iného problému?']
+          }
+        }
+      ]
+    }
+  ],
+  'r2-l2-metakognitivne-strategie': [
+    {
+      id: 'lp-r2-l2-metakog-1',
+      name: 'Ako to dopadlo',
+      meta: [
+        { label: 'Čas', value: '45 min' },
+        { label: 'Aktivity', value: '4' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Na konci stretnutia účastník pomenuje, či jeho stratégia učenia fungovala, podľa čoho to zistil, a ako by zadanie urobil, keby ho mal skúsiť ešte raz.',
+      kompetencia: 'Účastník dokáže skúšať rôzne spôsoby učenia a pomenovať, ktoré mu pri učení alebo práci pomáhajú najviac.',
+      prejav: 'Sledujem, či účastník vie pomenovať konkrétny signál, podľa ktorého zistil, že stratégia nefunguje, nie len „nešlo to". Všímam si, ako reaguje, keď sa mu výzva nepodarila — hľadá dôvod na obhajobu, alebo si všíma, čo by zmenil.',
+      priprava: ['Spôsob prehrania videí, ak niekto zvolil video (premietanie/telefón)', 'Papier a pero pre každého – na metakognitívnu reflexiu'],
+      aktivity: [
+        {
+          num: 1, name: 'Energizér: Zopakuj, ale inak', time: '8 min',
+          goal: 'Bez tohto ľahkého energizéra o rovnakom cieli rôznou cestou by hlavná téma dňa (rôzne stratégie k rovnakému výsledku) chýbala fyzický, hravý úvod.',
+          steps: [
+            'Dvojice. Jeden predvedie krátku sekvenciu 3 pohybov/gest. Druhý ju musí zopakovať tak, aby výsledok bol rozpoznateľný rovnaký, ale spôsob (cesta, tempo, štýl) iný.',
+            'Vymeňte si role s novou sekvenciou.'
+          ],
+          tip: 'NADVÄZUJE NA: „Najlepší dôkaz je zlyhanie" — účastníci sa vracajú k výzve na týždeň, ktorú si tam naplánovali.',
+          reflex: { pred: [], pocas: [], po: ['Bolo ťažšie vymyslieť sekvenciu, alebo ju urobiť po svojom?'] }
+        },
+        {
+          num: 2, name: 'Zdieľanie', time: '15 min',
+          goal: 'Toto je moment, keď sa individuálne skúsenosti s minulotýždňovou výzvou stretnú — bez zdieľania by zvyšok stretnutia nemal na čom stavať.',
+          steps: [
+            'V skupinách po 3–4 postupne ukážte/pustite svoj výsledok (video alebo naživo) a povedzte, akú výzvu ste si vybrali.'
+          ],
+          reflex: { pred: ['Myslíte si, že sa vaše skúsenosti budú medzi sebou veľmi líšiť?'], pocas: [], po: [] }
+        },
+        {
+          num: 3, name: 'Fungovala stratégia?', time: '17 min',
+          goal: 'Toto je jadro stretnutia — tu sa skúsenosť s výzvou mení na konkrétne, metakognitívne poznanie o vlastnej stratégii učenia.',
+          steps: [
+            'Každý si na papier postupne odpovie na otázky, potom sa o odpovede podelí s dvojicou/skupinou.'
+          ],
+          tip: 'Trvaj na konkrétnom signáli v druhej otázke — „nešlo to" nestačí. Pomôž doťahujúcou otázkou: „Čo presne sa stalo, že ste si to všimli?"',
+          reflex: { pred: [], pocas: [], po: ['Vybrali ste si na túto výzvu dobrú stratégiu učenia?', 'Fungovala? Podľa čoho presne ste zistili, že funguje — alebo že nefunguje?', 'Zmenili ste ju počas týždňa? Ako?', 'Ako by ste zadanie urobili, keby ste ho mali skúsiť ešte raz od začiatku?'] }
+        },
+        {
+          num: 4, name: 'Na záver', time: '5 min',
+          goal: 'Bez tohto kroku by dnešný dôkaz zostal len v hlave — tu sa stáva niečím, čo sa dá neskôr znova nájsť a použiť.',
+          steps: [
+            'Krátke kolo naprieč skupinou.'
+          ],
+          reflex: { pred: [], pocas: [], po: ['Zapíšte si tento dôkaz do svojej Banky dôkazov — aký presne to je dôkaz?'] }
+        }
+      ]
+    },
+    {
+      id: 'lp-r2-l2-metakog-2',
+      name: 'Najlepší dôkaz je zlyhanie',
+      meta: [
+        { label: 'Čas', value: '71 min' },
+        { label: 'Aktivity', value: '4' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Na konci stretnutia účastník pomenuje, čo mu jeho vlastné zlyhanie pri úlohe ukázalo, zmení na základe toho stratégiu pri druhom pokuse, a naplánuje si vlastnú výzvu na budúci týždeň.',
+      kompetencia: 'Účastník dokáže skúšať rôzne spôsoby učenia a pomenovať, ktoré mu pri učení alebo práci pomáhajú najviac.',
+      prejav: 'Sledujem, ako tím reaguje na chaos v 1. kole — hľadá vinníka (druhý tím, hlučnosť), alebo sa pýta, čo si z toho zoberie. Všímam si, či je zmena stratégie v 2. kole konkrétna a vedomá, alebo len „skúsime to isté, ale rýchlejšie".',
+      priprava: ['Papier a pero pre každého – na „Nemožnú výzvu" a plán vlastnej výzvy', 'Časomiera', 'Prekážky na dve trate – poháre/kužele/škatule, aspoň 8–10 na trať (2 trate súčasne)', 'Šatky na zaviazanie očí – aspoň 2 (jedna na tím), ideálne 4', 'Lepiaca páska alebo lano na vyznačenie tratí a hraníc – na 2 trate (aspoň 4×4 m každá) + hranicu, za ktorú tím nesmie vstúpiť'],
+      aktivity: [
+        {
+          num: 1, name: 'Energizér: Nemožná výzva', time: '7 min',
+          goal: 'Bez tohto krátkeho, takmer nemožného zážitku by hlavná myšlienka dňa (zlyhanie ako dôkaz, nie prekážka) zostala len abstraktným tvrdením.',
+          steps: [
+            'Kolo 1: Povedz nahlas: „Máte 20 sekúnd, aby ste so zatvorenými očami nakreslili čo najpresnejší rovnostranný trojuholník." Po 20 sekundách nech si každý svoj pokus porovná so skutočným rovnostranným trojuholníkom (narysovaným alebo premietnutým) — nech sa pozrú konkrétne: čo trafili super, a čo nie (dĺžky strán, uhly, symetria)?',
+            'Kolo 2: Skúste to znova, znova so zatvorenými očami, 20 sekúnd — ale teraz využite to, čo ste si o sebe práve všimli.'
+          ],
+          tip: 'NADVÄZUJE NA: Kartu/Banku dôkazov (Rok 1, Rok 2) a „Zónu rastu" — tu sa dôkazy rozšíria o nový typ: dôkaz, ktorý vzniká zo zlyhania, nie len z úspechu.\n\nPOKRAČOVANIE: Na budúcom stretnutí („Ako to dopadlo") sa účastníci vrátia k výzve, ktorú si tu naplánujú, a zdieľajú, ako to dopadlo.',
+          reflex: { pred: [], pocas: [], po: ['Čo nás naučil prvý pokus?'] }
+        },
+        {
+          num: 2, name: 'Minové pole', time: '28 min',
+          goal: 'Toto je jadro chaosu, z ktorého sa všetko ostatné dnes učí — bez skutočného, prežitého zmätku v komunikácii by zmena stratégie v druhom kole nemala zmysel.',
+          steps: [
+            'Vyznač lepiacou páskou/lanom dve rovnobežné trate (aspoň 4×4 m každá), v každej voľne rozhádzané prekážky (poháre, kužele, škatule). Vedľa každej trate vyznač hranicu, za ktorú tím nesmie vstúpiť.',
+            'Oba tímy idú NARAZ, každý na svojej trati. Jeden člen tímu má zaviazané oči a musí prejsť cez prekážky na druhý koniec bez dotyku. Zvyšok tímu ho navádza len slovne, spopred hranice — nesmú vstúpiť do trate ani sa ho dotknúť.',
+            'Zopakujte celé kolo 3×. Pred každým ďalším kolom daj tímu 1–2 minúty na dohodnutie/úpravu stratégie (kto navádza, akými slovami). Medzi kolami vždy trochu preskladaj prekážky, aby si tím nemohol jednoducho zapamätať trasu — v 3. kole môžeš navyše vymeniť, kto má zaviazané oči.'
+          ],
+          tip: 'V 1. kole nedávaj žiadne inštrukcie o komunikácii — nech si tímy systém vymyslia úplne sami. Nechaj oba tímy bežať naozaj súčasne — vzájomné rušenie hlukom je zámerná súčasť zážitku, nie chyba.\n\nPo reflexii môžeš zhrnúť: „Zvyčajne sa najviac naučíme práve z prvého pokusu — aj keď (alebo presne preto, že) v ňom najčastejšie zlyháme. Zlyhaniu sa nemá zmysel vyhýbať, je nutnou súčasťou toho, ako sa naučíme čokoľvek nové."',
+          reflex: {
+            pred: [],
+            pocas: ['Skúste si rýchlo v hlave odpovedať: Čo táto trať práve odo mňa/nás vyžaduje? Akú stratégiu na to práve skúšame? Ako mi/nám to ide?'],
+            po: ['Aký dôkaz vám výsledok dal o vašej komunikácii?', 'Z ktorého kola ste sa podľa vás najviac naučili?']
+          }
+        },
+        {
+          num: 3, name: 'Zlyhanie je dôkaz', time: '10 min',
+          goal: 'Tu sa čerstvý zážitok chaosu spája s teóriou — konkrétne slovo pre to, čo si práve zažili.',
+          steps: [
+            'Povedz nahlas: „Zlyhanie nie je opak dôkazu — je to iný typ dôkazu. Presne ukazuje, kde je medzera, a čo treba zmeniť."',
+            'Vysvetli: Keby sa vám na prvý pokus všetko podarilo presne tak, ako ste čakali, mozog by sa nemal čo nové naučiť — učíme sa najviac práve z rozdielu medzi tým, čo sme čakali, a tým, čo sa naozaj stalo.',
+            'Toto je jadro toho, čo psychológovia volajú „growth mindset" — schopnosti nie sú pevne dané od narodenia, rastú presne tým, že prekonávame veci, ktoré nám najprv nevyšli. Ľudia, ktorí sa zlyhaniu vyhýbajú, sa tak sami odrezávajú od najsilnejšieho zdroja učenia, aký majú.'
+          ],
+          reflex: { pred: [], pocas: [], po: ['Kde vo svojom živote sa niečomu vyhýbate len preto, že by sa vám to mohlo nepodariť?', 'Čo by sa zmenilo, keby ste na to zlyhanie pozerali ako na dôkaz/informáciu, nie ako na dôvod na strach?'] }
+        },
+        {
+          num: 4, name: 'Moja výzva na týždeň', time: '25 min',
+          goal: 'Toto je moment, kde sa dnešné poznanie stáva niečím konkrétnym a osobným — nie na minovom poli, ale na reálnej výzve, ktorú si sám/sama vyberieš.',
+          steps: [
+            'Povedz nahlas: „Teraz to skúsime na niečom väčšom a reálnom — nie na minovom poli."',
+            'Každý si vyberie jednu vec, ktorú chce za týždeň zlepšiť alebo sa naučiť. Príklady: naučiť sa krátku tanečnú sekvenciu (4–8 krokov) / naučiť sa povedať 5–6 viet v cudzom jazyku, ktorý nikto v skupine nepozná / naučiť sa žonglovať so 2 loptičkami / naučiť sa vyriešiť jednu stranu Rubikovej kocky / naučiť sa krátku básničku naspamäť — alebo čokoľvek iné.',
+            '<strong>PLÁNUJEM:</strong> Čo presne sa učím? / Akou technikou z ponuky „Vyber si techniku" (Retrieval practice, Učenie druhého, Rozdelenie na kroky, Učenie pohybom/nahlas, Mentálna mapa) to skúsim? / Kedy urobím prvý pokus?',
+            '<strong>MONITORUJEM:</strong> Podľa čoho POČAS týždňa poznám, že mi zvolená technika funguje — čo presne si budem všímať?',
+            '<strong>VYHODNOCUJEM:</strong> Kedy a ako to vyhodnotím? Čo urobím, AK sa mi na prvý pokus nepodarí — zmením techniku, alebo len skúsim znova tou istou?',
+            'Dohodnite si spôsob, ako to na budúcom stretnutí ukážete: krátke video (cca 30 sekúnd), alebo naživo — podľa toho, čo účastníkovi sedí viac.'
+          ],
+          tip: 'Trvaj na tom, aby si vybrali KONKRÉTNU techniku, nie „skúsim to viackrát" — to nie je technika, to je len opakovanie bez plánu.\n\nVideo aj naživo sú rovnocenné možnosti — nech si vyberú sami. Poznáš svoju skupinu najlepšie, niektorým bude živá ukážka pred ostatnými nepríjemná.\n\nZdôrazni, že plán počíta s tým, že prvý pokus môže nevyjsť — to nie je záloha pre prípad neúspechu, je to súčasť plánu.',
+          reflex: { pred: [], pocas: [], po: [] }
+        }
+      ]
+    },
+    {
+      id: 'lp-r2-l2-metakog-3',
+      name: 'Vyber si techniku',
+      meta: [
+        { label: 'Čas', value: '55–60 min' },
+        { label: 'Aktivity', value: '2' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Na konci stretnutia si účastník vyskúša naučiť sa novú vec pomocou aspoň dvoch rôznych techník učenia a vie pomenovať, ktorá mu pri tejto úlohe pomohla viac a prečo.',
+      kompetencia: 'Účastník dokáže skúšať rôzne spôsoby učenia a pomenovať, ktoré mu pri učení alebo práci pomáhajú najviac.',
+      prejav: 'Sledujem, či účastník vie po oboch kolách konkrétne pomenovať rozdiel medzi technikami, nie len povedať „obe boli fajn", a ako reaguje, keď mu jedna z techník v kole nesadne — dokončí ju napriek tomu, alebo sa len vzdáva. Všímam si, ako pôsobí demonštrácia inému — je vidieť rozdiel medzi časťou naučenou technikou A a technikou B.',
+      priprava: ['Kartičky s témami na učenie – 16 ks (v tipe pri Aktivite 2)', 'Kartičky/tabuľa s technikami učenia – 5 ks (Retrieval practice, Feynman technika, Rozdelenie na kroky, Učenie pohybom/nahlas, Mentálna mapa/kreslenie), pripevnené na viditeľnom mieste', 'Materiál k jednotlivým témam: povrázky/šnúrky na uzly, balíček kariet alebo mince na trik, obrázkový prehľad základnej posunkovej reči (10 slov), papier na origami, 2 malé loptičky na žonglovanie, Rubikova kocka, papier/fixky na mentálne mapy', 'Časomiera', 'Papier a pero pre každého účastníka na zápis voľby techniky a reflexie'],
+      aktivity: [
+        {
+          num: 1, name: 'Postav sa, ak... – Ako sa učíme mimo školy', time: '8–10 min',
+          goal: 'Bez tohto uvedomenia, že sa učíme aj mimo školy a rôznymi spôsobmi, by hlavná aktivita pôsobila ako umelo vytvorená úloha, nie ako niečo, čo už reálne robíte.',
+          steps: [
+            'Účastníci stoja v kruhu alebo v otvorenom priestore. Koordinátor/ka postupne číta výroky — kto sa v danom výroku nájde, postaví sa/vymení si miesto s niekým iným (alebo urobí dohodnutý pohyb, napr. tlesknutie, drep).',
+            'Výroky: 1. Postav sa, ak si sa niečo naučil/a tak, že si to videl/a robiť niekoho iného, nie z vysvetľovania. 2. Postav sa, ak si sa niečo naučil/a tak, že si to skúšal/a znova a znova, až to začalo fungovať. 3. Postav sa, ak si sa niečo naučil/a od rodiča alebo starého rodiča, nie v škole. 4. Postav sa, ak si sa niečo naučil/a na tréningu alebo krúžku — napríklad driblovať s loptou, plávať, alebo tanečné kroky. 5. Postav sa, ak vieš uvariť alebo upiecť niečo, čo ťa nikto formálne nenaučil, len si to videl/a robiť. 6. Postav sa, ak si sa niekedy naučil/a niečo len tým, že si to niekomu vysvetľoval/a. 7. Postav sa, ak sa ti niečo podarilo naučiť len vďaka tomu, že si sa nebál/a najprv to skúsiť nesprávne.'
+          ],
+          tip: 'Pripomeňte deťom, že učenie nie je myslené len ako škola a učebnice. Veľa dôležitého učenia sa deje mimo triedy — na tréningu sa učíte rýchlo bežať alebo driblovať s loptou, na tanečnej sa učíte kroky, upratovanie, varenie či pečenie sa mnohí naučili jednoducho pozorovaním niekoho iného. Učenie je všade okolo nás, nielen pri písaní testov.\n\nPREPOJENIE: Po reflexii zhrň: „Práve sme si všimli, že každý z vás sa niečo naučil iným spôsobom — niekto pozorovaním, niekto opakovaním, niekto tým, že to vysvetlil ďalšiemu. Presne o tomto bude aj naša ďalšia aktivita — dostanete 40 minút na to, aby ste sa naučili niečo nové, pričom vyskúšate aspoň dve rôzne techniky učenia a porovnáte, ktorá vám sadla lepšie."',
+          reflex: { pred: [], pocas: [], po: ['Dajte príklad, kedy vám tento spôsob učenia najviac pomohol. Čo presne ste sa takto naučili?', 'Čo na tomto spôsobe učenia fungovalo? Prečo myslíte, že to zabralo?', 'Čo iné by ste sa vedeli naučiť podobným spôsobom?'] }
+        },
+        {
+          num: 2, name: 'Vyber si techniku', time: '40 min',
+          goal: 'Toto je jadro stretnutia — priamo porovnáte dve techniky učenia na vlastnej koži, nie len o nich počúvate.',
+          steps: [
+            '<strong>Krok 1 – Výber témy a rozdelenie na dve kolá (5 min).</strong> Vytiahni si kartičku s témou, ktorú sa budeš učiť. Rozdeľ si obsah témy na dve približne rovnaké časti (napr. pri 3 uzloch — 2 uzly a 1 uzol, pri 10 slovách v posunkovej reči — prvých 5 a druhých 5). Pre každú časť si z ponuky na tabuli vyber inú techniku učenia. Techniky na výber: Retrieval practice (naučiť sa, potom zatvoriť materiál a skúsiť si to vybaviť naslepo) / Učenie druhého, Feynman technika (naučiť sa a hneď to vysvetliť spolužiakovi jednoduchými slovami) / Rozdelenie na kroky (rozobrať si to na malé kúsky a učiť sa po jednom) / Učenie pohybom/nahlas (povedať si to nahlas, prípadne to zahrať/predviesť fyzicky) / Mentálna mapa/kreslenie (nakresliť si to ako obrázok alebo schému).',
+            '<strong>Krok 2 – Kolo 1: Technika A (10–12 min).</strong> Nauč sa prvú časť svojej témy pomocou prvej vybranej techniky.',
+            '<strong>Krok 3 – Krátka kontrola (2–3 min).</strong> Zastav sa na chvíľu a odpovedz si: Ako mi to s touto technikou išlo? Cítim, že si to pamätám/viem?',
+            '<strong>Krok 4 – Kolo 2: Technika B (10–12 min).</strong> Nauč sa druhú časť svojej témy pomocou druhej vybranej techniky.',
+            '<strong>Krok 5 – Demonštrácia (8 min).</strong> V dvojiciach si navzájom predveďte alebo vysvetlite celú svoju tému (obe časti). Ten, kto počúva/pozerá, skúsi zhodnotiť, či je to jasné a zrozumiteľné, a či je medzi oboma časťami rozdiel v tom, ako isto/plynulo to predvádzate.'
+          ],
+          tip: 'Pomôžte účastníkom pri rozdeľovaní témy na dve porovnateľné časti, ak si nie sú istí ako na to — väčšina kartičiek sa dá rozdeliť jednoducho na polovicu (prvá/druhá polovica slovíčok, fráz, krokov).\n\nChodíte medzi účastníkmi, ale nezasahujete do obsahu učenia. Ak si účastník všimne, že mu jedna z techník výrazne nesadla, je to v poriadku a presne to bude téma nasledujúcej reflexie.\n\nZOZNAM TÉM NA KARTIČKY (16 ks): jednoduchý trik s kartami alebo mincou; 10 slov v základnej posunkovej reči; vysvetliť ako funguje WiFi jednou vetou pre malé dieťa; vysvetliť ako funguje očkovanie jednou vetou pre malé dieťa; 5–6 fráz v cudzom jazyku, ktorý nikto v skupine nepozná (napr. slovinčina); 5–6 fráz v inom neznámom jazyku (napr. fínčina); logická hádanka/hlavolam, ktorú vieš zadať inému; poskladať model origami; zaviazať 3 rôzne uzly a vedieť, na čo sa každý používa; 30-sekundová sekvencia rytmu na rukách (bodypercussion); žonglovať so 2 loptičkami na základnej úrovni; vyriešiť jednu stranu Rubikovej kocky; krátka tanečná sekvencia (4–8 krokov); vysvetliť ako vzniká dúha jednou vetou pre malé dieťa; krátka básnička naspamäť s citom; poskladať jednoduchú papierovú krabičku.',
+          reflex: { pred: [], pocas: [], po: ['Ktorá z dvoch techník, ktoré ste použili, vám pri tejto úlohe pomohla viac? Ako to vieš — čo presne bolo iné?', 'Bol rozdiel v tom, ako rýchlo alebo isto ste zvládli každú z oboch častí?', 'Zmenil by sa výsledok, keby ste techniky použili v opačnom poradí?', 'Pripomenula vám táto aktivita niektorý zo spôsobov učenia, o ktorých sme hovorili na začiatku (pozorovanie, opakovanie, vysvetľovanie inému)?', 'Kde v bežnom živote (mimo BI) by sa vám oplatilo najprv vyskúšať viac spôsobov učenia, než sa rozhodnúť pre jeden?'] }
+        }
+      ]
+    },
+    {
+      id: 'lp-r2-l2-metakog-4',
+      name: 'Obrys skúseností',
+      meta: [
+        { label: 'Čas', value: '65 min' },
+        { label: 'Aktivity', value: '1' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Na konci aktivity si účastník vytvorí vizuálny prehľad vlastných doterajších skúseností (vlastných aj od skupiny) a vyberie si jeden konkrétny dôkaz, o ktorý sa chce oprieť pri konkrétnej nadchádzajúcej výzve.',
+      kompetencia: 'Účastník dokáže vedome použiť svoje doterajšie skúsenosti ako dôkaz vlastnej schopnosti a oprieť sa o ne pri nových, náročnejších výzvach.',
+      prejav: 'Sledujem, ako účastníci reagujú na obkresľovanie — kto si vyberie samostatné načrtnutie namiesto obkreslenia druhou osobou, a či sa pri rotácii v Kroku 2 dodržiava pravidlo „niečo nové", alebo sa komentáre len opakujú. Všímam si, ako pôsobí na jednotlivých účastníkov množstvo spätnej väzby v tichom čase na prečítanie, a či si účastník v Kroku 3 vyberie dôkaz vedome a vie ho prepojiť s konkrétnou reálnou výzvou.',
+      priprava: ['Veľké papiere/flipchart hárky – 1 na účastníka (na obkreslenie celého tela)', 'Fixky rôznych farieb – viac kusov, aby mohlo písať viac ľudí naraz', 'Lepiaca páska – na prilepenie obrysov na stenu, ak sa nedávajú na zem', 'Zvonček/hudba – na signalizáciu rotácie v Kroku 2', 'Dostatočný priestor na rozloženie všetkých obrysov s možnosťou voľného chodenia okolo nich'],
+      aktivity: [
+        {
+          num: 1, name: 'Obrys skúseností', time: '65 min',
+          goal: 'Toto je jediná, no bohato vrstvená aktivita dnešného stretnutia — od vlastného obrysu, cez postrehy celej skupiny, až po vedomé prepojenie dôkazu s konkrétnou nadchádzajúcou výzvou.',
+          steps: [
+            '<strong>Krok 1 – Obkreslenie a vlastný obrys (10–12 min).</strong> Dvojice sa vzájomne obkreslia na flipchart/veľký papier. Úloha: Do svojho obrysu nakresli/napíš: do hlavy — čo už vieš (vedomosti, techniky, zručnosti); do rúk — čo sa ti podarilo urobiť (konkrétne veci, ktoré si zvládol/zvládla); do tela — na čo si na seba hrdý/hrdá; mimo obrysu — na čom by si chcel/a ešte popracovať alebo sa niečo nové naučiť.',
+            '<strong>Krok 2 – Postrehy od celej skupiny (25–30 min).</strong> Obrysy sa rozložia po miestnosti (na zemi alebo prilepené na stenách) tak, aby okolo každého bolo dosť miesta na voľné chodenie a písanie viacerých ľudí naraz. Účastníci sa rozdelia do skupiniek po 4–5 (nie podľa pôvodných dvojíc) a spolu sa presúvajú od obrysu k obrysu. Pri každom obryse majú 2–3 minúty na to, aby doňho každý napísal/dokreslil, čo vníma, že daný človek zvládol, čo sa mu podarilo, a za čo by ho chcel oceniť. Koordinátor/ka signalizuje posun na ďalší obrys (zvonček, tlesknutie, hudba) po pevnom časovom intervale. Pravidlo proti opakovaniu: ak niekto vidí, že už tam niekto napísal presne to, čo chcel napísať aj on, skúsi nájsť iný uhol — niečo, čo si všimol a ešte tam nie je.',
+            '<strong>Krok 2b – Tichý čas na prečítanie (5 min).</strong> Vráť sa k svojmu vlastnému obrysu. V tichosti si prečítaj všetko, čo do neho ostatní napísali. Nemusíš nič hovoriť ani komentovať — len si to nechaj „usadiť".',
+            '<strong>Krok 3 – Nová výzva: oprieť sa o dôkaz (8–10 min).</strong> Prezri si svoj celý obrys — vlastné aj dopísané veci od skupiny. Vyber si jeden konkrétny dôkaz, o ktorý by si sa chcel/a oprieť pri niečom, čo ťa čaká a robí ti trochu starosti (skúška, súťaž, nová úloha, náročný rozhovor...). Napíš/povedz: „Toto mi pri [tvoja výzva] pravdepodobne pomôže, pretože..."'
+          ],
+          tip: 'Nechajte účastníkov samých vybrať si, s kým budú v dvojici a kto ich obkreslí. Ak je niekomu obkresľovanie inou osobou nepríjemné, môže si svoj obrys jednoducho načrtnúť sám/sama (napr. zjednodušenú siluetu) — nikto nemusí ležať na zemi, ak sa pri tom necíti dobre. Obkresľovanie môže prebiehať aj v stoji, opretý/á o stenu.\n\nMETAKOGNÍCIA: Pri zapisovaní do hlavy môžete pridať jednu vetu navyše: „Skús si všimnúť, ako presne si si na túto vec spomenul/a — vybavilo sa to hneď, alebo si musel/a chvíľu rozmýšľať?" Toto jemne posúva aj samotné zapisovanie od čistej inventarizácie smerom k uvedomeniu vlastného myslenia.\n\nPevná rotácia v Kroku 2 zaručí, že každý obrys dostane rovnaký počet postrehov — nehrozí, že sa pozornosť sústredí len na hlasnejších/populárnejších účastníkov, kým iné obrysy zostanú prázdne. Toto je dôležitejšie, než sa na prvý pohľad zdá — nerovnomerná spätná väzba by mohla presne tým deťom, ktorým má aktivita najviac pomôcť, ukázať opak toho, čo chceme.\n\nPočas celej rotácie aktívne sledujte, ako sa jednotlivé deti tvária, nie len či dodržiavajú poriadok. Silnejšia spätná väzba od väčšieho počtu ľudí môže byť pre niektorých emocionálne intenzívnejšia, ako čakali.\n\nKrok 2b nevynechávajte, aj keď sa zdá „prázdny" — bez neho sa intenzita zážitku ľahko stratí v prechode na ďalšiu aktivitu, alebo naopak niekoho zaskočí neskôr, keď si obrys prečíta sám doma.\n\nV Kroku 3 nemusí ísť o veľkú alebo vzdialenú výzvu — môže to byť aj niečo v najbližších dňoch (napr. „budúci týždeň mám prezentáciu"). Dôležité je, že si účastník vedome spojí konkrétny dôkaz s konkrétnou budúcou situáciou, nie len že si dôkaz zapísal.',
+          reflex: { pred: [], pocas: [], po: ['Čo si vnímal/a ako náročnú úlohu (v tejto aktivite alebo mimo nej) a čo si musel/a urobiť, aby sa ti ju podarilo zvládnuť?', 'Aká spätná väzba od skupiny bola taká, čo si úplne nečakal/a? Čo to hovorí o tom, ako dobre poznáš sám/sama seba?', 'Aká bola za posledné dva mesiace tvoja najlepšia chyba? Čo si sa z nej naučil/a o svojom spôsobe riešenia problémov?', 'Pomohol ti dôkaz, ktorý si si vybral/a v Kroku 3? Skús si všimnúť — prečo práve tento, a nie iný z obrysu?', 'Ako ti pomôže vedieť, že toto všetko už zvládaš, keď budeš čeliť niečomu novému a ťažkému?'] }
+        }
+      ]
+    },
+    {
+      id: 'lp-r2-l2-metakog-5',
+      name: 'Zóna rastu',
+      meta: [
+        { label: 'Čas', value: '110 min' },
+        { label: 'Aktivity', value: '5' },
+        { label: 'Ročník', value: 'Rok 2' }
+      ],
+      ciel: 'Na konci stretnutia účastník identifikuje vlastné dôkazy, že dokáže zvládať nové výzvy, a pomenuje jednu konkrétnu budúcu výzvu, pri ktorej sa o ne môže oprieť.',
+      kompetencia: 'Účastník dokáže vedome použiť svoje doterajšie skúsenosti ako dôkaz vlastnej schopnosti a oprieť sa o ne pri nových, náročnejších výzvach.',
+      prejav: 'Sledujem, podľa čoho si vyberajú výzvu — podľa toho, kde cítia nervozitu, alebo podľa toho, čo je najľahšie. Všímam si, ako reagujú v kruhoch, keď zistia, že tá istá výzva je pre iných inde než pre nich.',
+      priprava: ['15–18 challenge kartičiek (zoznam v tipe pri Aktivite 1) – vytlačiť a rozstrihnúť VŠETKY vizuálne rovnaké (rovnaký papier, bez farieb ani značiek); farebné označenie je len pre teba, nech máš istotu, že máš spektrum náročnosti', 'Krieda/lepiaca páska na 3 kruhy na zemi, alebo 3 veľké papiere s nápismi Komfort / Rast / Panika', 'Zoznam aktivít z Roku 1 a Roku 2 (napr. Interview, Painstorming, Karta dôkazov, prvý prototyp, prezentácia, testovanie) – vopred pripraviť ako premietanie na projektore, nech je vysvietený počas celej Aktivity 4', 'Zariadenie s Canvou pre každého/dvojicu – podľa možnosti prístup k lanskej Karte dôkazov', 'Projektor/obrazovka na záverečnú vetu pre Aktivitu 5 – „O rok sa obzrieš späť..."'],
+      aktivity: [
+        {
+          num: 1, name: 'Challenge Market', time: '40 min',
+          goal: 'Toto je vstupná brána do celého stretnutia — bez zážitku výberu výzvy podľa vlastného pocitu nervozity by pojmy komfort/rast/panika v ďalších aktivitách zostali len slovami.',
+          steps: [
+            'Po miestnosti sú rozložené/pomiešané kartičky s výzvami — všetky vizuálne rovnaké, bez farieb ani značiek. Účastníci chodia, čítajú, vyberajú si podľa vlastného pocitu, nie podľa kategórie.',
+            'Pravidlo (povedz nahlas, PRED výberom): „Nevyberte si najľahšiu výzvu. Vyberte si takú, pri ktorej cítite trochu nervozitu, ale veríte, že ju zvládnete."'
+          ],
+          tip: 'BEZPEČNOSŤ: Všetky výzvy sa odohrávajú v budove, pred skupinou alebo s ľuďmi, ktorých v budove poznáte aspoň od videnia — nikto nejde von, nikto neoslovuje cudzích ľudí na ulici.\n\nMODELOVANIE: Predtým, než začnú vyberať, ukáž vlastný výber nahlas: „Toto by pre mňa bolo príliš ľahké, toto by ma vydesilo, ale toto ma robí trochu nervózneho a skúsim to."\n\nNADVÄZUJE NA: Kartu dôkazov, ktorú si účastníci robili v Roku 1 v Canve — dnes sa na ňu môžu vrátiť a nadviazať na ňu Mapou dôkazov.\n\nODPORÚČANÉ ZARADENIE: Ak plánuješ aj „Myšlienka, ktorá stojí za šírenie" (TED Talk), zváž zaradiť toto stretnutie pred ňu — najprv si účastníci uvedomia vlastný rast, až potom o ňom budú rozprávať pred publikom. Nie je to nutné poradie, len odporúčanie.\n\nKARTIČKY NA VYTLAČENIE (15–18 ks, vizuálne úplne rovnaké, žiadna neoznačuje kategóriu):\n🟢 Nauč niekoho v skupine triky s 3 papierovými loptičkami. / Zisti tri veci, ktoré máš spoločné s niekým, koho v skupine dobre nepoznáš. / Vymysli a zarapuj 4 riadky o dnešnom dni. / Naučte niekoho jednoduchý trik so špagátom alebo kartami.\n🟡 Zahraj 30-sekundovú scénku pred celou skupinou na tému, ktorú ti dá niekto iný. / Opýtaj sa niekoho v budove, koho nepoznáš, na jeho obľúbené miesto. / Zaspievaj kúsok piesne nahlas pred skupinou. / Nauč celú skupinu jednoduchý tanečný krok. / Predveď 1-minútovú „reklamu" na predmet, ktorý máš pri sebe. / Zahraj „kameň, papier, nožnice" s 3 rôznymi ľuďmi a pri každej hre povedz jednu vec o sebe. / Vymysli a povedz nahlas krátku vtipnú básničku o niekom v skupine (v dobrom zmysle).\n🔴 Zahraj improvizovanú scénku pred celou skupinou na tému, ktorú vytiahneš naslepo. / Zorganizuj mini flashmob — nauč skupinu pohyb za 2 minúty a spustite ho spoločne. / Prihováraj sa skupine 1 minútu na náhodnú tému z klobúka. / Popros lektora, aby ti dal tému na krátku báseň, a hneď to predveď. / Zaspievaj a-capella pred celou skupinou pieseň, ktorú si vyberie niekto iný.',
+          reflex: { pred: ['Čo vám práve hovorí hlas v hlave, keď si čítate tieto kartičky?'], pocas: [], po: ['Podľa čoho ste si vyberali výzvu?', 'Ako ste vedeli vopred, že túto výzvu zvládnete, aj keď z nej máte nervozitu?', 'Na čo ste sa vo svojom rozhodovaní spoliehali?'] }
+        },
+        {
+          num: 2, name: 'Komfortná zóna', time: '18 min',
+          goal: 'Tu sa individuálny výber z Aktivity 1 stretne s pohľadom celej skupiny — a odhalí, že tá istá výzva môže byť pre niekoho komfort a pre iného panika.',
+          steps: [
+            'Nakresli/vyznač na zem tri kruhy: 🟢 Komfort, 🟡 Rast, 🔴 Panika. Vysvetli krátko, čo kruhy znamenajú: Komfort = úplne bezpečné, nič nové. Rast = cítim nervozitu, ale verím, že to zvládnem. Panika = je toho na mňa príliš, cítim sa zahltený/á.',
+            'Prečítaj nahlas postupne VŠETKY kartičky z Challenge Marketu (nielen tie, ktoré si niekto vybral) — po každej sa VŠETCI (nielen kto ju robil) postavia do kruhu, kam by ju zaradili PRE SEBA.'
+          ],
+          reflex: {
+            pred: ['Myslíte si, že budete stáť na rovnakom mieste ako väčšina skupiny, alebo inde?'],
+            pocas: ['Kým počúvate ďalšie kartičky, všímajte si: rozhodli ste sa rýchlo, alebo ste chvíľu váhali, kam sa postaviť?'],
+            po: ['Bola nejaká výzva, kde ste boli prekvapení, kde stáli ostatní?', 'Čo spôsobuje, že tá istá výzva je pre niekoho komfort a pre iného panika?']
+          }
+        },
+        {
+          num: 3, name: 'Komfort, rast, panika', time: '18 min',
+          goal: 'Toto je jadro celého stretnutia — tu dostáva čerstvý zážitok z prvých dvoch aktivít teoretický rámec a meno.',
+          steps: [
+            'Komfort = nič nové. Rast = neistota + učenie. Panika = príliš veľká výzva naraz. Prečo sa učíme najviac práve v strede, nie v komforte ani v panike?',
+            'Predstavte si sval. Keď ho nikdy nezaťažujete, nerastie. Keď ho preťažíte, zraníte sa. Keď ho zaťažujete primerane, silnie. Väčšinu času sa pohybujeme v zelenej zóne — a to je dobré, cítime sa tam super! Ale raz za čas musíme vystúpiť do žltej — aj keď sa nám nechce, presne tam nás to najviac posunie vpred. A musíme sa naučiť rozpoznať, čo je pre nás červené — a z takých situácií vedieť včas odísť.',
+            'Predstavte si, že váš mozog si vedie zoznam dôkazov. Každý zvládnutý krok pridá nový dôkaz. Keď príde ďalšia výzva, mozog sa nepozerá na motiváciu — pozerá sa na tieto dôkazy. Psychológ Albert Bandura tento jav nazval self-efficacy — dôvera vo vlastné schopnosti postavená na konkrétnych dôkazoch, nie na pocite.'
+          ],
+          reflex: { pred: [], pocas: [], po: [] }
+        },
+        {
+          num: 4, name: 'Mapa mojich dôkazov', time: '24 min',
+          goal: 'Tu sa teória mení na osobný, vizuálny záznam — vlastná dvojročná cesta rozdelená podľa toho, ako si na ňu spomínate teraz, nie ako to vtedy vyzeralo.',
+          steps: [
+            'Pripomeňte si Kartu dôkazov, ktorú ste robili minulý rok v Canve — kto má prístup, môže sa na ňu pozrieť.',
+            'V Canve si vytvorte tri kruhy (Komfort / Rast / Panika) a rozdeľte do nich premietnuté aktivity (napr. Interview, Painstorming, Karta dôkazov, prvý prototyp, prezentácia, testovanie) — podľa toho, ako si na ne pamätáte TERAZ.',
+            'Pri každej aktivite si zapíšte tri veci: Čoho som sa bál? / Čo som zistil? / Ako mi to môže pomôcť nabudúce?'
+          ],
+          tip: 'Nechaj zoznam aktivít z Roku 1 a Roku 2 premietnutý na projektore/obrazovke počas celej aktivity — nech si nemusia zároveň spomínať aj priraďovať.',
+          reflex: { pred: [], pocas: [], po: ['Čo som o sebe zistil?', 'Čo sa posunulo z minulého roka z červenej do zelenej?'] }
+        },
+        {
+          num: 5, name: 'Môj ďalší level', time: '10 min',
+          goal: 'Bez tohto posledného kroku by celé stretnutie zostalo len pohľadom dozadu — tu sa mení na plán vpred.',
+          steps: [
+            'Napíšte alebo doplňte do Canvy tri veci: 1. Aká výzva ma čaká v najbližších týždňoch? (reálna, nie hypotetická — napr. prezentácia v škole, skúška, nový šport, brigáda, pohovor, osloviť niekoho, vodičák) 2. Ktorá skúsenosť z mojej Mapy dôkazov mi ukazuje, že to môžem zvládnuť? 3. Čo si poviem, keď začnem pochybovať?',
+            'Premietni na projektore: „O rok sa obzrieš späť. Čo by si chcel, aby sa dovtedy presunulo z červenej do zelenej?"'
+          ],
+          tip: 'PREPOJENIE: Povedz na záver: „Dnes ste si uvedomili, ako veľmi ste sa za dva roky posunuli. Na ďalšom stretnutí budete mať príležitosť tento príbeh odovzdať ďalej — nie ako zoznam aktivít, ale ako myšlienku, ktorá môže niekomu pomôcť."',
           reflex: { pred: [], pocas: [], po: [] }
         }
       ]

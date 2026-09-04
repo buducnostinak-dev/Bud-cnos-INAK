@@ -176,8 +176,7 @@
     font-size:17px; font-weight:800; color:var(--black); cursor:pointer;
   }
   .scale button.sel{background:var(--orange); border-color:var(--orange); color:var(--white);}
-  .scale-labels{display:flex; justify-content:space-between; gap:14px; font-size:12px; line-height:1.4; color:var(--gray-500); margin-top:10px;}
-  .scale-labels span{flex:1; max-width:48%;}
+  .scale-labels{display:flex; justify-content:space-between; font-size:10.5px; color:var(--gray-500); margin-top:8px;}
   textarea{
     width:100%; font-family:inherit; font-size:14.5px; border:1.5px solid var(--gray-100); border-radius:12px;
     padding:14px; resize:vertical; min-height:120px; margin-top:16px; background:var(--white);
@@ -218,21 +217,11 @@
 const STORAGE_KEY = 'bi-rastova-mapa-v1';
 
 const KOMPETENCIE = [
-  { id:'prilezitost', icon:'💡', name:'Príležitosť', sub:'Vidí problém a v ňom príležitosť.',
-    anchorLow:'Vyberie si zo možných úloh tú, ktorá ho najviac zaujíma.',
-    anchorHigh:'Začína si všímať problémy a príležitosti, ktoré nikto nezadal; nápady začína vedome smerovať na potreby ľudí.' },
-  { id:'iniciativa', icon:'🚀', name:'Iniciatíva', sub:'Premení nápad na čin.',
-    anchorLow:'Čaká na "správny" nápad alebo materiál, kým začne.',
-    anchorHigh:'Začne s tým, čo má poruke; skúša rôzne možnosti a rozoznáva viac svojich zdrojov.' },
-  { id:'hodnota', icon:'🤝', name:'Hodnota pre druhých', sub:'Vytvára hodnotu pre druhých.',
-    anchorLow:'Pracuje len v rámci svojej kamarátskej skupiny.',
-    anchorHigh:'Osloví niekoho mimo skupiny (iné dieťa, dospelého, experta) kvôli nápadu alebo pomoci.' },
-  { id:'zodpovednost', icon:'🎯', name:'Zodpovednosť', sub:'Nesie zodpovednosť za svoj rozvoj.',
-    anchorLow:'Dokončí úlohu, keď má podporu a jasné zadanie.',
-    anchorHigh:'Začína skúšať ťažšiu verziu bez vyzvania; po nevydarenom pokuse to skúsi znova sám.' },
-  { id:'ucenie', icon:'🔄', name:'Učenie z reality', sub:'Učí sa z reality, spätnej väzby a chýb.',
-    anchorLow:'Prijme spätnú väzbu, keď mu ju niekto ponúkne, a skúsi ju s pomocou uplatniť.',
-    anchorHigh:'Sám si vyžiada spätnú väzbu; z chyby alebo neúspechu si všimne, čo môže nabudúce urobiť inak.' }
+  { id:'prilezitost', icon:'💡', name:'Príležitosť', sub:'Vidí problém a v ňom príležitosť.' },
+  { id:'iniciativa', icon:'🚀', name:'Iniciatíva', sub:'Premení nápad na čin.' },
+  { id:'hodnota', icon:'🤝', name:'Hodnota pre druhých', sub:'Vytvára hodnotu pre druhých.' },
+  { id:'zodpovednost', icon:'🎯', name:'Zodpovednosť', sub:'Nesie zodpovednosť za svoj rozvoj.' },
+  { id:'ucenie', icon:'🔄', name:'Učenie z reality', sub:'Učí sa z reality, spätnej väzby a chýb.' }
 ];
 
 // Pevný zoznam kurikula — reálne lesson plany z hlavného webu, v poradí modul → aktivita
@@ -845,10 +834,7 @@ function renderWizard(){
       <div class="scale">
         ${[1,2,3,4,5].map(n=>`<button class="${sel===n?'sel':''}" onclick="setCompetency('${k.id}',${n})">${n}</button>`).join('')}
       </div>
-      <div class="scale-labels">
-        <span>${k.anchorLow || 'Ešte sa učí'}</span>
-        <span style="text-align:right;">${k.anchorHigh || 'Zvláda samostatne'}</span>
-      </div>
+      <div class="scale-labels"><span>Ešte sa učí</span><span>Zvláda samostatne</span></div>
       <div class="nav-row" style="margin-top:auto; padding-top:24px;">
         <button class="btn btn-ghost" onclick="wizardBack()">← Späť</button>
         <button class="btn btn-primary" onclick="wizardNext()">Ďalej →</button>

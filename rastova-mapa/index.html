@@ -48,8 +48,20 @@
   .pad{padding:20px;}
   h1.page-title{font-size:22px; font-weight:800; margin:4px 0 4px; letter-spacing:-.01em;}
   .subtle{color:var(--gray-500); font-size:13px; line-height:1.5; margin:0 0 18px;}
+  .mini-actions{display:flex; gap:18px; margin:10px 0 16px;}
+  .mini-actions span{font-size:12.5px; font-weight:600; color:var(--gray-500); cursor:pointer;}
+  .mini-actions span:hover{text-decoration:underline;}
+  .progress-line{font-size:12.5px; font-weight:700; color:var(--orange-dark); margin-bottom:10px;}
   .eyebrow{color:var(--orange); font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin-bottom:6px;}
-  .section-heading{color:var(--gray-500); font-size:12px; font-weight:700; letter-spacing:.04em; margin:18px 0 8px 2px;}
+  .section-heading{color:#1A1A1A; font-size:16px; font-weight:800; margin:22px 0 10px;}
+  .section-heading.clickable{display:flex; justify-content:space-between; align-items:center; cursor:pointer; padding:14px 16px; border-radius:12px; background:#F0F0F0;}
+  .section-heading.clickable:hover{background:#E8E8E8;}
+  .section-heading.clickable:active{background:#E0E0E0;}
+  .section-heading .count{font-weight:600; color:var(--gray-500); font-size:14px;}
+  .chevron-toggle{color:var(--orange); font-size:20px; font-weight:900;}
+  .section-heading.clickable{display:flex; justify-content:space-between; align-items:center; cursor:pointer; padding:4px 2px; border-radius:6px;}
+  .section-heading.clickable:hover{background:var(--gray-50, #FAFAFA);}
+  .chevron-toggle{color:var(--gray-400); font-size:11px;}
   .section-heading:first-of-type{margin-top:10px;}
 
   .btn{
@@ -215,42 +227,42 @@ const KOMPETENCIE = [
 // Pevný zoznam kurikula — reálne lesson plany z hlavného webu, v poradí modul → aktivita
 const CURRICULUM = [
   // ROK 1 — Problém & Nápad (September – Október)
-  { id:'lp1',  rok:1, modul:'Problém & Nápad', aktivita:'Terénne pátranie', name:'Think like a traveler' },
-  { id:'lp2',  rok:1, modul:'Problém & Nápad', aktivita:'Escape room', name:'Vstup — Escape room' },
-  { id:'lp3',  rok:1, modul:'Problém & Nápad', aktivita:'Mini interview', name:'Interview – Go outside' },
-  { id:'lp4',  rok:1, modul:'Problém & Nápad', aktivita:'Zážitkové hry', name:"Let's start" },
-  { id:'lp5',  rok:1, modul:'Problém & Nápad', aktivita:'Zážitkové hry', name:'Tvoríme pravidlá' },
-  { id:'lp6',  rok:1, modul:'Problém & Nápad', aktivita:'Reflexia', name:'Painstorming' },
-  { id:'lp7',  rok:1, modul:'Problém & Nápad', aktivita:'Reflexia', name:'Patch Notes' },
-  { id:'lp8',  rok:1, modul:'Problém & Nápad', aktivita:'Reflexia', name:'Stretnutie – Spätná väzba' },
+  { id:'lp1',  rok:1, modul:'1. level (September – Október)', aktivita:'Terénne pátranie', name:'Think like a traveler' },
+  { id:'lp2',  rok:1, modul:'1. level (September – Október)', aktivita:'Escape room', name:'Vstup — Escape room' },
+  { id:'lp3',  rok:1, modul:'1. level (September – Október)', aktivita:'Mini interview', name:'Interview – Go outside' },
+  { id:'lp4',  rok:1, modul:'1. level (September – Október)', aktivita:'Zážitkové hry', name:"Let's start" },
+  { id:'lp5',  rok:1, modul:'1. level (September – Október)', aktivita:'Zážitkové hry', name:'Tvoríme pravidlá' },
+  { id:'lp6',  rok:1, modul:'1. level (September – Október)', aktivita:'Reflexia', name:'Painstorming' },
+  { id:'lp7',  rok:1, modul:'1. level (September – Október)', aktivita:'Reflexia', name:'Patch Notes' },
+  { id:'lp8',  rok:1, modul:'1. level (September – Október)', aktivita:'Reflexia', name:'Stretnutie – Spätná väzba' },
   // ROK 1 — Pohľady & Rozhodnutia (November – December)
-  { id:'lp9',  rok:1, modul:'Pohľady & Rozhodnutia', aktivita:'Brainstorming', name:'Rovnaký problém, iný nápad' },
-  { id:'lp10', rok:1, modul:'Pohľady & Rozhodnutia', aktivita:'Brainstorming', name:'Od problému k prototypu' },
-  { id:'lp11', rok:1, modul:'Pohľady & Rozhodnutia', aktivita:'Kooperatívne učenie', name:'Skús to prvýkrát' },
-  { id:'lp12', rok:1, modul:'Pohľady & Rozhodnutia', aktivita:'Kooperatívne učenie', name:'Skladačka' },
-  { id:'lp13', rok:1, modul:'Pohľady & Rozhodnutia', aktivita:'Kooperatívne učenie', name:'Karta dôkazov' },
-  { id:'lp14', rok:1, modul:'Pohľady & Rozhodnutia', aktivita:'Stratégie učenia', name:'Cesta k učeniu' },
-  { id:'lp15', rok:1, modul:'Pohľady & Rozhodnutia', aktivita:'Stratégie učenia', name:'Beh nie o preteky' },
-  { id:'lp16', rok:1, modul:'Pohľady & Rozhodnutia', aktivita:'Stratégie učenia', name:'Dva brehy, jeden most' },
+  { id:'lp9',  rok:1, modul:'2. level (November – December)', aktivita:'Brainstorming', name:'Rovnaký problém, iný nápad' },
+  { id:'lp10', rok:1, modul:'2. level (November – December)', aktivita:'Brainstorming', name:'Od problému k prototypu' },
+  { id:'lp11', rok:1, modul:'2. level (November – December)', aktivita:'Kooperatívne učenie', name:'Skús to prvýkrát' },
+  { id:'lp12', rok:1, modul:'2. level (November – December)', aktivita:'Kooperatívne učenie', name:'Skladačka' },
+  { id:'lp13', rok:1, modul:'2. level (November – December)', aktivita:'Kooperatívne učenie', name:'Karta dôkazov' },
+  { id:'lp14', rok:1, modul:'2. level (November – December)', aktivita:'Stratégie učenia', name:'Cesta k učeniu' },
+  { id:'lp15', rok:1, modul:'2. level (November – December)', aktivita:'Stratégie učenia', name:'Beh nie o preteky' },
+  { id:'lp16', rok:1, modul:'2. level (November – December)', aktivita:'Stratégie učenia', name:'Dva brehy, jeden most' },
   // ROK 2 — Príčiny & Konflikty (September – Október)
-  { id:'lp17', rok:2, modul:'Príčiny & Konflikty', aktivita:'Terénne pátranie', name:'Predpoklad a realita' },
-  { id:'lp18', rok:2, modul:'Príčiny & Konflikty', aktivita:'Terénne pátranie', name:'Dobrovoľníctvo' },
-  { id:'lp19', rok:2, modul:'Príčiny & Konflikty', aktivita:'Terénne pátranie', name:'Dobrovoľníctvo – realizácia' },
-  { id:'lp20', rok:2, modul:'Príčiny & Konflikty', aktivita:'Role play', name:'Šakal a žirafa' },
-  { id:'lp21', rok:2, modul:'Príčiny & Konflikty', aktivita:'Role play', name:'Stopka' },
-  { id:'lp22', rok:2, modul:'Príčiny & Konflikty', aktivita:'Role play', name:'Nesúď knihu podľa obalu' },
-  { id:'lp23', rok:2, modul:'Príčiny & Konflikty', aktivita:'Reflexia', name:'Žraloci útočia' },
-  { id:'lp24', rok:2, modul:'Príčiny & Konflikty', aktivita:'Reflexia', name:'Myšlienka, ktorá stojí za šírenie' },
+  { id:'lp17', rok:2, modul:'1. level (September – Október)', aktivita:'Terénne pátranie', name:'Predpoklad a realita' },
+  { id:'lp18', rok:2, modul:'1. level (September – Október)', aktivita:'Terénne pátranie', name:'Dobrovoľníctvo' },
+  { id:'lp19', rok:2, modul:'1. level (September – Október)', aktivita:'Terénne pátranie', name:'Dobrovoľníctvo – realizácia' },
+  { id:'lp20', rok:2, modul:'1. level (September – Október)', aktivita:'Role play', name:'Šakal a žirafa' },
+  { id:'lp21', rok:2, modul:'1. level (September – Október)', aktivita:'Role play', name:'Stopka' },
+  { id:'lp22', rok:2, modul:'1. level (September – Október)', aktivita:'Role play', name:'Nesúď knihu podľa obalu' },
+  { id:'lp23', rok:2, modul:'1. level (September – Október)', aktivita:'Reflexia', name:'Žraloci útočia' },
+  { id:'lp24', rok:2, modul:'1. level (September – Október)', aktivita:'Reflexia', name:'Myšlienka, ktorá stojí za šírenie' },
   // ROK 2 — Kreativita & Sebarozvoj (November – December)
-  { id:'lp25', rok:2, modul:'Kreativita & Sebarozvoj', aktivita:'Brainstorming', name:'6 Klobúkov' },
-  { id:'lp26', rok:2, modul:'Kreativita & Sebarozvoj', aktivita:'Brainstorming', name:'Najhorší možný nápad' },
-  { id:'lp27', rok:2, modul:'Kreativita & Sebarozvoj', aktivita:'Brainstorming', name:'Dokonalá stolička' },
-  { id:'lp28', rok:2, modul:'Kreativita & Sebarozvoj', aktivita:'Brainstorming', name:'Rube Goldberg stroj' },
-  { id:'lp29', rok:2, modul:'Kreativita & Sebarozvoj', aktivita:'Stratégie učenia', name:'Ako to dopadlo' },
-  { id:'lp30', rok:2, modul:'Kreativita & Sebarozvoj', aktivita:'Stratégie učenia', name:'Najlepší dôkaz je zlyhanie' },
-  { id:'lp31', rok:2, modul:'Kreativita & Sebarozvoj', aktivita:'Stratégie učenia', name:'Vyber si techniku' },
-  { id:'lp32', rok:2, modul:'Kreativita & Sebarozvoj', aktivita:'Stratégie učenia', name:'Obrys skúseností' },
-  { id:'lp33', rok:2, modul:'Kreativita & Sebarozvoj', aktivita:'Stratégie učenia', name:'Zóna rastu' }
+  { id:'lp25', rok:2, modul:'2. level (November – December)', aktivita:'Brainstorming', name:'6 Klobúkov' },
+  { id:'lp26', rok:2, modul:'2. level (November – December)', aktivita:'Brainstorming', name:'Najhorší možný nápad' },
+  { id:'lp27', rok:2, modul:'2. level (November – December)', aktivita:'Brainstorming', name:'Dokonalá stolička' },
+  { id:'lp28', rok:2, modul:'2. level (November – December)', aktivita:'Brainstorming', name:'Rube Goldberg stroj' },
+  { id:'lp29', rok:2, modul:'2. level (November – December)', aktivita:'Stratégie učenia', name:'Ako to dopadlo' },
+  { id:'lp30', rok:2, modul:'2. level (November – December)', aktivita:'Stratégie učenia', name:'Najlepší dôkaz je zlyhanie' },
+  { id:'lp31', rok:2, modul:'2. level (November – December)', aktivita:'Stratégie učenia', name:'Vyber si techniku' },
+  { id:'lp32', rok:2, modul:'2. level (November – December)', aktivita:'Stratégie učenia', name:'Obrys skúseností' },
+  { id:'lp33', rok:2, modul:'2. level (November – December)', aktivita:'Stratégie učenia', name:'Zóna rastu' }
 ];
 function curriculumForRok(rok){ return CURRICULUM.filter(c=>c.rok===rok); }
 
@@ -259,11 +271,12 @@ function loadData(){
     const raw = localStorage.getItem(STORAGE_KEY);
     if(raw) return JSON.parse(raw);
   }catch(e){}
-  return { children: [], evaluations: [], stretnutia: [], settings:{ syncUrl:'', centrum:'' }, currentRok: 1 };
+  return { children: [], evaluations: [], stretnutia: [], settings:{ syncUrl:'', centrum:'', collapsedModules:{} }, currentRok: 1 };
 }
 function saveData(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA)); }
 let DATA = loadData();
-if(!DATA.settings) DATA.settings = { syncUrl:'', centrum:'' };
+if(!DATA.settings) DATA.settings = { syncUrl:'', centrum:'', collapsedModules:{} };
+if(!DATA.settings.collapsedModules) DATA.settings.collapsedModules = {};
 if(!DATA.stretnutia) DATA.stretnutia = [];
 if(!DATA.currentRok) DATA.currentRok = 1;
 
@@ -298,6 +311,18 @@ function showToast(msg){
   setTimeout(()=>t.classList.remove('show'), 1800);
 }
 function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); }
+function openConfirmModal(title, message, confirmLabel, onConfirm){
+  window.__confirmAction = onConfirm;
+  document.getElementById('modalBody').innerHTML = `
+    <h2 style="color:#B3261E;">${title}</h2>
+    <p class="subtle" style="margin-top:-8px">${message}</p>
+    <div style="display:flex; gap:10px; margin-top:18px;">
+      <button class="btn" style="flex:1; background:var(--gray-100); color:var(--gray-700);" onclick="closeModal()">Zrušiť</button>
+      <button class="btn" style="flex:1; background:#B3261E; color:#fff;" onclick="window.__confirmAction()">${confirmLabel}</button>
+    </div>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+}
 
 const LOGO_SVG = `<svg viewBox="55 223 124 53" width="22" height="9.4" fill="none" xmlns="http://www.w3.org/2000/svg">
   <rect fill="currentColor" x="121.12" y="246.52" width="61.77" height="6.36" transform="translate(-132.04 180.62) rotate(-45)"/>
@@ -434,20 +459,49 @@ function renderStretnutiaTab(){
   const byCurriculumId = {};
   DATA.stretnutia.filter(s=>s.rok===DATA.currentRok && s.curriculumId).forEach(s=>{ byCurriculumId[s.curriculumId] = s; });
   const extra = DATA.stretnutia.filter(s=>s.rok===DATA.currentRok && !s.curriculumId).sort((a,b)=>b.date.localeCompare(a.date));
+  const totalKids = DATA.children.filter(c=>c.rok===DATA.currentRok).length;
+  const completedCount = curr.filter(item=>{
+    const s = byCurriculumId[item.id];
+    if(!s) return false;
+    const done = DATA.evaluations.filter(e=>e.stretnutieId===s.id).length;
+    return totalKids > 0 && done >= totalKids;
+  }).length;
+  const cm = DATA.settings.collapsedModules || {};
 
-  return `<p class="subtle">Klikni na stretnutie a zaznač deťom hodnotenie. Nezačaté stretnutia sa vytvoria na dnešný dátum — dátum si vieš neskôr upraviť.</p>
-    ${moduly.map(m => `
-      <div class="section-heading">${m}</div>
-      <div class="child-list">
-        ${curr.filter(c=>c.modul===m).map(item => curriculumCard(item, byCurriculumId[item.id])).join('')}
+  return `<div class="progress-line">${completedCount} / ${curr.length} stretnutí dokončených (Rok ${DATA.currentRok})</div>
+    <p class="subtle">Klikni na stretnutie a zaznač deťom hodnotenie. Nezačaté stretnutia sa vytvoria na dnešný dátum — dátum si vieš neskôr upraviť. Klikni na názov modulu, aby si ho zbalila/rozbalila.</p>
+    ${moduly.map(m => {
+      const items = curr.filter(c=>c.modul===m);
+      const doneInMod = items.filter(item=>{
+        const s = byCurriculumId[item.id];
+        if(!s) return false;
+        const done = DATA.evaluations.filter(e=>e.stretnutieId===s.id).length;
+        return totalKids > 0 && done >= totalKids;
+      }).length;
+      const collapsed = !!cm[m];
+      return `
+      <div class="section-heading clickable" onclick="toggleModule('${m}')">
+        <span>${m} <span class="count">(${doneInMod}/${items.length})</span></span>
+        <span class="chevron-toggle">${collapsed ? '▸' : '▾'}</span>
       </div>
-    `).join('')}
+      ${collapsed ? '' : `<div class="child-list">
+        ${items.map(item => curriculumCard(item, byCurriculumId[item.id])).join('')}
+      </div>`}
+    `;}).join('')}
     ${extra.length ? `
-      <div class="section-heading">Mimoriadne stretnutia</div>
-      <div class="child-list">${extra.map(stretnutieCard).join('')}</div>
+      <div class="section-heading clickable" onclick="toggleModule('__extra')">
+        <span>Mimoriadne stretnutia</span>
+        <span class="chevron-toggle">${cm['__extra'] ? '▸' : '▾'}</span>
+      </div>
+      ${cm['__extra'] ? '' : `<div class="child-list">${extra.map(stretnutieCard).join('')}</div>`}
     ` : ''}
     <div style="height:90px"></div>
     <div class="fab-wrap"><button class="btn btn-orange" onclick="startNewStretnutie()">+ Iné / mimoriadne stretnutie</button></div>`;
+}
+function toggleModule(modName){
+  if(!DATA.settings.collapsedModules) DATA.settings.collapsedModules = {};
+  DATA.settings.collapsedModules[modName] = !DATA.settings.collapsedModules[modName];
+  saveData(); render();
 }
 function curriculumCard(item, s){
   if(s) return stretnutieCard(s);
@@ -500,6 +554,10 @@ function renderStretnutieDetail(stretnutieId){
   return `<div class="screen pad">
     <div class="eyebrow">${fmtDate(s.date)} · Rok ${s.rok}</div>
     <h1 class="page-title">${s.name}</h1>
+    <div class="mini-actions">
+      <span onclick="openEditDateModal('${s.id}')">✏️ Upraviť dátum</span>
+      <span onclick="confirmDeleteStretnutie('${s.id}')" style="color:#B3261E;">🗑 Zmazať stretnutie</span>
+    </div>
     <p class="subtle">Klikni na dieťa a vyplň hodnotenie. Kto ostane bez hodnotenia, na stretnutí chýbal.</p>
     <div class="card" style="padding:6px 16px;">
       ${kids.length ? kids.map(c=>{
@@ -517,6 +575,32 @@ function renderStretnutieDetail(stretnutieId){
     <p class="subtle" style="text-align:center;">${doneCount} / ${kids.length} hodnotených</p>
     <div style="height:20px"></div>
   </div>`;
+}
+function openEditDateModal(stretnutieId){
+  const s = DATA.stretnutia.find(x=>x.id===stretnutieId);
+  if(!s) return;
+  document.getElementById('modalBody').innerHTML = `
+    <h2>Upraviť dátum</h2>
+    <div class="field"><label>Dátum stretnutia</label><input id="editDateInput" type="date" value="${s.date}"></div>
+    <button class="btn btn-primary" onclick="saveEditedDate('${stretnutieId}')">Uložiť</button>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function saveEditedDate(stretnutieId){
+  const s = DATA.stretnutia.find(x=>x.id===stretnutieId);
+  const v = document.getElementById('editDateInput').value;
+  if(!s || !v) return;
+  s.date = v; saveData(); closeModal(); render();
+}
+function confirmDeleteStretnutie(stretnutieId){
+  openConfirmModal('Zmazať stretnutie?', 'Vymažú sa aj všetky hodnotenia detí pri tomto stretnutí. Toto sa nedá vrátiť späť.', 'Zmazať', ()=>deleteStretnutie(stretnutieId));
+}
+function deleteStretnutie(stretnutieId){
+  DATA.stretnutia = DATA.stretnutia.filter(x=>x.id!==stretnutieId);
+  DATA.evaluations = DATA.evaluations.filter(e=>e.stretnutieId!==stretnutieId);
+  saveData(); closeModal();
+  route = { screen:'home', tab:'stretnutia' };
+  render();
 }
 function startStretnutieChildEval(stretnutieId, childId){
   const s = DATA.stretnutia.find(x=>x.id===stretnutieId);
@@ -541,7 +625,7 @@ function renderDetiTab(){
     <div class="fab-wrap"><button class="btn btn-primary" onclick="openAddChildModal()">+ Nové dieťa</button></div>`;
 }
 function syncBanner(pending){
-  if(pending === 0) return `<div class="sync-banner ok">✓ Všetko odoslané</div>`;
+  if(pending === 0) return `<div class="sync-banner ok">✓ Odoslané</div>`;
   return `<div class="sync-banner">
     <span>${pending} ${pending===1?'záznam čaká':'záznamov čaká'} na odoslanie</span>
     <button onclick="trySyncAll()">Odoslať teraz</button>
@@ -591,6 +675,10 @@ function renderChild(childId){
       <div class="child-avatar">${initials(child.name)}</div>
       <div><div class="name">${child.name}</div><div class="meta">Rok ${child.rok} · ${evals.length} hodnotení</div></div>
     </div>
+    <div class="mini-actions">
+      <span onclick="openEditChildModal('${child.id}')">✏️ Upraviť</span>
+      <span onclick="confirmDeleteChild('${child.id}')" style="color:#B3261E;">🗑 Zmazať dieťa</span>
+    </div>
 
     <div class="card">
       <div class="card-label">Kompetencie — priemer</div>
@@ -608,6 +696,32 @@ function renderChild(childId){
     <div style="height:90px"></div>
     <div class="fab-wrap"><button class="btn btn-orange" onclick="startWizard('${child.id}')">+ Rýchle hodnotenie (mimo kurikula)</button></div>
   </div>`;
+}
+function openEditChildModal(childId){
+  const c = DATA.children.find(x=>x.id===childId);
+  if(!c) return;
+  document.getElementById('modalBody').innerHTML = `
+    <h2>Upraviť dieťa</h2>
+    <div class="field"><label>Meno a priezvisko</label><input id="editChildNameInput" value="${c.name}"></div>
+    <button class="btn btn-primary" onclick="saveEditedChildName('${childId}')">Uložiť</button>
+  `;
+  document.getElementById('modalOverlay').classList.add('open');
+}
+function saveEditedChildName(childId){
+  const c = DATA.children.find(x=>x.id===childId);
+  const v = document.getElementById('editChildNameInput').value.trim();
+  if(!c || !v) return;
+  c.name = v; saveData(); closeModal(); render();
+}
+function confirmDeleteChild(childId){
+  openConfirmModal('Zmazať dieťa?', 'Vymažú sa aj všetky jeho doterajšie hodnotenia. Toto sa nedá vrátiť späť.', 'Zmazať', ()=>deleteChild(childId));
+}
+function deleteChild(childId){
+  DATA.children = DATA.children.filter(x=>x.id!==childId);
+  DATA.evaluations = DATA.evaluations.filter(e=>e.childId!==childId);
+  saveData(); closeModal();
+  route = { screen:'home', tab:'deti' };
+  render();
 }
 
 function radarSVG(avg){
@@ -834,14 +948,29 @@ function openSettingsModal(){
     <button class="btn btn-primary" onclick="saveSyncUrl()">Uložiť</button>
     <p class="subtle" style="margin-top:14px; margin-bottom:0;">Nevieš, ako túto adresu získať? Opýtaj sa v chate, kde sme appku vytvorili — pošlem presný návod aj kód.</p>
     <hr style="margin:20px 0; border:none; border-top:1px solid #eee;">
+    <h2>Záloha dát</h2>
+    <p class="subtle" style="margin-top:-8px">Stiahne súbor so všetkými deťmi, stretnutiami a hodnoteniami z tohto zariadenia. Odporúčame stiahnuť raz za čas ako poistku — dáta v telefóne sa dajú stratiť pri strate/resete telefónu.</p>
+    <button class="btn" style="background:var(--gray-100); color:var(--gray-700);" onclick="exportBackup()">⬇️ Stiahnuť zálohu</button>
+    <hr style="margin:20px 0; border:none; border-top:1px solid #eee;">
     <h2 style="color:#B3261E;">Vymazať všetky dáta</h2>
     <p class="subtle" style="margin-top:-8px">Natrvalo odstráni všetky deti, stretnutia a hodnotenia uložené v tomto zariadení. Nedá sa vrátiť späť. Použi len na vyčistenie testovacích dát pred ostrým používaním.</p>
-    <button class="btn" style="background:#B3261E; color:#fff;" onclick="resetAllData()">Vymazať všetky dáta v tomto zariadení</button>
+    <button class="btn" style="background:#B3261E; color:#fff;" onclick="confirmResetAllData()">Vymazať všetky dáta v tomto zariadení</button>
   `;
   document.getElementById('modalOverlay').classList.add('open');
 }
+function exportBackup(){
+  const blob = new Blob([JSON.stringify(DATA, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'rastova-mapa-zaloha-' + new Date().toISOString().slice(0,10) + '.json';
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+function confirmResetAllData(){
+  openConfirmModal('Vymazať všetky dáta?', 'Natrvalo odstráni všetky deti, stretnutia a hodnotenia uložené v tomto zariadení. Toto sa nedá vrátiť späť.', 'Vymazať všetko', resetAllData);
+}
 function resetAllData(){
-  if(!confirm('Naozaj vymazať VŠETKY dáta v tomto zariadení (deti, stretnutia, hodnotenia)? Toto sa nedá vrátiť späť.')) return;
   localStorage.removeItem(STORAGE_KEY);
   location.reload();
 }

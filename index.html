@@ -508,6 +508,7 @@
   </div>
   <div class="detail-meta-bar" id="md-meta"></div>
   <div class="detail-body">
+    <div id="md-full-content">
     <div class="detail-section">
       <div class="section-label">Čiastkové ciele — dieťa</div>
       <div class="competency-list" id="md-competencies"></div>
@@ -524,6 +525,14 @@
     <div class="detail-section">
       <div class="section-label">Level complete</div>
       <div id="md-level"></div>
+    </div>
+    </div>
+    <div class="detail-section" id="md-placeholder" style="display:none;">
+      <div style="text-align:center; padding:60px 20px; color:var(--gray-500);">
+        <div style="font-size:32px; margin-bottom:12px;">🛠️</div>
+        <p style="font-size:16px; font-weight:600; color:#1A1A1A; margin:0 0 6px 0;">Tento level sa ešte pripravuje.</p>
+        <p style="font-size:13px; margin:0;">Obsah tu čoskoro pribudne.</p>
+      </div>
     </div>
   </div>
 </div>
@@ -1162,6 +1171,18 @@ function openModule(id) {
       <div class="value">${mt.value}</div>
     </div>`).join('');
 
+  // Levely 3, 4, 5 (id 2, 3, 4) sú zatiaľ v príprave — zobraz len placeholder.
+  if (id >= 2) {
+    document.getElementById('md-full-content').style.display = 'none';
+    document.getElementById('md-placeholder').style.display = '';
+    showView('module');
+    updateBreadcrumb('module', m.title);
+    document.getElementById('view-module').classList.toggle('rok2-theme', currentYear === 2);
+    return;
+  }
+  document.getElementById('md-full-content').style.display = '';
+  document.getElementById('md-placeholder').style.display = 'none';
+
   document.getElementById('md-competencies').innerHTML = m.competencies.map((c, ci) => {
     const knowKey = currentYear === 2 ? `r2-${id}-${ci}` : `${id}-${ci}`;
     const knowDetails = kd[knowKey];
@@ -1235,18 +1256,8 @@ function openModule(id) {
       '</div></div>';
   }).join('');
 
-  const poradieSection = document.getElementById('md-poradie-section');
-  if (m.poradie && m.poradie.length) {
-    poradieSection.style.display = '';
-    document.getElementById('md-poradie').innerHTML = m.poradie.map(function(p, i) {
-      return '<div class="poradie-item" onclick="openActivity(\'' + p.card + '\',' + id + ')">' +
-        '<span class="poradie-num">' + (i + 1) + '</span>' +
-        '<div><div class="poradie-name">' + p.lp + '</div><div class="poradie-why">' + p.why + '</div></div>' +
-      '</div>';
-    }).join('');
-  } else {
-    poradieSection.style.display = 'none';
-  }
+  // Sekcia "Odporúčané poradie stretnutí" je interná pomôcka — pre lektorov sa nezobrazuje.
+  document.getElementById('md-poradie-section').style.display = 'none';
 
   document.getElementById('md-level').innerHTML = `
     <div class="level-box">

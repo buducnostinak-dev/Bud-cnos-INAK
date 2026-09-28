@@ -4,1012 +4,972 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
 <title>Rastová mapa · Budúcnosť INAK</title>
-<meta name="theme-color" content="#111111">
+<meta name="theme-color" content="#F6F8F9">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Rastová mapa">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;500;600;700;800&display=swap');
-
-  :root{
-    --orange:#F26A42; --orange-dark:#D9482A; --orange-light:#FDE8E0;
-    --black:#111111; --cream:#F8F8F6; --gray-100:#EDEAE4; --gray-300:#D8D3CA;
-    --gray-500:#8A8578; --white:#FFFFFF;
-    --safe-top: env(safe-area-inset-top, 0px);
-    --safe-bottom: env(safe-area-inset-bottom, 0px);
-  }
-  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
-  html,body{margin:0; padding:0; background:var(--black); overscroll-behavior-y:none;}
-  body{
-    font-family:'Lexend Deca',system-ui,sans-serif; color:var(--black);
-    display:flex; justify-content:center;
-    min-height:100vh; min-height:100dvh;
-  }
-  #app{
-    width:100%; max-width:480px; background:var(--cream); min-height:100vh; min-height:100dvh;
-    display:flex; flex-direction:column; position:relative; overflow-x:hidden;
-  }
-
-  /* ---------- Top bar ---------- */
-  .topbar{
-    background:var(--black); color:var(--white); padding:calc(14px + var(--safe-top)) 20px 14px;
-    display:flex; align-items:center; gap:10px; position:sticky; top:0; z-index:50;
-  }
-  .topbar .mark{color:var(--orange); flex-shrink:0;}
-  .topbar .titles{display:flex; flex-direction:column; line-height:1.15;}
-  .topbar .titles b{font-size:16px; font-weight:800;}
-  .topbar .titles span{font-size:10px; letter-spacing:.08em; color:#B9B4A8; text-transform:uppercase;}
-  .topbar .back{margin-right:2px; color:var(--white); font-size:20px; background:none; border:none; padding:4px; cursor:pointer; line-height:1;}
-
-  /* ---------- Generic layout ---------- */
-  .screen{flex:1; display:flex; flex-direction:column; padding-bottom:calc(24px + var(--safe-bottom));}
-  .pad{padding:20px;}
-  h1.page-title{font-size:22px; font-weight:800; margin:4px 0 4px; letter-spacing:-.01em;}
-  .subtle{color:var(--gray-500); font-size:13px; line-height:1.5; margin:0 0 18px;}
-  .mini-actions{display:flex; gap:18px; margin:10px 0 16px;}
-  .mini-actions span{font-size:12.5px; font-weight:600; color:var(--gray-500); cursor:pointer;}
-  .mini-actions span:hover{text-decoration:underline;}
-  .progress-line{font-size:12.5px; font-weight:700; color:var(--orange-dark); margin-bottom:10px;}
-  .eyebrow{color:var(--orange); font-size:11px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin-bottom:6px;}
-  .section-heading{color:#1A1A1A; font-size:16px; font-weight:800; margin:22px 0 10px;}
-  .section-heading.clickable{display:flex; justify-content:space-between; align-items:center; cursor:pointer; padding:14px 16px; border-radius:12px; background:#F0F0F0;}
-  .section-heading.clickable:hover{background:#E8E8E8;}
-  .section-heading.clickable:active{background:#E0E0E0;}
-  .section-heading .count{font-weight:600; color:var(--gray-500); font-size:14px;}
-  .chevron-toggle{color:var(--orange); font-size:20px; font-weight:900;}
-  .section-heading.clickable{display:flex; justify-content:space-between; align-items:center; cursor:pointer; padding:4px 2px; border-radius:6px;}
-  .section-heading.clickable:hover{background:var(--gray-50, #FAFAFA);}
-  .chevron-toggle{color:var(--gray-400); font-size:11px;}
-  .section-heading:first-of-type{margin-top:10px;}
-
-  .btn{
-    display:flex; align-items:center; justify-content:center; gap:8px;
-    font-family:inherit; font-size:15px; font-weight:700; border-radius:14px; border:none;
-    padding:16px 20px; cursor:pointer; width:100%;
-  }
-  .btn-primary{background:var(--black); color:var(--white);}
-  .btn-primary:active{background:#000;}
-  .btn-ghost{background:var(--white); color:var(--black); border:1.5px solid var(--gray-100);}
-  .btn-orange{background:var(--orange); color:var(--white);}
-  .fab-wrap{position:sticky; bottom:0; padding:14px 20px calc(14px + var(--safe-bottom)); background:linear-gradient(0deg,var(--cream) 60%,transparent);}
-
-  /* ---------- Home: child list ---------- */
-  .search{
-    display:flex; align-items:center; gap:8px; background:var(--white); border:1.5px solid var(--gray-100);
-    border-radius:12px; padding:11px 14px; margin-bottom:16px;
-  }
-  .search input{border:none; outline:none; font-family:inherit; font-size:14px; width:100%; background:none;}
-  .child-list{display:flex; flex-direction:column; gap:10px;}
-  .child-card{
-    display:flex; align-items:center; gap:12px; background:var(--white); border:1px solid var(--gray-100);
-    border-radius:14px; padding:14px; cursor:pointer;
-  }
-  .child-avatar{
-    width:44px; height:44px; border-radius:50%; background:var(--orange-light); color:var(--orange-dark);
-    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:15px; flex-shrink:0;
-  }
-  .child-card .info{flex:1; min-width:0;}
-  .child-card .name{font-weight:700; font-size:15px;}
-  .child-card .meta{color:var(--gray-500); font-size:12px; margin-top:1px;}
-  .child-card .chev{color:var(--gray-300); font-size:18px;}
-  .empty{text-align:center; padding:60px 20px; color:var(--gray-500);}
-  .empty .big{font-size:40px; margin-bottom:10px;}
-  .sync-banner{
-    display:flex; align-items:center; justify-content:space-between; gap:10px;
-    background:var(--orange-light); border-radius:12px; padding:11px 14px; margin-bottom:14px;
-    font-size:12.5px; color:var(--orange-dark); font-weight:600;
-  }
-  .sync-banner.ok{color:#2E7D32; background:#E8F5E9; justify-content:flex-start;}
-  .sync-banner button{
-    background:var(--black); color:var(--white); border:none; border-radius:8px; padding:7px 12px;
-    font-family:inherit; font-size:12px; font-weight:700; cursor:pointer; flex-shrink:0;
-  }
-  .tab-switch{display:flex; gap:4px; background:var(--gray-100); border-radius:12px; padding:4px; margin:14px 0 16px;}
-  .tab-switch button{
-    flex:1; border:none; background:none; padding:10px; border-radius:9px; font-family:inherit;
-    font-size:13px; font-weight:700; color:var(--gray-500); cursor:pointer;
-  }
-  .tab-switch button.active{background:var(--white); color:var(--black);}
-  .check-row{display:flex; align-items:center; gap:12px; padding:13px 0; border-top:1px solid var(--gray-100); cursor:pointer;}
-  .check-row:first-child{border-top:none;}
-  .checkbox{width:22px; height:22px; border-radius:7px; border:1.5px solid var(--gray-300); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:13px; color:var(--white);}
-  .checkbox.on{background:var(--orange); border-color:var(--orange);}
-
-  /* ---------- Growth sheet ---------- */
-  .profile-head{display:flex; align-items:center; gap:14px; margin-bottom:18px;}
-  .profile-head .child-avatar{width:56px; height:56px; font-size:19px;}
-  .profile-head .name{font-size:20px; font-weight:800;}
-  .profile-head .meta{color:var(--gray-500); font-size:13px;}
-
-  .card{background:var(--white); border:1px solid var(--gray-100); border-radius:16px; padding:18px; margin-bottom:14px;}
-  .card .card-label{font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--gray-500); margin-bottom:12px;}
-
-  .radar-wrap{display:flex; justify-content:center; padding:6px 0 4px;}
-  .radar-legend{display:flex; flex-wrap:wrap; gap:8px 14px; justify-content:center; margin-top:10px;}
-  .radar-legend .item{display:flex; align-items:center; gap:6px; font-size:11px; color:var(--gray-500);}
-  .radar-legend .dot{width:8px; height:8px; border-radius:50%; background:var(--orange); flex-shrink:0;}
-
-  .timeline-item{border-top:1px solid var(--gray-100); padding:12px 0; cursor:pointer;}
-  .timeline-item:first-child{border-top:none; padding-top:0;}
-  .timeline-item .row{display:flex; justify-content:space-between; align-items:center;}
-  .timeline-item .date{font-weight:700; font-size:13px;}
-  .timeline-item .stretnutie{color:var(--gray-500); font-size:12px; margin-top:1px;}
-  .timeline-item .dots{display:flex; gap:3px;}
-  .timeline-item .dots span{width:6px; height:6px; border-radius:50%; background:var(--gray-100);}
-  .timeline-item .dots span.on{background:var(--orange);}
-  .progress-track{height:8px; background:var(--gray-100); border-radius:4px; margin:10px 0 14px; overflow:hidden;}
-  .progress-fill{height:100%; background:var(--orange); border-radius:4px;}
-  .curr-modul-label{font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--gray-500); margin:14px 0 2px;}
-  .curr-modul-label:first-child{margin-top:2px;}
-  .curr-row{display:flex; align-items:center; gap:11px; padding:10px 0; border-top:1px solid var(--gray-100); cursor:pointer;}
-  .curr-info{flex:1; min-width:0;}
-  .curr-name{font-size:13.5px; font-weight:600;}
-  .curr-sub{font-size:11.5px; color:var(--gray-500); margin-top:1px;}
-
-  .progress-track{height:8px; background:var(--gray-100); border-radius:4px; overflow:hidden; margin-bottom:16px;}
-  .progress-fill{height:100%; background:var(--orange); border-radius:4px;}
-  .curr-level-label{font-size:11px; font-weight:700; color:var(--gray-500); margin:14px 0 6px; text-transform:uppercase; letter-spacing:.06em;}
-  .curr-level-label:first-of-type{margin-top:0;}
-  .curr-row{display:flex; align-items:center; gap:11px; padding:10px 0; border-top:1px solid var(--gray-100); cursor:pointer;}
-  .curr-level-label + .curr-row{border-top:none;}
-  .curr-check{
-    width:24px; height:24px; border-radius:50%; border:1.5px solid var(--gray-300); flex-shrink:0;
-    display:flex; align-items:center; justify-content:center; font-size:12px; color:var(--white);
-  }
-  .curr-check.on{background:#4CAF50; border-color:#4CAF50;}
-  .curr-info{flex:1; min-width:0;}
-  .curr-name{font-size:13.5px; font-weight:600;}
-  .curr-sub{font-size:11.5px; color:var(--gray-500); margin-top:1px;}
-  .curr-add{font-size:11.5px; font-weight:700; color:var(--orange); flex-shrink:0;}
-
-  /* ---------- Wizard (new evaluation) ---------- */
-  .wizard-progress{display:flex; gap:5px; padding:0 20px 14px;}
-  .wizard-progress .seg{flex:1; height:4px; border-radius:2px; background:var(--gray-100);}
-  .wizard-progress .seg.done{background:var(--orange);}
-  .wizard-step{flex:1; display:flex; flex-direction:column; padding:8px 20px 20px;}
-  .comp-icon{font-size:44px; margin-bottom:10px;}
-  .scale{display:flex; gap:8px; margin-top:22px;}
-  .scale button{
-    flex:1; aspect-ratio:1; border-radius:14px; border:1.5px solid var(--gray-100); background:var(--white);
-    font-size:17px; font-weight:800; color:var(--black); cursor:pointer;
-  }
-  .scale button.sel{background:var(--orange); border-color:var(--orange); color:var(--white);}
-  .scale-labels{display:flex; justify-content:space-between; gap:14px; font-size:12px; line-height:1.4; color:var(--gray-500); margin-top:10px;}
-  .scale-labels span{flex:1; max-width:48%;}
-  textarea{
-    width:100%; font-family:inherit; font-size:14.5px; border:1.5px solid var(--gray-100); border-radius:12px;
-    padding:14px; resize:vertical; min-height:120px; margin-top:16px; background:var(--white);
-  }
-  textarea:focus{outline:none; border-color:var(--orange);}
-  .nav-row{display:flex; gap:10px; padding:6px 20px 0;}
-  .nav-row .btn{flex:1;}
-
-  .toast{
-    position:fixed; left:50%; bottom:30px; transform:translateX(-50%); background:var(--black); color:var(--white);
-    padding:12px 20px; border-radius:12px; font-size:13px; font-weight:600; opacity:0; pointer-events:none;
-    transition:opacity .2s, transform .2s; z-index:200; white-space:nowrap;
-  }
-  .toast.show{opacity:1;}
-
-  .modal-overlay{position:fixed; inset:0; background:rgba(17,17,17,.5); z-index:100; display:none; align-items:flex-end; justify-content:center;}
-  .modal-overlay.open{display:flex;}
-  .modal{background:var(--white); width:100%; max-width:480px; border-radius:20px 20px 0 0; padding:22px 20px calc(22px + var(--safe-bottom)); max-height:80vh; overflow-y:auto;}
-  .modal h2{font-size:17px; font-weight:800; margin:0 0 14px;}
-  .field{margin-bottom:14px;}
-  .field label{display:block; font-size:12px; font-weight:600; color:var(--gray-500); margin-bottom:6px;}
-  .field input, .field select{
-    width:100%; font-family:inherit; font-size:15px; padding:12px 14px; border:1.5px solid var(--gray-100);
-    border-radius:10px; background:var(--white);
-  }
-  .field input:focus, .field select:focus{outline:none; border-color:var(--orange);}
+:root{
+  --orange:#F26A42; --orange-dark:#D9482A; --orange-light:#FDE8E0;
+  --ink:#111315; --ink-soft:#3A3D40; --g700:#5A5E62; --g500:#878787; --g300:#BACACE; --g200:#DCE3E5; --g100:#EEF2F3; --g50:#F6F8F9;
+  --green:#1F8F5F; --red:#B3261E;
+  --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px);
+  --shadow:0 1px 2px rgba(17,19,21,.06);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--g50);overscroll-behavior-y:none}
+body{font-family:'Lexend Deca',system-ui,sans-serif;color:var(--ink);display:flex;justify-content:center;min-height:100dvh}
+button,input,select,textarea{font-family:inherit;color:inherit}
+button{cursor:pointer}
+#app{width:100%;max-width:480px;min-height:100dvh;display:flex;flex-direction:column;position:relative}
+.screen{flex:1;display:flex;flex-direction:column;gap:18px;padding:calc(18px + var(--safe-top)) 20px 28px}
+.with-tabs{padding-bottom:calc(96px + var(--safe-bottom))}
+.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange-dark);font-weight:600}
+.label{font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--g700);font-weight:600}
+.h1{font-size:24px;font-weight:700;line-height:1.15;margin:0}
+.muted{font-size:12.5px;color:var(--g700);line-height:1.5;margin:0}
+.card{background:#fff;border-radius:14px;box-shadow:var(--shadow)}
+.row{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer}
+.row + .row{border-top:1px solid var(--g100)}
+.grow{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+.name{font-size:14px;font-weight:600}
+.sub{font-size:11.5px;color:var(--g700)}
+.av{width:40px;height:40px;border-radius:50%;background:var(--orange-light);color:var(--orange-dark);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex:none}
+.btn{border:none;border-radius:999px;padding:15px 18px;font-weight:600;font-size:15px;display:flex;align-items:center;justify-content:center;gap:8px;width:100%}
+.btn-orange{background:var(--orange);color:#fff}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-ghost{background:#fff;border:1.5px solid var(--g200);color:var(--ink-soft)}
+.btn-sm{padding:7px 12px;font-size:12px;width:auto}
+.btn-dashed{border:1.5px dashed var(--g300);background:none;border-radius:14px;padding:14px;font-size:13px;font-weight:600;color:var(--g700);width:100%}
+.back{border:none;background:#fff;box-shadow:0 1px 2px rgba(17,19,21,.08);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
+.seg{display:flex;gap:2px;background:var(--g100);border-radius:999px;padding:3px}
+.seg button{border:none;border-radius:999px;padding:7px 12px;font-size:12px;font-weight:600;background:transparent;color:var(--g700)}
+.seg button.on{background:var(--ink);color:#fff}
+.bar{height:6px;background:var(--g100);border-radius:3px;overflow:hidden}
+.bar > div{height:100%;background:var(--orange);border-radius:3px}
+.sticky-cta{position:sticky;bottom:0;margin:auto -20px 0;padding:16px 20px calc(16px + var(--safe-bottom));background:linear-gradient(0deg,var(--g50) 70%,rgba(246,248,249,0));display:flex;gap:10px}
+.tabbar{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(255,255,255,.97);border-top:1px solid var(--g100);display:flex;padding:8px 12px calc(10px + var(--safe-bottom));z-index:40}
+.tabbar button{flex:1;border:none;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;color:var(--g500);font-size:10.5px;font-weight:600}
+.tabbar button.on{color:var(--orange)}
+.hero{background:var(--orange);border-radius:22px;padding:20px;color:#fff;display:flex;flex-direction:column;gap:16px;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;right:-30px;top:-20px;width:160px;height:160px;background:repeating-linear-gradient(-45deg,rgba(255,255,255,.14) 0 3px,transparent 3px 14px);border-radius:50%;pointer-events:none}
+.stat{border-radius:14px;padding:10px 12px;display:flex;flex-direction:column;gap:1px;position:relative;z-index:1}
+.dot{width:26px;height:26px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--g300);color:#fff}
+.dot.on{background:var(--orange);border-color:var(--orange)}
+.dot.half{border:2px solid var(--orange)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.kid{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:14px;text-align:left;background:#fff;border:1.5px solid #fff;box-shadow:var(--shadow)}
+.kid.absent{background:var(--g50);border:1.5px dashed var(--g300);opacity:.7;box-shadow:none}
+.kid .av{width:32px;height:32px;font-size:12px}
+.kid.absent .av{background:var(--g100);color:var(--g500)}
+.comp{background:#fff;border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow);border:1.5px solid #fff}
+.comp.open{border-color:var(--orange)}
+.scale{display:flex;gap:6px}
+.scale button{flex:1;height:44px;border-radius:10px;font-weight:700;font-size:15px;background:var(--g50);border:1.5px solid var(--g200);transition:background .14s}
+.scale button.sel{background:var(--orange);border-color:var(--orange);color:#fff}
+textarea,input[type=text],input[type=url],input[type=date],select{width:100%;font-size:15px;border:1.5px solid var(--g200);border-radius:12px;padding:11px 12px;background:#fff}
+textarea{min-height:60px;resize:vertical;font-size:14px}
+textarea:focus,input:focus,select:focus{outline:none;border-color:var(--orange)}
+.field{display:flex;flex-direction:column;gap:6px;font-size:12.5px;font-weight:600;color:var(--g700)}
+.tag{align-self:flex-start;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;border-radius:999px;padding:3px 8px}
+.links{display:flex;gap:18px;font-size:12.5px;font-weight:600;color:var(--g700)}
+.links span{cursor:pointer}
+.toast{position:fixed;left:50%;bottom:calc(100px + var(--safe-bottom));transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 20px;border-radius:999px;font-size:13px;font-weight:600;opacity:0;pointer-events:none;transition:opacity .2s;z-index:200;white-space:nowrap}
+.toast.show{opacity:1}
+.overlay{position:fixed;inset:0;background:rgba(17,19,21,.45);z-index:100;display:none;align-items:flex-end;justify-content:center}
+.overlay.open{display:flex}
+.sheet{background:#fff;width:100%;max-width:480px;border-radius:22px 22px 0 0;padding:22px 20px calc(22px + var(--safe-bottom));max-height:85vh;overflow-y:auto;display:flex;flex-direction:column;gap:14px}
+.sheet h2{font-size:18px;font-weight:700;margin:0}
+.chev{transition:transform .2s}
+.chev.up{transform:rotate(180deg)}
+.notice{border-radius:14px;padding:11px 14px;font-size:12.5px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 </style>
 </head>
 <body>
 <div id="app"></div>
 <div class="toast" id="toast"></div>
-<div class="modal-overlay" id="modalOverlay">
-  <div class="modal" id="modalBody"></div>
-</div>
+<div class="overlay" id="overlay"><div class="sheet" id="sheet"></div></div>
+<input type="file" id="restoreInput" accept=".json,application/json" style="display:none">
 
 <script>
-/* ============ DATA MODEL ============ */
-const STORAGE_KEY = 'bi-rastova-mapa-v1';
+/* ================= KONFIGURÁCIA (mení len administrátor) ================= */
+const CENTRA = ['Bratislava','Senica','Trnava','Dolný Kubín','Martin','Prešov','Zvolen','Topoľčany'];
+
+// Tipy pre koordinátorov (mení len administrátor).
+// Premenné v texte: {meno}, {kompetencia}, {kompetencia_vysoká}, {kompetencia_nízka}
+// Kompetencie sa dopĺňajú v 6. páde (v/pri iniciatíve) – tvar je v KOMPETENCIE → loc
+// text  = veta, keď sa tip týka 1 dieťaťa ({meno})
+// multi = veta, keď sa rovnaký tip týka viacerých detí naraz ({deti} = mená, {detaily} = krátky popis pri každom)
+// Poradie v zozname = priorita (najdôležitejšie hore).
+const RULES = [
+  { id:'forgotten', title:'Dlho bez zápisu',   color:'#D9482A', bg:'#FDE8E0',
+    text:'{deti} — žiadny zápis ani hodnotenie z posledných {pocet} stretnutí. Skús si ich dnes všimnúť.',
+    multi:'{deti} — žiadny zápis ani hodnotenie z posledných {pocet} stretnutí. Skús si ich dnes všimnúť.' },
+  { id:'absence',   title:'Dochádzka',         color:'#B3261E', bg:'#FDE8E0',
+    text:'{meno} nebol/a na posledných 2 stretnutiach. Možno stojí za to ozvať sa rodičom.',
+    multi:'{deti} neboli na posledných 2 stretnutiach. Možno stojí za to ozvať sa rodičom.' },
+  { id:'drop',      title:'Pokles',            color:'#B3261E', bg:'#FDE8E0',
+    text:'{meno} mal/a tentokrát nižšie skóre pri {kompetencia} než minule. Skús zistiť, či sa niečo zmenilo.',
+    multi:'Nižšie skóre ako minule: {detaily}. Skús zistiť, či sa niečo zmenilo.' },
+  { id:'praise',    title:'Pochvala',          color:'#007F7C', bg:'#E0F5F4',
+    text:'{meno} mal/a super hodnotenie na posledných 2 stretnutiach. Bolo by fajn povedať to rodičom.',
+    multi:'{deti} mali super hodnotenie na posledných 2 stretnutiach. Bolo by fajn povedať to rodičom.' },
+  { id:'first5',    title:'Prvé 5',            color:'#007F7C', bg:'#E0F5F4',
+    text:'{meno} prvýkrát dosiahol/la najvyššie skóre — v {kompetencia}! Osláv to pred skupinou.',
+    multi:'Prvýkrát najvyššie skóre: {detaily}. Osláv to pred skupinou.' },
+  { id:'growth',    title:'Posun',             color:'#0070A8', bg:'#E3F1FA',
+    text:'{meno} sa posunul/a v {kompetencia}. Oceň to pred skupinou.',
+    multi:'Zlepšili sa: {detaily}. Oceň to pred skupinou.' },
+  { id:'stagnation',title:'Stagnácia',         color:'#5A5E62', bg:'#EEF2F3',
+    text:'{meno} sa dlhšie nikam neposúva. Skús mu dať inú úlohu alebo väčšiu výzvu.',
+    multi:'{deti} sa dlhšie nikam neposúvajú. Skús im dať inú úlohu alebo väčšiu výzvu.' },
+  { id:'imbalance', title:'Nerovnováha',       color:'#8A4F85', bg:'#F4E8F2',
+    text:'{meno} je silný/á v {kompetencia_vysoká}, ale zaostáva v {kompetencia_nízka}. Daj mu tam priestor.',
+    multi:'Veľký rozdiel medzi kompetenciami: {detaily}. Daj im priestor tam, kde zaostávajú.' },
+  { id:'groupweak', title:'Skupinová slabina', color:'#0070A8', bg:'#E3F1FA',
+    text:'Skupina má nízke skóre pri {kompetencia}. Možno pomôže aktivita cielená priamo na ňu.',
+    multi:'Skupina má nízke skóre pri {detaily}. Možno pomôže aktivita cielená priamo na ne.' }
+];
+const SHOW_TIPS = 3;          // koľko tipov sa ukáže naraz (ostatné pod „Zobraziť ďalšie“)
+const SNOOZE_MEETINGS = 3;    // po „Vybavené“ sa rovnaký tip pri dieťati neukáže skôr ako o N stretnutí
+const PRAISE_MIN_AVG = 4;     // Pochvala: priemer na posledných 2 stretnutiach
+const GROWTH_MIN = 2;         // Posun: zlepšenie v kompetencii (prvé vs. posledné hodnotenie)
+const DROP_MIN = 2;           // Pokles: o koľko kleslo oproti minulému hodnoteniu
+const STAGNATION_N = 4;       // Stagnácia: rovnaké skóre na posledných N hodnoteniach
+const IMBALANCE_MIN = 3;      // Nerovnováha: rozdiel najvyššej a najnižšej kompetencie (priemery)
+const FORGOTTEN_N = 5;        // Dlho bez zápisu: žiadny zápis ani hodnotenie na posledných N stretnutiach (aspoň raz bol/a prítomný/á)
+const ABSENCE_IN_ROW = 2;     // Dochádzka: koľkokrát po sebe chýbal/a
+const GROUP_WEAK_MAX = 2.5;   // Skupinová slabina: priemer skupiny pod touto hranicou
+const GROUP_WEAK_MEETINGS = 3;// … počítané z posledných N stretnutí
 
 const KOMPETENCIE = [
-  { id:'prilezitost', icon:'💡', name:'Príležitosť', sub:'Vidí problém a v ňom príležitosť.',
-    anchorLow:'Vyberie si zo možných úloh tú, ktorá ho najviac zaujíma.',
-    anchorHigh:'Začína si všímať problémy a príležitosti, ktoré nikto nezadal; nápady začína vedome smerovať na potreby ľudí.' },
-  { id:'iniciativa', icon:'🚀', name:'Iniciatíva', sub:'Premení nápad na čin.',
-    anchorLow:'Čaká na "správny" nápad alebo materiál, kým začne.',
+  { id:'prilezitost', loc:'príležitosti', name:'Príležitosť', sub:'Vidí problém a v ňom príležitosť.',
+    anchorLow:'Vyberie si z možných úloh tú, ktorá ho najviac zaujíma.',
+    anchorHigh:'Začína si všímať problémy a príležitosti, ktoré nikto nezadal; nápady vedome smeruje na potreby ľudí.' },
+  { id:'iniciativa', loc:'iniciatíve', name:'Iniciatíva', sub:'Premení nápad na čin.',
+    anchorLow:'Čaká na „správny“ nápad alebo materiál, kým začne.',
     anchorHigh:'Začne s tým, čo má poruke; skúša rôzne možnosti a rozoznáva viac svojich zdrojov.' },
-  { id:'hodnota', icon:'🤝', name:'Hodnota pre druhých', sub:'Vytvára hodnotu pre druhých.',
+  { id:'hodnota', loc:'hodnote pre druhých', name:'Hodnota pre druhých', sub:'Vytvára hodnotu pre druhých.',
     anchorLow:'Pracuje len v rámci svojej kamarátskej skupiny.',
     anchorHigh:'Osloví niekoho mimo skupiny (iné dieťa, dospelého, experta) kvôli nápadu alebo pomoci.' },
-  { id:'zodpovednost', icon:'🎯', name:'Zodpovednosť', sub:'Nesie zodpovednosť za svoj rozvoj.',
+  { id:'zodpovednost', loc:'zodpovednosti', name:'Zodpovednosť', sub:'Nesie zodpovednosť za svoj rozvoj.',
     anchorLow:'Dokončí úlohu, keď má podporu a jasné zadanie.',
     anchorHigh:'Začína skúšať ťažšiu verziu bez vyzvania; po nevydarenom pokuse to skúsi znova sám.' },
-  { id:'ucenie', icon:'🔄', name:'Učenie z reality', sub:'Učí sa z reality, spätnej väzby a chýb.',
+  { id:'ucenie', loc:'učení z reality', name:'Učenie z reality', sub:'Učí sa z reality, spätnej väzby a chýb.',
     anchorLow:'Prijme spätnú väzbu, keď mu ju niekto ponúkne, a skúsi ju s pomocou uplatniť.',
     anchorHigh:'Sám si vyžiada spätnú väzbu; z chyby alebo neúspechu si všimne, čo môže nabudúce urobiť inak.' }
 ];
 
-// Pevný zoznam kurikula — reálne lesson plany z hlavného webu, v poradí modul → aktivita
+const M1 = '1. level (September – Október)', M2 = '2. level (November – December)';
 const CURRICULUM = [
-  // ROK 1 — Problém & Nápad (September – Október)
-  { id:'lp1',  rok:1, modul:'1. level (September – Október)', aktivita:'Terénne pátranie', name:'Think like a traveler' },
-  { id:'lp2',  rok:1, modul:'1. level (September – Október)', aktivita:'Escape room', name:'Vstup — Escape room' },
-  { id:'lp3',  rok:1, modul:'1. level (September – Október)', aktivita:'Mini interview', name:'Interview – Go outside' },
-  { id:'lp4',  rok:1, modul:'1. level (September – Október)', aktivita:'Zážitkové hry', name:"Let's start" },
-  { id:'lp5',  rok:1, modul:'1. level (September – Október)', aktivita:'Zážitkové hry', name:'Tvoríme pravidlá' },
-  { id:'lp6',  rok:1, modul:'1. level (September – Október)', aktivita:'Reflexia', name:'Painstorming' },
-  { id:'lp7',  rok:1, modul:'1. level (September – Október)', aktivita:'Reflexia', name:'Patch Notes' },
-  { id:'lp8',  rok:1, modul:'1. level (September – Október)', aktivita:'Reflexia', name:'Stretnutie – Spätná väzba' },
-  // ROK 1 — Pohľady & Rozhodnutia (November – December)
-  { id:'lp9',  rok:1, modul:'2. level (November – December)', aktivita:'Brainstorming', name:'Rovnaký problém, iný nápad' },
-  { id:'lp10', rok:1, modul:'2. level (November – December)', aktivita:'Brainstorming', name:'Od problému k prototypu' },
-  { id:'lp11', rok:1, modul:'2. level (November – December)', aktivita:'Kooperatívne učenie', name:'Skús to prvýkrát' },
-  { id:'lp12', rok:1, modul:'2. level (November – December)', aktivita:'Kooperatívne učenie', name:'Skladačka' },
-  { id:'lp13', rok:1, modul:'2. level (November – December)', aktivita:'Kooperatívne učenie', name:'Karta dôkazov' },
-  { id:'lp14', rok:1, modul:'2. level (November – December)', aktivita:'Stratégie učenia', name:'Cesta k učeniu' },
-  { id:'lp15', rok:1, modul:'2. level (November – December)', aktivita:'Stratégie učenia', name:'Beh nie o preteky' },
-  { id:'lp16', rok:1, modul:'2. level (November – December)', aktivita:'Stratégie učenia', name:'Dva brehy, jeden most' },
-  // ROK 2 — Príčiny & Konflikty (September – Október)
-  { id:'lp17', rok:2, modul:'1. level (September – Október)', aktivita:'Terénne pátranie', name:'Predpoklad a realita' },
-  { id:'lp18', rok:2, modul:'1. level (September – Október)', aktivita:'Terénne pátranie', name:'Dobrovoľníctvo' },
-  { id:'lp19', rok:2, modul:'1. level (September – Október)', aktivita:'Terénne pátranie', name:'Dobrovoľníctvo – realizácia' },
-  { id:'lp20', rok:2, modul:'1. level (September – Október)', aktivita:'Role play', name:'Šakal a žirafa' },
-  { id:'lp21', rok:2, modul:'1. level (September – Október)', aktivita:'Role play', name:'Stopka' },
-  { id:'lp22', rok:2, modul:'1. level (September – Október)', aktivita:'Role play', name:'Nesúď knihu podľa obalu' },
-  { id:'lp23', rok:2, modul:'1. level (September – Október)', aktivita:'Reflexia', name:'Žraloci útočia' },
-  { id:'lp24', rok:2, modul:'1. level (September – Október)', aktivita:'Reflexia', name:'Myšlienka, ktorá stojí za šírenie' },
-  // ROK 2 — Kreativita & Sebarozvoj (November – December)
-  { id:'lp25', rok:2, modul:'2. level (November – December)', aktivita:'Brainstorming', name:'6 Klobúkov' },
-  { id:'lp26', rok:2, modul:'2. level (November – December)', aktivita:'Brainstorming', name:'Najhorší možný nápad' },
-  { id:'lp27', rok:2, modul:'2. level (November – December)', aktivita:'Brainstorming', name:'Dokonalá stolička' },
-  { id:'lp28', rok:2, modul:'2. level (November – December)', aktivita:'Brainstorming', name:'Rube Goldberg stroj' },
-  { id:'lp29', rok:2, modul:'2. level (November – December)', aktivita:'Stratégie učenia', name:'Ako to dopadlo' },
-  { id:'lp30', rok:2, modul:'2. level (November – December)', aktivita:'Stratégie učenia', name:'Najlepší dôkaz je zlyhanie' },
-  { id:'lp31', rok:2, modul:'2. level (November – December)', aktivita:'Stratégie učenia', name:'Vyber si techniku' },
-  { id:'lp32', rok:2, modul:'2. level (November – December)', aktivita:'Stratégie učenia', name:'Obrys skúseností' },
-  { id:'lp33', rok:2, modul:'2. level (November – December)', aktivita:'Stratégie učenia', name:'Zóna rastu' }
-];
-function curriculumForRok(rok){ return CURRICULUM.filter(c=>c.rok===rok); }
+  ['lp1',1,M1,'Terénne pátranie','Think like a traveler'],['lp2',1,M1,'Escape room','Vstup — Escape room'],
+  ['lp3',1,M1,'Mini interview','Interview – Go outside'],['lp4',1,M1,'Zážitkové hry',"Let's start"],
+  ['lp5',1,M1,'Zážitkové hry','Tvoríme pravidlá'],['lp6',1,M1,'Reflexia','Painstorming'],
+  ['lp7',1,M1,'Reflexia','Patch Notes'],['lp8',1,M1,'Reflexia','Stretnutie – Spätná väzba'],
+  ['lp9',1,M2,'Brainstorming','Rovnaký problém, iný nápad'],['lp10',1,M2,'Brainstorming','Od problému k prototypu'],
+  ['lp11',1,M2,'Kooperatívne učenie','Skús to prvýkrát'],['lp12',1,M2,'Kooperatívne učenie','Skladačka'],
+  ['lp13',1,M2,'Kooperatívne učenie','Karta dôkazov'],['lp14',1,M2,'Stratégie učenia','Cesta k učeniu'],
+  ['lp15',1,M2,'Stratégie učenia','Beh nie o preteky'],['lp16',1,M2,'Stratégie učenia','Dva brehy, jeden most'],
+  ['lp17',2,M1,'Terénne pátranie','Predpoklad a realita'],['lp18',2,M1,'Terénne pátranie','Dobrovoľníctvo'],
+  ['lp19',2,M1,'Terénne pátranie','Dobrovoľníctvo – realizácia'],['lp20',2,M1,'Role play','Šakal a žirafa'],
+  ['lp21',2,M1,'Role play','Stopka'],['lp22',2,M1,'Role play','Nesúď knihu podľa obalu'],
+  ['lp23',2,M1,'Reflexia','Žraloci útočia'],['lp24',2,M1,'Reflexia','Myšlienka, ktorá stojí za šírenie'],
+  ['lp25',2,M2,'Brainstorming','6 Klobúkov'],['lp26',2,M2,'Brainstorming','Najhorší možný nápad'],
+  ['lp27',2,M2,'Brainstorming','Dokonalá stolička'],['lp28',2,M2,'Brainstorming','Rube Goldberg stroj'],
+  ['lp29',2,M2,'Stratégie učenia','Ako to dopadlo'],['lp30',2,M2,'Stratégie učenia','Najlepší dôkaz je zlyhanie'],
+  ['lp31',2,M2,'Stratégie učenia','Vyber si techniku'],['lp32',2,M2,'Stratégie učenia','Obrys skúseností'],
+  ['lp33',2,M2,'Stratégie učenia','Zóna rastu']
+].map(([id,rok,modul,aktivita,name])=>({id,rok,modul,aktivita,name}));
+const curriculumItem = id => CURRICULUM.find(c=>c.id===id);
+const curriculumForRok = rok => CURRICULUM.filter(c=>c.rok===rok);
 
+/* ================= DÁTA ================= */
+const DEMO = new URLSearchParams(location.search).has('demo');
+const STORAGE_KEY = DEMO ? 'bi-rastova-mapa-demo' : 'bi-rastova-mapa-v1'; // v1 kľúč – dáta sa zachovajú
+function demoData(){
+  const K = [['d1','Ema Slušná'],['d2','Tomáš Kováč'],['d3','Lea Horváthová'],['d4','Samuel Baláž'],['d5','Nina Vargová'],['d6','Adam Tóth']];
+  const children = K.map(([id,name])=>({id,name,rok:1,createdAt:0}));
+  const names = ['Think like a traveler','Vstup — Escape room','Interview – Go outside',"Let's start",'Tvoríme pravidlá'];
+  const stretnutia = names.map((n,i)=>({ id:'ds'+i, name:n, curriculumId:'lp'+(i+1), rok:1, date:'2026-09-'+String(1+i*7).padStart(2,'0'),
+    absent: i>=3 ? ['d6'] : [], finished:true, createdAt:0 }));
+  // [príležitosť, iniciatíva, hodnota, zodpovednosť, učenie] na stretnutiach 1–4 (null = bez hodnotenia)
+  const S = {
+    d1:[[3,3,2,3,3],[3,3,2,3,3],[3,4,2,4,4],[4,4,4,4,4],[4,4,4,4,4]],   // Pochvala
+    d2:[[2,4,1,3,3],[2,4,1,3,3],[2,4,1,3,3],[2,4,1,3,4],[1,5,1,3,2]],   // Prvé 5, Pokles, Nerovnováha
+    d3:[[2,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2]],   // Stagnácia
+    d4:[[1,2,2,2,2],[1,2,2,2,2],[2,2,2,2,2],[2,2,2,2,2],[3,2,2,2,2]],   // Posun
+    d5:[null,null,null,null,null],                          // Dlho bez zápisu
+    d6:[[3,3,2,3,3],[3,3,2,3,3],[3,3,2,3,3],null,null]                  // Dochádzka (chýbal/a 2×)
+  };                                                        // Skupinová slabina = Hodnota pre druhých
+  const evaluations = [];
+  Object.entries(S).forEach(([cid,rows])=>rows.forEach((r,i)=>{
+    if(!r) return;
+    const competencies = {}; KOMPETENCIE.forEach((k,j)=>competencies[k.id]=r[j]);
+    evaluations.push({ id:'de'+cid+i, childId:cid, stretnutieId:'ds'+i, curriculumId:'lp'+(i+1), date:stretnutia[i].date,
+      stretnutie:stretnutia[i].name, competencies, sebahodnotenie:'', zaujalo:'', zameranie: i===4?'Ukážková poznámka na ďalšie stretnutie.':'', synced:true });
+  }));
+  return { children, stretnutia, evaluations, currentRok:1, settings:{ centrum:'Ukážka', openLevels:{} } };
+}
 function loadData(){
-  try{
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if(raw) return JSON.parse(raw);
-  }catch(e){}
-  return { children: [], evaluations: [], stretnutia: [], settings:{ syncUrl:'', centrum:'', collapsedModules:{} }, currentRok: 1 };
+  if(DEMO) return demoData();
+  try{ const raw = localStorage.getItem(STORAGE_KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  return {};
 }
-function saveData(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA)); }
 let DATA = loadData();
-if(!DATA.settings) DATA.settings = { syncUrl:'', centrum:'', collapsedModules:{} };
-if(!DATA.settings.collapsedModules) DATA.settings.collapsedModules = {};
-if(!DATA.stretnutia) DATA.stretnutia = [];
-if(!DATA.currentRok) DATA.currentRok = 1;
+function normalize(){
+  DATA.children = DATA.children || [];
+  DATA.evaluations = DATA.evaluations || [];
+  DATA.stretnutia = DATA.stretnutia || [];
+  DATA.settings = Object.assign({ syncUrl:'', centrum:'', openLevels:{}, dismissed:{}, snooze:{}, lastSync:null, lastBackup:null }, DATA.settings||{});
+  DATA.currentRok = DATA.currentRok || 1;
+  DATA.children.forEach(c=>{ if(!c.rok) c.rok = 1; });
+  // Migrácia v1 → v2: stretnutia bez dochádzky – kto nemal hodnotenie, chýbal
+  DATA.stretnutia.forEach(s=>{
+    if(!s.rok){ const ci = s.curriculumId && curriculumItem(s.curriculumId); s.rok = ci ? ci.rok : 1; }
+    if(!Array.isArray(s.absent)){
+      const kids = DATA.children.filter(c=>c.rok===s.rok);
+      const evald = DATA.evaluations.filter(e=>e.stretnutieId===s.id).map(e=>e.childId);
+      s.absent = evald.length ? kids.filter(k=>!evald.includes(k.id)).map(k=>k.id) : [];
+      s.finished = evald.length > 0;
+    }
+  });
+  DATA.version = 2;
+}
+normalize();
 
-// Migrácia starších dát (z testovania pred zavedením konceptu "rok") — priradí rok:1
-let migrated = false;
-DATA.children.forEach(c=>{ if(!c.rok){ c.rok = 1; migrated = true; } });
-DATA.stretnutia.forEach(s=>{
-  if(!s.rok){
-    const ci = s.curriculumId ? curriculumItem(s.curriculumId) : null;
-    s.rok = ci ? ci.rok : 1;
-    migrated = true;
+let backupTimer = null;
+function saveData(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA));
+  clearTimeout(backupTimer);
+  backupTimer = setTimeout(()=>{ syncAll(); }, 2500);
+}
+
+/* ================= POMOCNÉ ================= */
+const esc = s => String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const initials = n => n.trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+const firstName = n => n.trim().split(/\s+/)[0];
+const todayISO = () => { const d=new Date(); d.setMinutes(d.getMinutes()-d.getTimezoneOffset()); return d.toISOString().slice(0,10); };
+function fmtDate(iso, withYear=true){
+  if(!iso) return '';
+  const [y,m,d] = iso.split('-');
+  return withYear ? `${d}. ${m}. ${y}` : `${d}. ${m}.`;
+}
+const avgOf = arr => arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0;
+const fmtNum = n => n.toFixed(1).replace('.',',');
+const uid = p => p + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+function toast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),1800); }
+function deti(n){ return n===1 ? '1 dieťa' : (n>=2 && n<=4 ? `${n} deti` : `${n} detí`); }
+
+const I = {
+  back:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>',
+  arrow:'<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>',
+  right:'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#878787" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>',
+  check:'<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
+  down:'<svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F26A42" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>',
+  cal:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
+  users:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  set:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M20 7h-9M14 17H5"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>'
+};
+const MARK = `<svg viewBox="55 223 124 53" width="26" height="11" fill="#F26A42"><rect x="121.12" y="246.52" width="61.77" height="6.36" transform="translate(-132.04 180.62) rotate(-45)"/><rect x="95.94" y="247.32" width="63.36" height="4.77" transform="translate(-139.18 163.38) rotate(-45)"/><rect x="71.97" y="248.11" width="64.96" height="3.18" transform="translate(-145.97 146.99) rotate(-45)"/><rect x="48.8" y="248.88" width="66.58" height="1.59" transform="translate(-152.5 131.17) rotate(-45)"/></svg>`;
+
+/* ================= VÝPOČTY ================= */
+const kidsOf = rok => DATA.children.filter(c=>c.rok===rok).sort((a,b)=>a.name.localeCompare(b.name,'sk'));
+const meetingsOf = rok => DATA.stretnutia.filter(s=>s.rok===rok && s.finished).sort((a,b)=>a.date.localeCompare(b.date));
+const evalsOf = childId => DATA.evaluations.filter(e=>e.childId===childId).sort((a,b)=>a.date.localeCompare(b.date));
+function attendance(child){
+  const ms = meetingsOf(child.rok).filter(s=>!s.childIds || s.childIds.includes(child.id) || (s.createdAt||0) >= (child.createdAt||0));
+  const n = ms.filter(s=>!s.absent.includes(child.id)).length;
+  return { n, total: ms.length };
+}
+function evalScores(e){ return KOMPETENCIE.map(k=>e.competencies[k.id]).filter(v=>typeof v==='number'); }
+
+function computeTips(rok){
+  const ms = meetingsOf(rok);
+  const kids = kidsOf(rok);
+  const hits = {}; RULES.forEach(r=>hits[r.id]=[]);
+  const snoozed = (rid, cid) => { const at = DATA.settings.snooze[rid+':'+cid]; return at!==undefined && ms.length < at + SNOOZE_MEETINGS; };
+  const hit = (rid, child, detail, vars) => { if(hits[rid] && !snoozed(rid, child?child.id:'group')) hits[rid].push({ child, detail, vars: vars||{} }); };
+
+  kids.forEach(k=>{
+    const fn = firstName(k.name);
+    const ev = ms.map(s=>DATA.evaluations.find(e=>e.stretnutieId===s.id && e.childId===k.id)).filter(Boolean);
+    const scored = ev.filter(e=>evalScores(e).length);
+    const last = scored[scored.length-1], earlier = scored.slice(0,-1);
+
+    const lastN = ms.slice(-ABSENCE_IN_ROW);
+    if(lastN.length===ABSENCE_IN_ROW && lastN.every(s=>s.absent.includes(k.id))) hit('absence', k);
+
+    const lastF = ms.slice(-FORGOTTEN_N);
+    if(lastF.length===FORGOTTEN_N && !lastF.some(s=>DATA.evaluations.some(e=>e.stretnutieId===s.id && e.childId===k.id))
+       && lastF.some(s=>!s.absent.includes(k.id))) hit('forgotten', k);
+
+    const last2 = ms.slice(-2);
+    const ev2 = last2.map(s=>ev.find(e=>e.stretnutieId===s.id)).filter(Boolean);
+    if(last2.length===2 && ev2.length===2){
+      const vals = ev2.flatMap(evalScores);
+      if(vals.length && avgOf(vals) >= PRAISE_MIN_AVG) hit('praise', k);
+    }
+    if(!last) return;
+
+    const five = KOMPETENCIE.find(c=>last.competencies[c.id]===5);
+    if(five && !earlier.some(e=>evalScores(e).includes(5))) hit('first5', k, fn+' v '+five.loc, { kompetencia: five.loc });
+
+    const grow = KOMPETENCIE.find(c=>{
+      const vals = scored.map(e=>e.competencies[c.id]).filter(v=>typeof v==='number');
+      return vals.length>1 && vals[vals.length-1]-vals[0] >= GROWTH_MIN;
+    });
+    if(grow) hit('growth', k, fn+' v '+grow.loc, { kompetencia: grow.loc });
+
+    const drop = KOMPETENCIE.find(c=>{
+      if(typeof last.competencies[c.id]!=='number') return false;
+      const prev = earlier.map(e=>e.competencies[c.id]).filter(v=>typeof v==='number').pop();
+      return typeof prev==='number' && prev - last.competencies[c.id] >= DROP_MIN;
+    });
+    if(drop) hit('drop', k, fn+' pri '+drop.loc, { kompetencia: drop.loc });
+
+    if(scored.length >= STAGNATION_N){
+      const lastS = scored.slice(-STAGNATION_N);
+      const common = KOMPETENCIE.filter(c=>lastS.every(e=>typeof e.competencies[c.id]==='number'));
+      if(common.length >= 3 && common.every(c=>lastS.every(e=>e.competencies[c.id]===lastS[0].competencies[c.id]))) hit('stagnation', k);
+    }
+
+    const avgs = KOMPETENCIE.map(c=>{
+      const vals = scored.map(e=>e.competencies[c.id]).filter(v=>typeof v==='number');
+      return { c, avg: vals.length ? avgOf(vals) : null };
+    }).filter(x=>x.avg!==null);
+    if(avgs.length >= 2){
+      const hi = avgs.reduce((x,y)=>y.avg>x.avg?y:x), lo = avgs.reduce((x,y)=>y.avg<x.avg?y:x);
+      if(hi.avg - lo.avg >= IMBALANCE_MIN) hit('imbalance', k, fn+' – slabšie v '+lo.c.loc, { 'kompetencia_vysoká': hi.c.loc, 'kompetencia_nízka': lo.c.loc });
+    }
+  });
+
+  const recent = ms.slice(-GROUP_WEAK_MEETINGS);
+  if(recent.length){
+    const evs = DATA.evaluations.filter(e=>recent.some(s=>s.id===e.stretnutieId));
+    KOMPETENCIE.forEach(c=>{
+      const vals = evs.map(e=>e.competencies[c.id]).filter(v=>typeof v==='number');
+      if(vals.length >= 3 && avgOf(vals) < GROUP_WEAK_MAX && !snoozed('groupweak', c.id)) hits.groupweak.push({ child:null, detail:c.loc, vars:{ kompetencia:c.loc }, gid:c.id });
+    });
   }
-});
-if(migrated) saveData();
 
-/* ============ ROUTER STATE ============ */
-let route = { screen:'home', tab:'stretnutia' };
-let wizardDraft = null;
-let newStretnutieDraft = null;
-
-function initials(name){
-  return name.split(' ').map(w=>w[0]).slice(0,2).join('').toUpperCase();
-}
-function fmtDate(iso){
-  const d = new Date(iso);
-  return d.toLocaleDateString('sk-SK', { day:'numeric', month:'short' });
-}
-function showToast(msg){
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'), 1800);
-}
-function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); }
-function openConfirmModal(title, message, confirmLabel, onConfirm){
-  window.__confirmAction = onConfirm;
-  document.getElementById('modalBody').innerHTML = `
-    <h2 style="color:#B3261E;">${title}</h2>
-    <p class="subtle" style="margin-top:-8px">${message}</p>
-    <div style="display:flex; gap:10px; margin-top:18px;">
-      <button class="btn" style="flex:1; background:var(--gray-100); color:var(--gray-700);" onclick="closeModal()">Zrušiť</button>
-      <button class="btn" style="flex:1; background:#B3261E; color:#fff;" onclick="window.__confirmAction()">${confirmLabel}</button>
-    </div>
-  `;
-  document.getElementById('modalOverlay').classList.add('open');
+  // jedna karta na pravidlo, v poradí priority
+  const tips = [];
+  RULES.forEach(r=>{
+    const list = hits[r.id]; if(!list.length) return;
+    const names = list.filter(x=>x.child).map(x=>firstName(x.child.name)).join(', ');
+    const common = { deti: names, detaily: list.map(x=>x.detail).filter(Boolean).join(', '), pocet: String(FORGOTTEN_N) };
+    let text;
+    if(list.length===1 && r.id!=='forgotten'){
+      text = r.text.replace(/\{meno\}/g, list[0].child ? firstName(list[0].child.name) : '');
+      Object.entries({ ...common, ...list[0].vars }).forEach(([n,v])=>{ text = text.split('{'+n+'}').join(v); });
+    } else {
+      text = r.multi;
+      Object.entries(common).forEach(([n,v])=>{ text = text.split('{'+n+'}').join(v); });
+    }
+    tips.push({ rule:r, text, count:list.length, kids: list.filter(x=>x.child).map(x=>x.child),
+      snoozeKeys: list.map(x=>r.id+':'+(x.child ? x.child.id : (x.gid||'group'))), at: ms.length });
+  });
+  return tips;
 }
 
-const LOGO_SVG = `<svg viewBox="55 223 124 53" width="22" height="9.4" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect fill="currentColor" x="121.12" y="246.52" width="61.77" height="6.36" transform="translate(-132.04 180.62) rotate(-45)"/>
-  <rect fill="currentColor" x="95.94" y="247.32" width="63.36" height="4.77" transform="translate(-139.18 163.38) rotate(-45)"/>
-  <rect fill="currentColor" x="71.97" y="248.11" width="64.96" height="3.18" transform="translate(-145.97 146.99) rotate(-45)"/>
-  <rect fill="currentColor" x="48.8" y="248.88" width="66.58" height="1.59" transform="translate(-152.5 131.17) rotate(-45)"/>
-</svg>`;
+/* ================= ROUTER ================= */
+let route = { screen:'home', tab:'home' };
+let draft = null; // hodnotenie
 
-/* ============ RENDER ============ */
+function go(r){ route = r; render(); window.scrollTo(0,0); }
 function render(){
   const app = document.getElementById('app');
-  if(route.screen === 'home') app.innerHTML = topbar('Rastová mapa','Budúcnosť INAK', false) + renderHome();
-  else if(route.screen === 'child') app.innerHTML = topbar('Rastový hárok','Budúcnosť INAK', true) + renderChild(route.childId);
-  else if(route.screen === 'newStretnutie') app.innerHTML = topbar('Nové stretnutie','Budúcnosť INAK', true) + renderNewStretnutie();
-  else if(route.screen === 'stretnutieDetail') app.innerHTML = topbar('Stretnutie','Budúcnosť INAK', true) + renderStretnutieDetail(route.stretnutieId);
-  else if(route.screen === 'wizard') app.innerHTML = topbar('Nové hodnotenie','Budúcnosť INAK', true) + renderWizard();
-  attachHandlers();
-}
-
-function topbar(title, sub, showBack){
-  return `<div class="topbar">
-    ${showBack ? `<button class="back" onclick="goBack()">←</button>` : `<span class="mark">${LOGO_SVG}</span>`}
-    <div class="titles"><b>${title}</b><span>${sub}</span></div>
-  </div>`;
-}
-function goBack(){
-  if(route.screen === 'wizard'){
-    route = wizardDraft.returnTo || { screen:'child', childId: wizardDraft.queue[0] };
-    wizardDraft = null;
-  } else if(route.screen === 'newStretnutie'){
-    newStretnutieDraft = null; route = { screen:'home', tab:'stretnutia' };
-  } else if(route.screen === 'stretnutieDetail'){
-    route = { screen:'home', tab:'stretnutia' };
-  } else if(route.screen === 'child'){
-    route = { screen:'home', tab:'deti' };
-  } else {
-    route = { screen:'home', tab: route.tab || 'stretnutia' };
+  const s = route.screen;
+  let html = '';
+  if(s==='home'){
+    if(route.tab==='home') html = renderHome();
+    else if(route.tab==='deti') html = renderDeti();
+    else html = renderSettings();
+    html += renderTabbar();
   }
-  render();
+  else if(s==='attend') html = renderAttend();
+  else if(s==='eval') html = renderEval();
+  else if(s==='done') html = renderDone();
+  else if(s==='child') html = renderChild();
+  else if(s==='fb') html = renderFb();
+  app.innerHTML = html;
 }
+function renderTabbar(){
+  const t = route.tab;
+  return `<nav class="tabbar">
+    <button class="${t==='home'?'on':''}" onclick="go({screen:'home',tab:'home'})">${I.cal}<span>Stretnutia</span></button>
+    <button class="${t==='deti'?'on':''}" onclick="go({screen:'home',tab:'deti'})">${I.users}<span>Deti</span></button>
+    <button class="${t==='set'?'on':''}" onclick="go({screen:'home',tab:'set'})">${I.set}<span>Nastavenia</span></button>
+  </nav>`;
+}
+function rokSwitch(){
+  return `<div class="seg">${[1,2].map(r=>`<button class="${DATA.currentRok===r?'on':''}" onclick="switchRok(${r})">Rok ${r}</button>`).join('')}</div>`;
+}
+function switchRok(r){ DATA.currentRok = r; saveData(); render(); }
 
-/* ---- NOVÉ STRETNUTIE ---- */
-function curriculumItem(id){ return CURRICULUM.find(c=>c.id===id); }
-function startNewStretnutie(){
-  const today = new Date().toISOString().slice(0,10);
-  newStretnutieDraft = { curriculumId: CURRICULUM[0].id, name:'', date: today };
-  route = { screen:'newStretnutie' };
-  render();
-}
-function renderNewStretnutie(){
-  const d = newStretnutieDraft;
-  const curr = curriculumForRok(DATA.currentRok);
-  const moduly = [...new Set(curr.map(c=>c.modul))];
-  return `<div class="wizard-step">
-    <div class="eyebrow">Nové stretnutie · Rok ${DATA.currentRok}</div>
-    <h1 class="page-title">Detaily stretnutia</h1>
-    <div class="field"><label>Stretnutie z kurikula</label>
-      <select id="nsCurriculum">
-        ${moduly.length ? moduly.map(m=>`<optgroup label="${m}">
-          ${curr.filter(c=>c.modul===m).map(c=>`<option value="${c.id}" ${c.id===d.curriculumId?'selected':''}>${c.name} · ${c.aktivita}</option>`).join('')}
-        </optgroup>`).join('') : ''}
-        <option value="__other__" ${d.curriculumId==='__other__'?'selected':''}>Iné / mimoriadne stretnutie…</option>
-      </select>
+/* ================= DOMOV ================= */
+function meetingFor(curriculumId, rok){ return DATA.stretnutia.find(s=>s.curriculumId===curriculumId && s.rok===rok); }
+
+function renderHome(){
+  const rok = DATA.currentRok;
+  const curr = curriculumForRok(rok);
+  const kids = kidsOf(rok);
+  const done = meetingsOf(rok);
+  const doneCurr = curr.filter(c=>{ const m = meetingFor(c.id, rok); return m && m.finished; }).length;
+  const att = done.length && kids.length ? Math.round(avgOf(done.map(s=>{ const tot = kids.length; return (tot - s.absent.filter(id=>kids.some(k=>k.id===id)).length)/tot; }))*100) + ' %' : '–';
+  const tips = computeTips(rok);
+  const last = done[done.length-1];
+  const extra = DATA.stretnutia.filter(s=>s.rok===rok && !s.curriculumId).sort((a,b)=>b.date.localeCompare(a.date));
+  const open = DATA.settings.openLevels;
+
+  const level = (m) => {
+    const items = curr.filter(c=>c.modul===m);
+    const dn = items.filter(c=>{ const x = meetingFor(c.id, rok); return x && x.finished; }).length;
+    const key = rok + '|' + m; const isOpen = !!open[key];
+    return `<div style="display:flex;flex-direction:column;gap:10px">
+      <div class="card" style="padding:14px;display:flex;flex-direction:column;gap:10px;cursor:pointer" onclick="toggleLevel('${esc(key)}')">
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:15px;font-weight:700;flex:1">${m.replace(' (', ' · ').replace(')','')}</span>
+          <span style="font-size:12px;color:var(--g700)">${dn} / ${items.length}</span>
+          ${I.down.replace('class="chev"', `class="chev ${isOpen?'up':''}"`)}
+        </div>
+        <div class="bar"><div style="width:${items.length? dn/items.length*100 : 0}%"></div></div>
+      </div>
+      ${isOpen ? `<div class="card">${items.map(c=>curriculumRow(c, meetingFor(c.id, rok), kids.length)).join('')}</div>` : ''}
+    </div>`;
+  };
+
+  return `<div class="screen with-tabs">
+    <div style="display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:10px">${MARK}
+        <div style="display:flex;flex-direction:column;line-height:1.15">
+          <span style="font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--g700);font-weight:600">Budúcnosť INAK</span>
+          <span style="font-size:17px;font-weight:700">Rastová mapa</span>
+        </div>
+      </div>
+      ${rokSwitch()}
     </div>
-    ${d.curriculumId === '__other__' ? `
-    <div class="field"><label>Názov mimoriadneho stretnutia</label>
-      <input id="nsOtherName" placeholder="napr. Výlet, brigáda…" value="${d.otherName||''}">
+
+    <div class="hero">
+      <div style="display:flex;flex-direction:column;gap:2px;position:relative;z-index:1">
+        <span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase">Rok ${rok} · prehľad</span>
+        <span style="font-size:34px;font-weight:700;line-height:1.1">${doneCurr}<span style="font-size:18px;font-weight:600"> / ${curr.length} stretnutí</span></span>
+      </div>
+      <div class="grid2">
+        <div class="stat" style="background:rgba(17,19,21,.14)"><span style="font-size:20px;font-weight:700">${att}</span><span style="font-size:11.5px">priemerná účasť</span></div>
+        <div class="stat" style="background:var(--ink);cursor:pointer" onclick="go({screen:'home',tab:'deti'})">
+          <span style="font-size:20px;font-weight:700;display:flex;justify-content:space-between;align-items:center">${tips.length}<span style="color:var(--orange)">${I.arrow}</span></span>
+          <span style="font-size:11.5px">${tips.length===1?'tip na deti čaká':'tipy na deti čakajú'}</span>
+        </div>
+      </div>
+    </div>
+
+    ${DEMO ? `<div class="notice" style="background:var(--ink);color:#fff"><span>Ukážkový režim — skúšobné dáta, nič sa neodosiela.</span><a href="index.html" style="color:var(--orange);font-weight:600;text-decoration:none">Ukončiť</a></div>` : syncNotice()}
+
+    ${last ? `<div class="card row" onclick="openMeeting('${last.id}')">
+      <div class="grow"><span class="label">Posledné stretnutie</span><span class="name">${esc(last.name)}</span>
+        <span class="sub">${fmtDate(last.date)} · ${DATA.evaluations.filter(e=>e.stretnutieId===last.id).length} hodnotení · chýbalo ${last.absent.length}</span></div>${I.right}
     </div>` : ''}
-    <div class="field"><label>Dátum</label>
-      <input id="nsDate" type="date" value="${d.date}">
-    </div>
-    <p class="subtle">Na ďalšej obrazovke uvidíš zoznam všetkých detí z Roku ${DATA.currentRok} — postupne sa cez ne preklikáš. Kto ostane bez hodnotenia, jednoducho na stretnutí chýbal.</p>
-    <div class="nav-row" style="margin-top:auto; padding-top:10px;">
-      <button class="btn btn-primary" onclick="confirmNewStretnutie()">Otvoriť zoznam detí →</button>
-    </div>
+
+    ${level(M1)}
+    ${level(M2)}
+
+    ${extra.length ? `<div style="display:flex;flex-direction:column;gap:10px"><span style="font-size:15px;font-weight:700">Mimoriadne stretnutia</span>
+      <div class="card">${extra.map(s=>meetingRow(s, kids.length)).join('')}</div></div>` : ''}
+
+    <button class="btn-dashed" onclick="openExtraSheet()">+ Mimoriadne stretnutie (výlet, brigáda…)</button>
   </div>`;
 }
-function confirmNewStretnutie(){
-  const d = newStretnutieDraft;
-  const sel = document.getElementById('nsCurriculum').value;
-  d.curriculumId = sel;
-  if(sel === '__other__'){
-    d.otherName = document.getElementById('nsOtherName').value.trim();
-    d.name = d.otherName || 'Mimoriadne stretnutie';
-  } else {
-    d.name = curriculumItem(sel).name;
-  }
-  d.date = document.getElementById('nsDate').value || d.date;
+function curriculumRow(c, s, kidCount){
+  if(s) return meetingRow(s, kidCount, c.aktivita);
+  return `<div class="row" onclick="startCurriculum('${c.id}')">
+    <div class="dot"></div>
+    <div class="grow"><span class="name" style="color:var(--g700)">${esc(c.name)}</span><span class="sub">${esc(c.aktivita)}</span></div>
+  </div>`;
+}
+function meetingRow(s, kidCount, aktivita){
+  const n = DATA.evaluations.filter(e=>e.stretnutieId===s.id).length;
+  const sub = s.finished ? `${fmtDate(s.date,false)} · ${n} hodnotení · chýbalo ${s.absent.length}` : `${fmtDate(s.date,false)} · rozpracované`;
+  return `<div class="row" onclick="openMeeting('${s.id}')">
+    <div class="dot ${s.finished?'on':'half'}">${s.finished?I.check:''}</div>
+    <div class="grow"><span class="name">${esc(s.name)}</span><span class="sub">${aktivita?esc(aktivita)+' · ':''}${sub}</span></div>
+  </div>`;
+}
+function toggleLevel(key){ DATA.settings.openLevels[key] = !DATA.settings.openLevels[key]; saveData(); render(); }
+function syncNotice(){
+  const st = DATA.settings;
+  if(!st.syncUrl || !st.centrum) return `<div class="notice" style="background:var(--orange-light);color:#8A2E14;cursor:pointer" onclick="go({screen:'home',tab:'set'})"><span>Dáta sa zatiaľ neodosielajú — vyber centrum a vlož link v Nastaveniach.</span><b>→</b></div>`;
+  const pending = DATA.evaluations.filter(e=>!e.synced).length;
+  if(pending) return `<div class="notice" style="background:var(--orange-light);color:#8A2E14"><span>${pending} ${pending===1?'záznam čaká':'záznamov čaká'} na odoslanie</span><button class="btn btn-dark btn-sm" onclick="syncAll(true)">Odoslať</button></div>`;
+  return `<div style="display:flex;align-items:center;gap:8px;font-size:12px;color:var(--g700)"><span style="color:var(--green)">${I.check}</span>Všetko odoslané do tabuľky centra ${esc(st.centrum)}</div>`;
+}
 
-  // Dedup: ak už existuje stretnutie s rovnakým kurikulom + rokom + dátumom, len ho otvor
-  const realCurriculumId = d.curriculumId === '__other__' ? null : d.curriculumId;
-  let s = DATA.stretnutia.find(x=>x.curriculumId===realCurriculumId && x.rok===DATA.currentRok && x.date===d.date && (realCurriculumId || x.name===d.name));
+/* ================= SPÄTNÁ VÄZBA KU KURIKULU ================= */
+const FB_FIELDS = [
+  { key:'pouzitie', label:'Ako som to použil/a', ph:'Ako prebiehala aktivita, čo fungovalo…' },
+  { key:'zmeny',    label:'Čo a ako som zmenil/a', ph:'Čo si urobil/a inak ako v lesson plane a prečo…' },
+  { key:'upravit',  label:'Čo treba upraviť alebo doplniť', ph:'Chýbajúce materiály, nejasné pokyny, čas…' }
+];
+function fbCard(s, ret){
+  if(!s.curriculumId) return '';
+  const done = !!s.feedback;
+  return `<div style="background:var(--ink);color:#fff;border-radius:14px;padding:14px;display:flex;align-items:center;gap:12px;cursor:pointer" onclick="go({screen:'fb',sid:'${s.id}',ret:'${ret}'})">
+    <div class="grow" style="gap:3px"><span class="label" style="color:var(--orange)">Nové kurikulum · spätná väzba</span>
+      <span style="font-size:14px;font-weight:600">${done ? 'Spätná väzba odoslaná — upraviť' : 'Ako sa ti tento lesson plan osvedčil?'}</span>
+      <span style="font-size:11.5px;color:var(--g300)">${done ? 'Ďakujeme!' : '3 krátke otázky · asi 2 minúty'}</span></div>
+    <span style="color:var(--orange)">${I.arrow}</span></div>`;
+}
+function renderFb(){
+  const s = DATA.stretnutia.find(x=>x.id===route.sid);
+  if(!route.fbDraft) route.fbDraft = { ...(s.feedback||{}) };
+  return `<div class="screen">
+    <button class="back" onclick="fbBack()">${I.back}</button>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <span class="eyebrow">Spätná väzba ku kurikulu</span>
+      <h1 class="h1">${esc(s.name)}</h1>
+      <p class="muted" style="font-size:13px">Kurikulum je nové — pomôž nám ho vylepšiť. Stačí pár viet, vyplň, čo chceš.</p>
+    </div>
+    ${FB_FIELDS.map(f=>`<label class="field" style="color:var(--ink);font-size:13px">${f.label}
+      <textarea style="min-height:84px" oninput="route.fbDraft.${f.key}=this.value" placeholder="${f.ph}">${esc(route.fbDraft[f.key]||'')}</textarea></label>`).join('')}
+    <div class="sticky-cta"><button class="btn btn-orange" onclick="saveFb()">Odoslať spätnú väzbu</button></div>
+  </div>`;
+}
+function fbBack(){ const ret = route.ret, sid = route.sid; go(ret==='done' ? {screen:'done',sid} : {screen:'attend',sid}); }
+function saveFb(){
+  const s = DATA.stretnutia.find(x=>x.id===route.sid);
+  const d = route.fbDraft || {};
+  if(!FB_FIELDS.some(f=>(d[f.key]||'').trim())){ toast('Napíš aspoň jednu odpoveď'); return; }
+  s.feedback = { ...d, updatedAt: Date.now() }; s.feedbackSynced = false;
+  saveData(); toast('Ďakujeme za spätnú väzbu'); fbBack();
+}
+
+/* ================= STRETNUTIE: DOCHÁDZKA ================= */
+function startCurriculum(cid){
+  const c = curriculumItem(cid);
+  let s = meetingFor(cid, c.rok);
   if(!s){
-    const childIds = DATA.children.filter(c=>c.rok===DATA.currentRok).map(c=>c.id);
-    s = { id:'s'+Date.now(), name:d.name, curriculumId: realCurriculumId, rok: DATA.currentRok, date:d.date, childIds };
+    s = { id:uid('s'), name:c.name, curriculumId:cid, rok:c.rok, date:todayISO(), absent:[], finished:false, createdAt:Date.now() };
     DATA.stretnutia.push(s); saveData();
   }
-  newStretnutieDraft = null;
-  route = { screen:'stretnutieDetail', stretnutieId: s.id };
-  render();
+  openMeeting(s.id);
 }
+function openMeeting(id){ go({ screen:'attend', sid:id }); }
 
-/* ---- HOME ---- */
-function renderHome(){
-  const tab = route.tab || 'stretnutia';
-  const pending = pendingCount();
-  const hasUrl = !!DATA.settings.syncUrl;
-  return `<div class="screen pad">
-    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-      <div><div class="eyebrow">Koordinátor</div><h1 class="page-title">Rastová mapa</h1></div>
-      <button class="btn-ghost" style="width:auto; padding:9px 12px; border-radius:10px; font-size:12px;" onclick="openSettingsModal()">⚙️</button>
+function renderAttend(){
+  const s = DATA.stretnutia.find(x=>x.id===route.sid);
+  if(!s){ route={screen:'home',tab:'home'}; return renderHome()+renderTabbar(); }
+  const kids = kidsOf(s.rok);
+  const evald = new Set(DATA.evaluations.filter(e=>e.stretnutieId===s.id).map(e=>e.childId));
+  const present = kids.filter(k=>!s.absent.includes(k.id));
+  const toEval = present.filter(k=>!evald.has(k.id));
+  const ci = s.curriculumId && curriculumItem(s.curriculumId);
+  const cta = !kids.length ? '' : (toEval.length
+    ? `<button class="btn btn-orange" onclick="startEval('${s.id}')">Hodnotiť ${deti(toEval.length)} →</button>`
+    : `<button class="btn btn-dark" onclick="finishMeeting('${s.id}')">${s.finished?'Hotovo':'Uložiť stretnutie'}</button>`);
+  return `<div class="screen">
+    <button class="back" onclick="go({screen:'home',tab:'home'})">${I.back}</button>
+    <div style="display:flex;flex-direction:column;gap:4px">
+      <span class="eyebrow">Dochádzka · Rok ${s.rok}</span>
+      <h1 class="h1">${esc(s.name)}</h1>
+      <span class="muted">${fmtDate(s.date)}${ci?' · '+esc(ci.aktivita):''}</span>
     </div>
-    <div class="tab-switch">
-      <button class="${DATA.currentRok===1?'active':''}" onclick="switchRok(1)">Rok 1</button>
-      <button class="${DATA.currentRok===2?'active':''}" onclick="switchRok(2)">Rok 2</button>
-    </div>
-    ${hasUrl ? syncBanner(pending) : ''}
-    <div class="tab-switch" style="background:none; padding:0; gap:8px; margin-top:6px;">
-      <button class="${tab==='stretnutia'?'active':''}" style="${tab==='stretnutia'?'':'background:var(--gray-100);'}" onclick="route.tab='stretnutia'; render();">Stretnutia</button>
-      <button class="${tab==='deti'?'active':''}" style="${tab==='deti'?'':'background:var(--gray-100);'}" onclick="route.tab='deti'; render();">Deti</button>
-    </div>
-    ${tab === 'stretnutia' ? renderStretnutiaTab() : renderDetiTab()}
+    ${fbCard(s,'attend')}
+    <div class="links"><span onclick="openDateSheet('${s.id}')">Upraviť dátum</span><span style="color:var(--red)" onclick="confirmDeleteMeeting('${s.id}')">Zmazať stretnutie</span></div>
+    ${kids.length ? `<p class="muted" style="color:var(--ink-soft);font-size:13px">Všetci sú označení ako prítomní. Ťukni na tých, čo dnes <b>chýbajú</b>.</p>
+    <div class="grid2">${kids.map(k=>{
+      const ab = s.absent.includes(k.id), ev = evald.has(k.id), a = attendance(k);
+      const st = ab ? '<span style="color:var(--red)">Chýba</span>' : (ev ? `<span style="color:var(--green)">Hodnotené · ${a.n}/${a.total}</span>` : `<span style="color:var(--g700)">Prítomný/á · ${a.n}/${a.total}</span>`);
+      return `<button class="kid ${ab?'absent':''}" onclick="toggleAbsent('${s.id}','${k.id}')">
+        <div class="av">${esc(initials(k.name))}</div>
+        <div style="display:flex;flex-direction:column;min-width:0"><span style="font-size:13px;font-weight:600">${esc(firstName(k.name))}</span><span style="font-size:11px">${st}</span></div>
+      </button>`;}).join('')}</div>
+    ${present.filter(k=>evald.has(k.id)).length ? `<p class="muted" style="text-align:center">Hodnotené deti otvoríš v ich profile v záložke Deti.</p>` : ''}`
+    : `<div class="card" style="padding:18px"><p class="muted">V Roku ${s.rok} zatiaľ nie sú žiadne deti. Pridaj ich v záložke Deti.</p></div>`}
+    <div class="sticky-cta">${cta}</div>
   </div>`;
 }
-function switchRok(rok){
-  DATA.currentRok = rok; saveData();
-  route.query = '';
-  render();
-}
-
-function renderStretnutiaTab(){
-  const curr = curriculumForRok(DATA.currentRok);
-  const moduly = [...new Set(curr.map(c=>c.modul))];
-  const byCurriculumId = {};
-  DATA.stretnutia.filter(s=>s.rok===DATA.currentRok && s.curriculumId).forEach(s=>{ byCurriculumId[s.curriculumId] = s; });
-  const extra = DATA.stretnutia.filter(s=>s.rok===DATA.currentRok && !s.curriculumId).sort((a,b)=>b.date.localeCompare(a.date));
-  const totalKids = DATA.children.filter(c=>c.rok===DATA.currentRok).length;
-  const completedCount = curr.filter(item=>{
-    const s = byCurriculumId[item.id];
-    if(!s) return false;
-    const done = DATA.evaluations.filter(e=>e.stretnutieId===s.id).length;
-    return totalKids > 0 && done >= totalKids;
-  }).length;
-  const cm = DATA.settings.collapsedModules || {};
-
-  return `<div class="progress-line">${completedCount} / ${curr.length} stretnutí dokončených (Rok ${DATA.currentRok})</div>
-    <p class="subtle">Klikni na stretnutie a zaznač deťom hodnotenie. Nezačaté stretnutia sa vytvoria na dnešný dátum — dátum si vieš neskôr upraviť. Klikni na názov modulu, aby si ho zbalila/rozbalila.</p>
-    ${moduly.map(m => {
-      const items = curr.filter(c=>c.modul===m);
-      const doneInMod = items.filter(item=>{
-        const s = byCurriculumId[item.id];
-        if(!s) return false;
-        const done = DATA.evaluations.filter(e=>e.stretnutieId===s.id).length;
-        return totalKids > 0 && done >= totalKids;
-      }).length;
-      const collapsed = !!cm[m];
-      return `
-      <div class="section-heading clickable" onclick="toggleModule('${m}')">
-        <span>${m} <span class="count">(${doneInMod}/${items.length})</span></span>
-        <span class="chevron-toggle">${collapsed ? '▸' : '▾'}</span>
-      </div>
-      ${collapsed ? '' : `<div class="child-list">
-        ${items.map(item => curriculumCard(item, byCurriculumId[item.id])).join('')}
-      </div>`}
-    `;}).join('')}
-    ${extra.length ? `
-      <div class="section-heading clickable" onclick="toggleModule('__extra')">
-        <span>Mimoriadne stretnutia</span>
-        <span class="chevron-toggle">${cm['__extra'] ? '▸' : '▾'}</span>
-      </div>
-      ${cm['__extra'] ? '' : `<div class="child-list">${extra.map(stretnutieCard).join('')}</div>`}
-    ` : ''}
-    <div style="height:90px"></div>
-    <div class="fab-wrap"><button class="btn btn-orange" onclick="startNewStretnutie()">+ Iné / mimoriadne stretnutie</button></div>`;
-}
-function toggleModule(modName){
-  if(!DATA.settings.collapsedModules) DATA.settings.collapsedModules = {};
-  DATA.settings.collapsedModules[modName] = !DATA.settings.collapsedModules[modName];
+function toggleAbsent(sid, kid){
+  const s = DATA.stretnutia.find(x=>x.id===sid);
+  const i = s.absent.indexOf(kid);
+  if(i>=0) s.absent.splice(i,1);
+  else {
+    if(DATA.evaluations.some(e=>e.stretnutieId===sid && e.childId===kid)){ toast('Dieťa už má hodnotenie'); return; }
+    s.absent.push(kid);
+  }
   saveData(); render();
 }
-function curriculumCard(item, s){
-  if(s) return stretnutieCard(s);
-  return `<div class="child-card" onclick="startCurriculumStretnutie('${item.id}')" style="opacity:0.6;">
-    <div class="child-avatar" style="background:var(--gray-100); color:var(--gray-500);">📋</div>
-    <div class="info">
-      <div class="name">${item.name}</div>
-      <div class="meta">${item.aktivita} · zatiaľ nezačaté</div>
+function finishMeeting(sid){
+  const s = DATA.stretnutia.find(x=>x.id===sid);
+  const wasFinished = s.finished;
+  s.finished = true; saveData();
+  if(wasFinished) go({screen:'home',tab:'home'});
+  else go({screen:'done', sid});
+}
+
+/* ================= HODNOTENIE ================= */
+function startEval(sid){
+  const s = DATA.stretnutia.find(x=>x.id===sid);
+  const evald = new Set(DATA.evaluations.filter(e=>e.stretnutieId===sid).map(e=>e.childId));
+  const queue = kidsOf(s.rok).filter(k=>!s.absent.includes(k.id) && !evald.has(k.id)).map(k=>k.id);
+  draft = { sid, queue, qi:0 };
+  resetDraftKid();
+  go({ screen:'eval' });
+}
+function resetDraftKid(){ Object.assign(draft, { ratings:{}, notes:{ sebahodnotenie:'', zaujalo:'', zameranie:'' }, notesOpen:false, openK:null }); }
+
+function renderEval(){
+  if(!draft) { route={screen:'home',tab:'home'}; return renderHome()+renderTabbar(); }
+  const s = DATA.stretnutia.find(x=>x.id===draft.sid);
+  const kid = DATA.children.find(c=>c.id===draft.queue[draft.qi]);
+  const next = DATA.children.find(c=>c.id===draft.queue[draft.qi+1]);
+  const prev = evalsOf(kid.id).filter(e=>e.zameranie).slice(-1)[0];
+  const firstUnrated = KOMPETENCIE.findIndex(k=>!draft.ratings[k.id]);
+  const openIdx = draft.openK!==null ? draft.openK : firstUnrated;
+  const rated = Object.keys(draft.ratings).length;
+  const total = draft.queue.length;
+  const hint = rated===KOMPETENCIE.length ? '' : (rated ? 'Nevyplnené kompetencie ostanú prázdne — to je v poriadku.' : 'Nemusíš hodnotiť všetko. Vyplň len to, čo si dnes naozaj videl/a.');
+  return `<div class="screen" style="gap:16px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="back" onclick="leaveEval()">${I.back}</button>
+      <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;justify-content:space-between" class="label"><span>Hodnotenie</span><span>${draft.qi+1} / ${total}</span></div>
+        <div class="bar" style="height:4px;background:var(--g200)"><div style="width:${draft.qi/total*100}%"></div></div>
+      </div>
     </div>
-    <div class="chev">›</div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="av" style="width:52px;height:52px;font-size:18px">${esc(initials(kid.name))}</div>
+      <div style="display:flex;flex-direction:column"><span style="font-size:21px;font-weight:700">${esc(kid.name)}</span><span class="sub">${esc(s.name)}</span></div>
+    </div>
+    ${prev ? `<div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:3px">
+      <span class="label" style="color:var(--orange-dark)">Minule si sa chcel/a zamerať na</span>
+      <span style="font-size:13px;line-height:1.45;color:var(--ink-soft)">${esc(prev.zameranie)}</span></div>` : ''}
+    <div style="display:flex;flex-direction:column;gap:10px">
+      ${KOMPETENCIE.map((k,i)=>`<div class="comp ${i===openIdx?'open':''}">
+        <div style="display:flex;align-items:baseline;gap:8px;cursor:pointer" onclick="draft.openK=${i};render()">
+          <span style="font-size:11px;font-weight:700;color:var(--orange)">0${i+1}</span>
+          <span style="font-size:14px;font-weight:600;flex:1">${k.name}</span>
+          <span style="font-size:11px;color:var(--g700)">${i===openIdx?'popis úrovní':'ťukni pre popis'}</span>
+        </div>
+        <div class="scale">${[1,2,3,4,5].map(n=>`<button class="${draft.ratings[k.id]===n?'sel':''}" onclick="rate('${k.id}',${n})">${n}</button>`).join('')}</div>
+        ${i===openIdx ? `<div class="grid2" style="gap:12px;font-size:11px;line-height:1.4;color:var(--g700)">
+          <span><b style="color:var(--ink)">1</b> — ${k.anchorLow}</span><span style="text-align:right"><b style="color:var(--ink)">5</b> — ${k.anchorHigh}</span></div>` : ''}
+      </div>`).join('')}
+    </div>
+    ${draft.notesOpen ? `<div style="display:flex;flex-direction:column;gap:10px">
+      <label class="field">Sebahodnotenie dieťaťa<textarea oninput="draft.notes.sebahodnotenie=this.value" placeholder="Čo povedalo samo o sebe…">${esc(draft.notes.sebahodnotenie)}</textarea></label>
+      <label class="field">Čo ma zaujalo<textarea oninput="draft.notes.zaujalo=this.value" placeholder="Konkrétny moment…">${esc(draft.notes.zaujalo)}</textarea></label>
+      <label class="field">Na čo sa zameriam nabudúce<textarea oninput="draft.notes.zameranie=this.value" placeholder="Uvidíš to pri ďalšom hodnotení">${esc(draft.notes.zameranie)}</textarea></label>
+    </div>` : `<button class="btn-dashed" onclick="draft.notesOpen=true;render()">+ Poznámky</button>`}
+    ${hint ? `<p class="muted" style="text-align:center;font-size:12px">${hint}</p>` : ''}
+    <div class="sticky-cta">
+      <button class="btn btn-ghost" style="width:auto" onclick="advance(false)">Neskôr</button>
+      <button class="btn btn-orange" style="flex:1" onclick="advance(true)">${next ? 'Ďalej · '+esc(firstName(next.name))+' →' : 'Uložiť a dokončiť'}</button>
+    </div>
   </div>`;
 }
-function startCurriculumStretnutie(curriculumId){
-  const item = curriculumItem(curriculumId);
-  let s = DATA.stretnutia.find(x=>x.curriculumId===curriculumId && x.rok===DATA.currentRok);
-  if(!s){
-    const today = new Date().toISOString().slice(0,10);
-    s = { id:'s'+Date.now(), name:item.name, curriculumId, rok: DATA.currentRok, date:today };
-    DATA.stretnutia.push(s); saveData();
+function rate(id, n){ draft.ratings[id] = draft.ratings[id]===n ? undefined : n; if(draft.ratings[id]===undefined) delete draft.ratings[id]; draft.openK = null; render(); }
+function advance(save){
+  const s = DATA.stretnutia.find(x=>x.id===draft.sid);
+  const childId = draft.queue[draft.qi];
+  const n = draft.notes;
+  if(save && (Object.keys(draft.ratings).length || n.sebahodnotenie.trim() || n.zaujalo.trim() || n.zameranie.trim())){
+    DATA.evaluations.push({
+      id: uid('e'), childId, stretnutieId: s.id, curriculumId: s.curriculumId || null,
+      date: s.date, stretnutie: s.name, competencies: { ...draft.ratings },
+      sebahodnotenie: n.sebahodnotenie.trim(), zaujalo: n.zaujalo.trim(), zameranie: n.zameranie.trim(), synced:false
+    });
   }
-  route = { screen:'stretnutieDetail', stretnutieId: s.id };
-  render();
+  if(draft.qi + 1 < draft.queue.length){ draft.qi++; resetDraftKid(); saveData(); render(); window.scrollTo(0,0); }
+  else { s.finished = true; saveData(); const sid = s.id; draft = null; go({ screen:'done', sid }); }
 }
-function stretnutieCard(s){
-  const kids = DATA.children.filter(c=>c.rok===s.rok);
-  const total = kids.length;
-  const done = DATA.evaluations.filter(e=>e.stretnutieId===s.id).length;
-  const complete = done >= total && total > 0;
-  return `<div class="child-card" onclick="openStretnutieDetail('${s.id}')">
-    <div class="child-avatar" style="background:${complete?'#E8F5E9':'var(--orange-light)'}; color:${complete?'#2E7D32':'var(--orange-dark)'};">${complete?'✓':'📋'}</div>
-    <div class="info">
-      <div class="name">${s.name}</div>
-      <div class="meta">${fmtDate(s.date)} · ${done}/${total} hodnotení</div>
-    </div>
-    <div class="chev">›</div>
-  </div>`;
-}
-function openStretnutieDetail(stretnutieId){
-  route = { screen:'stretnutieDetail', stretnutieId };
-  render();
-}
-function renderStretnutieDetail(stretnutieId){
-  const s = DATA.stretnutia.find(x=>x.id===stretnutieId);
-  if(!s){ route = {screen:'home', tab:'stretnutia'}; render(); return ''; }
-  const kids = DATA.children.filter(c=>c.rok===s.rok);
-  const evalByChild = {};
-  DATA.evaluations.filter(e=>e.stretnutieId===stretnutieId).forEach(e=>{ evalByChild[e.childId] = e; });
-  const doneCount = kids.filter(c=>evalByChild[c.id]).length;
+function leaveEval(){ const sid = draft.sid; draft = null; go({ screen:'attend', sid }); }
 
-  return `<div class="screen pad">
-    <div class="eyebrow">${fmtDate(s.date)} · Rok ${s.rok}</div>
-    <h1 class="page-title">${s.name}</h1>
-    <div class="mini-actions">
-      <span onclick="openEditDateModal('${s.id}')">✏️ Upraviť dátum</span>
-      <span onclick="confirmDeleteStretnutie('${s.id}')" style="color:#B3261E;">🗑 Zmazať stretnutie</span>
-    </div>
-    <p class="subtle">Klikni na dieťa a vyplň hodnotenie. Kto ostane bez hodnotenia, na stretnutí chýbal.</p>
-    <div class="card" style="padding:6px 16px;">
-      ${kids.length ? kids.map(c=>{
-        const e = evalByChild[c.id];
-        return `<div class="curr-row" onclick="${e?`openEvalDetail('${e.id}')`:`startStretnutieChildEval('${s.id}','${c.id}')`}">
-          <div class="checkbox ${e?'on':''}">${e?'✓':''}</div>
-          <div class="curr-info">
-            <div class="curr-name">${c.name}</div>
-            <div class="curr-sub">${e ? 'Hodnotené' : 'Čaká'}</div>
-          </div>
-          <span class="chev">›</span>
-        </div>`;
-      }).join('') : `<p class="subtle" style="padding:14px 0; margin:0;">V Roku ${s.rok} zatiaľ nie sú žiadne deti.</p>`}
-    </div>
-    <p class="subtle" style="text-align:center;">${doneCount} / ${kids.length} hodnotených</p>
-    <div style="height:20px"></div>
-  </div>`;
-}
-function openEditDateModal(stretnutieId){
-  const s = DATA.stretnutia.find(x=>x.id===stretnutieId);
-  if(!s) return;
-  document.getElementById('modalBody').innerHTML = `
-    <h2>Upraviť dátum</h2>
-    <div class="field"><label>Dátum stretnutia</label><input id="editDateInput" type="date" value="${s.date}"></div>
-    <button class="btn btn-primary" onclick="saveEditedDate('${stretnutieId}')">Uložiť</button>
-  `;
-  document.getElementById('modalOverlay').classList.add('open');
-}
-function saveEditedDate(stretnutieId){
-  const s = DATA.stretnutia.find(x=>x.id===stretnutieId);
-  const v = document.getElementById('editDateInput').value;
-  if(!s || !v) return;
-  s.date = v; saveData(); closeModal(); render();
-}
-function confirmDeleteStretnutie(stretnutieId){
-  openConfirmModal('Zmazať stretnutie?', 'Vymažú sa aj všetky hodnotenia detí pri tomto stretnutí. Toto sa nedá vrátiť späť.', 'Zmazať', ()=>deleteStretnutie(stretnutieId));
-}
-function deleteStretnutie(stretnutieId){
-  DATA.stretnutia = DATA.stretnutia.filter(x=>x.id!==stretnutieId);
-  DATA.evaluations = DATA.evaluations.filter(e=>e.stretnutieId!==stretnutieId);
-  saveData(); closeModal();
-  route = { screen:'home', tab:'stretnutia' };
-  render();
-}
-function startStretnutieChildEval(stretnutieId, childId){
-  const s = DATA.stretnutia.find(x=>x.id===stretnutieId);
-  wizardDraft = { mode:'single', queue:[childId], queueIndex:0, stretnutieId:s.id, step:0,
-    stretnutie:s.name, competencies:{}, sebahodnotenie:'', zaujalo:'', zameranie:'',
-    skipIntro:true, returnTo:{ screen:'stretnutieDetail', stretnutieId:s.id } };
-  route = { screen:'wizard' };
-  render();
-}
-
-function renderDetiTab(){
-  const q = (route.query||'').toLowerCase();
-  const list = DATA.children.filter(c => c.rok===DATA.currentRok && c.name.toLowerCase().includes(q));
-  return `<div class="search">
-      <span>🔍</span>
-      <input placeholder="Hľadať dieťa…" value="${route.query||''}" oninput="route.query=this.value; render();">
-    </div>
-    <div class="child-list">
-      ${list.length ? list.map(childCard).join('') : `<div class="empty"><div class="big">🌱</div>Zatiaľ žiadne deti v Roku ${DATA.currentRok}.<br>Pridaj prvé nižšie.</div>`}
-    </div>
-    <div style="height:90px"></div>
-    <div class="fab-wrap"><button class="btn btn-primary" onclick="openAddChildModal()">+ Nové dieťa</button></div>`;
-}
-function syncBanner(pending){
-  if(pending === 0) return `<div class="sync-banner ok">✓ Odoslané</div>`;
-  return `<div class="sync-banner">
-    <span>${pending} ${pending===1?'záznam čaká':'záznamov čaká'} na odoslanie</span>
-    <button onclick="trySyncAll()">Odoslať teraz</button>
-  </div>`;
-}
-function childCard(c){
-  const evals = DATA.evaluations.filter(e=>e.childId===c.id);
-  return `<div class="child-card" onclick="route={screen:'child',childId:'${c.id}'}; render();">
-    <div class="child-avatar">${initials(c.name)}</div>
-    <div class="info">
-      <div class="name">${c.name}</div>
-      <div class="meta">${evals.length} hodnotení</div>
-    </div>
-    <div class="chev">›</div>
+function renderDone(){
+  const s = DATA.stretnutia.find(x=>x.id===route.sid);
+  const kids = kidsOf(s.rok);
+  const n = DATA.evaluations.filter(e=>e.stretnutieId===s.id).length;
+  const present = kids.length - s.absent.length;
+  const hasSync = DATA.settings.syncUrl && DATA.settings.centrum;
+  return `<div class="screen" style="padding-top:calc(90px + var(--safe-top));gap:18px">
+    <div style="width:64px;height:64px;border-radius:50%;background:var(--orange);display:flex;align-items:center;justify-content:center;color:#fff">${I.check.replace(/14/g,'30')}</div>
+    <h1 class="h1" style="font-size:28px">Stretnutie je zapísané</h1>
+    <p class="muted" style="font-size:14px;color:var(--ink-soft)">Prítomných ${present}, ${n} s hodnotením. ${s.absent.length ? deti(s.absent.length)+' chýbalo — dochádzka sa pripočíta k ich menám.' : 'Nikto nechýbal.'}</p>
+    ${hasSync ? `<div style="display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--green);font-weight:600">${I.check}Odosiela sa do tabuľky centra</div>` : ''}
+    <div style="width:100%">${fbCard(s,'done')}</div>
+    <div class="sticky-cta" style="margin-top:auto"><button class="btn btn-dark" onclick="go({screen:'home',tab:'home'})">Späť na prehľad</button></div>
   </div>`;
 }
 
-function openAddChildModal(){
-  document.getElementById('modalBody').innerHTML = `
-    <h2>Nové dieťa — Rok ${DATA.currentRok}</h2>
-    <div class="field"><label>Meno a priezvisko</label><input id="newChildName" placeholder="napr. Ema Slušná"></div>
-    <button class="btn btn-primary" onclick="saveNewChild()">Pridať dieťa</button>
-  `;
-  document.getElementById('modalOverlay').classList.add('open');
+/* ================= DETI ================= */
+function renderDeti(){
+  const rok = DATA.currentRok;
+  const kids = kidsOf(rok);
+  const tips = computeTips(rok); window.__tips = tips;
+  const ms = meetingsOf(rok);
+  return `<div class="screen with-tabs" style="gap:16px">
+    <div style="display:flex;align-items:flex-end;justify-content:space-between">
+      <div style="display:flex;flex-direction:column;gap:2px"><span class="eyebrow">Rok ${rok}</span><h1 class="h1">Deti</h1></div>
+      ${rokSwitch()}
+    </div>
+    ${tips.length ? `<div style="display:flex;flex-direction:column;gap:8px">
+      <span class="label">Tipy pre teba · ${tips.length}</span>
+      ${tips.slice(0, route.allTips ? tips.length : SHOW_TIPS).map((t,ti)=>`<div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:8px">
+        <span class="tag" style="color:${t.rule.color};background:${t.rule.bg}">${t.rule.title}${t.count>1?' · '+t.count:''}</span>
+        <span style="font-size:13px;line-height:1.45;color:var(--ink-soft)">${esc(t.text)}</span>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          ${t.kids.map(c=>`<button class="btn btn-ghost btn-sm" style="color:var(--ink);padding:6px 11px" onclick="go({screen:'child',childId:'${c.id}'})">${esc(firstName(c.name))}</button>`).join('')}
+          <button class="btn btn-dark btn-sm" style="padding:6px 12px" onclick="dismissTip(${ti})">Vybavené</button>
+        </div></div>`).join('')}
+      ${tips.length > SHOW_TIPS ? `<button class="btn-dashed" style="padding:10px" onclick="route.allTips=!route.allTips;render()">${route.allTips ? 'Zobraziť menej' : 'Zobraziť ďalšie ('+(tips.length-SHOW_TIPS)+')'}</button>` : ''}
+    </div>` : ''}
+    ${kids.length ? `<div style="display:flex;justify-content:space-between;padding:0 4px;margin-bottom:-8px" class="label"><span>Meno</span><span>Stretnutia</span></div>
+    <div class="card">${kids.map(k=>{
+      const a = attendance(k); const ev = evalsOf(k.id);
+      const lastN = ms.slice(-ABSENCE_IN_ROW);
+      const missedRow = lastN.length===ABSENCE_IN_ROW && lastN.every(s=>s.absent.includes(k.id));
+      return `<div class="row" onclick="go({screen:'child',childId:'${k.id}'})">
+        <div class="av">${esc(initials(k.name))}</div>
+        <div class="grow"><span class="name" style="font-size:14.5px">${esc(k.name)}</span>
+          <span class="sub" style="${missedRow?'color:var(--red)':''}">${missedRow ? `Chýbal/a ${ABSENCE_IN_ROW}× po sebe` : `${ev.length} hodnotení`}</span></div>
+        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex:none">
+          <span style="font-size:13px;font-weight:700">${a.n}<span style="color:var(--g500);font-weight:500">/${a.total}</span></span>
+          <div class="bar" style="width:44px;height:4px"><div style="width:${a.total? a.n/a.total*100 : 0}%"></div></div>
+        </div></div>`;}).join('')}</div>`
+    : `<div class="card" style="padding:28px 18px;text-align:center"><p class="muted">Zatiaľ žiadne deti v Roku ${rok}.</p></div>`}
+    <button class="btn btn-dark" onclick="openChildSheet()">+ Pridať dieťa</button>
+  </div>`;
 }
-function saveNewChild(){
-  const name = document.getElementById('newChildName').value.trim();
-  if(!name){ showToast('Zadaj meno dieťaťa'); return; }
-  const id = 'c' + Date.now();
-  DATA.children.push({ id, name, rok: DATA.currentRok, createdAt: Date.now() });
-  saveData(); closeModal(); route = { screen:'child', childId:id }; render();
-}
+function dismissTip(i){ const t = (window.__tips||[])[i]; if(!t) return; t.snoozeKeys.forEach(k=>DATA.settings.snooze[k] = t.at); saveData(); render(); }
 
-/* ---- CHILD GROWTH SHEET ---- */
-function renderChild(childId){
-  const child = DATA.children.find(c=>c.id===childId);
-  if(!child) { route = {screen:'home'}; render(); return ''; }
-  const evals = DATA.evaluations.filter(e=>e.childId===childId).sort((a,b)=>a.date.localeCompare(b.date));
-  const avg = {};
-  KOMPETENCIE.forEach(k=>{
-    const vals = evals.map(e=>e.competencies[k.id]).filter(v=>v!==undefined);
-    avg[k.id] = vals.length ? vals.reduce((a,b)=>a+b,0)/vals.length : 0;
+function renderChild(){
+  const k = DATA.children.find(c=>c.id===route.childId);
+  if(!k){ route={screen:'home',tab:'deti'}; return renderDeti()+renderTabbar(); }
+  const ev = evalsOf(k.id);
+  const a = attendance(k);
+  const comps = KOMPETENCIE.map(c=>{
+    const vals = ev.map(e=>e.competencies[c.id]).filter(v=>typeof v==='number');
+    const avg = avgOf(vals); const d = vals.length>1 ? vals[vals.length-1]-vals[0] : 0;
+    return { name:c.name, avg, d };
   });
-
-  return `<div class="screen pad">
-    <div class="profile-head">
-      <div class="child-avatar">${initials(child.name)}</div>
-      <div><div class="name">${child.name}</div><div class="meta">Rok ${child.rok} · ${evals.length} hodnotení</div></div>
+  const focus = ev.filter(e=>e.zameranie).slice(-1)[0];
+  const hist = meetingsOf(k.rok).slice().reverse();
+  return `<div class="screen" style="gap:16px">
+    <button class="back" onclick="go({screen:'home',tab:'deti'})">${I.back}</button>
+    <div style="display:flex;align-items:center;gap:14px">
+      <div class="av" style="width:60px;height:60px;font-size:20px">${esc(initials(k.name))}</div>
+      <div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:22px;font-weight:700">${esc(k.name)}</span><span class="sub" style="font-size:12.5px">Rok ${k.rok} · ${ev.length} hodnotení</span></div>
     </div>
-    <div class="mini-actions">
-      <span onclick="openEditChildModal('${child.id}')">✏️ Upraviť</span>
-      <span onclick="confirmDeleteChild('${child.id}')" style="color:#B3261E;">🗑 Zmazať dieťa</span>
+    <div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" style="color:var(--ink);padding:8px 14px" onclick="openChildSheet('${k.id}')">Upraviť meno</button><button class="btn btn-sm" style="background:none;color:var(--red)" onclick="confirmDeleteChild('${k.id}')">Zmazať dieťa</button></div>
+    <div class="card" style="padding:14px 16px;display:flex;align-items:center;gap:14px">
+      <div style="display:flex;flex-direction:column;gap:2px;flex:none"><span class="label">Dochádzka</span>
+        <span style="font-size:22px;font-weight:700">${a.n}<span style="color:var(--g500);font-weight:500;font-size:15px"> / ${a.total} stretnutí</span></span></div>
+      <div style="flex:1;display:flex;flex-direction:column;gap:5px;align-items:flex-end">
+        <div class="bar" style="width:100%;height:8px"><div style="width:${a.total? a.n/a.total*100 : 0}%"></div></div>
+        <span class="sub" style="font-size:11px">chýbal/a ${a.total-a.n}×</span></div>
     </div>
-
-    <div class="card">
-      <div class="card-label">Kompetencie — priemer</div>
-      <div class="radar-wrap">${radarSVG(avg)}</div>
-      <div class="radar-legend">
-        ${KOMPETENCIE.map(k=>`<div class="item"><span class="dot"></span>${k.icon} ${k.name}</div>`).join('')}
-      </div>
+    <div class="card" style="border-radius:22px;padding:18px;display:flex;flex-direction:column;gap:14px;box-shadow:0 4px 12px rgba(17,19,21,.07)">
+      <span class="label">Kompetencie · priemer a posun</span>
+      ${comps.map(c=>`<div style="display:flex;flex-direction:column;gap:6px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:13px"><span style="font-weight:600">${c.name}</span>
+          <span style="display:flex;gap:8px;align-items:baseline">${c.d ? `<span style="font-size:11px;font-weight:600;color:${c.d>0?'var(--green)':'var(--red)'}">${c.d>0?'↑ +'+c.d:'↓ '+c.d}</span>` : ''}<b>${c.avg?fmtNum(c.avg):'–'}</b></span></div>
+        <div class="bar" style="height:8px"><div style="width:${c.avg/5*100}%"></div></div></div>`).join('')}
     </div>
-
-    <div class="card">
-      <div class="card-label">História hodnotení</div>
-      ${evals.length ? evals.slice().reverse().map(timelineItem).join('') : `<p class="subtle" style="margin:0">Zatiaľ žiadne hodnotenia.</p>`}
+    ${focus ? `<div style="background:var(--ink);color:#fff;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:4px">
+      <span class="label" style="color:var(--orange)">Aktuálne zameranie</span><span style="font-size:13.5px;line-height:1.5">${esc(focus.zameranie)}</span></div>` : ''}
+    <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:15px;font-weight:700">História</span>
+      ${hist.length ? `<div class="card">${hist.map(s=>{
+        const e = ev.find(x=>x.stretnutieId===s.id);
+        const absent = s.absent.includes(k.id);
+        const vals = e ? evalScores(e) : [];
+        const right = absent ? 'chýbal/a' : (vals.length ? fmtNum(avgOf(vals)) : (e ? 'poznámka' : 'prítomný/á'));
+        return `<div class="row" ${e?`onclick="openEvalSheet('${e.id}')"`:'style="cursor:default"'}>
+          <div class="grow"><span class="name" style="font-size:13.5px;${absent?'color:var(--g500)':''}">${esc(s.name)}</span><span class="sub">${fmtDate(s.date)}</span></div>
+          <span style="font-size:13px;font-weight:700;${absent?'color:var(--g500)':''}">${right}</span></div>`;}).join('')}</div>`
+      : `<p class="muted">Zatiaľ žiadne stretnutia.</p>`}
     </div>
-
-    <div style="height:90px"></div>
-    <div class="fab-wrap"><button class="btn btn-orange" onclick="startWizard('${child.id}')">+ Rýchle hodnotenie (mimo kurikula)</button></div>
   </div>`;
 }
-function openEditChildModal(childId){
-  const c = DATA.children.find(x=>x.id===childId);
-  if(!c) return;
-  document.getElementById('modalBody').innerHTML = `
-    <h2>Upraviť dieťa</h2>
-    <div class="field"><label>Meno a priezvisko</label><input id="editChildNameInput" value="${c.name}"></div>
-    <button class="btn btn-primary" onclick="saveEditedChildName('${childId}')">Uložiť</button>
-  `;
-  document.getElementById('modalOverlay').classList.add('open');
-}
-function saveEditedChildName(childId){
-  const c = DATA.children.find(x=>x.id===childId);
-  const v = document.getElementById('editChildNameInput').value.trim();
-  if(!c || !v) return;
-  c.name = v; saveData(); closeModal(); render();
-}
-function confirmDeleteChild(childId){
-  openConfirmModal('Zmazať dieťa?', 'Vymažú sa aj všetky jeho doterajšie hodnotenia. Toto sa nedá vrátiť späť.', 'Zmazať', ()=>deleteChild(childId));
-}
-function deleteChild(childId){
-  DATA.children = DATA.children.filter(x=>x.id!==childId);
-  DATA.evaluations = DATA.evaluations.filter(e=>e.childId!==childId);
-  saveData(); closeModal();
-  route = { screen:'home', tab:'deti' };
-  render();
-}
 
-function radarSVG(avg){
-  const size = 220, cx = size/2, cy = size/2, R = 78;
-  const n = KOMPETENCIE.length;
-  const angle = i => -Math.PI/2 + i*(2*Math.PI/n);
-  const pt = (val, i) => {
-    const r = (val/5) * R;
-    return [cx + r*Math.cos(angle(i)), cy + r*Math.sin(angle(i))];
+/* ================= NASTAVENIA ================= */
+function renderSettings(){
+  const st = DATA.settings;
+  return `<div class="screen with-tabs">
+    <h1 class="h1">Nastavenia</h1>
+    <label class="field" style="color:var(--ink);font-size:13px">Centrum
+      <select onchange="DATA.settings.centrum=this.value;saveData();render()">
+        <option value="">— vyber centrum —</option>
+        ${CENTRA.map(c=>`<option ${c===st.centrum?'selected':''}>${c}</option>`).join('')}
+      </select></label>
+    <div style="display:flex;flex-direction:column;gap:6px">
+      <span style="font-size:13px;font-weight:600">Link na Google tabuľku centra</span>
+      <p class="muted" style="font-size:12px">Sem vlož adresu Web App, kam sa posielajú hodnotenia, deti, stretnutia aj dochádzka.</p>
+      <input type="url" id="urlInput" value="${esc(st.syncUrl)}" placeholder="https://script.google.com/…">
+      <button class="btn btn-dark" style="padding:12px;font-size:13px" onclick="saveUrl()">Uložiť link</button>
+      ${st.syncUrl && st.centrum ? `<span style="font-size:12px;color:var(--green);font-weight:600">Odosielanie zapnuté${st.lastBackup ? ' · posledná záloha ' + new Date(st.lastBackup).toLocaleString('sk-SK',{day:'numeric',month:'numeric',hour:'2-digit',minute:'2-digit'}) : ''}</span>` : ''}
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span style="font-size:13px;font-weight:600">Záloha v súbore</span>
+      <p class="muted">Dáta sa pri každej zmene automaticky zálohujú do tabuľky centra. Súbor navyše môžeš poslať e-mailom alebo uložiť na Drive.</p>
+      <button class="btn btn-ghost" style="padding:12px;font-size:13px" onclick="exportBackup()">Uložiť / poslať zálohu</button>
+      <button class="btn btn-ghost" style="padding:12px;font-size:13px" onclick="document.getElementById('restoreInput').click()">Nahrať zálohu zo súboru</button>
+    </div>
+    <button class="btn" style="background:none;color:var(--red);font-size:13px;margin-top:auto" onclick="confirmReset()">Vymazať všetky dáta v zariadení</button>
+  </div>`;
+}
+function saveUrl(){
+  DATA.settings.syncUrl = document.getElementById('urlInput').value.trim();
+  saveData(); render();
+  toast(DATA.settings.syncUrl ? 'Link uložený' : 'Odosielanie vypnuté');
+  syncAll();
+}
+async function exportBackup(){
+  const name = 'rastova-mapa-zaloha-' + (DATA.settings.centrum||'') + '-' + todayISO() + '.json';
+  const blob = new Blob([JSON.stringify(DATA, null, 2)], {type:'application/json'});
+  const file = new File([blob], name, {type:'application/json'});
+  if(navigator.canShare && navigator.canShare({files:[file]})){
+    try{ await navigator.share({ files:[file], title:'Záloha Rastová mapa' }); return; }catch(e){ if(e.name==='AbortError') return; }
+  }
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a'); a.href = url; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+}
+document.getElementById('restoreInput').addEventListener('change', e=>{
+  const f = e.target.files[0]; e.target.value = '';
+  if(!f) return;
+  const r = new FileReader();
+  r.onload = () => {
+    try{
+      const d = JSON.parse(r.result);
+      if(!Array.isArray(d.children)) throw 0;
+      openConfirm('Nahrať zálohu?', `V zálohe je ${d.children.length} detí a ${(d.evaluations||[]).length} hodnotení. Nahradí všetko, čo je teraz v tomto telefóne.`, 'Nahrať', ()=>{
+        DATA = d; normalize(); saveData(); closeSheet(); go({screen:'home',tab:'home'}); toast('Záloha nahraná');
+      }, false);
+    }catch(err){ toast('Súbor nie je platná záloha'); }
   };
-  const ringPts = f => KOMPETENCIE.map((k,i)=>pt(f,i).join(',')).join(' ');
-  const dataPts = KOMPETENCIE.map((k,i)=>pt(avg[k.id]||0,i).join(',')).join(' ');
-  const axisLines = KOMPETENCIE.map((k,i)=>{
-    const [x,y] = pt(5,i);
-    return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#EDEAE4" stroke-width="1"/>`;
-  }).join('');
-  const labels = KOMPETENCIE.map((k,i)=>{
-    const [x,y] = pt(6.1,i);
-    return `<text x="${x}" y="${y}" font-size="15" text-anchor="middle" dominant-baseline="middle">${k.icon}</text>`;
-  }).join('');
-  return `<svg viewBox="0 0 ${size} ${size}" width="${size}" height="${size}">
-    <polygon points="${ringPts(5)}" fill="none" stroke="#EDEAE4" stroke-width="1"/>
-    <polygon points="${ringPts(3.33)}" fill="none" stroke="#EDEAE4" stroke-width="1"/>
-    <polygon points="${ringPts(1.67)}" fill="none" stroke="#EDEAE4" stroke-width="1"/>
-    ${axisLines}
-    <polygon points="${dataPts}" fill="#F26A42" fill-opacity="0.28" stroke="#F26A42" stroke-width="2.5" stroke-linejoin="round"/>
-    ${labels}
-  </svg>`;
+  r.readAsText(f);
+});
+function confirmReset(){
+  openConfirm('Vymazať všetky dáta?', 'Natrvalo odstráni všetky deti, stretnutia a hodnotenia v tomto zariadení. Dáta v Google tabuľke ostanú.', 'Vymazať všetko', ()=>{
+    localStorage.removeItem(STORAGE_KEY); location.reload();
+  });
 }
 
-function curriculumRow(c, done, evals, childId){
-  const ev = done ? evals.find(e=>e.curriculumId===c.id) : null;
-  return `<div class="curr-row" onclick="${done ? `openEvalDetail('${ev.id}')` : `startCurriculumSingle('${childId}','${c.id}')`}">
-    <div class="curr-check ${done?'on':''}">${done?'✓':''}</div>
-    <div class="curr-info">
-      <div class="curr-name">${c.name}</div>
-      <div class="curr-sub">${c.activity}${done ? ' · ' + fmtDate(ev.date) : ''}</div>
-    </div>
-    ${!done ? '<span class="curr-add">Zaznačiť →</span>' : ''}
-  </div>`;
+/* ================= SHEETS / MODÁLY ================= */
+function openSheet(html){ document.getElementById('sheet').innerHTML = html; document.getElementById('overlay').classList.add('open'); }
+function closeSheet(){ document.getElementById('overlay').classList.remove('open'); }
+document.getElementById('overlay').addEventListener('click', e=>{ if(e.target.id==='overlay') closeSheet(); });
+function openConfirm(title, msg, label, fn, danger=true){
+  window.__confirm = fn;
+  openSheet(`<h2 style="${danger?'color:var(--red)':''}">${title}</h2><p class="muted">${msg}</p>
+    <div style="display:flex;gap:10px"><button class="btn btn-ghost" onclick="closeSheet()">Zrušiť</button>
+    <button class="btn" style="background:${danger?'var(--red)':'var(--ink)'};color:#fff" onclick="window.__confirm()">${label}</button></div>`);
 }
+function openChildSheet(id){
+  const c = id && DATA.children.find(x=>x.id===id);
+  openSheet(`<h2>${c ? 'Upraviť dieťa' : 'Nové dieťa — Rok ' + DATA.currentRok}</h2>
+    <label class="field">Meno a priezvisko<input type="text" id="childName" value="${c?esc(c.name):''}" placeholder="napr. Ema Slušná"></label>
+    ${c ? `<label class="field">Rok<select id="childRok"><option value="1" ${c.rok===1?'selected':''}>Rok 1</option><option value="2" ${c.rok===2?'selected':''}>Rok 2</option></select></label>` : ''}
+    <button class="btn btn-dark" onclick="saveChild('${id||''}')">${c?'Uložiť':'Pridať dieťa'}</button>`);
+  setTimeout(()=>document.getElementById('childName').focus(), 50);
+}
+function saveChild(id){
+  const name = document.getElementById('childName').value.trim();
+  if(!name){ toast('Zadaj meno dieťaťa'); return; }
+  if(id){ const c = DATA.children.find(x=>x.id===id); c.name = name; const r = document.getElementById('childRok'); if(r) c.rok = +r.value; }
+  else DATA.children.push({ id:uid('c'), name, rok:DATA.currentRok, createdAt:Date.now() });
+  saveData(); closeSheet(); render(); toast(id ? 'Uložené' : 'Dieťa pridané');
+}
+function confirmDeleteChild(id){
+  openConfirm('Zmazať dieťa?', 'Vymažú sa aj jeho hodnotenia a dochádzka. Ostatné deti a dáta ostanú. Nedá sa to vrátiť späť.', 'Zmazať', ()=>{
+    DATA.children = DATA.children.filter(x=>x.id!==id);
+    DATA.evaluations = DATA.evaluations.filter(e=>e.childId!==id);
+    DATA.stretnutia.forEach(s=>{ s.absent = s.absent.filter(x=>x!==id); });
+    saveData(); closeSheet(); go({screen:'home',tab:'deti'});
+  });
+}
+function openExtraSheet(){
+  openSheet(`<h2>Mimoriadne stretnutie</h2>
+    <label class="field">Názov<input type="text" id="exName" placeholder="napr. Výlet, brigáda…"></label>
+    <label class="field">Dátum<input type="date" id="exDate" value="${todayISO()}"></label>
+    <button class="btn btn-orange" onclick="saveExtra()">Pokračovať na dochádzku →</button>`);
+}
+function saveExtra(){
+  const name = document.getElementById('exName').value.trim() || 'Mimoriadne stretnutie';
+  const date = document.getElementById('exDate').value || todayISO();
+  const s = { id:uid('s'), name, curriculumId:null, rok:DATA.currentRok, date, absent:[], finished:false, createdAt:Date.now() };
+  DATA.stretnutia.push(s); saveData(); closeSheet(); openMeeting(s.id);
+}
+function openDateSheet(sid){
+  const s = DATA.stretnutia.find(x=>x.id===sid);
+  openSheet(`<h2>Upraviť dátum</h2><label class="field">Dátum stretnutia<input type="date" id="dateInput" value="${s.date}"></label>
+    <button class="btn btn-dark" onclick="saveDate('${sid}')">Uložiť</button>`);
+}
+function saveDate(sid){
+  const s = DATA.stretnutia.find(x=>x.id===sid); const v = document.getElementById('dateInput').value;
+  if(!v) return;
+  s.date = v;
+  DATA.evaluations.filter(e=>e.stretnutieId===sid).forEach(e=>{ e.date = v; e.synced = false; });
+  saveData(); closeSheet(); render();
+}
+function confirmDeleteMeeting(sid){
+  openConfirm('Zmazať stretnutie?', 'Vymaže sa aj dochádzka a všetky hodnotenia z tohto stretnutia. Nedá sa to vrátiť späť.', 'Zmazať', ()=>{
+    DATA.stretnutia = DATA.stretnutia.filter(x=>x.id!==sid);
+    DATA.evaluations = DATA.evaluations.filter(e=>e.stretnutieId!==sid);
+    saveData(); closeSheet(); go({screen:'home',tab:'home'});
+  });
+}
+function openEvalSheet(eid){
+  const e = DATA.evaluations.find(x=>x.id===eid);
+  openSheet(`<h2>${esc(e.stretnutie||'Stretnutie')}</h2><span class="sub" style="margin-top:-10px">${fmtDate(e.date)}</span>
+    <div>${KOMPETENCIE.map(k=>`<div style="display:flex;justify-content:space-between;padding:7px 0;font-size:13.5px;border-bottom:1px solid var(--g100)"><span>${k.name}</span><b>${e.competencies[k.id]||'–'} / 5</b></div>`).join('')}</div>
+    ${[['Sebahodnotenie dieťaťa','sebahodnotenie'],['Čo ma zaujalo','zaujalo'],['Na čo sa zameriam','zameranie']].map(([l,f])=>`<div class="field">${l}<span style="font-size:14px;font-weight:400;color:var(--ink)">${esc(e[f])||'—'}</span></div>`).join('')}
+    <div style="display:flex;gap:10px"><button class="btn btn-ghost" onclick="closeSheet()">Zavrieť</button>
+    <button class="btn" style="background:none;color:var(--red);width:auto" onclick="deleteEval('${eid}')">Zmazať</button></div>`);
+}
+function deleteEval(eid){ DATA.evaluations = DATA.evaluations.filter(e=>e.id!==eid); saveData(); closeSheet(); render(); }
 
-function timelineItem(e){
-  const child = DATA.children.find(c=>c.id===e.childId);
-  const dots = KOMPETENCIE.map(k=>{
-    const v = e.competencies[k.id]||0;
-    return `<span class="${v>=4?'on':''}"></span>`;
-  }).join('');
-  return `<div class="timeline-item" onclick="openEvalDetail('${e.id}')">
-    <div class="row">
-      <div><div class="date">${fmtDate(e.date)}</div><div class="stretnutie">${e.stretnutie||'Stretnutie'}</div></div>
-      <div class="dots">${dots}</div>
-    </div>
-  </div>`;
-}
-function openEvalDetail(evalId){
-  const e = DATA.evaluations.find(x=>x.id===evalId);
-  document.getElementById('modalBody').innerHTML = `
-    <h2>${fmtDate(e.date)} · ${e.stretnutie||'Stretnutie'}</h2>
-    ${KOMPETENCIE.map(k=>`<div style="display:flex;justify-content:space-between;padding:6px 0;font-size:13px;">
-      <span>${k.icon} ${k.name}</span><b>${e.competencies[k.id]||'–'} / 5</b></div>`).join('')}
-    <div class="field" style="margin-top:14px"><label>Sebahodnotenie dieťaťa</label><p style="font-size:14px;margin:0">${e.sebahodnotenie||'—'}</p></div>
-    <div class="field"><label>Čo ma zaujalo</label><p style="font-size:14px;margin:0">${e.zaujalo||'—'}</p></div>
-    <div class="field"><label>Na čo sa zameriam</label><p style="font-size:14px;margin:0">${e.zameranie||'—'}</p></div>
-    <button class="btn btn-ghost" onclick="closeModal()">Zavrieť</button>
-  `;
-  document.getElementById('modalOverlay').classList.add('open');
-}
-
-/* ---- WIZARD (new evaluation) ---- */
-function startWizard(childId){
-  wizardDraft = { mode:'single', queue:[childId], queueIndex:0, stretnutieId:null, curriculumId:null, step:0,
-    stretnutie:'', competencies:{}, sebahodnotenie:'', zaujalo:'', zameranie:'', returnTo:{ screen:'child', childId } };
-  route = { screen:'wizard' };
-  render();
-}
-function hasIntroStep(){ return !wizardDraft.skipIntro; }
-function stepsPerChild(){ return (hasIntroStep()?1:0) + KOMPETENCIE.length + 1; }
-function currentChild(){ return DATA.children.find(c=>c.id === wizardDraft.queue[wizardDraft.queueIndex]); }
-
-function renderWizard(){
-  const step = wizardDraft.step;
-  const total = stepsPerChild();
-  const progress = `<div class="wizard-progress">${Array.from({length:total}).map((_,i)=>
-    `<div class="seg ${i<=step?'done':''}"></div>`).join('')}</div>`;
-
-  let bodyStep = step;
-  if(hasIntroStep() && bodyStep === 0){
-    return progress + `<div class="wizard-step">
-      <div class="eyebrow">Krok 1 / ${total}</div>
-      <h1 class="page-title">Kontext stretnutia</h1>
-      <p class="subtle">Nepovinné — pomôže ti neskôr v histórii.</p>
-      <div class="field"><label>Názov stretnutia / lesson planu</label>
-        <input id="wStretnutie" placeholder="napr. Escape room" value="${wizardDraft.stretnutie}">
-      </div>
-      <div class="nav-row" style="margin-top:auto; padding-top:24px;">
-        <button class="btn btn-primary" onclick="wizardNext()">Pokračovať →</button>
-      </div>
-    </div>`;
-  }
-  const compIndex = bodyStep - (hasIntroStep()?1:0); // 0-based into KOMPETENCIE
-  if(compIndex >= 0 && compIndex < KOMPETENCIE.length){
-    const k = KOMPETENCIE[compIndex];
-    const sel = wizardDraft.competencies[k.id];
-    return progress + `<div class="wizard-step">
-      <div class="eyebrow">Krok ${step+1} / ${total} · Kompetencia</div>
-      <div class="comp-icon">${k.icon}</div>
-      <h1 class="page-title">${k.name}</h1>
-      <p class="subtle">${k.sub}</p>
-      <div class="scale">
-        ${[1,2,3,4,5].map(n=>`<button class="${sel===n?'sel':''}" onclick="setCompetency('${k.id}',${n})">${n}</button>`).join('')}
-      </div>
-      <div class="scale-labels">
-        <span>${k.anchorLow || 'Ešte sa učí'}</span>
-        <span style="text-align:right;">${k.anchorHigh || 'Zvláda samostatne'}</span>
-      </div>
-      <div class="nav-row" style="margin-top:auto; padding-top:24px;">
-        <button class="btn btn-ghost" onclick="wizardBack()">← Späť</button>
-        <button class="btn btn-primary" onclick="wizardNext()">Ďalej →</button>
-      </div>
-    </div>`;
-  }
-  // final notes step
-  return progress + `<div class="wizard-step">
-    <div class="eyebrow">Krok ${total} / ${total} · Poznámky</div>
-    <h1 class="page-title">Rýchle poznámky</h1>
-    <div class="field"><label>Sebahodnotenie dieťaťa</label>
-      <textarea id="wSelf" placeholder="Čo dieťa povedalo samo o sebe…">${wizardDraft.sebahodnotenie}</textarea>
-    </div>
-    <div class="field"><label>Čo ma zaujalo</label>
-      <textarea id="wZaujalo" placeholder="Konkrétny moment, ktorý si všimol/a…">${wizardDraft.zaujalo}</textarea>
-    </div>
-    <div class="field"><label>Na čo sa u dieťaťa zameriam</label>
-      <textarea id="wZameranie" placeholder="Čo skúsim podporiť nabudúce…">${wizardDraft.zameranie}</textarea>
-    </div>
-    <div class="nav-row" style="padding-top:10px;">
-      <button class="btn btn-ghost" onclick="wizardBack()">← Späť</button>
-      <button class="btn btn-orange" onclick="finishCurrentChild()">Uložiť hodnotenie</button>
-    </div>
-  </div>`;
-}
-function setCompetency(id, n){ wizardDraft.competencies[id] = n; render(); setTimeout(wizardNext, 180); }
-function wizardNext(){
-  if(hasIntroStep() && wizardDraft.step === 0) wizardDraft.stretnutie = document.getElementById('wStretnutie').value.trim();
-  if(wizardDraft.step < stepsPerChild() - 1){ wizardDraft.step++; render(); }
-}
-function wizardBack(){
-  if(wizardDraft.step === stepsPerChild() - 1){
-    wizardDraft.sebahodnotenie = document.getElementById('wSelf').value;
-    wizardDraft.zaujalo = document.getElementById('wZaujalo').value;
-    wizardDraft.zameranie = document.getElementById('wZameranie').value;
-  }
-  if(wizardDraft.step > 0){ wizardDraft.step--; render(); }
-  else goBack();
-}
-function finishCurrentChild(){
-  wizardDraft.sebahodnotenie = document.getElementById('wSelf').value.trim();
-  wizardDraft.zaujalo = document.getElementById('wZaujalo').value.trim();
-  wizardDraft.zameranie = document.getElementById('wZameranie').value.trim();
-  const childId = wizardDraft.queue[wizardDraft.queueIndex];
-  const e = {
-    id: 'e' + Date.now() + Math.floor(Math.random()*1000), childId,
-    stretnutieId: wizardDraft.stretnutieId,
-    date: new Date().toISOString().slice(0,10),
-    stretnutie: wizardDraft.stretnutie,
-    competencies: wizardDraft.competencies,
-    sebahodnotenie: wizardDraft.sebahodnotenie,
-    zaujalo: wizardDraft.zaujalo,
-    zameranie: wizardDraft.zameranie,
-    synced: false
-  };
-  DATA.evaluations.push(e); saveData();
-  trySyncAll();
-
-  route = wizardDraft.returnTo || { screen:'child', childId };
-  wizardDraft = null;
-  render();
-  showToast('Hodnotenie uložené ✓');
-}
-
-/* ============ SYNC (Google Sheet) ============ */
+/* ================= SYNCHRONIZÁCIA (Google Sheet) ================= */
 function evalPayload(e){
   const child = DATA.children.find(c=>c.id===e.childId) || {};
-  return {
-    centrum: DATA.settings.centrum || '',
-    childName: child.name || '', rok: child.rok || '',
-    date: e.date, stretnutie: e.stretnutie,
-    competencies: e.competencies,
-    sebahodnotenie: e.sebahodnotenie, zaujalo: e.zaujalo, zameranie: e.zameranie
-  };
+  return { centrum: DATA.settings.centrum||'', childName: child.name||'', rok: child.rok||'',
+    date: e.date, stretnutie: e.stretnutie, competencies: e.competencies,
+    sebahodnotenie: e.sebahodnotenie, zaujalo: e.zaujalo, zameranie: e.zameranie };
 }
-async function trySyncAll(){
-  const url = DATA.settings.syncUrl;
-  if(!url) return;
-  const pending = DATA.evaluations.filter(e=>!e.synced);
-  if(!pending.length) return;
-  for(const e of pending){
-    try{
-      await fetch(url, {
-        method:'POST', mode:'no-cors',
-        headers:{ 'Content-Type':'text/plain' },
-        body: JSON.stringify(evalPayload(e))
-      });
-      e.synced = true;
-    }catch(err){ /* offline alebo chyba – skúsime nabudúce */ }
+let syncing = false;
+async function syncAll(manual){
+  const url = DATA.settings.syncUrl, centrum = DATA.settings.centrum;
+  if(DEMO) return;
+  if(!url || !centrum || syncing || !navigator.onLine) { if(manual && !navigator.onLine) toast('Si offline — odošle sa neskôr'); return; }
+  syncing = true;
+  const post = body => fetch(url, { method:'POST', mode:'no-cors', headers:{'Content-Type':'text/plain'}, body: JSON.stringify(body) });
+  let changed = false;
+  for(const e of DATA.evaluations.filter(x=>!x.synced)){
+    try{ await post(evalPayload(e)); e.synced = true; changed = true; }catch(err){ break; }
   }
-  saveData();
-  if(route.screen === 'home') render();
+  for(const s of DATA.stretnutia.filter(x=>x.feedback && !x.feedbackSynced)){
+    try{ await post({ type:'feedback', centrum, rok:s.rok, stretnutie:s.name, curriculumId:s.curriculumId, datum:s.date,
+      pouzitie:s.feedback.pouzitie||'', zmeny:s.feedback.zmeny||'', upravit:s.feedback.upravit||'' }); s.feedbackSynced = true; changed = true; }catch(err){ break; }
+  }
+  try{
+    await post({ type:'backup', centrum, savedAt:new Date().toISOString(),
+      data:{ children:DATA.children, stretnutia:DATA.stretnutia, evaluations:DATA.evaluations } });
+    DATA.settings.lastBackup = Date.now(); changed = true;
+  }catch(err){}
+  syncing = false;
+  if(changed){ localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA)); if(route.screen==='home') render(); }
+  if(manual) toast('Odoslané');
 }
-function pendingCount(){ return DATA.evaluations.filter(e=>!e.synced).length; }
-
-function openSettingsModal(){
-  const centrumy = ['Bratislava','Senica','Trnava','Dolný Kubín','Martin','Prešov','Zvolen','Topoľčany'];
-  const current = DATA.settings.centrum || '';
-  document.getElementById('modalBody').innerHTML = `
-    <h2>Odosielanie dát</h2>
-    <p class="subtle" style="margin-top:-8px">Vyber svoje centrum a vlož adresu Google Sheet Web App, kam sa majú hodnotenia posielať.</p>
-    <div class="field"><label>Centrum</label>
-      <select id="centrumInput">
-        <option value="">— vyber centrum —</option>
-        ${centrumy.map(c=>`<option value="${c}" ${c===current?'selected':''}>${c}</option>`).join('')}
-      </select>
-    </div>
-    <div class="field"><label>Web App URL</label>
-      <input id="syncUrlInput" placeholder="https://script.google.com/…" value="${DATA.settings.syncUrl||''}">
-    </div>
-    <button class="btn btn-primary" onclick="saveSyncUrl()">Uložiť</button>
-    <p class="subtle" style="margin-top:14px; margin-bottom:0;">Nevieš, ako túto adresu získať? Opýtaj sa v chate, kde sme appku vytvorili — pošlem presný návod aj kód.</p>
-    <hr style="margin:20px 0; border:none; border-top:1px solid #eee;">
-    <h2>Záloha dát</h2>
-    <p class="subtle" style="margin-top:-8px">Stiahne súbor so všetkými deťmi, stretnutiami a hodnoteniami z tohto zariadenia. Odporúčame stiahnuť raz za čas ako poistku — dáta v telefóne sa dajú stratiť pri strate/resete telefónu.</p>
-    <button class="btn" style="background:var(--gray-100); color:var(--gray-700);" onclick="exportBackup()">⬇️ Stiahnuť zálohu</button>
-    <hr style="margin:20px 0; border:none; border-top:1px solid #eee;">
-    <h2 style="color:#B3261E;">Vymazať všetky dáta</h2>
-    <p class="subtle" style="margin-top:-8px">Natrvalo odstráni všetky deti, stretnutia a hodnotenia uložené v tomto zariadení. Nedá sa vrátiť späť. Použi len na vyčistenie testovacích dát pred ostrým používaním.</p>
-    <button class="btn" style="background:#B3261E; color:#fff;" onclick="confirmResetAllData()">Vymazať všetky dáta v tomto zariadení</button>
-  `;
-  document.getElementById('modalOverlay').classList.add('open');
-}
-function exportBackup(){
-  const blob = new Blob([JSON.stringify(DATA, null, 2)], {type:'application/json'});
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'rastova-mapa-zaloha-' + new Date().toISOString().slice(0,10) + '.json';
-  document.body.appendChild(a); a.click(); document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-function confirmResetAllData(){
-  openConfirmModal('Vymazať všetky dáta?', 'Natrvalo odstráni všetky deti, stretnutia a hodnotenia uložené v tomto zariadení. Toto sa nedá vrátiť späť.', 'Vymazať všetko', resetAllData);
-}
-function resetAllData(){
-  localStorage.removeItem(STORAGE_KEY);
-  location.reload();
-}
-function saveSyncUrl(){
-  const url = document.getElementById('syncUrlInput').value.trim();
-  const centrum = document.getElementById('centrumInput').value;
-  DATA.settings.syncUrl = url;
-  DATA.settings.centrum = centrum;
-  saveData(); closeModal();
-  showToast(url ? 'Nastavenia uložené ✓' : 'Odosielanie vypnuté');
-  trySyncAll();
-}
-
-function attachHandlers(){
-  document.getElementById('modalOverlay').onclick = (ev)=>{ if(ev.target.id==='modalOverlay') closeModal(); };
-}
+window.addEventListener('online', ()=>syncAll());
 
 render();
-trySyncAll();
+syncAll();
 
-/* ---- PWA service worker registration ---- */
 if('serviceWorker' in navigator){
-  window.addEventListener('load', ()=>{
-    navigator.serviceWorker.register('sw.js').catch(()=>{});
-  });
+  window.addEventListener('load', ()=>{ navigator.serviceWorker.register('sw.js').catch(()=>{}); });
 }
 </script>
 </body>

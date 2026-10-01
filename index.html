@@ -508,7 +508,6 @@
   </div>
   <div class="detail-meta-bar" id="md-meta"></div>
   <div class="detail-body">
-    <div id="md-full-content">
     <div class="detail-section">
       <div class="section-label">Čiastkové ciele — dieťa</div>
       <div class="competency-list" id="md-competencies"></div>
@@ -525,14 +524,6 @@
     <div class="detail-section">
       <div class="section-label">Level complete</div>
       <div id="md-level"></div>
-    </div>
-    </div>
-    <div class="detail-section" id="md-placeholder" style="display:none;">
-      <div style="text-align:center; padding:60px 20px; color:var(--gray-500);">
-        <div style="font-size:32px; margin-bottom:12px;">🛠️</div>
-        <p style="font-size:16px; font-weight:600; color:#1A1A1A; margin:0 0 6px 0;">Tento level sa ešte pripravuje.</p>
-        <p style="font-size:13px; margin:0;">Obsah tu čoskoro pribudne.</p>
-      </div>
     </div>
   </div>
 </div>
@@ -766,6 +757,7 @@ const MODULES = [
   },
   {
     id: 2, num: "03", period: "Január – Február", title: "Potreby & Spätná väzba",
+    metodyPripravujuSa: true,
     meta: [{ label: "Obdobie", value: "Jan – Feb" }, { label: "Level", value: "3 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Testovanie" }],
     competencies: [
       { title: "Postupne objavuje svoje potreby a uvedomuje si, že iní môžu mať iné.", title_full: "Účastník postupne objavuje svoje vlastné potreby a uvedomuje si, že rôzni ľudia môžu mať odlišné potreby a pohľady.", exp_participants: "Účastníci pozorujú problémy zo svojho okolia, skúmajú potreby, ktoré sa za nimi skrývajú a hľadajú príležitosti na zmenu alebo zlepšenie.", exp_coordinator: "Koordinátor podporuje vnímanie potrieb ľudí, kladenie otázok a prepájanie problémov s možnými riešeniami.", knowledge: ["Need vs. want – rozdiel medzi potrebou a chcením. Za každým 'chcem' alebo 'nepáči sa mi to' je často skutočná potreba (oddych, bezpečie, byť videný).", "Ľadovec (iceberg model) – to, čo je navonok vidieť (slová, správanie), je len malá časť. Väčšina potrieb a pocitov je 'pod hladinou'. Platí to pre mňa aj pre druhých.", "Perspective taking – schopnosť predstaviť si situáciu z pohľadu druhého človeka. Rovnaká situácia môže vyvolať iný pohľad alebo potrebu u inej osoby."] },
@@ -785,6 +777,7 @@ const MODULES = [
   },
   {
     id: 3, num: "04", period: "Marec – Apríl", title: "Plán & Tím",
+    metodyPripravujuSa: true,
     meta: [{ label: "Obdobie", value: "Mar – Apr" }, { label: "Level", value: "4 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Realizácia" }],
     competencies: [
       { title: "Začína všímať si rôzne skupiny ľudí, ktorých sa problém týka.", title_full: "Účastník začína všímať si rôzne skupiny ľudí, ktorých sa problém týka, a opisovať, ako ich ovplyvňuje.", exp_participants: "Účastníci skúmajú problém z pohľadu rôznych ľudí a zisťujú, že každého ovplyvňuje inak.", exp_coordinator: "Koordinátor podporuje empatiu, prepínanie perspektív a premýšľanie o potrebách rôznych skupín ľudí.", knowledge: ["Rôzni ľudia majú rôzne pohľady na rovnaký problém (perspektíva).", "Empatia – vcítenie sa do iného.", "Jeden problém môže ovplyvniť ľudí rôzne.", "Aktéri – ľudia, ktorých sa vec týka.", "Rôzne skupiny majú rôzne potreby a záujmy.", "Persóna – vymyslená postava reprezentujúca skupinu ľudí."] },
@@ -802,6 +795,7 @@ const MODULES = [
   },
   {
     id: 4, num: "05", period: "Máj – Jún", title: "Prototyp & Pitch",
+    metodyPripravujuSa: true,
     meta: [{ label: "Obdobie", value: "Máj – Jún" }, { label: "Level", value: "5 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Finále" }],
     competencies: [
       { title: "Učí sa pracovať s chybou alebo neistotou a upraviť ďalší krok.", title_full: "Účastník sa učí pracovať s chybou alebo neistotou tak, že získa spätnú väzbu a upraví ďalší krok.", exp_participants: "Účastníci zažívajú situácie, v ktorých sa im niečo nepodarí podľa plánu alebo si nie sú istí ďalším postupom, a učia sa získať spätnú väzbu, upraviť svoj nápad alebo zmeniť ďalší krok.", exp_coordinator: "Koordinátor podporuje experimentovanie, učenie sa z chýb a bezpečné skúšanie nových riešení.", knowledge: ["Chyba ako súčasť učenia.", "Iterácia – opakované zlepšovanie.", "Prototyp – testovacia verzia.", "Pivot – zmena stratégie.", "Growth mindset vs. fixed mindset.", "Kroky práce s chybou (pozorovanie – feedback – analýza – úprava – nový pokus).", "Neistota je prirodzená. Rozdiel medzi neúspechom a zlyhaním."] },
@@ -959,6 +953,7 @@ const MODULES2 = [
   },
   {
     id: 2, num: "03", period: "Január – Február", title: "Hodnoty & Presviedčanie",
+    metodyPripravujuSa: true,
     meta: [{ label: "Obdobie", value: "Jan – Feb" }, { label: "Level", value: "3 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Prehĺbenie" }],
     competencies: [
       { title: "Vie, že rôzni ľudia majú rôzne hodnoty, a hľadá prienik.", title_full: "Účastník dokáže pomenovať svoje potreby a uvedomiť si, že rôzni ľudia môžu mať odlišné potreby a pohľady.", exp_participants: "Účastníci skúmajú rovnakú situáciu z pohľadu rôznych ľudí a zisťujú, že to, čo je pre jedného najdôležitejšie, nemusí byť hodnotné pre druhého.", exp_coordinator: "Koordinátor podporuje rozlišovanie hodnôt jednotlivých aktérov, hľadanie prieniku medzi ich potrebami a uvedomenie si, že 'hodnotné' nie je univerzálne, ale závisí od toho, kto sa pýta.", knowledge: ["Hodnotová mapa – zaznamenanie, čo rôzni ľudia v situácii považujú za dôležité, nie len čo potrebujú.", "Hierarchia hodnôt – rovnaká vec môže mať pre rôznych ľudí inú váhu (pre jedného rýchlosť, pre druhého bezpečie).", "Win-win analýza – čo získa každá strana, hľadanie prieniku medzi rôznymi hodnotami.", "Empatická mapa (hovorí – robí – myslí – cíti) – nástroj na zachytenie viacerých vrstiev toho, čo je pre človeka dôležité."] },
@@ -976,6 +971,7 @@ const MODULES2 = [
   },
   {
     id: 3, num: "04", period: "Marec – Apríl", title: "Testovanie & Predpoklady",
+    metodyPripravujuSa: true,
     meta: [{ label: "Obdobie", value: "Mar – Apr" }, { label: "Level", value: "4 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Prehĺbenie" }],
     competencies: [
       { title: "Vie navrhnúť a vyskúšať test riešenia v reálnej situácii.", title_full: "Účastník dokáže zisťovať, čo ľudia potrebujú, pomocou rozhovoru, otázok alebo pozorovania.", exp_participants: "Účastníci navrhujú jednoduchý test svojho riešenia a vyskúšajú ho v reálnej situácii, nielen medzi spolužiakmi, a podľa toho, čo zistia, riešenie upravujú.", exp_coordinator: "Koordinátor podporuje vopred určenie, podľa čoho sa pozná úspech testu, odvahu vyskúšať riešenie v skutočnom prostredí a prácu so zistenými výsledkami namiesto pocitového hodnotenia.", knowledge: ["Pilotné testovanie – vyskúšanie riešenia v malom rozsahu v reálnej situácii, predtým než sa nasadí naplno.", "Field test – rozdiel medzi testovaním v bezpečnom prostredí a testovaním tam, kde sa riešenie naozaj použije.", "Metriky úspechu – vopred určiť, podľa čoho poznám, že test fungoval (napr. počet ľudí, rýchlosť, spokojnosť).", "Build – Measure – Learn – postav riešenie, zmeraj, čo sa stalo, nauč sa z toho, opakovaný cyklus testovania v realite."] },
@@ -993,6 +989,7 @@ const MODULES2 = [
   },
   {
     id: 4, num: "05", period: "Máj – Jún", title: "Iterácia & Prezentácia",
+    metodyPripravujuSa: true,
     meta: [{ label: "Obdobie", value: "Máj – Jún" }, { label: "Level", value: "5 / 5" }, { label: "Počet stretnutí", value: "≈ 4–6" }, { label: "Fáza", value: "Finále" }],
     competencies: [
       { title: "Vie pracovať so spätnou väzbou a upraviť riešenie na základe nej.", title_full: "Účastník dokáže pracovať s chybou alebo neistotou tak, že získa spätnú väzbu a upraví ďalší krok.", exp_participants: "Účastníci sa učia vedome pracovať so spätnou väzbou, ktorú dostávajú, vyhodnocovať svoj vlastný proces a na základe reálnych výsledkov upravovať svoje ďalšie rozhodnutia.", exp_coordinator: "Koordinátor podporuje oddelenie emócie od obsahu spätnej väzby, štruktúrované vyhodnocovanie procesu a vedomé rozhodovanie, čo z feedbacku použiť a čo nie.", knowledge: ["Spätná väzba ako informácia, nie útok – feedback nie je o mne ako osobe, je to dáta, ktoré môžem použiť.", "Retrospektíva (Start – Stop – Continue) – čo začať robiť, čo prestať robiť, čo robiť ďalej.", "Slučka učenia (Plan – Do – Check – Act) – naplánuj, urob, over, uprav, opakovaný cyklus zlepšovania.", "Fakt vs. názor v feedbacku – feedback môže byť založený na tom, čo sa stalo, alebo na tom, ako to niekto vníma.", "Filter na feedback – vedomé rozhodnutie, čo z feedbacku je užitočné a čo pustiť."] },
@@ -1171,18 +1168,6 @@ function openModule(id) {
       <div class="value">${mt.value}</div>
     </div>`).join('');
 
-  // Levely 3, 4, 5 (id 2, 3, 4) sú zatiaľ v príprave — zobraz len placeholder.
-  if (id >= 2) {
-    document.getElementById('md-full-content').style.display = 'none';
-    document.getElementById('md-placeholder').style.display = '';
-    showView('module');
-    updateBreadcrumb('module', m.title);
-    document.getElementById('view-module').classList.toggle('rok2-theme', currentYear === 2);
-    return;
-  }
-  document.getElementById('md-full-content').style.display = '';
-  document.getElementById('md-placeholder').style.display = 'none';
-
   document.getElementById('md-competencies').innerHTML = m.competencies.map((c, ci) => {
     const knowKey = currentYear === 2 ? `r2-${id}-${ci}` : `${id}-${ci}`;
     const knowDetails = kd[knowKey];
@@ -1240,24 +1225,41 @@ function openModule(id) {
     </div>`;
   }).join('');
 
-  document.getElementById('md-activities').innerHTML = m.activities.map(function(a) {
-    var lpCount = (LESSON_PLANS[a.id] && LESSON_PLANS[a.id].length) || 0;
-    var hasLeftBadge = a.time || lpCount > 0;
-    return '<div class="activity-card" onclick="openActivity(\'' + a.id + '\',' + id + ')">' +
-      '<span class="act-icon">' + a.icon + '</span>' +
-      '<div class="act-name">' + a.name + '</div>' +
-      '<div class="act-desc">' + a.desc + '</div>' +
-      '<div class="act-footer' + (hasLeftBadge ? '' : ' no-time') + '">' +
-        '<span class="act-badges">' +
+  if (m.metodyPripravujuSa) {
+    document.getElementById('md-activities').innerHTML =
+      '<div class="empty-state" style="padding:32px 20px; text-align:center; color:var(--gray-500); font-size:14px; border:1px dashed var(--gray-200); border-radius:12px;">' +
+      'Metódy pre tento level sa ešte pripravujú.' +
+      '</div>';
+  } else {
+    document.getElementById('md-activities').innerHTML = m.activities.map(function(a) {
+      var lpCount = (LESSON_PLANS[a.id] && LESSON_PLANS[a.id].length) || 0;
+      var hasLeftBadge = a.time || lpCount > 0;
+      return '<div class="activity-card" onclick="openActivity(\'' + a.id + '\',' + id + ')">' +
+        '<span class="act-icon">' + a.icon + '</span>' +
+        '<div class="act-name">' + a.name + '</div>' +
+        '<div class="act-desc">' + a.desc + '</div>' +
+        '<div class="act-footer' + (hasLeftBadge ? '' : ' no-time') + '">' +
+          '<span class="act-badges">' +
           (a.time ? '<span class="act-time">⏱ ' + a.time + '</span>' : '') +
           (lpCount > 0 ? '<span class="act-lp-count">📄 ' + lpCount + ' lesson plán' + (lpCount === 1 ? '' : (lpCount < 5 ? 'y' : 'ov')) + '</span>' : '') +
         '</span>' +
         '<span class="act-open">Otvoriť →</span>' +
       '</div></div>';
-  }).join('');
+    }).join('');
+  }
 
-  // Sekcia "Odporúčané poradie stretnutí" je interná pomôcka — pre lektorov sa nezobrazuje.
-  document.getElementById('md-poradie-section').style.display = 'none';
+  const poradieSection = document.getElementById('md-poradie-section');
+  if (m.poradie && m.poradie.length) {
+    poradieSection.style.display = '';
+    document.getElementById('md-poradie').innerHTML = m.poradie.map(function(p, i) {
+      return '<div class="poradie-item" onclick="openActivity(\'' + p.card + '\',' + id + ')">' +
+        '<span class="poradie-num">' + (i + 1) + '</span>' +
+        '<div><div class="poradie-name">' + p.lp + '</div><div class="poradie-why">' + p.why + '</div></div>' +
+      '</div>';
+    }).join('');
+  } else {
+    poradieSection.style.display = 'none';
+  }
 
   document.getElementById('md-level').innerHTML = `
     <div class="level-box">

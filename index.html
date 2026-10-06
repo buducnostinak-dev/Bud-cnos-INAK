@@ -146,9 +146,6 @@
   .lp-list-info .lp-meta { font-size: 12px; color: var(--gray-500); }
   .lp-list-arrow { font-size: 14px; color: var(--orange); opacity: 0; transition: opacity 0.15s; }
   .lp-list-item:hover .lp-list-arrow { opacity: 1; }
-  .lp-placeholder-item { background: var(--gray-50); border: 1px dashed var(--gray-300); border-radius: var(--radius-lg); padding: 14px 20px; display: flex; align-items: center; gap: 10px; }
-  .lp-placeholder-item .ph-num { width: 32px; height: 32px; border-radius: 50%; background: var(--gray-100); color: var(--gray-500); font-size: 12px; font-weight: 600; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .lp-placeholder-item .ph-text { font-size: 13px; color: var(--gray-500); }
 
   /* LESSON PLAN DETAIL */
   .lp-back { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gray-500); cursor: pointer; margin-bottom: 20px; background: none; border: none; padding: 0; font-family: var(--font); transition: color 0.15s; }
@@ -3434,7 +3431,6 @@ function lpModalList(actId) {
       html += '<span class="lp-list-arrow">&#8594;</span></div>';
     });
   }
-  html += '<div class="lp-placeholder-item"><span class="ph-num">+</span><span class="ph-text">Ďalší lesson plan sa dopĺňa...</span></div>';
   html += '</div>';
   document.getElementById('lp-modal-body').innerHTML = html;
   document.getElementById('lp-modal-body').scrollTop = 0;
@@ -3530,7 +3526,6 @@ function renderLpList(actId, lps) {
     html += '<div class="lp-list-info"><div class="lp-name">' + lp.name + '</div><div class="lp-meta">⏱ ' + lp.meta[0].value + ' · ' + lp.meta[1].value + ' aktivity' + (lp.prezentacia ? ' · 📄 PDF' : '') + '</div></div>';
     html += '<span class="lp-list-arrow">→</span></div>';
   });
-  html += '<div class="lp-placeholder-item"><span class="ph-num">+</span><span class="ph-text">Ďalší lesson plan sa dopĺňa...</span></div>';
   html += '</div>';
   document.getElementById('sl-body').innerHTML = html;
 }

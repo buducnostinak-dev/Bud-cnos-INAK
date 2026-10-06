@@ -316,14 +316,6 @@
   .knowledge-list { display: flex; flex-direction: column; gap: 8px; }
   .knowledge-item { display: flex; gap: 10px; align-items: flex-start; font-size: 13px; color: var(--gray-700); line-height: 1.5; }
   .knowledge-dot-plain { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); flex-shrink: 0; margin-top: 7px; }
-  .poradie-intro { font-size: 13px; color: var(--gray-500); line-height: 1.5; margin: -8px 0 16px 0; }
-  .poradie-item { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border: 1px solid var(--gray-100); border-radius: var(--radius); margin-bottom: 8px; cursor: pointer; transition: border-color 0.15s, background 0.15s; }
-  .poradie-item:hover { border-color: var(--orange); background: #FFF8F0; }
-  .poradie-num { width: 26px; height: 26px; border-radius: 50%; background: #1A1A1A; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .poradie-name { font-weight: 600; font-size: 14px; color: #1A1A1A; margin-bottom: 3px; }
-  .poradie-why { font-size: 12.5px; color: var(--gray-600); line-height: 1.5; }
-  .rok2-theme .poradie-num { background: var(--orange); color: #1A1A1A; }
-  .rok2-theme .poradie-item:hover { border-color: #1A1A1A; background: #FAFAFA; }
 
   /* Activities */
   .activities-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
@@ -515,11 +507,6 @@
     <div class="detail-section">
       <div class="section-label">Metódy</div>
       <div class="activities-grid" id="md-activities"></div>
-    </div>
-    <div class="detail-section" id="md-poradie-section" style="display:none;">
-      <div class="section-label">Odporúčané poradie stretnutí</div>
-      <p class="poradie-intro">Toto je odporúčanie, nie povinnosť — postavené na kompetenčnej postupnosti a nadväznostiach medzi stretnutiami. Poradie si môžeš prispôsobiť podľa svojej skupiny.</p>
-      <div id="md-poradie"></div>
     </div>
     <div class="detail-section">
       <div class="section-label">Level complete</div>
@@ -722,16 +709,6 @@ const MODULES = [
       }
     ],
     level: "Dieťa vie ukázať konkrétny problém okolo seba, má naň prvé nápady a tím má vlastné pravidlá.",
-    poradie: [
-      { lp: 'Vstup — Escape room', card: 'mystery-challenge', why: 'Vstupný rituál do programu, nezávislý od kompetencií — musí byť prvý, je to prvý kontakt s klubom vôbec.' },
-      { lp: 'Let\'s start', card: 'timove-dohody', why: 'Prvé „skutočné" stretnutie — skupina sa musí najprv spoznať a začať fungovať ako celok, skôr než príde čokoľvek obsahové.' },
-      { lp: 'Tvoríme pravidlá', card: 'timove-dohody', why: 'Nadväzuje priamo na Let\'s start (obe kompetencia 2) — pravidlá klubu má zmysel ustanoviť čo najskôr v roku, kým sa ešte nezabehli žiadne zlé návyky.' },
-      { lp: 'Think like a traveler', card: 'terenne-patranie', why: 'Prvý dotyk s kompetenciou 1, v plnom rozsahu opory (modelovanie + kartička Kto/Čo potrebuje/Prečo) — „ukážem" fáza gradual release.' },
-      { lp: 'Interview – Go outside', card: 'mini-interview', why: '„Spolu" fáza — rovnaká zručnosť (potreba za problémom), už bez kartičky, len so štruktúrou otvorených otázok.' },
-      { lp: 'Painstorming', card: 'co-nas-stve', why: '„Sami" fáza — potrebu si už odvodzujú úplne samostatne, žiadna vopred daná opora.' },
-      { lp: 'Patch Notes', card: 'co-nas-stve', why: 'Prechod ku kompetencii 3 — technika reflexie sa najprv trénuje na neutrálnej úlohe (veža), nie priamo na osobnej skúsenosti.' },
-      { lp: 'Stretnutie – Spätná väzba', card: 'co-nas-stve', why: 'Uzáver modulu — najkomplexnejšia reflexná technika (Airbnb, rozlíšenie spätnej väzby od kritiky), dobre funguje ako posledné stretnutie pred Vianocami.' }
-    ],
     activities: [
       { id: "terenne-patranie", icon: "🔍", name: "Terénne pátranie", desc: "Deti mapujú problémy priamo v teréne — škola, ulica, domov." },
       { id: "mystery-challenge", icon: "🔐", name: "Escape room", desc: "Úlohová hra, cez ktorú účastníci objavujú princípy podnikavosti." },
@@ -921,16 +898,6 @@ const MODULES2 = [
       { title: "Vie sa pozrieť na neúspech bez obviňovania a vybrať ďalší krok.", title_full: "Účastník dokáže po skúsenosti pomenovať, čo fungovalo, čo nefungovalo a čo chce skúsiť ďalej.", exp_participants: "Účastníci po neúspechu alebo nefunkčnom riešení pomenúvajú, čo sa naučili, a rozhodujú sa, aký ďalší krok im pomôže riešenie zlepšiť.", exp_coordinator: "Koordinátor podporuje pozeranie sa na neúspech bez obviňovania, jasné pomenovanie poučenia a hľadanie najmenšej zmeny, ktorá môže priniesť najväčší posun.", knowledge: ["After Action Review (AAR) – 4 otázky: čo sa malo stať, čo sa naozaj stalo, prečo je rozdiel, čo si z toho zoberiem.", "Lessons learned – jasné zapísanie poučenia, aby sa nestratilo a dalo sa použiť nabudúce.", "Postmortem (pitva neúspechu) – spätné pozretie bez obviňovania, cieľom je poučenie nie potrestanie.", "Najmenšia zmena s najväčším efektom – po poučení hľadať, čo stačí zmeniť, nie robiť všetko inak."] }
     ],
     level: "Účastník vie analyzovať problém do hĺbky, zvládnuť konflikt v tíme a poučiť sa z neúspechu.",
-    poradie: [
-      { lp: 'Predpoklad a realita', card: 'r2-terenne-patranie', why: 'Priamo nadväzuje na Painstorming z minulého roka (bridging back) — najmiernejší vstup do „hlbšej analýzy príčin", stavia na niečom, čo už poznajú.' },
-      { lp: 'Dobrovoľníctvo', card: 'r2-terenne-patranie', why: 'Prehlbuje kompetenciu 1 — fishbone diagram, náročnejšia technika než v predošlom stretnutí.' },
-      { lp: 'Dobrovoľníctvo – realizácia', card: 'r2-terenne-patranie', why: 'Musí nasledovať priamo po #2 (s odstupom týždňov) — je to doslova pokračovanie tej istej úlohy, nedá sa preradiť inam.' },
-      { lp: 'Šakal a žirafa', card: 'r2-role-play', why: 'Prechod na kompetenciu 2 — konflikt sa tu objavuje nepomenovaný, cez zážitok, skôr než sa pomenuje teória.' },
-      { lp: 'Stopka', card: 'r2-role-play', why: 'Nadväzuje na Šakal a žirafa (obe kompetencia 2) — teraz sa už teória z minulého stretnutia rozširuje na celých 5 štýlov riešenia konfliktu.' },
-      { lp: 'Nesúď knihu podľa obalu', card: 'r2-role-play', why: 'Zaradené ako mostík — obsahovo je bližšie ku kompetencii 1 (predsudky/potreba), ale tematicky (skupina „štátu" sa musí zhodnúť) nadväzuje aj na konfliktné témy predošlých dvoch stretnutí.' },
-      { lp: 'Žraloci útočia', card: 'r2-reflexia', why: 'Kompetencia 3 (postmortem) — dáva zmysel až tu, keď skupina má za sebou reálnu skúsenosť neúspechu/konfliktu (Dobrovoľníctvo, Stopka), na ktorú môže v „bridging back" časti odkázať.' },
-      { lp: 'Myšlienka, ktorá stojí za šírenie', card: 'r2-reflexia', why: 'Uzáver celého modulu — TED Talk o probléme, ktorý riešili (quest), naviaže na všetko doteraz osvojené a je prirodzeným záverečným bodom pred Vianocami.' }
-    ],
     activities: [
       { id: "r2-terenne-patranie", icon: "🔍", name: "Terénne pátranie", desc: "Skúmanie príčin problémov do hĺbky — 5 Whys, fishbone diagram." },
       { id: "r2-reflexia", icon: "💭", name: "Reflexia", desc: "Spätné pozretie na skúsenosť bez obviňovania — čo fungovalo, čo nie, čo ďalej." },
@@ -1246,19 +1213,6 @@ function openModule(id) {
         '<span class="act-open">Otvoriť →</span>' +
       '</div></div>';
     }).join('');
-  }
-
-  const poradieSection = document.getElementById('md-poradie-section');
-  if (m.poradie && m.poradie.length) {
-    poradieSection.style.display = '';
-    document.getElementById('md-poradie').innerHTML = m.poradie.map(function(p, i) {
-      return '<div class="poradie-item" onclick="openActivity(\'' + p.card + '\',' + id + ')">' +
-        '<span class="poradie-num">' + (i + 1) + '</span>' +
-        '<div><div class="poradie-name">' + p.lp + '</div><div class="poradie-why">' + p.why + '</div></div>' +
-      '</div>';
-    }).join('');
-  } else {
-    poradieSection.style.display = 'none';
   }
 
   document.getElementById('md-level').innerHTML = `
